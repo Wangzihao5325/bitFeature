@@ -1,17 +1,29 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
-import MarketScreen from '../screens/market';
-import TradeScreen from '../screens/trade';
-import NewsScreen from '../screens/news';
-import MineScreen from '../screens/mine';
+import { MarketStack, TradeStack, NewsStack, MineStack } from '../global/register_screens';
 
-export default createBottomTabNavigator ({
-  Market: MarketScreen,
-  Trade: TradeScreen,
-  News: NewsScreen,
-  Mine: MineScreen,
-});
+// TabNavigator.navigationOptions = ({ navigation }) => {
+//   let { routeName } = navigation.state.routes[navigation.state.index];
+
+//   // You can do whatever you like here to pick the title based on the route name
+//   let headerTitle = routeName;
+
+//   return {
+//     headerTitle,
+//   };
+// };
+
+export default createBottomTabNavigator(
+  {
+    MarketStack,
+    TradeStack,
+    NewsStack,
+    MineStack
+  },{
+    navigationOptions: {title: null},
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
