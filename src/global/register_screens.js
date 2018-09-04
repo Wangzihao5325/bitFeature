@@ -5,7 +5,7 @@ import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_C
 import { iconMake } from './vector_icons';
 
 import MarketScreen from '../screens/market/index';
-import TradeScreen from '../screens/trade';
+import TradeScreen from '../screens/trade/index';
 import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine';
 
