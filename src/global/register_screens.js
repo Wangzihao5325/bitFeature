@@ -13,10 +13,17 @@ import MarketDetailScreen from '../screens/market/marketDetail/index';
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
 */
-let MarketStack = createStackNavigator({ MarketScreen, MarketDetailScreen });
-MarketStack.navigationOptions = {
-  tabBarLabel: TAB_NAVI_NAME[0],  //bottom标题
-  tabBarIcon: iconMake(TAB_ICON_KEY_STR[0])
+let MarketStack = createStackNavigator({ MarketScreen, MarketDetailScreen }); //行情
+MarketStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarLabel: TAB_NAVI_NAME[0],  //bottom标题
+    tabBarIcon: iconMake(TAB_ICON_KEY_STR[0]),
+    tabBarVisible
+  }
 };
 let TradeStack = createStackNavigator({ TradeScreen }, {    //模拟交易
   navigationOptions: {
@@ -27,9 +34,16 @@ let TradeStack = createStackNavigator({ TradeScreen }, {    //模拟交易
     headerTintColor: HEADER_TINT_COLOR
   }
 });
-TradeStack.navigationOptions = {
-  tabBarLabel: TAB_NAVI_NAME[1],
-  tabBarIcon: iconMake(TAB_ICON_KEY_STR[1])
+TradeStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarLabel: TAB_NAVI_NAME[1],
+    tabBarIcon: iconMake(TAB_ICON_KEY_STR[1]),
+    tabBarVisible
+  }
 };
 let NewsStack = createStackNavigator({ NewsScreen }, {      //资讯
   navigationOptions: {
@@ -53,9 +67,16 @@ let MineStack = createStackNavigator({ MineScreen }, {      //我的
     headerTintColor: HEADER_TINT_COLOR
   }
 });
-MineStack.navigationOptions = {
-  tabBarLabel: TAB_NAVI_NAME[3],
-  tabBarIcon: iconMake(TAB_ICON_KEY_STR[3])
+MineStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0) {
+    tabBarVisible = false;
+  }
+  return {
+    tabBarLabel: TAB_NAVI_NAME[3],
+    tabBarIcon: iconMake(TAB_ICON_KEY_STR[3]),
+    tabBarVisible
+  }
 };
 
 export {
