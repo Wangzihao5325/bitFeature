@@ -4,16 +4,18 @@ import { createStackNavigator } from 'react-navigation';
 import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from './config';
 import { iconMake } from './vector_icons';
 import VectorIconBtn from '../components/IconBtn';
-import MarketScreen from '../screens/market';
+import MarketScreen from '../screens/market/index';
 import TradeScreen from '../screens/trade';
 import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine';
-
+/*
+  4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
+*/
 let MarketStack = createStackNavigator({ MarketScreen }, {  //行情
   navigationOptions: ({ navigation }) => {
     return {
       title: TAB_NAVI_NAME[0],  //header标题
-      headerRight: (<VectorIconBtn name='search' onPress={navigation.getParam('search')} />),
+      headerRight: (<VectorIconBtn name='search' onPress={navigation.getParam('search')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR
       },
