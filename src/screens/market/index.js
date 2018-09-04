@@ -28,8 +28,9 @@ export default class MarketScreen extends Component {
   render() {
     return (
       <View style={CommonStyle.absoluateCenterStyle}>
-        <Text>{this.state.text + ' click : ' + this.state.reg}</Text>
-        <Button title='navigator' onPress={() => this.props.navigation.navigate('MarketDetailScreen')} />
+        <View style={{height:24,width:150,justifyContent:'center',alignItems:'center'}}><Text>{this.state.text + ' click : ' + this.state.reg}</Text></View>
+        <Button title='navigator to stack' onPress={() => this.props.navigation.navigate('MarketDetailScreen')} />
+        <Button title='navigator to tab' onPress={() => this.props.navigation.navigate('TradeStack')} />
       </View>
     );
   }
