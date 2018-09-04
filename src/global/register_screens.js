@@ -8,14 +8,17 @@ import MarketScreen from '../screens/market';
 import TradeScreen from '../screens/trade';
 import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine';
+
 let MarketStack = createStackNavigator({ MarketScreen }, {  //行情
-  navigationOptions: {
-    title: TAB_NAVI_NAME[0],  //header标题
-    headerRight: (<VectorIconBtn/>),
-    headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR
-    },
-    headerTintColor: HEADER_TINT_COLOR
+  navigationOptions: ({ navigation }) => {
+    return {
+      title: TAB_NAVI_NAME[0],  //header标题
+      headerRight: (<VectorIconBtn name='search' onPress={navigation.getParam('search')} />),
+      headerStyle: {
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+      },
+      headerTintColor: HEADER_TINT_COLOR
+    }
   }
 });
 MarketStack.navigationOptions = {
