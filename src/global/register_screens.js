@@ -12,27 +12,6 @@ import MineScreen from '../screens/mine';
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 import DrawList from '../screens/draw/index';
 /*
-let MarkDetailWithDraw = createDrawerNavigator(
-  {
-    Home: { screen: MarketDetailScreen },
-    Notifications: { screen: DrawList }
-  },
-  {
-    drawerPosition: 'right',
-    drawerWidth: 0.4 * DEVICE_WIDTH,
-    drawerBackgroundColor: DRAW_BGCOLOR,
-    // drawerLockMode:'locked-closed'
-  }
-);
-MarkDetailWithDraw.navigationOptions = {
-  title: null,
-  headerStyle: {
-    backgroundColor: TAB_NAVI_HEADER_BGCOLOR
-  },
-  headerTintColor: HEADER_TINT_COLOR
-};
-*/
-/*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
 */
 let MarketStack = createStackNavigator({ MarketScreen, MarketDetailScreen }); //行情
