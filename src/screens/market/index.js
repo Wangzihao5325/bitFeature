@@ -29,7 +29,7 @@ export default class MarketScreen extends Component {
     return (
       <View style={CommonStyle.absoluateCenterStyle}>
         <View style={{height:24,width:150,justifyContent:'center',alignItems:'center'}}><Text>{this.state.text + ' click : ' + this.state.reg}</Text></View>
-        <Button title='navigate to stack' onPress={() => this.props.navigation.navigate('MarketDetailScreen')} />
+        <Button title='navigate to stack' onPress={() => this.props.navigation.navigate('MarkDetailWithDraw')} />
         <Button title='navigate to tab' onPress={() => this.props.navigation.navigate('TradeStack')} />
       </View>
     );

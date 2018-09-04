@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
-import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from './config';
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DRAW_BGCOLOR, DEVICE_WIDTH } from './config';
 import { iconMake } from './vector_icons';
 
 import MarketScreen from '../screens/market/index';
@@ -10,10 +10,30 @@ import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine';
 
 import MarketDetailScreen from '../screens/market/marketDetail/index';
+import DrawList from '../screens/draw/index';
+let MarkDetailWithDraw = createDrawerNavigator(
+  {
+    Home: { screen: MarketDetailScreen },
+    Notifications: { screen: DrawList }
+  },
+  {
+    drawerPosition: 'right',
+    drawerWidth: 0.4 * DEVICE_WIDTH,
+    drawerBackgroundColor: DRAW_BGCOLOR,
+    // drawerLockMode:'locked-closed'
+  }
+);
+MarkDetailWithDraw.navigationOptions = {
+  title: null,
+  headerStyle: {
+    backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+  },
+  headerTintColor: HEADER_TINT_COLOR
+};
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
 */
-let MarketStack = createStackNavigator({ MarketScreen, MarketDetailScreen }); //行情
+let MarketStack = createStackNavigator({ MarketScreen, MarkDetailWithDraw }); //行情
 MarketStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
