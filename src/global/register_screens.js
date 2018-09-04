@@ -11,6 +11,7 @@ import MineScreen from '../screens/mine';
 
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 import DrawList from '../screens/draw/index';
+/*
 let MarkDetailWithDraw = createDrawerNavigator(
   {
     Home: { screen: MarketDetailScreen },
@@ -30,10 +31,11 @@ MarkDetailWithDraw.navigationOptions = {
   },
   headerTintColor: HEADER_TINT_COLOR
 };
+*/
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
 */
-let MarketStack = createStackNavigator({ MarketScreen, MarkDetailWithDraw }); //行情
+let MarketStack = createStackNavigator({ MarketScreen, MarketDetailScreen }); //行情
 MarketStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
