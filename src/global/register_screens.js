@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-native';
-import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DRAW_BGCOLOR, DEVICE_WIDTH } from './config';
 import { iconMake } from './vector_icons';
 
@@ -10,7 +10,6 @@ import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine';
 
 import MarketDetailScreen from '../screens/market/marketDetail/index';
-import DrawList from '../screens/draw/index';
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
 */

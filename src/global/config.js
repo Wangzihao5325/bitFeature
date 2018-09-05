@@ -10,6 +10,7 @@ const TAB_NAVI_ACTIVE_TINT_COLOR = '#A1CBFF';
 const TAB_NAVI_DEFAULT_TINT_COLOR = '#909090';
 const HEADER_TINT_COLOR = '#5F6E82';
 const DRAW_BGCOLOR = '#1C2533';
+const HEADER_TITLE_BGCOLOR = '#1C2738'
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -24,6 +25,7 @@ export {
   TAB_NAVI_DEFAULT_TINT_COLOR,
   HEADER_TINT_COLOR,
   DRAW_BGCOLOR,
+  HEADER_TITLE_BGCOLOR,
 
   DEVICE_HEIGHT,
   DEVICE_WIDTH,

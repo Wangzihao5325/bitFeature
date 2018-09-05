@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import Drawer from 'react-native-drawer';
 import VectorIconBtn from '../../../components/IconBtn';
+import HeaderTitle from './HeaderTitle';
 import CommonStyle from '../../../global/common_styles';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/config';
-import Drawer from 'react-native-drawer';
+
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: null,
+      headerTitle: <HeaderTitle onPress={navigation.getParam('showDrawer')}/>,
       headerRight: (<VectorIconBtn name={'list'} onPress={navigation.getParam('showDrawer')} />),
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR
@@ -43,7 +45,7 @@ export default class MarketDetailScreen extends Component {
         content={<View style={{ flex: 1, backgroundColor: TAB_NAVI_HEADER_BGCOLOR }}><Text>MarketDetail</Text></View>}
         acceptPan={false}
         tapToClose={true}
-        openDrawerOffset={0.6} // 20% gap on the right side of drawer
+        openDrawerOffset={0.6} // 40% gap on the right side of drawer
         panCloseMask={0.6}
         closedDrawerOffset={-3}
         styles={drawerStyles}
