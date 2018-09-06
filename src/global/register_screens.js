@@ -7,7 +7,7 @@ import { iconMake } from './vector_icons';
 import MarketScreen from '../screens/market/index';
 import TradeScreen from '../screens/trade/index';
 import NewsScreen from '../screens/news';
-import MineScreen from '../screens/mine';
+import MineScreen from '../screens/mine/index';
 
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 /*
