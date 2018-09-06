@@ -17,8 +17,8 @@ class MineScreen extends Component {
   }
 }
 
-function mapState2Props(store){
-  return{
+function mapState2Props(store) {
+  return {
     counter: store
   }
 }
