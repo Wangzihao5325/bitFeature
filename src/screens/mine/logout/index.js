@@ -4,7 +4,7 @@ export default class LogoutSubview extends Component {
   render() {
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <Text>logout subView</Text>
+        <Text style={{color:'white'}}>logout subView</Text>
       </View>
     );
   }
