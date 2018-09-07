@@ -4,6 +4,8 @@ const TAB_NAVI_NAME = ['行情','模拟交易','资讯','我的'];
 //react-native-vector-icon中icon的key值，不可随意改动
 const TAB_ICON_KEY_STR = ['line-chart', 'file-text-o', 'dot-circle-o', 'user-o'];
 
+const DEFAULT_BLUE = '#157EFB';
+const DEFAULT_GRAY = '#909090';
 const TAB_NAVI_HEADER_BGCOLOR = '#222D3D';
 const TAB_NAVI_BOTTOM_BGCOLOR = '#1C2533';
 const TAB_NAVI_ACTIVE_TINT_COLOR = '#A1CBFF';
@@ -13,6 +15,7 @@ const DRAW_BGCOLOR = '#1C2533';
 const HEADER_TITLE_BGCOLOR = '#1C2738';
 const SCREEN_BGCOLOR = '#161D26';
 const CARD_HEADER_BGCOLOR = '#131B25';
+const BTN_BGCOLOR_RED = '#BA4460'
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -22,6 +25,8 @@ export {
   TAB_NAVI_NAME,
   TAB_ICON_KEY_STR,
 
+  DEFAULT_BLUE,
+  DEFAULT_GRAY,
   TAB_NAVI_HEADER_BGCOLOR,
   TAB_NAVI_BOTTOM_BGCOLOR,
   TAB_NAVI_ACTIVE_TINT_COLOR,
@@ -31,6 +36,7 @@ export {
   HEADER_TITLE_BGCOLOR,
   SCREEN_BGCOLOR,
   CARD_HEADER_BGCOLOR,
+  BTN_BGCOLOR_RED,
 
   DEVICE_HEIGHT,
   DEVICE_WIDTH,
