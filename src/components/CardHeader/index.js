@@ -7,6 +7,7 @@ import NormalBtn from '../NormalBtn';
 import * as types from '../../store/actionType'
 import CommonStyle from '../../global/common_styles';
 import { DEVICE_WIDTH, DEFAULT_BLUE, DEFAULT_GRAY, CARD_HEADER_BGCOLOR, BTN_BGCOLOR_RED, CARD_HEADER_HEIGHT } from '../../global/config';
+import { LOGOUT_STR, ACCOUNT_BALANCE_STR, LOGIN_STR, REGISTER_STR } from '../../global/I18n';
 
 const COM_BTN_HEIGHT = 45;
 const COM_BTN_WIDTH = DEVICE_WIDTH / 2 - 20;
@@ -26,7 +27,7 @@ class ComponentHeader extends Component {
           {
             this.props.isLogin ?
               <NormalBtn
-                title='退出账户'
+                title={LOGOUT_STR}
                 onPress={() => store.dispatch({ type: types.LOG_OUT })}
                 titleStyle={{ color: DEFAULT_BLUE, fontSize: USER_NAME_FONT_SIZE }}
               /> :
@@ -45,7 +46,7 @@ class ComponentFooter extends Component {
           <Text style={{ color: COM_USUAL_BLUE, fontSize: 30 }}>{this.props.balance}</Text>
         </View>
         <View style={[CommonStyle.innerAbsCenterStyle, { height: 25, width: 80 }]}>
-          <Text style={{ color: DEFAULT_GRAY }}>余额</Text>
+          <Text style={{ color: DEFAULT_GRAY }}>{ACCOUNT_BALANCE_STR}</Text>
         </View>
       </View>
     );
@@ -54,13 +55,13 @@ class ComponentFooter extends Component {
     return (
       <View style={[CommonStyle.innerLineCenterStyle, { justifyContent: 'space-around' }]}>
         <NormalBtn
-          title='登陆'
+          title={LOGIN_STR}
           onPress={() => store.dispatch({ type: types.LOG_IN })}
           titleStyle={{ color: 'white' }}
           style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: BTN_BGCOLOR_RED }}
         />
         <NormalBtn
-          title='注册'
+          title={REGISTER_STR}
           onPress={() => { console.log(12345) }}
           titleStyle={{ color: BTN_BGCOLOR_RED }}
           style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: 'transparent', borderColor: BTN_BGCOLOR_RED, borderWidth: 1 }}
