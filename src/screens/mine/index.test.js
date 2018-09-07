@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import store from '../../store/index';
 import * as types from '../../store/actionType';
 import CommonStyle from '../../global/common_styles';
-import CardHeader from '../../components/CardHeader';
-import LogoutSubview from './logout/index';
-import LoginSubview from './login/index';
 class MineScreen extends Component {
 
   render() {
     return (
-      <View style={{flex:1}}>
-        <CardHeader/>
-        {this.props.isLogin ? <LoginSubview/> : <LogoutSubview/>}
+      <View style={CommonStyle.absoluateCenterStyle}>
+        <Text>{this.props.counter}</Text>
+        <Button title='+' onPress={() => store.dispatch({ type: types.INCREMENT })} />
+        <Button title='-' onPress={() => store.dispatch({ type: types.DECREMENT })} />
       </View>
     );
   }
@@ -21,7 +19,7 @@ class MineScreen extends Component {
 
 function mapState2Props(store) {
   return {
-    isLogin: store.account.isLogin
+    counter: store
   }
 }
 
