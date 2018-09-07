@@ -12,8 +12,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...initialState,
         isLogin: true,
-        user:'王子豪',
-        balance:100000
+        user: '王子豪',
+        balance: 100000
       };
     case types.LOG_OUT:
       return {

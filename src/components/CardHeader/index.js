@@ -23,9 +23,9 @@ class ComponentHeader extends Component {
 class ComponentFooter extends Component {
   _login = () => {
     return (
-      <View style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-        <View style={{height:45,width:150,display:'flex',justifyContent:'center',alignItems:'center'}}><Text style={{color:'#ADCDF9',fontSize:30}}>{this.props.balance}</Text></View>
-        <View style={{height:25,width:80,display:'flex',justifyContent:'center',alignItems:'center'}}><Text style={{color:'#909090'}}>余额</Text></View>
+      <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{ height: 45, width: 150, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: '#ADCDF9', fontSize: 30 }}>{this.props.balance}</Text></View>
+        <View style={{ height: 25, width: 80, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: '#909090' }}>余额</Text></View>
       </View>
     );
   }
