@@ -4,7 +4,7 @@ export default class LoginSubview extends Component {
   render() {
     return (
       <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-        <Text>login subView</Text>
+        <Text style={{color:'white'}}>login subView</Text>
       </View>
     );
   }
