@@ -9,6 +9,8 @@ import TradeScreen from '../screens/trade/index';
 import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine/index';
 
+import AccountLogScreen from '../screens/mine/logout/accountLog';
+
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
@@ -65,15 +67,16 @@ NewsStack.navigationOptions = {
   tabBarLabel: TAB_NAVI_NAME[2],
   tabBarIcon: iconMake(TAB_ICON_KEY_STR[2])
 };
-let MineStack = createStackNavigator({ MineScreen }, {      //我的
-  navigationOptions: {
-    title: TAB_NAVI_NAME[3],
-    headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR
-    },
-    headerTintColor: HEADER_TINT_COLOR
-  }
-});
+let MineStack = createStackNavigator(
+  {
+    MineScreen,
+    AccountLogScreen
+  },
+  {                                                         //我的
+    navigationOptions: {
+      gesturesEnabled: false
+    }
+  });
 MineStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {

@@ -56,7 +56,7 @@ class ComponentFooter extends Component {
       <View style={[CommonStyle.innerLineCenterStyle, { justifyContent: 'space-around' }]}>
         <NormalBtn
           title={LOGIN_STR}
-          onPress={() => store.dispatch({ type: types.LOG_IN })}
+          onPress={this.props.showAccountLogin}
           titleStyle={{ color: 'white' }}
           style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: BTN_BGCOLOR_RED }}
         />
@@ -82,7 +82,7 @@ class CardHeader extends Component {
     return (
       <View style={styles.container}>
         <ComponentHeader isLogin={this.props.isLogin} user={this.props.user} />
-        <ComponentFooter isLogin={this.props.isLogin} balance={this.props.balance} />
+        <ComponentFooter isLogin={this.props.isLogin} balance={this.props.balance} showAccountLogin={this.props.showAccountLogin} />
       </View>
     );
   }
