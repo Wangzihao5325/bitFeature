@@ -1,5 +1,8 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
+const PLATFORM_DOMAIN = 'http://test.api.duokongtai.cn';
+const APP_VERSIONS = 6.1;
+
 const TAB_NAVI_NAME = ['行情','模拟交易','资讯','我的'];
 //react-native-vector-icon中icon的key值，不可随意改动
 const TAB_ICON_KEY_STR = ['line-chart', 'file-text-o', 'dot-circle-o', 'user-o'];
@@ -22,6 +25,9 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const ICON_SIZE = 24;
 const CARD_HEADER_HEIGHT = 170;
 export {
+  PLATFORM_DOMAIN,
+  APP_VERSIONS,
+
   TAB_NAVI_NAME,
   TAB_ICON_KEY_STR,
 

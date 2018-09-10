@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from '../store/index';
+import Api from '../socket/platform/api';
 import { MarketStack, TradeStack, NewsStack, MineStack } from './register_screens';
 import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR } from '../global/config';
-import Api from '../socket/platform/api';
 const Router = createBottomTabNavigator(
   {
     MarketStack,
@@ -23,20 +23,8 @@ const Router = createBottomTabNavigator(
   }
 );
 export default class App extends Component {
-
   componentDidMount() {
-    let formData = new FormData();
-    formData.append('appVersions','6.1');
-    fetch('http://test.api.duokongtai.cn/socket/config/getVersions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: formData
-    }).then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-      });
+    Api.getVersions((result)=>{console.log(result)});
   }
   render() {
     return (

@@ -1,22 +1,36 @@
+import { PLATFORM_DOMAIN, APP_VERSIONS } from '../../global/config';
+
 class api {
-  request(type, url, params, onSuccess, onError) {
+  requset(url, formData, onSuccess, onError) {
+    let fullUrl = PLATFORM_DOMAIN + url;
     let success = false;
-    fetch(url, {
-      method: type,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(params)
-    }).then((response) => {
-      const resJson = JSON.parse(response);
-      const result = resJson.data;
-      success = result.success;
-      if (success) {
-        onSuccess(result)
-      } else {
-        //onError();
-      }
-    })
+    fetch(fullUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: formData
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson.data;
+        if (responseJson.success) {
+          try {
+            onSuccess(result);
+          } catch (error) {
+            console.log(error);
+          }
+        } else {
+          onError ? onError(result) : console.log(responseJson);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  getVersions(onSuccess) {
+    let url = '/socket/config/getVersions';
+    let formData = new FormData();
+    formData.append('appVersions', APP_VERSIONS);
+    this.requset(url, formData, onSuccess);
   }
 }
 
