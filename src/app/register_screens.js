@@ -1,8 +1,8 @@
 import React from 'react';
 import { Button } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DRAW_BGCOLOR, DEVICE_WIDTH } from './config';
-import { iconMake } from './vector_icons';
+import { TAB_NAVI_NAME, TAB_ICON_KEY_STR, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DRAW_BGCOLOR, DEVICE_WIDTH } from '../global/config';
+import { iconMake } from '../global/vector_icons';
 
 import MarketScreen from '../screens/market/index';
 import TradeScreen from '../screens/trade/index';
