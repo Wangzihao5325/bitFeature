@@ -24,7 +24,7 @@ const Router = createBottomTabNavigator(
 );
 export default class App extends Component {
   componentDidMount() {
-    Api.getVersions((result)=>{console.log(result)});
+    // Api.getVersions((result)=>{console.log(result)});
   }
   render() {
     return (

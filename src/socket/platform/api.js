@@ -26,11 +26,19 @@ class api {
       });
   }
 
-  getVersions(onSuccess) {
+  getVersions(onSuccess, onError) {
     let url = '/socket/config/getVersions';
     let formData = new FormData();
     formData.append('appVersions', APP_VERSIONS);
-    this.requset(url, formData, onSuccess);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  login(userName, password, onSuccess, onError) {
+    let url = '/login';
+    let formData = new FormData();
+    formData.append('loginName', userName);
+    formData.append('password', password);
+    this.requset(url, formData, onSuccess, onError)
   }
 }
 
