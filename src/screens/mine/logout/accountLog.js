@@ -3,10 +3,10 @@ import { View } from 'react-native';
 import Api from '../../../socket/platform/api';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
-import CommonStyles from '../../../global/common_styles';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
 import store from '../../../store/index';
 import * as types from '../../../store/actionType';
+import Variables from '../../../global/Variables';
 let reg = { accountInput: '', passwordInput: '' };
 export default class AccountLogScreen extends Component {
   static navigationOptions = {
@@ -18,7 +18,9 @@ export default class AccountLogScreen extends Component {
   };
 
   _loginSuccess = (result) => {
-    console.log(result);
+    Variables.account.token = result.token;
+    Variables.account.secret = result.secret;
+    
     store.dispatch({ type: types.LOG_IN });
     this.props.navigation.pop();
   }

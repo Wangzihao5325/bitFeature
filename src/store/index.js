@@ -1,18 +1,13 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
 import testReducer from './reducers/testReducer';
 import accountReducer from './reducers/accountReducer';
-/*  试验后发现android暂时不支持 redux-thunk ,先注销掉
- import {createStore, applyMiddleware} from 'redux';
- import thunkMiddleware from 'redux-thunk';
- const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
- const store = createStoreWithMiddleware(reducer);
-*/
 
 const rootReducer = combineReducers({
-  test:testReducer,
-  account:accountReducer
+  test: testReducer,
+  account: accountReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 
 export default store;

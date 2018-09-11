@@ -6,7 +6,7 @@ class api {
     let success = false;
     fetch(fullUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'multipart/form-data' },
       body: formData
     }).then((response) => response.json())
       .then((responseJson) => {
