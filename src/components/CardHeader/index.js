@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { connect } from 'react-redux';
 import store from '../../store/index';
 import NormalBtn from '../NormalBtn';
-import * as types from '../../store/actionType'
+import * as types from '../../store/actionType';
 import CommonStyle from '../../global/common_styles';
 import { DEVICE_WIDTH, DEFAULT_BLUE, DEFAULT_GRAY, CARD_HEADER_BGCOLOR, BTN_BGCOLOR_RED, CARD_HEADER_HEIGHT } from '../../global/config';
 import { LOGOUT_STR, ACCOUNT_BALANCE_STR, LOGIN_STR, REGISTER_STR } from '../../global/I18n';

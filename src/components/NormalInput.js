@@ -18,10 +18,13 @@ export default class NormalInput extends Component {
     } else {
       this.setState({ tips: this.props.tips })
     }
+    if(this.props.onChangeText){
+      this.props.onChangeText(text);
+    }
   }
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { ...this.props.style }]}>
         <View style={[CommonStyles.innerLineCenterStyle, styles.inputContainer, { borderColor: '#2C5387', borderWidth: 1, borderRadius: 5 }]}>
           <View style={[CommonStyles.innerAbsCenterStyle, styles.headerTitleContainer]}>
             <Text style={{ fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.headerTitle}</Text>

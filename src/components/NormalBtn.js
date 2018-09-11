@@ -7,12 +7,22 @@ export default class NormalBtn extends Component {
     style: PropTypes.object,
     onPress: PropTypes.func,
     titleStyle: PropTypes.object,
-    title: PropTypes.string
+    title: PropTypes.string,
+    unableStyle: PropTypes.object,
+    unableTitleStyle: PropTypes.object,
+    disabled: PropTypes.bool
+  }
+  static defaultProps = {
+    disabled: false,
+    unableStyle: { backgroundColor: '#909090' },
+    unableTitleStyle: { color: 'white' }
   }
   render() {
+    let buttonStyle = this.props.disabled ? this.props.unableStyle : this.props.style;
+    let titleStyle = this.props.disabled ? this.props.unableTitleStyle : this.props.titleStyle;
     return (
-      <TouchableHighlight style={{ ...CommonStyles.innerAbsCenterStyle, ...this.props.style }} onPress={this.props.onPress}>
-        <Text style={{ color: 'black', ...this.props.titleStyle }}>{this.props.title}</Text>
+      <TouchableHighlight disabled={this.props.disabled} onPress={this.props.onPress} style={[CommonStyles.innerAbsCenterStyle, buttonStyle]}>
+        <Text style={[{ color: 'black'},titleStyle]}>{this.props.title}</Text>
       </TouchableHighlight>
     );
   }
