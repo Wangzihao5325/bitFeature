@@ -6,12 +6,11 @@ import store from '../../store/index';
 import NormalBtn from '../NormalBtn';
 import * as types from '../../store/actionType';
 import CommonStyle from '../../global/common_styles';
-import { DEVICE_WIDTH, DEFAULT_BLUE, DEFAULT_GRAY, CARD_HEADER_BGCOLOR, BTN_BGCOLOR_RED, CARD_HEADER_HEIGHT } from '../../global/config';
+import { DEVICE_WIDTH, DEFAULT_BLUE, BRIGHT_BLUE, DEFAULT_GRAY, CARD_HEADER_BGCOLOR, BTN_BGCOLOR_RED, CARD_HEADER_HEIGHT } from '../../global/config';
 import { LOGOUT_STR, ACCOUNT_BALANCE_STR, LOGIN_STR, REGISTER_STR } from '../../global/I18n';
 
 const COM_BTN_HEIGHT = 45;
 const COM_BTN_WIDTH = DEVICE_WIDTH / 2 - 20;
-const COM_USUAL_BLUE = '#ADCDF9';
 const ICON_MARGIN_LEFT = 10;
 const USER_NAME_FONT_SIZE = 18;
 
@@ -20,7 +19,7 @@ class ComponentHeader extends Component {
     return (
       <View style={[styles.headerContainer, CommonStyle.innerLineCenterStyle]}>
         <View style={[CommonStyle.innerLineCenterStyle, { paddingLeft: ICON_MARGIN_LEFT }]}>
-          <Icon name='user-circle' size={42} color={COM_USUAL_BLUE} />
+          <Icon name='user-circle' size={42} color={BRIGHT_BLUE} />
           <Text style={{ marginLeft: 10, color: DEFAULT_GRAY, fontSize: USER_NAME_FONT_SIZE }}>{this.props.user}</Text>
         </View>
         <View>
@@ -43,7 +42,7 @@ class ComponentFooter extends Component {
     return (
       <View style={CommonStyle.innerAbsCenterStyle}>
         <View style={[CommonStyle.innerAbsCenterStyle, { height: 45, width: 150 }]}>
-          <Text style={{ color: COM_USUAL_BLUE, fontSize: 30 }}>{this.props.balance}</Text>
+          <Text style={{ color: BRIGHT_BLUE, fontSize: 30 }}>{this.props.balance}</Text>
         </View>
         <View style={[CommonStyle.innerAbsCenterStyle, { height: 25, width: 80 }]}>
           <Text style={{ color: DEFAULT_GRAY }}>{ACCOUNT_BALANCE_STR}</Text>

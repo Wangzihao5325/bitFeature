@@ -8,6 +8,7 @@ const TAB_NAVI_NAME = ['行情','模拟交易','资讯','我的'];
 const TAB_ICON_KEY_STR = ['line-chart', 'file-text-o', 'dot-circle-o', 'user-o'];
 
 const DEFAULT_BLUE = '#157EFB';
+const BRIGHT_BLUE = '#ADCDF9';
 const DEFAULT_GRAY = '#909090';
 const TAB_NAVI_HEADER_BGCOLOR = '#222D3D';
 const TAB_NAVI_BOTTOM_BGCOLOR = '#1C2533';
@@ -32,6 +33,7 @@ export {
   TAB_ICON_KEY_STR,
 
   DEFAULT_BLUE,
+  BRIGHT_BLUE,
   DEFAULT_GRAY,
   TAB_NAVI_HEADER_BGCOLOR,
   TAB_NAVI_BOTTOM_BGCOLOR,
