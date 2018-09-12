@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, Image, FlatList } from 'react-native';
+import { View, Text, TouchableHighlight, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CommonStyles from '../../../global/common_styles';
