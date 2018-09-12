@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import store from '../../../store/index';
+import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
 import Api from '../../../socket/platform/api';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
-import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
-import store from '../../../store/index';
-import * as types from '../../../store/actionType';
 import Variables from '../../../global/Variables';
-import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
+import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
+
 let reg = { accountInput: '', passwordInput: '' };
 export default class AccountLogScreen extends Component {
   static navigationOptions = {
@@ -17,15 +17,15 @@ export default class AccountLogScreen extends Component {
     },
     headerTintColor: HEADER_TINT_COLOR
   };
+
   constructor() {
     super();
     this._loginSuccess = this._loginSuccess.bind(this);
     this._getbalancerateSuccess = this._getbalancerateSuccess.bind(this);
   }
-
   _getbalancerateSuccess = (result) => {
     store.dispatch(action_getbalancerate(result));
-    store.dispatch({ type: types.LOG_IN });
+    store.dispatch(action_login());
     this.props.navigation.pop();
   }
   _loginSuccess = (result) => {
