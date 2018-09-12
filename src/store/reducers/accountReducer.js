@@ -3,24 +3,40 @@ import * as types from '../actionType';
 const initialState = {
   isLogin: false,
   user: '请您先登陆',
-  balance: 0
+  balance: 0,
+  userVerified: true,
+  isCertification: false,
+  isSetDrawPwd: false,
+  operateMoney: 0,
+  frozenCapital: 0,
+  drawHandleFee: 0,
+  wxAccount: '未绑定'
 }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.LOG_IN:
       return {
-        ...initialState,
+        ...state,
         isLogin: true,
-        user: '王子豪',
-        balance: 100000
       };
     case types.LOG_OUT:
       return {
-        ...initialState,
+        ...state,
         isLogin: false,
-        user: '请您先登陆',
-        balance: 0
+      };
+    case types.GET_ACCOUNT_INFO:
+      return {
+        ...state,
+        user: action.user,
+        balance: action.balance,
+        userVerified: action.userVerified,
+        isCertification: action.isCertification,
+        isSetDrawPwd: action.isSetDrawPwd,
+        operateMoney: action.operateMoney,
+        frozenCapital: action.frozenCapital,
+        drawHandleFee: action.drawHandleFee,
+        wxAccount: action.wxAccount
       };
     default: return state;
   }

@@ -7,6 +7,7 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGC
 import store from '../../../store/index';
 import * as types from '../../../store/actionType';
 import Variables from '../../../global/Variables';
+import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
 let reg = { accountInput: '', passwordInput: '' };
 export default class AccountLogScreen extends Component {
   static navigationOptions = {
@@ -16,16 +17,26 @@ export default class AccountLogScreen extends Component {
     },
     headerTintColor: HEADER_TINT_COLOR
   };
+  constructor() {
+    super();
+    this._loginSuccess = this._loginSuccess.bind(this);
+    this._getbalancerateSuccess = this._getbalancerateSuccess.bind(this);
+  }
 
-  _loginSuccess = (result) => {
-    Variables.account.token = result.token;
-    Variables.account.secret = result.secret;
-    
+  _getbalancerateSuccess = (result) => {
+    store.dispatch(action_getbalancerate(result));
     store.dispatch({ type: types.LOG_IN });
     this.props.navigation.pop();
   }
+  _loginSuccess = (result) => {
+    Variables.account.token = result.token;
+    Variables.account.secret = result.secret;
+
+    //init account data
+    Api.getbalancerate(4, null, this._getbalancerateSuccess);
+  }
   _login = () => {
-    Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess.bind(this));
+    Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess);
   }
   _accountChange = (text) => {
     reg.accountInput = text;
