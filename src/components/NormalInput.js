@@ -6,6 +6,11 @@ import CommonStyles from '../global/common_styles';
 import { SCREEN_BGCOLOR } from '../global/config';
 import RNTextInput from 'react-native-text-input-enhance';  //处理textinput clear（）问题 - https://github.com/facebook/react-native/pull/18278
 export default class NormalInput extends Component {
+  constructor(props) {
+    super(props);
+    this._onChangeText = this._onChangeText.bind(this);
+    this._clear = this._clear.bind(this);
+  }
   state = {
     tips: this.props.tips
   }
@@ -18,7 +23,7 @@ export default class NormalInput extends Component {
     } else {
       this.setState({ tips: this.props.tips })
     }
-    if(this.props.onChangeText){
+    if (this.props.onChangeText) {
       this.props.onChangeText(text);
     }
   }
@@ -29,8 +34,8 @@ export default class NormalInput extends Component {
           <View style={[CommonStyles.innerAbsCenterStyle, styles.headerTitleContainer]}>
             <Text style={{ fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.headerTitle}</Text>
           </View>
-          <RNTextInput hasRef={ref => (this.textInputRef = ref)} onChangeText={this._onChangeText.bind(this)} maxLength={11} style={{ height: 36, width: 200, color: 'white' }} />
-          <VectorIconBtn name='close' onPress={() => this._clear()} />
+          <RNTextInput hasRef={ref => (this.textInputRef = ref)} onChangeText={this._onChangeText} maxLength={11} style={{ height: 36, width: 200, color: 'white' }} />
+          <VectorIconBtn name='close' onPress={this._clear} />
         </View>
         <View style={[CommonStyles.innerAbsCenterStyle, styles.tipsContainer]}><Text style={{ color: 'red' }}>{this.state.tips}</Text></View>
       </View>
