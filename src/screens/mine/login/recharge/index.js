@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux'
 import CardBalance from '../../../../components/CardHeader/CardBalance';
-import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../../global/config';
+import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, SCREEN_BGCOLOR } from '../../../../global/config';
+import { I_WILL_RECHARGE } from '../../../../global/I18n';
 class RechargeScreen extends Component {
   static navigationOptions = {
-    title: '我要充值',
+    title: I_WILL_RECHARGE,
     headerStyle: {
       backgroundColor: TAB_NAVI_HEADER_BGCOLOR
     },
@@ -14,7 +15,7 @@ class RechargeScreen extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: SCREEN_BGCOLOR }}>
         <CardBalance />
       </View>
     );

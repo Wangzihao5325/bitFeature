@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight, FlatList, StyleSheet, PixelRatio } from 'react-native';
+import { View, Text, TouchableHighlight, FlatList } from 'react-native';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CommonStyles from '../../../global/common_styles';
-import { DEVICE_WIDTH, ICON_SIZE, DEFAULT_GRAY, DEFAULT_BLUE } from '../../../global/config';
+import { DEVICE_WIDTH, ICON_SIZE, DEFAULT_GRAY } from '../../../global/config';
+import {
+  I_WILL_RECHARGE, I_WILL_WITHDRAW, CAPITAL_DETAILS, NAME_CERTIFICATION,
+  BIND_CARD, BIND_PHONE, CHANGE_LOGIN_PASSWORDS, TRADE_ACCOUNT
+} from '../../../global/I18n';
 
 const itemsData = [
-  { key: '我要充值', iconName: 'shield' },
-  { key: '我要提现', iconName: 'shield' },
-  { key: '资金明细', iconName: 'shield' },
-  { key: '实名认证', iconName: 'shield' },
-  { key: '绑定银行卡', iconName: 'shield' },
-  { key: '手机绑定', iconName: 'shield' },
-  { key: '修改登陆密码', iconName: 'shield' },
-  { key: '交易账号', iconName: 'shield' }
+  { key: I_WILL_RECHARGE, iconName: 'shield' },
+  { key: I_WILL_WITHDRAW, iconName: 'shield' },
+  { key: CAPITAL_DETAILS, iconName: 'shield' },
+  { key: NAME_CERTIFICATION, iconName: 'shield' },
+  { key: BIND_CARD, iconName: 'shield' },
+  { key: BIND_PHONE, iconName: 'shield' },
+  { key: CHANGE_LOGIN_PASSWORDS, iconName: 'shield' },
+  { key: TRADE_ACCOUNT, iconName: 'shield' }
 ];
 const DefaultIconColor = '#3B475F';
 const ItemsHeight = 39;
 const MarginSize = 10;
+const TotalHeight = 324;
 
 class ItemBtn extends Component {
   constructor() {
@@ -40,7 +45,7 @@ class ItemBtn extends Component {
   _onPress = () => {
     const { mineNavigation } = this.context
     switch (this.props.title) {
-      case '我要充值':
+      case I_WILL_RECHARGE:
         mineNavigation.navigate('RechargeScreen');
         break;
       default:
@@ -70,7 +75,7 @@ export default class LoginSubview extends Component {
   }
   render() {
     return (
-      <View style={{ height: 324, width: DEVICE_WIDTH, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
+      <View style={{ height: TotalHeight, width: DEVICE_WIDTH, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
         <FlatList
 
           scrollEnabled={false}
