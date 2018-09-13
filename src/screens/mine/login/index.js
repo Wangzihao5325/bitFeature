@@ -34,10 +34,14 @@ class ItemBtn extends Component {
     iconSize: ICON_SIZE,
     iconColor: DefaultIconColor
   }
+  static contextTypes = {
+    mineNavigation: PropTypes.object // 声明需要使用的Context属性
+  }
   _onPress = () => {
+    const { mineNavigation } = this.context
     switch (this.props.title) {
       case '我要充值':
-        this.props.navigation.navigate('RechargeScreen');
+        mineNavigation.navigate('RechargeScreen');
         break;
       default:
         break;
@@ -61,7 +65,7 @@ class ItemBtn extends Component {
 export default class LoginSubview extends Component {
   _renderItem = ({ item }) => {
     return (
-      <ItemBtn iconName={item.iconName} title={item.key} navigation={this.props.navigation}/>
+      <ItemBtn iconName={item.iconName} title={item.key} />
     );
   }
   render() {

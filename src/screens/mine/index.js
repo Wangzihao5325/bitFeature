@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import CardHeader from '../../components/CardHeader/index';
 import LogoutSubview from './logout/index';
@@ -14,16 +15,23 @@ class MineScreen extends Component {
     },
     headerTintColor: HEADER_TINT_COLOR
   }
-
+  /* context - https://www.jianshu.com/p/eba2b76b290b */
+  static childContextTypes = {
+    mineNavigation: PropTypes.object,       // 声明Context对象属性
+  }
+  getChildContext() {
+    return {
+      mineNavigation: this.props.navigation // 返回Context对象
+    }
+  }
   _login = () => {
     this.props.navigation.navigate('AccountLogScreen');
   }
-
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: SCREEN_BGCOLOR }}>
         <CardHeader showAccountLogin={this._login} />
-        {this.props.isLogin ? <LoginSubview navigation={this.props.navigation}/> : <LogoutSubview />}
+        {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
       </View>
     );
   }
