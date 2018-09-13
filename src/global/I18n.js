@@ -13,6 +13,12 @@ const BIND_PHONE = '手机绑定';
 const CHANGE_LOGIN_PASSWORDS = '修改登陆密码';
 const TRADE_ACCOUNT = '交易账号';
 
+//充值页面
+const RECHARGE_NUM = '充值金额';
+const RECHARGE_RIGHT_NOW = '立即充值';
+const AFTER_RECHARGE_NUM = '充值后余额';
+const YEN = '元'
+
 export {
   LOGOUT_STR,
   LOGIN_STR,
@@ -27,5 +33,10 @@ export {
   BIND_CARD,
   BIND_PHONE,
   CHANGE_LOGIN_PASSWORDS,
-  TRADE_ACCOUNT
+  TRADE_ACCOUNT,
+
+  RECHARGE_NUM,
+  RECHARGE_RIGHT_NOW,
+  AFTER_RECHARGE_NUM,
+  YEN
 }
