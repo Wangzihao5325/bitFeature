@@ -23,7 +23,7 @@ class MineScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: SCREEN_BGCOLOR }}>
         <CardHeader showAccountLogin={this._login} />
-        {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
+        {this.props.isLogin ? <LoginSubview navigation={this.props.navigation}/> : <LogoutSubview />}
       </View>
     );
   }

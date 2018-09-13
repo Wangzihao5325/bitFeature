@@ -20,6 +20,10 @@ const ItemsHeight = 39;
 const MarginSize = 10;
 
 class ItemBtn extends Component {
+  constructor() {
+    super();
+    this._onPress = this._onPress.bind(this);
+  }
   static propTypes = {
     iconName: PropTypes.string,
     iconSize: PropTypes.number,
@@ -30,9 +34,18 @@ class ItemBtn extends Component {
     iconSize: ICON_SIZE,
     iconColor: DefaultIconColor
   }
+  _onPress = () => {
+    switch (this.props.title) {
+      case '我要充值':
+        this.props.navigation.navigate('RechargeScreen');
+        break;
+      default:
+        break;
+    }
+  }
   render() {
     return (
-      <TouchableHighlight style={{ width: DEVICE_WIDTH, height: ItemsHeight + 1 }} onPress={() => { console.log(this.props.title) }}>
+      <TouchableHighlight style={{ width: DEVICE_WIDTH, height: ItemsHeight + 1 }} onPress={this._onPress}>
         <View style={[{ height: ItemsHeight, width: DEVICE_WIDTH, display: 'flex', justifyContent: 'space-between' }, CommonStyles.innerLineCenterStyle]}>
           <View style={[CommonStyles.innerLineCenterStyle, { height: ItemsHeight, width: 150, marginLeft: MarginSize }]}>
             <Icon name={this.props.iconName} size={this.props.iconSize} color={this.props.iconColor} />
@@ -48,19 +61,19 @@ class ItemBtn extends Component {
 export default class LoginSubview extends Component {
   _renderItem = ({ item }) => {
     return (
-      <ItemBtn iconName={item.iconName} title={item.key} />
+      <ItemBtn iconName={item.iconName} title={item.key} navigation={this.props.navigation}/>
     );
   }
   render() {
     return (
-      <View style={{ height: 324, width: DEVICE_WIDTH, backgroundColor: 'transparent', borderTopWidth:1,borderTopColor:'#000000'}}>
+      <View style={{ height: 324, width: DEVICE_WIDTH, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
         <FlatList
-          
+
           scrollEnabled={false}
           style={{ flex: 1 }}
           data={itemsData}
           renderItem={this._renderItem}
-          ItemSeparatorComponent={()=><View style={{height:1,width:DEVICE_WIDTH-16, marginLeft:8,backgroundColor:'#252E3C'}}/>}
+          ItemSeparatorComponent={() => <View style={{ height: 1, width: DEVICE_WIDTH - 16, marginLeft: 8, backgroundColor: '#252E3C' }} />}
         />
       </View>
     );
