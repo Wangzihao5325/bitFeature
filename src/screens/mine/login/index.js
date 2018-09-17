@@ -75,10 +75,9 @@ export default class LoginSubview extends Component {
   }
   render() {
     return (
-      <View style={{ height: TotalHeight, width: DEVICE_WIDTH, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
+      <View style={{ flex: 1, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
         <FlatList
-
-          scrollEnabled={false}
+          scrollEnabled={true}
           style={{ flex: 1 }}
           data={itemsData}
           renderItem={this._renderItem}
