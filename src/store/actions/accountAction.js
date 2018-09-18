@@ -1,3 +1,8 @@
+/**
+ *  Copyright © 2017 - 2018 Zihao . All rights reserved.
+ *  Author: Zihao Wong
+ *  E-mail: zihao_coding@qq.com
+ */
 import * as types from '../actionType';
 import { valueSecurity } from '../../global/util/index';
 

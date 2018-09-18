@@ -8,3 +8,6 @@ export const DECREMENT = 'DECREMENT';
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const GET_ACCOUNT_INFO = 'GET_ACCOUNT_INFO';
+
+// market store types
+export const INIT_MARKET_STORE = 'INIT_MARKET_STORE';

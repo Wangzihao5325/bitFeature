@@ -1,5 +1,11 @@
+/**
+ *  Copyright © 2017 - 2018 Zihao . All rights reserved.
+ *  Author: Zihao Wong
+ *  E-mail: zihao_coding@qq.com
+ */
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
+import { action_storeinit } from '../../store/actions/marketAction';
 class MarketSocket {
   constructor(url) {
     this.url = url;
@@ -38,8 +44,8 @@ class MarketSocket {
     }
     return subscribe_list;
   }
-  dataFormTrans() {
-
+  marketStoreInit(list) {
+    store.dispatch(action_storeinit(list));
   }
   insertData() {
 
@@ -68,6 +74,7 @@ class MarketSocket {
           break;
         case 'on_rsp_commodity_list':
           let subscribe_list = this.contractFilter(data, true);
+          this.marketStoreInit(subscribe_list);
           this._subscribe(subscribe_list);                       //查询成功 - 订阅合约
           break;
         case 'on_rtn_quote':
