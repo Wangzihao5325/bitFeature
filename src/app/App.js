@@ -25,23 +25,7 @@ const Router = createBottomTabNavigator(
 );
 export default class App extends Component {
   componentDidMount() {
-    // Api.getVersions((result)=>{console.log(result)});
-    // let ws = new WebSocket('ws://quote.vs.com:9102');
-    // console.log(ws);
-    // ws.onopen = function (evt) {
-    //   console.log(evt);
-    //   let json = { "method": "req_login", "data": { "user_name": "fut_game_inner", "password": "a123456", "protoc_version": "6.2" } }
-    //   ws.send(JSON.stringify(json));
-    // }
-    // ws.onclose = function (evt) {
-    //   console.log(evt);
-    // }
-    // ws.onmessage = function (evt) {
-    //   console.log(evt);
-    //   console.log(evt.data);
-    // }
     MarketSocket.connectSocket();
-
   }
   render() {
     return (
