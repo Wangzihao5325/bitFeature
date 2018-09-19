@@ -1,3 +1,9 @@
+/**
+ *  Copyright © 2017 - 2018 Zihao . All rights reserved.
+ *  Author: Zihao Wong
+ *  E-mail: zihao_coding@qq.com
+ */
+
 // test store types
 export const INCREMENT = 'INCREMENT';
 export const DECREMENT = 'DECREMENT';
@@ -11,3 +17,4 @@ export const GET_ACCOUNT_INFO = 'GET_ACCOUNT_INFO';
 
 // market store types
 export const INIT_MARKET_STORE = 'INIT_MARKET_STORE';
+export const UPDATE_MARKET_STORE = 'UPDATE_MARKET_STORE';

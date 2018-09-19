@@ -5,7 +5,7 @@
  */
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
-import { action_storeinit } from '../../store/actions/marketAction';
+import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
 class MarketSocket {
   constructor(url) {
     this.url = url;
@@ -47,8 +47,8 @@ class MarketSocket {
   marketStoreInit(list) {
     store.dispatch(action_storeinit(list));
   }
-  insertData() {
-
+  updateMarketStoreData(rtnObj) {
+    store.dispatch(action_updateStore(rtnObj));
   }
 
   connectSocket() {
@@ -67,7 +67,7 @@ class MarketSocket {
     }
     this.ws.onmessage = (evt) => {
       let data = JSON.parse(evt.data);
-      console.log(data);
+      //console.log(data);  // to do ... 删除
       switch (data.method) {
         case 'on_rsp_login':
           this._queryComList();                                   //登陆成功 - 查询合约品种
@@ -78,6 +78,7 @@ class MarketSocket {
           this._subscribe(subscribe_list);                       //查询成功 - 订阅合约
           break;
         case 'on_rtn_quote':
+          this.updateMarketStoreData(data);
           break;
       }
     }

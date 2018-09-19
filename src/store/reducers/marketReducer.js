@@ -36,8 +36,13 @@ const reducer = (state = initialState, action) => {
         let obj = _.set({}, item, objCreate(item));
         _.assign(originState, obj);
       });
-      console.log(originState);     // to do ... 删除
+      //console.log(originState);     // to do ... 删除
       return originState;
+    case types.UPDATE_MARKET_STORE:
+      let contractName = action.contractName;
+      _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); })
+      // console.log(state);
+      return state;
     default:
       return state;
   }
