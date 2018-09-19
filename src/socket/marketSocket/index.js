@@ -69,15 +69,15 @@ class MarketSocket {
       let data = JSON.parse(evt.data);
       //console.log(data);  // to do ... 删除
       switch (data.method) {
-        case 'on_rsp_login':
-          this._queryComList();                                   //登陆成功 - 查询合约品种
+        case 'on_rsp_login':                                      //登陆成功 -> 查询合约品种
+          this._queryComList();
           break;
-        case 'on_rsp_commodity_list':
+        case 'on_rsp_commodity_list':                             //查询成功 -> 订阅合约
           let subscribe_list = this.contractFilter(data, true);
           this.marketStoreInit(subscribe_list);
-          this._subscribe(subscribe_list);                       //查询成功 - 订阅合约
+          this._subscribe(subscribe_list);
           break;
-        case 'on_rtn_quote':
+        case 'on_rtn_quote':                                      //收到ticker -> 更新数据
           this.updateMarketStoreData(data);
           break;
       }
