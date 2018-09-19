@@ -16,7 +16,7 @@ const ScreenWidth = Dimensions.get('window').width;
 const NORMAL_BTNWIDTH = 70;
 const NORMAL_BTNHEIGHT = 30;
 const NORMAL_BARWIDTH = ScreenWidth;
-const NORMAL_MARGINHOR = 5;
+const NORMAL_MARGINHOR = 10;
 const NORMAL_MARGINVER = 2;
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     backgroundColor: NORMAL_BACKGROUNDCOLOR,
   },
   tabBtnCommon: {
-    width: NORMAL_BTNWIDTH,
     height: NORMAL_BTNHEIGHT,
     backgroundColor: 'transparent',
     marginTop: NORMAL_MARGINVER,
@@ -142,6 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     marginHorizontal: NORMAL_MARGINHOR,
     alignSelf: 'center',
+    fontSize:15
   },
   tabTextNormal: {
     color: NORMAL_TEXTCOLOR,
