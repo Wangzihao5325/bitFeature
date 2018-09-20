@@ -21,7 +21,9 @@ function objCreate(name) {
       contract_name: name,                 //合约编码
       contract_i18n_name: 'undefined',     //合约名
       ask: [[0, 0]],                       //多档买价
-      bid: [[0, 0]]                        //多档卖价
+      bid: [[0, 0]],                       //多档卖价
+      change_rate:0,                       //价格变化率
+      change_value:0                       //价格变化量
     }
   );
 }
@@ -39,13 +41,11 @@ const reducer = (state = initialState, action) => {
         _.assign(obj[item], { contract_i18n_name: contractMap2I18nName[item] });
         _.assign(originState, obj);
       });
-      //console.log(originState);     // ... debug log
       return originState;
     case types.UPDATE_MARKET_STORE:
       let contractName = action.contractName;
-      _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); })
-      //console.log(state);          // ... debug log
-      return state;
+      _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); });
+      return Object.assign({},state);
     default:
       return state;
   }

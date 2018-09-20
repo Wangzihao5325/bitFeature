@@ -72,7 +72,7 @@ class MarketSocket {
     }
     this.ws.onmessage = (evt) => {
       let data = JSON.parse(evt.data);
-      console.log(data);  // ... debug log
+      //console.log(data);  // ... debug log
       switch (data.method) {
         case 'on_rsp_login':                                      //登陆成功 -> 查询合约品种
           this._queryComList();

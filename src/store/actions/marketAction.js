@@ -41,6 +41,8 @@ export function action_updateStore(rtnParams) {
         pre_settle: data.pre_settle,
         ask: data.ask,
         bid: data.bid,
+        change_rate:data.change_rate,
+        change_value:data.change_value
       }
     });
   }

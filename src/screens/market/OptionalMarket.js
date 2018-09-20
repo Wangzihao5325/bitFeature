@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { DEVICE_WIDTH, DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../../global/config';
 import CommonStyles from '../../global/common_styles';
 import { rateStrGenerator, priceStrGenerator } from '../../global/util/index';
+import { contractMap2I18nName } from '../../global/commodity_list';
 
 const PRICE_DECIMAL_DIGITS = 2;
 const CHANGE_DECIMAL_DIGITS = 2;
 
 class ItemContent extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.props.price === nextProps.price &&
+      this.props.changeRate === nextProps.changeRate &&
+      this.props.changeNum === nextProps.changeNum) {
+      return false;
+    }
+    return true;
+  }
   render() {
     let priceText = priceStrGenerator(this.props.price, PRICE_DECIMAL_DIGITS, this.props.changeRate);
     let changeRateText = rateStrGenerator(this.props.changeRate, CHANGE_DECIMAL_DIGITS, true);
@@ -28,16 +38,33 @@ class ItemContent extends Component {
     );
   }
 }
-export default class OptionalMarket extends Component {
+class OptionalMarket extends Component {
   render() {
+    let { marketStore } = this.props;
+    let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
     return (
-      <View>
-        <ItemContent title='迷你美黄金' price={1257.1234} changeRate={0.051111} changeNum={0.69454} onPress={() => { console.log('1234') }} />
+      <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
+        {contractList.map(function (item) {
+          let contractStore = marketStore[item];
+          console.log(contractStore);
+          return (<ItemContent key={item} title={contractMap2I18nName[item]} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => { console.log('1234') }} />)
+        })}
       </View>
     );
   }
 }
+function mapState2Props(store) {
+  return {
+    marketStore: store.market
+  }
+}
+export default connect(mapState2Props)(OptionalMarket);
 const styles = StyleSheet.create({
+  optionalContainer: {
+    width: DEVICE_WIDTH,
+    height: 100,
+    backgroundColor: '#20212A'
+  },
   itemContent: {
     width: DEVICE_WIDTH / 3,
     height: 100,
