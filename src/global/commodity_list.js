@@ -1,6 +1,6 @@
-let contractMap2I18nName = {
-  'undefine_contract':'undefined'
+let contractMap2Config = {
+  'undefine_contract':{fullName:'undefined',dotSize:2}
 };
 export {
-  contractMap2I18nName
+  contractMap2Config
 }

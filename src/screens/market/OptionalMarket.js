@@ -5,10 +5,9 @@ import { connect } from 'react-redux';
 import { DEVICE_WIDTH, DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../../global/config';
 import CommonStyles from '../../global/common_styles';
 import { rateStrGenerator, priceStrGenerator } from '../../global/util/index';
-import { contractMap2I18nName } from '../../global/commodity_list';
+import { contractMap2Config } from '../../global/commodity_list';
 
-const PRICE_DECIMAL_DIGITS = 2;
-const CHANGE_DECIMAL_DIGITS = 2;
+const DEFAULT_DOT_SIZES = 2;
 
 class ItemContent extends Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -20,9 +19,10 @@ class ItemContent extends Component {
     return true;
   }
   render() {
-    let priceText = priceStrGenerator(this.props.price, PRICE_DECIMAL_DIGITS, this.props.changeRate);
-    let changeRateText = rateStrGenerator(this.props.changeRate, CHANGE_DECIMAL_DIGITS, true);
-    let changeNumText = rateStrGenerator(this.props.changeNum, CHANGE_DECIMAL_DIGITS, false);
+    let dotSize = this.props.dotSize;
+    let priceText = priceStrGenerator(this.props.price, dotSize, this.props.changeRate);
+    let changeRateText = rateStrGenerator(this.props.changeRate, DEFAULT_DOT_SIZES, true);
+    let changeNumText = rateStrGenerator(this.props.changeNum, dotSize, false);
     let color = this.props.changeRate >= 0 ? { color: UP_TEXT_COLOR } : { color: DOWN_TEXT_COLOR };
     return (
       <TouchableHighlight style={styles.itemContent} onPress={this.props.onPress}>
@@ -46,8 +46,7 @@ class OptionalMarket extends Component {
       <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
         {contractList.map(function (item) {
           let contractStore = marketStore[item];
-          console.log(contractStore);
-          return (<ItemContent key={item} title={contractMap2I18nName[item]} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => { console.log('1234') }} />)
+          return (<ItemContent key={item} title={contractMap2Config[item].fullName} dotSize={contractMap2Config[item].dotSize} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => { console.log('1234') }} />)
         })}
       </View>
     );

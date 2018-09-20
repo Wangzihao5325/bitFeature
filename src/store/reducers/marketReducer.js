@@ -5,7 +5,6 @@
  */
 import * as types from '../actionType';
 import _ from 'lodash';
-import { contractMap2I18nName } from '../../global/commodity_list';
 
 function objCreate(name) {
   return (
@@ -19,7 +18,6 @@ function objCreate(name) {
       pre_close: 0,                        //昨收盘
       pre_settle: 0,                       //昨结算
       contract_name: name,                 //合约编码
-      contract_i18n_name: 'undefined',     //合约名
       ask: [[0, 0]],                       //多档买价
       bid: [[0, 0]],                       //多档卖价
       change_rate:0,                       //价格变化率
@@ -38,7 +36,7 @@ const reducer = (state = initialState, action) => {
       let originDate = action.data;
       originDate.forEach(function (item) {
         let obj = _.set({}, item, objCreate(item));
-        _.assign(obj[item], { contract_i18n_name: contractMap2I18nName[item] });
+        //_.assign(obj[item], { contract_i18n_name: contractMap2Config[item].fullName }); 不要取消注释！！
         _.assign(originState, obj);
       });
       return originState;
