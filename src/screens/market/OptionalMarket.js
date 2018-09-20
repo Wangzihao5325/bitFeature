@@ -16,7 +16,7 @@ class ItemContent extends Component {
     let color = this.props.changeRate >= 0 ? { color: UP_TEXT_COLOR } : { color: DOWN_TEXT_COLOR };
     return (
       <TouchableHighlight style={styles.itemContent} onPress={this.props.onPress}>
-        <View style={[styles.itemContent, CommonStyles.innerAbsCenterStyle,{backgroundColor:'transparent'}]}>
+        <View style={[styles.itemContent, CommonStyles.innerAbsCenterStyle, { backgroundColor: 'transparent' }]}>
           <Text style={styles.titleText}>{this.props.title}</Text>
           <Text style={[styles.priceText, color]}>{priceText}</Text>
           <View style={[styles.changeContent, CommonStyles.innerLineCenterStyle]}>
@@ -32,7 +32,7 @@ export default class OptionalMarket extends Component {
   render() {
     return (
       <View>
-        <ItemContent title='迷你美黄金' price={1257.1234} changeRate={0.051111} changeNum={0.69454} onPress={()=>{console.log('1234')}}/>
+        <ItemContent title='迷你美黄金' price={1257.1234} changeRate={0.051111} changeNum={0.69454} onPress={() => { console.log('1234') }} />
       </View>
     );
   }
