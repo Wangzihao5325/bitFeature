@@ -5,6 +5,7 @@
  */
 import * as types from '../actionType';
 import _ from 'lodash';
+import { contractMap2I18nName } from '../../global/commodity_list';
 
 function objCreate(name) {
   return (
@@ -17,7 +18,8 @@ function objCreate(name) {
       last_volume: 0,                      //现量
       pre_close: 0,                        //昨收盘
       pre_settle: 0,                       //昨结算
-      contract_name: name,                 //合约名
+      contract_name: name,                 //合约编码
+      contract_i18n_name: 'undefined',     //合约名
       ask: [[0, 0]],                       //多档买价
       bid: [[0, 0]]                        //多档卖价
     }
@@ -34,14 +36,15 @@ const reducer = (state = initialState, action) => {
       let originDate = action.data;
       originDate.forEach(function (item) {
         let obj = _.set({}, item, objCreate(item));
+        _.assign(obj[item], { contract_i18n_name: contractMap2I18nName[item] });
         _.assign(originState, obj);
       });
-      //console.log(originState);     // to do ... 删除
+      //console.log(originState);     // ... debug log
       return originState;
     case types.UPDATE_MARKET_STORE:
       let contractName = action.contractName;
       _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); })
-      // console.log(state);
+      //console.log(state);          // ... debug log
       return state;
     default:
       return state;

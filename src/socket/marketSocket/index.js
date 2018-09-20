@@ -6,6 +6,7 @@
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
 import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
+import { contractMap2I18nName } from '../../global/commodity_list';
 class MarketSocket {
   constructor(url) {
     this.url = url;
@@ -40,6 +41,9 @@ class MarketSocket {
         'commodity_no': commodity_details.commodity_no,
         'contract_no': contract_no_obj[0].contract_no
       };
+      let contractName = commodity_details.commodity_no + contract_no_obj[0].contract_no
+      contractMap2I18nName[contractName] = commodity_details.commodity_name;
+      //console.log(contractMap2I18nName); // ... debug log
       subscribe_list.push(contract_structure);
     }
     return subscribe_list;
@@ -67,7 +71,7 @@ class MarketSocket {
     }
     this.ws.onmessage = (evt) => {
       let data = JSON.parse(evt.data);
-      //console.log(data);  // to do ... 删除
+      //console.log(data);  // ... debug log
       switch (data.method) {
         case 'on_rsp_login':                                      //登陆成功 -> 查询合约品种
           this._queryComList();
