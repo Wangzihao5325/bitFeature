@@ -23,7 +23,9 @@ const DRAW_BGCOLOR = '#1C2533';
 const HEADER_TITLE_BGCOLOR = '#1C2738';
 const SCREEN_BGCOLOR = '#161D26';
 const CARD_HEADER_BGCOLOR = '#131B25';
-const BTN_BGCOLOR_RED = '#BA4460'
+const BTN_BGCOLOR_RED = '#BA4460';
+const UP_TEXT_COLOR = '#FD3759';
+const DOWN_TEXT_COLOR = '#57FEA9';
 
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const DEVICE_WIDTH = Dimensions.get('window').width;
@@ -53,6 +55,8 @@ export {
   SCREEN_BGCOLOR,
   CARD_HEADER_BGCOLOR,
   BTN_BGCOLOR_RED,
+  UP_TEXT_COLOR,
+  DOWN_TEXT_COLOR,
 
   DEVICE_HEIGHT,
   DEVICE_WIDTH,
