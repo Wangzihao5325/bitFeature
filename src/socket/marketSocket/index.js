@@ -35,7 +35,7 @@ class MarketSocket {
     for (let i = 0; i < 2; i++) {// to do ... 此处暂时只订阅2条合约
       let commodity_details = commodity_list[i];
       let contract_no_obj = isMain ? commodity_details.contract_no_list.filter(function (item) { return (item.flags === 1); }) : commodity_details.contract_no_list[index];
-      /*此处配置信息分为两部分处理structure／others，因为structure是后台约定的合约标识 */
+      /*此处配置信息分为两部分处理structure／others，因为structure是后台约定的合约标识,others为配置信息 */
       let contract_structure = {
         'security_type': commodity_details.security_type,
         'exchange_no': commodity_details.exchange_no,

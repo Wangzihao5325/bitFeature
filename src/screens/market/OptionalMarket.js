@@ -13,7 +13,8 @@ class ItemContent extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     if (this.props.price === nextProps.price &&
       this.props.changeRate === nextProps.changeRate &&
-      this.props.changeNum === nextProps.changeNum) {
+      this.props.changeNum === nextProps.changeNum &&
+      this.props.title === nextProps.title) {
       return false;
     }
     return true;
