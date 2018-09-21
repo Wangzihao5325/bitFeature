@@ -6,7 +6,8 @@
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
 import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
-import { contractMap2Config } from '../../global/commodity_list';
+import { contractMap2Config, aliveContractList, aliveContractSnapShot } from '../../global/commodity_list';
+import _ from 'lodash';
 class MarketSocket {
   constructor(url) {
     this.url = url;
@@ -27,6 +28,10 @@ class MarketSocket {
     let json = { 'method': 'req_subscribe', 'data': listObj };
     this.ws.send(JSON.stringify(json));
   }
+  _unsubscribe(listObj) {
+    let json = { 'method': 'req_unsubscribe', 'data': listObj };
+    this.ws.send(JSON.stringify(json));
+  }
 
   /*查找需要订阅的合约，返回对应的结构体集合 */
   contractFilter(rtnData, isMain, index) {
@@ -42,8 +47,8 @@ class MarketSocket {
         'commodity_no': commodity_details.commodity_no,
         'contract_no': contract_no_obj[0].contract_no
       };
-      let contractName = commodity_details.commodity_no + contract_no_obj[0].contract_no
-      contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size }
+      let contractName = commodity_details.commodity_no + contract_no_obj[0].contract_no;
+      contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, structure: contract_structure };
       //console.log(contractMap2Config); // ... debug log
       subscribe_list.push(contract_structure);
     }
@@ -55,7 +60,24 @@ class MarketSocket {
   updateMarketStoreData(rtnObj) {
     store.dispatch(action_updateStore(rtnObj));
   }
+  managerAliveContractList(rtnObj) {
+    console.log(rtnObj);
+    let successArr = rtnObj.data.succ_list;
+    successArr.map(function (item) {
+      let name = item.commodity_no + item.contract_no;
+      aliveContractList.push(name);
+    })
+  }
+  managerAliveContractList2(rtnObj) {
+    console.log(rtnObj);
+    let successArr = rtnObj.data.contract_list;
+    successArr.map(function (item) {
+      let name = item.commodity_no + item.contract_no;
+      _.pull(aliveContractList, name);
+    })
+  }
 
+  /*初次链接socket*/
   connectSocket() {
     this.ws = new WebSocket(this.url);
 
@@ -72,7 +94,7 @@ class MarketSocket {
     }
     this.ws.onmessage = (evt) => {
       let data = JSON.parse(evt.data);
-      console.log(data);  // ... debug log
+      //console.log(data);  // ... debug log
       switch (data.method) {
         case 'on_rsp_login':                                      //登陆成功 -> 查询合约品种
           this._queryComList();
@@ -82,11 +104,44 @@ class MarketSocket {
           this.marketStoreInit(subscribe_list);
           this._subscribe(subscribe_list);
           break;
+        case 'on_rsp_subscribe':                                  //订阅成功 -> 维护合约状态列表
+          this.managerAliveContractList(data);
+          break;
+        case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
+          this.managerAliveContractList2(data);
+          break;
         case 'on_rtn_quote':                                      //收到ticker -> 更新数据
           this.updateMarketStoreData(data);
           break;
       }
     }
+  }
+
+  /*退订其他合约，只保留正在查看的一条(to do 需要保留有持仓的行情)*/
+  otherContractPause(contract, isSnap) {
+    let reg = [];
+    aliveContractList.map(function (item) {
+      if (item !== contract) {
+        let structure = contractMap2Config[item].structure;
+        reg.push(structure);
+      }
+    });
+    if (isSnap) {
+      _.pullAll(aliveContractSnapShot, aliveContractSnapShot);
+      _.assign(aliveContractSnapShot, aliveContractList);
+    }
+    this._unsubscribe(reg);
+  }
+  /*恢复快照中合约的订阅*/
+  contractGoingOn() {
+    let reg = [];
+    let arr = aliveContractSnapShot.concat();
+    _.pullAll(arr, aliveContractList);
+    arr.map(function (item) {
+      let structure = contractMap2Config[item].structure;
+      reg.push(structure);
+    });
+    this._subscribe(reg);
   }
 }
 
