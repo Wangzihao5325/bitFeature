@@ -40,14 +40,18 @@ class ItemContent extends Component {
   }
 }
 class OptionalMarket extends Component {
+  static contextTypes = {
+    marketNavigation: PropTypes.object
+  }
   render() {
+    const { marketNavigation } = this.context;
     let { marketStore } = this.props;
     let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
     return (
       <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
         {contractList.map(function (item) {
           let contractStore = marketStore[item];
-          return (<ItemContent key={item} title={contractMap2Config[item].fullName} dotSize={contractMap2Config[item].dotSize} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => { console.log('1234') }} />)
+          return (<ItemContent key={item} title={contractMap2Config[item].fullName} dotSize={contractMap2Config[item].dotSize} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => marketNavigation.navigate('MarketDetailScreen',{contract:`${item}`})} />)
         })}
       </View>
     );

@@ -20,7 +20,9 @@ export default class MarketDetailScreen extends Component {
   componentDidMount() {
     this.props.navigation.setParams({ showDrawer: this._openDrawer });
   }
-  
+  shouldComponentUpdate(){
+    return false            //发现navi至页面render了2次，先禁止了 ... to do
+  }
   constructor(){
     super();
     this.isDrawerShow = false;
@@ -33,6 +35,7 @@ export default class MarketDetailScreen extends Component {
     }
   };
   render() {
+    const name = this.props.navigation.getParam('contract', 'undefine_contract');
     const drawerStyles = {
       drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
       main: { paddingLeft: 3 },
