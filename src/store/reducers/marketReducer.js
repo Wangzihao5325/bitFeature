@@ -25,8 +25,11 @@ function objCreate(name) {
     }
   );
 }
+/*数据分为两部分变化部分和 配置部分（contractMap2Config）两边在初始状态要对齐 */
 const initialState = {
-  undefine_contract: objCreate('undefine_contract')
+  undefine_contract: objCreate('undefine_contract'),
+  undefine_contract1: objCreate('undefine_contract1'),
+  undefine_contract2: objCreate('undefine_contract2')
 };
 
 const reducer = (state = initialState, action) => {

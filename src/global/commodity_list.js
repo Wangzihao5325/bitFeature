@@ -1,6 +1,8 @@
 /*查询到的合约的配置信息，只增加不删减*/
 let contractMap2Config = {
-  'undefine_contract':{fullName:'undefined',dotSize:2}
+  'undefine_contract':{fullName:'undefined',dotSize:2},
+  'undefine_contract1':{fullName:'undefined',dotSize:2},
+  'undefine_contract2':{fullName:'undefined',dotSize:2}
 };
 
 /*当前订阅状态的合约列表，用于退订合约时使用*/
