@@ -11,7 +11,8 @@ class MineScreen extends Component {
   static navigationOptions = {
     title: TAB_NAVI_NAME[3],
     headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+      backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
+      borderBottomColor:'black',
     },
     headerTintColor: HEADER_TINT_COLOR
   }

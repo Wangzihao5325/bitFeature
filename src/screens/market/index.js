@@ -12,7 +12,8 @@ export default class MarketScreen extends Component {
       title: TAB_NAVI_NAME[0],  //header标题
       headerRight: (<VectorIconBtn name='search' onPress={navigation.getParam('search')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
       headerStyle: {
-        backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
+        borderBottomColor:'black',
       },
       headerTintColor: HEADER_TINT_COLOR
     }
@@ -39,8 +40,8 @@ export default class MarketScreen extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <UsualTabBar tabNames={['自选', '商品', '股指外汇', 'LME金属', '利率期货', '数字货币', '中金所', '郑商所', '上期所', '大商所']} tabTap={(keyValue) => { console.log('!!!!____' + keyValue) }} />
+      <View style={{ flex: 1,backgroundColor:'black' }}>
+        <UsualTabBar tabNames={['自选', '商品', '股指', '有色', '外汇', '利率', '数字货币', 'LME金属']} tabTap={(keyValue) => { console.log('!!!!____' + keyValue) }} />
         <OptionalMarket />
       </View>
     );

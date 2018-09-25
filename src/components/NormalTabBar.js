@@ -67,7 +67,7 @@ class TabBtn extends Component {       //tabBar的定制btn
     let tabStyle = this.state.isHighLight ? styles.tabBtnHighlight : styles.tabBtnNormal;
     let textStyle = this.state.isHighLight ? styles.tabTextHighlight : styles.tabTextNormal;
     return (
-      <TouchableHighlight style={[styles.tabBtnCommon, tabStyle]} onPress={this.tabTap}>
+      <TouchableHighlight style={[styles.tabBtnCommon, tabStyle]} onPress={this.tabTap} underlayColor={NORMAL_BACKGROUNDCOLOR}>
         <Text style={[styles.tabTextCommon, textStyle]}>{this.props.tabText}</Text>
       </TouchableHighlight>
     );
@@ -118,6 +118,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: NORMAL_BACKGROUNDCOLOR,
+    borderBottomColor:'black',
+    borderBottomWidth:StyleSheet.hairlineWidth
   },
   tabBtnCommon: {
     height: NORMAL_BTNHEIGHT,
