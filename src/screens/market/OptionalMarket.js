@@ -26,7 +26,7 @@ class ItemContent extends Component {
     let changeNumText = rateStrGenerator(this.props.changeNum, dotSize, false);
     let color = this.props.changeRate >= 0 ? { color: UP_TEXT_COLOR } : { color: DOWN_TEXT_COLOR };
     return (
-      <TouchableHighlight style={styles.itemContent} onPress={this.props.onPress}>
+      <TouchableHighlight style={[styles.itemContent, { borderLeftWidth: 1,borderRightWidth:1,borderLeftColor:'black',borderRightColor:'black' }]} onPress={this.props.onPress}>
         <View style={[styles.itemContent, CommonStyles.innerAbsCenterStyle, { backgroundColor: 'transparent' }]}>
           <Text style={styles.titleText}>{this.props.title}</Text>
           <Text style={[styles.priceText, color]}>{priceText}</Text>
@@ -51,7 +51,7 @@ class OptionalMarket extends Component {
       <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
         {contractList.map(function (item) {
           let contractStore = marketStore[item];
-          return (<ItemContent key={item} title={contractMap2Config[item].fullName} dotSize={contractMap2Config[item].dotSize} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => marketNavigation.navigate('MarketDetailScreen',{contract:`${item}`})} />)
+          return (<ItemContent key={item} title={contractMap2Config[item].fullName} dotSize={contractMap2Config[item].dotSize} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => marketNavigation.navigate('MarketDetailScreen', { contract: `${item}` })} />)
         })}
       </View>
     );
