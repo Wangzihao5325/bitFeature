@@ -5,17 +5,21 @@ import { connect } from 'react-redux';
 import CardHeader from '../../components/CardHeader/index';
 import LogoutSubview from './logout/index';
 import LoginSubview from './login/index';
+import VectorIconBtn from '../../components/IconBtn';
 import { SCREEN_BGCOLOR } from '../../global/config';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, TAB_NAVI_NAME } from '../../global/config';
 class MineScreen extends Component {
-  static navigationOptions = {
-    title: TAB_NAVI_NAME[3],
-    headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
-      borderBottomColor:'black',
-    },
-    headerTintColor: HEADER_TINT_COLOR
-  }
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: TAB_NAVI_NAME[3],  //header标题
+      headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
+      headerStyle: {
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
+        borderBottomColor: 'black',
+      },
+      headerTintColor: HEADER_TINT_COLOR
+    }
+  };
   /* context - https://www.jianshu.com/p/eba2b76b290b */
   static childContextTypes = {
     mineNavigation: PropTypes.object,       // 声明Context对象属性
@@ -25,12 +29,18 @@ class MineScreen extends Component {
       mineNavigation: this.props.navigation // 返回Context对象
     }
   }
+  componentDidMount() {
+    this.props.navigation.setParams({ customService: this._customService });
+  }
+  _customService = () => {
+    console.log('customService');
+  }
   _login = () => {
     this.props.navigation.navigate('AccountLogScreen');
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: SCREEN_BGCOLOR }}>
+      <View style={{ flex: 1, backgroundColor: 'black' }}>
         <CardHeader showAccountLogin={this._login} />
         {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
       </View>

@@ -2,7 +2,7 @@ import * as types from '../actionType';
 
 const initialState = {
   isLogin: false,
-  user: '请您先登陆',
+  user: '您尚未登陆,无法使用更多功能',
   balance: 0,
   userVerified: true,
   isCertification: false,

@@ -22,7 +22,7 @@ const HEADER_TINT_COLOR = '#5F6E82';
 const DRAW_BGCOLOR = '#1C2533';
 const HEADER_TITLE_BGCOLOR = '#1C2738';
 const SCREEN_BGCOLOR = '#161D26';
-const CARD_HEADER_BGCOLOR = '#131B25';
+const CARD_HEADER_BGCOLOR = '#20212A';
 const BTN_BGCOLOR_RED = '#BA4460';
 const UP_TEXT_COLOR = '#FD3759';
 const DOWN_TEXT_COLOR = '#57FEA9';
@@ -30,7 +30,7 @@ const DOWN_TEXT_COLOR = '#57FEA9';
 const DEVICE_HEIGHT = Dimensions.get('window').height;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const ICON_SIZE = 24;
-const CARD_HEADER_HEIGHT = 170;
+const CARD_HEADER_HEIGHT = 265;
 export {
   PLATFORM_DOMAIN,
   APP_VERSIONS,

@@ -1,5 +1,5 @@
 const LOGOUT_STR = '退出账户';
-const LOGIN_STR = '登陆';
+const LOGIN_STR = '登录';
 const REGISTER_STR = '注册';
 
 const ACCOUNT_BALANCE_STR = '余额';
