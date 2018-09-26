@@ -7,6 +7,7 @@ import CommonStyle from '../../global/common_styles';
 import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../global/config';
 import UsualTabBar from '../../components/NormalTabBar';
 import OptionalMarket from './OptionalMarket';
+import MarketList from './MarketList';
 export default class MarketScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -61,12 +62,13 @@ export default class MarketScreen extends Component {
         closedDrawerOffset={-3}
         styles={drawerStyles}
         tweenHandler={(ratio) => ({
-          main: { opacity: (2 - ratio) / 2 }
+          main: { opacity: (5 - ratio) / 5 }
         })}
       >
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <UsualTabBar tabNames={['自选', '商品', '股指', '有色', '外汇', '利率', '数字货币', 'LME金属']} tabTap={(keyValue) => { console.log('!!!!____' + keyValue) }} />
           <OptionalMarket />
+          <MarketList/>
         </View>
       </Drawer>
     );
