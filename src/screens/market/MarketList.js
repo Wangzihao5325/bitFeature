@@ -13,7 +13,18 @@ const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const FONT_SIZE = 18;
 const DEFAULT_DOT_SIZES = 2;
 class ListHeader extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps.isTradeValue !== this.props.isTradeValue) {
+      return true;
+    }
+    if (nextProps.isRate !== this.props.isRate) {
+      return true;
+    }
+    return false;
+  }
   render() {
+    let volumeText = this.props.isTradeValue ? '成交量' : '持仓量';
+    let rateText = this.props.isRate ? '涨跌幅' : '涨跌额';
     return (
       <View style={[styles.headerContainer, CommonStyles.innerLineCenterStyle]}>
         <View style={{ flex: 4, paddingLeft: 10 }}>
@@ -21,7 +32,7 @@ class ListHeader extends Component {
         </View>
         <View style={[CommonStyles.innerLineCenterStyle, { flex: 6 }]}>
           <Text style={[styles.partContainer, { color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE }]}>最新价</Text>
-          <TouchableHighlight style={styles.partContainer}>
+          <TouchableHighlight style={styles.partContainer} onPress={this.props.onChangeVolume}>
             <View style={CommonStyles.innerLineCenterStyle}>
               <Icon
                 name="caret-down"
@@ -29,10 +40,10 @@ class ListHeader extends Component {
                 color={NORMAL_TEXTCOLOR}
                 style={{ position: 'absolute', bottom: -5, left: -12, transform: [{ rotate: '45deg' }] }}
               />
-              <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE }}>成交量</Text>
+              <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE }}>{volumeText}</Text>
             </View>
           </TouchableHighlight>
-          <TouchableHighlight style={styles.partContainer}>
+          <TouchableHighlight style={styles.partContainer} onPress={this.props.onChangeRate}>
             <View style={CommonStyles.innerLineCenterStyle}>
               <Icon
                 name="caret-down"
@@ -40,7 +51,7 @@ class ListHeader extends Component {
                 color={NORMAL_TEXTCOLOR}
                 style={{ position: 'absolute', bottom: -5, left: -12, transform: [{ rotate: '45deg' }] }}
               />
-              <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE }}>涨跌幅</Text>
+              <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE }}>{rateText}</Text>
             </View>
           </TouchableHighlight>
         </View>
@@ -115,6 +126,24 @@ class MarkList extends Component {
   static contextTypes = {
     marketNavigation: PropTypes.object
   }
+  state = {
+    isRate: true,
+    isTradeValue: true
+  }
+  _changeVolume = () => {
+    this.setState((prevState, props) => {
+      return {
+        isTradeValue: !prevState.isTradeValue
+      }
+    });
+  }
+  _changeRate = () => {
+    this.setState((prevState, props) => {
+      return {
+        isRate: !prevState.isRate
+      }
+    });
+  }
   render() {
     const { marketNavigation } = this.context;
     let { marketStore } = this.props;
@@ -122,10 +151,15 @@ class MarkList extends Component {
     let pickedContractList = _.pick(marketStore, contractList);//当前为冗余，后续需要筛选合约
     let data = _.values(pickedContractList);
     return (
-      <View style={{ marginTop: 6 ,flex:1}}>
-        <ListHeader />
+      <View style={{ marginTop: 6, flex: 1 }}>
+        <ListHeader
+          onChangeVolume={this._changeVolume}
+          onChangeRate={this._changeRate}
+          isRate={this.state.isRate}
+          isTradeValue={this.state.isTradeValue}
+        />
         <FlatList
-          style={{flex:1}}
+          style={{ flex: 1 }}
           alwaysBounceVertical={false}
           data={data}
           renderItem={
@@ -138,6 +172,8 @@ class MarkList extends Component {
               tradeValue={item.volume}
               holdValue={item.position}
               onPress={() => marketNavigation.navigate('MarketDetailScreen', { contract: `${item.contract_name}` })}
+              isRate={this.state.isRate}
+              isTradeValue={this.state.isTradeValue}
             />
           }
         />
