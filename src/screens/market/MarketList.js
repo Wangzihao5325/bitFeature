@@ -92,22 +92,31 @@ class ItemComponent extends Component {
     let valueText = this.props.isTradeValue ? this.props.tradeValue : this.props.holdValue;
     let colorStyle = this.props.changeRate >= 0 ? { color: UP_TEXT_COLOR } : { color: DOWN_TEXT_COLOR };
     return (
-      <View style={[{ height: 61, width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: 'black', borderBottomWidth: StyleSheet.hairlineWidth }, CommonStyles.innerLineCenterStyle]}>
-        <View style={{ flex: 4, paddingLeft: 10 }}>
-          <Text style={{ color: 'white', fontSize: 18 }}>{contractName}</Text>
-          <Text style={{ color: NORMAL_TEXTCOLOR }}>{this.props.contractNo}</Text>
+      <TouchableHighlight
+        onPress={this.props.onPress}
+        style={[{ height: 61, width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: 'black', borderBottomWidth: StyleSheet.hairlineWidth }]}
+      >
+        <View style={[{ flex: 1 }, CommonStyles.innerLineCenterStyle]}>
+          <View style={{ flex: 4, paddingLeft: 10 }}>
+            <Text style={{ color: 'white', fontSize: 18 }}>{contractName}</Text>
+            <Text style={{ color: NORMAL_TEXTCOLOR }}>{this.props.contractNo}</Text>
+          </View>
+          <View style={[{ flex: 6 }, CommonStyles.innerLineCenterStyle]}>
+            <View style={[CommonStyles.innerAbsCenterStyle, styles.partContainer]}><Text style={colorStyle}>{priceText}</Text></View>
+            <View style={[CommonStyles.innerAbsCenterStyle, styles.partContainer]}><Text style={{ color: 'white' }}>{valueText}</Text></View>
+            <View style={[CommonStyles.innerAbsCenterStyle, styles.partContainer]}><Text style={colorStyle}>{changeText}</Text></View>
+          </View>
         </View>
-        <View style={[{ flex: 6 }, CommonStyles.innerLineCenterStyle]}>
-          <View style={[CommonStyles.innerAbsCenterStyle, styles.partContainer]}><Text style={colorStyle}>{priceText}</Text></View>
-          <View style={[CommonStyles.innerAbsCenterStyle, styles.partContainer]}><Text style={{ color: 'white' }}>{valueText}</Text></View>
-          <View style={[CommonStyles.innerAbsCenterStyle, styles.partContainer]}><Text style={colorStyle}>{changeText}</Text></View>
-        </View>
-      </View>
+      </TouchableHighlight>
     );
   }
 }
 class MarkList extends Component {
+  static contextTypes = {
+    marketNavigation: PropTypes.object
+  }
   render() {
+    const { marketNavigation } = this.context;
     let { marketStore } = this.props;
     let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
     let pickedContractList = _.pick(marketStore, contractList);//当前为冗余，后续需要筛选合约
@@ -116,6 +125,7 @@ class MarkList extends Component {
       <View style={{ marginTop: 6 }}>
         <ListHeader />
         <FlatList
+          alwaysBounceVertical={false}
           data={data}
           renderItem={
             ({ item }) => <ItemComponent
@@ -126,6 +136,7 @@ class MarkList extends Component {
               changeNum={item.change_value}
               tradeValue={item.volume}
               holdValue={item.position}
+              onPress={() => marketNavigation.navigate('MarketDetailScreen', { contract: `${item.contract_name}` })}
             />
           }
         />
