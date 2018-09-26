@@ -6,7 +6,7 @@ import _ from 'lodash';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { contractMap2Config } from '../../global/commodity_list';
 import { rateStrGenerator, priceStr2Generator } from '../../global/util/index';
-import { DEVICE_WIDTH, UP_TEXT_COLOR, DOWN_TEXT_COLOR } from '../../global/config';
+import { DEVICE_WIDTH, DEVICE_HEIGHT, UP_TEXT_COLOR, DOWN_TEXT_COLOR } from '../../global/config';
 import CommonStyles from '../../global/common_styles';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -94,7 +94,7 @@ class ItemComponent extends Component {
     return (
       <TouchableHighlight
         onPress={this.props.onPress}
-        style={[{ height: 61, width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: 'black', borderBottomWidth: StyleSheet.hairlineWidth }]}
+        style={[{ height: 61, width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: 'black', borderBottomWidth: 1 }]}
       >
         <View style={[{ flex: 1 }, CommonStyles.innerLineCenterStyle]}>
           <View style={{ flex: 4, paddingLeft: 10 }}>
@@ -122,9 +122,10 @@ class MarkList extends Component {
     let pickedContractList = _.pick(marketStore, contractList);//当前为冗余，后续需要筛选合约
     let data = _.values(pickedContractList);
     return (
-      <View style={{ marginTop: 6 }}>
+      <View style={{ marginTop: 6 ,flex:1}}>
         <ListHeader />
         <FlatList
+          style={{flex:1}}
           alwaysBounceVertical={false}
           data={data}
           renderItem={

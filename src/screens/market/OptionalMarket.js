@@ -26,7 +26,7 @@ class ItemContent extends Component {
     let changeNumText = rateStrGenerator(this.props.changeNum, dotSize, false);
     let color = this.props.changeRate >= 0 ? { color: UP_TEXT_COLOR } : { color: DOWN_TEXT_COLOR };
     return (
-      <TouchableHighlight style={[styles.itemContent, { borderLeftWidth: 1,borderRightWidth:1,borderLeftColor:'black',borderRightColor:'black' }]} onPress={this.props.onPress}>
+      <TouchableHighlight style={[styles.itemContent, { borderLeftWidth: 1, borderRightWidth: 1, borderLeftColor: 'black', borderRightColor: 'black' }]} onPress={this.props.onPress}>
         <View style={[styles.itemContent, CommonStyles.innerAbsCenterStyle, { backgroundColor: 'transparent' }]}>
           <Text style={styles.titleText}>{this.props.title}</Text>
           <Text style={[styles.priceText, color]}>{priceText}</Text>
@@ -47,6 +47,10 @@ class OptionalMarket extends Component {
     const { marketNavigation } = this.context;
     let { marketStore } = this.props;
     let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
+    //let contractList = ['CD1812','CU3M','ZN3M'];
+    if (contractList.length > 3) {
+      contractList = contractList.slice(0,3);
+    }
     return (
       <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
         {contractList.map(function (item) {
