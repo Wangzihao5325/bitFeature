@@ -5,23 +5,33 @@ import { action_getbalancerate, action_login } from '../../../store/actions/acco
 import Api from '../../../socket/platform/api';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
+import VectorIconBtn from '../../../components/IconBtn';
 import Variables from '../../../global/Variables';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
 
 let reg = { accountInput: '', passwordInput: '' };
 export default class AccountLogScreen extends Component {
-  static navigationOptions = {
-    title: '登陆',
-    headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR
-    },
-    headerTintColor: HEADER_TINT_COLOR
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: '登录',  //header标题
+      headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
+      headerStyle: {
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
+        borderBottomColor: 'black',
+      },
+      headerTintColor: HEADER_TINT_COLOR
+    }
   };
-
   constructor() {
     super();
     this._loginSuccess = this._loginSuccess.bind(this);
     this._getbalancerateSuccess = this._getbalancerateSuccess.bind(this);
+  }
+  componentDidMount() {
+    this.props.navigation.setParams({ customService: this._customService });
+  }
+  _customService = () => {
+    console.log('customService');
   }
   _getbalancerateSuccess = (result) => {
     store.dispatch(action_getbalancerate(result));
