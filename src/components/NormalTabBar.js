@@ -87,7 +87,7 @@ export default class UsualTabBar extends Component {
 
   tabTap = (keyValue) => {
     this.setState({ HighlightIndex: keyValue });
-    this.props.tabTap(keyValue);
+    this.props.tabTap(this.tabNames[keyValue]);
   }
 
   tabsGenerator = (count) => {
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: NORMAL_BACKGROUNDCOLOR,
-    borderBottomColor:'black',
-    borderBottomWidth:StyleSheet.hairlineWidth
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth
   },
   tabBtnCommon: {
     height: NORMAL_BTNHEIGHT,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     marginHorizontal: NORMAL_MARGINHOR,
     alignSelf: 'center',
-    fontSize:15
+    fontSize: 15
   },
   tabTextNormal: {
     color: NORMAL_TEXTCOLOR,
