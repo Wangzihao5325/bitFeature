@@ -46,14 +46,14 @@ class ComponentFooter extends Component {
         <CardBalance />
         <View style={[CommonStyle.innerLineCenterStyle, { justifyContent: 'space-around', height: 70, width: DEVICE_WIDTH }]}>
           <NormalBtn
-            title={LOGIN_STR}
-            onPress={this.props.showAccountLogin}
+            title={this.props.isLogin ? '我要充值' : LOGIN_STR}
+            onPress={this.props.isLogin ? this.props.recharge : this.props.showAccountLogin}
             titleStyle={{ color: 'black' }}
             style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
           />
           <NormalBtn
-            title={REGISTER_STR}
-            onPress={() => { console.log(12345) }}
+            title={this.props.isLogin ? '我要提现' : REGISTER_STR}
+            onPress={this.props.isLogin ? this.props.withDraw : this.props.register}
             titleStyle={{ color: 'black' }}
             style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
           />
@@ -68,7 +68,7 @@ class CardHeader extends Component {
       <View style={styles.container}>
         <ComponentHeader isLogin={this.props.isLogin} user={this.props.user} />
         <View style={[{ height: 40, width: DEVICE_WIDTH, backgroundColor: 'black' }, CommonStyle.innerAbsCenterStyle]}><Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>- 账户余额 -</Text></View>
-        <ComponentFooter isLogin={this.props.isLogin} balance={this.props.balance} showAccountLogin={this.props.showAccountLogin} />
+        <ComponentFooter isLogin={this.props.isLogin} balance={this.props.balance} showAccountLogin={this.props.showAccountLogin} register={this.props.register} withDraw={this.props.withDraw} recharge={this.props.recharge} />
       </View>
     );
   }

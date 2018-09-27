@@ -11,6 +11,7 @@ import Variables from '../../../global/Variables';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
+const HIGHLIGHT_BGCOLOR = '#FED330';
 let reg = { accountInput: '', passwordInput: '' };
 export default class AccountLogScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -64,8 +65,8 @@ export default class AccountLogScreen extends Component {
         <NormalBtn
           disabled={false}
           title='登陆'
-          style={{ height: 45, width: DEVICE_WIDTH - 20, backgroundColor: BTN_BGCOLOR_RED, alignSelf: 'center', marginTop: 40 }}
-          titleStyle={{ color: 'white' }}
+          style={{ height: 45, width: DEVICE_WIDTH - 20, backgroundColor: HIGHLIGHT_BGCOLOR, alignSelf: 'center', marginTop: 40 }}
+          titleStyle={{ color: 'black' }}
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}
           onPress={this._login}
         />

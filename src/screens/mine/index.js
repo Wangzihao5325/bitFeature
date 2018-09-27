@@ -41,11 +41,20 @@ class MineScreen extends Component {
   _login = () => {
     this.props.navigation.navigate('AccountLogScreen');
   }
+  _register = () => {
+    console.log('!!!!!!!!注册!!!!!');
+  }
+  _withDraw = () => {
+    console.log('!!!!!!!!提现!!!!!');
+  }
+  _recharge = () => {
+    console.log('!!!!!!!!充值!!!!!');
+  }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
         <CustomChooseModel />
-        <CardHeader showAccountLogin={this._login} />
+        <CardHeader showAccountLogin={this._login} register={this._register} withDraw={this._withDraw} recharge={this._recharge} />
         {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
       </View>
     );
