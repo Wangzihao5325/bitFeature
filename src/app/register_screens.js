@@ -14,7 +14,7 @@ import NewsScreen from '../screens/news';
 import MineScreen from '../screens/mine/index';
 import AccountLogScreen from '../screens/mine/logout/accountLog';
 import RechargeScreen from '../screens/mine/login/recharge/index';
-// import CustomerServiceScreen from '../screens/mine/customerService/index.test';
+import CustomerServiceScreen from '../screens/mine/customerService/index';
 
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
@@ -75,7 +75,8 @@ let MineStack = createStackNavigator(                       //我的
   {
     MineScreen,
     AccountLogScreen,
-    RechargeScreen
+    RechargeScreen,
+    CustomerServiceScreen
   },
   {
     navigationOptions: {
