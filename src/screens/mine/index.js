@@ -6,6 +6,7 @@ import CardHeader from '../../components/CardHeader/index';
 import LogoutSubview from './logout/index';
 import LoginSubview from './login/index';
 import VectorIconBtn from '../../components/IconBtn';
+import CustomChooseModel from './customerService/CustomChooseModel';
 import { SCREEN_BGCOLOR } from '../../global/config';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, TAB_NAVI_NAME } from '../../global/config';
 class MineScreen extends Component {
@@ -33,7 +34,7 @@ class MineScreen extends Component {
     this.props.navigation.setParams({ customService: this._customService });
   }
   _customService = () => {
-    console.log('customService');
+    this.props.navigation.navigate('CustomerServiceScreen');
   }
   _login = () => {
     this.props.navigation.navigate('AccountLogScreen');
@@ -41,6 +42,7 @@ class MineScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
+        <CustomChooseModel/>
         <CardHeader showAccountLogin={this._login} />
         {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
       </View>

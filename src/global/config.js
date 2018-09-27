@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
 const PLATFORM_DOMAIN = 'http://test.api.duokongtai.cn';
+const CUSTOM_SERVICE_URL = 'http://www.vs.com/topic/consistentBeauty/qiw_quoteApp_service.html';
 const APP_VERSIONS = 6.1;
 const MARKET_DOMAIN = 'ws://quote.vs.com:9102';
 const MARKET_USER_NAME = 'fut_game_inner';
@@ -33,6 +34,7 @@ const ICON_SIZE = 24;
 const CARD_HEADER_HEIGHT = 265;
 export {
   PLATFORM_DOMAIN,
+  CUSTOM_SERVICE_URL,
   APP_VERSIONS,
   MARKET_DOMAIN,
   MARKET_USER_NAME,
