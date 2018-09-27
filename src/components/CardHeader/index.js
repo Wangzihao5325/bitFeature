@@ -67,7 +67,7 @@ class CardHeader extends Component {
     return (
       <View style={styles.container}>
         <ComponentHeader isLogin={this.props.isLogin} user={this.props.user} />
-        <View style={[{ height: 40, width: DEVICE_WIDTH, backgroundColor: 'black' }, CommonStyle.innerAbsCenterStyle]}><Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>- 账户余额 -</Text></View>
+        <View style={[{ height: 40, width: DEVICE_WIDTH, backgroundColor: '#17191E' }, CommonStyle.innerAbsCenterStyle]}><Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>- 账户余额 -</Text></View>
         <ComponentFooter isLogin={this.props.isLogin} balance={this.props.balance} showAccountLogin={this.props.showAccountLogin} register={this.props.register} withDraw={this.props.withDraw} recharge={this.props.recharge} />
       </View>
     );

@@ -5,25 +5,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CommonStyles from '../../../global/common_styles';
 import { DEVICE_WIDTH, ICON_SIZE, DEFAULT_GRAY } from '../../../global/config';
 import {
-  I_WILL_RECHARGE, I_WILL_WITHDRAW, CAPITAL_DETAILS, NAME_CERTIFICATION,
-  BIND_CARD, BIND_PHONE, CHANGE_LOGIN_PASSWORDS, TRADE_ACCOUNT
+  I_WILL_RECHARGE, I_WILL_WITHDRAW, CAPITAL_DETAILS, ACCOUNT_LIST,
+  BIND_CARD, BIND_PHONE, CHANGE_LOGIN_PASSWORDS, APP_VERSION
 } from '../../../global/I18n';
 
 const itemsData = [
-  { key: I_WILL_RECHARGE, iconName: 'shield' },
-  { key: I_WILL_WITHDRAW, iconName: 'shield' },
   { key: CAPITAL_DETAILS, iconName: 'shield' },
-  { key: NAME_CERTIFICATION, iconName: 'shield' },
+  { key: ACCOUNT_LIST, iconName: 'shield' },
   { key: BIND_CARD, iconName: 'shield' },
   { key: BIND_PHONE, iconName: 'shield' },
   { key: CHANGE_LOGIN_PASSWORDS, iconName: 'shield' },
-  { key: TRADE_ACCOUNT, iconName: 'shield' }
+  { key: APP_VERSION, iconName: 'shield' }
 ];
 const DefaultIconColor = '#3B475F';
 const ItemsHeight = 39;
 const MarginSize = 10;
 const TotalHeight = 324;
-
+const NORMAL_BACKGROUNDCOLOR = '#20212A';
 class ItemBtn extends Component {
   constructor() {
     super();
@@ -53,8 +51,15 @@ class ItemBtn extends Component {
     }
   }
   render() {
+    let contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1, backgroundColor: NORMAL_BACKGROUNDCOLOR };
+    if (this.props.title === BIND_CARD) {
+      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1+20, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: '#17191E', borderTopColor: '#17191E', borderBottomWidth: 10, borderTopWidth: 10 };
+    }
+    if (this.props.title === APP_VERSION) {
+      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1+10, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderTopColor: '#17191E', borderTopWidth: 10 };
+    }
     return (
-      <TouchableHighlight style={{ width: DEVICE_WIDTH, height: ItemsHeight + 1 }} onPress={this._onPress}>
+      <TouchableHighlight style={contentStyle} onPress={this._onPress}>
         <View style={[{ height: ItemsHeight, width: DEVICE_WIDTH, display: 'flex', justifyContent: 'space-between' }, CommonStyles.innerLineCenterStyle]}>
           <View style={[CommonStyles.innerLineCenterStyle, { height: ItemsHeight, width: 150, marginLeft: MarginSize }]}>
             <Icon name={this.props.iconName} size={this.props.iconSize} color={this.props.iconColor} />
@@ -75,13 +80,13 @@ export default class LoginSubview extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
+      <View style={{ flex: 1, backgroundColor: '#17191E', borderTopWidth: 10, borderTopColor: '#17191E' }}>
         <FlatList
-          scrollEnabled={true}
+          alwaysBounceVertical={false}
           style={{ flex: 1 }}
           data={itemsData}
           renderItem={this._renderItem}
-          ItemSeparatorComponent={() => <View style={{ height: 1, width: DEVICE_WIDTH - 16, marginLeft: 8, backgroundColor: '#252E3C' }} />}
+          ItemSeparatorComponent={() => <View style={{ height: 1, width: DEVICE_WIDTH - 16, marginLeft: 8, backgroundColor: '#17191E' }} />}
         />
       </View>
     );
