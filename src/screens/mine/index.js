@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import store from '../../store/index';
+import { action_custom_service_model_show } from '../../store/actions/customServiceAction';
 import CardHeader from '../../components/CardHeader/index';
 import LogoutSubview from './logout/index';
 import LoginSubview from './login/index';
@@ -34,7 +36,7 @@ class MineScreen extends Component {
     this.props.navigation.setParams({ customService: this._customService });
   }
   _customService = () => {
-    this.props.navigation.navigate('CustomerServiceScreen');
+    store.dispatch(action_custom_service_model_show());
   }
   _login = () => {
     this.props.navigation.navigate('AccountLogScreen');
@@ -42,7 +44,7 @@ class MineScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
-        <CustomChooseModel/>
+        <CustomChooseModel />
         <CardHeader showAccountLogin={this._login} />
         {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
       </View>

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { View, Modal, Text } from 'react-native';
+import { View, Modal, Text, TouchableHighlight } from 'react-native';
+import { connect } from 'react-redux';
+import store from '../../../store/index';
+import { action_custom_service_model_unshow } from '../../../store/actions/customServiceAction';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../global/config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const marginH = 50;
@@ -19,13 +22,16 @@ class CustomServiceItem extends Component {
     );
   }
 }
-export default class CustomChooseModel extends Component {
+class CustomChooseModel extends Component {
+  _unShow = () => {
+    store.dispatch(action_custom_service_model_unshow());
+  }
   render() {
     return (
       <Modal
         animationType="fade"
         transparent={true}
-        visible={true}
+        visible={this.props.isShow}
       >
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}>
           <View style={{ display: 'flex', width: contentWidth, marginTop: marginV, marginLeft: marginH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
@@ -33,11 +39,17 @@ export default class CustomChooseModel extends Component {
             <CustomServiceItem name={'user'} text='电话客服 - 400-852-8008' style={{ height: contentHeight / 5, width: contentWidth }} />
             <CustomServiceItem name={'user'} text='在线客服 - 实时在线' style={{ height: contentHeight / 5, width: contentWidth }} />
             <CustomServiceItem name={'user'} text='QQ客服 - (暂未上线)' style={{ height: contentHeight / 5, width: contentWidth }} />
-            <View style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', justifyContent: 'center'}}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>取消>></Text></View>
+            <TouchableHighlight onPress={this._unShow} style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>取消>></Text></TouchableHighlight>
           </View>
         </View>
       </Modal>
     );
   }
 }
-//
+function mapState2Props(store) {
+  return {
+    isShow: store.customService.isShow
+  }
+}
+
+export default connect(mapState2Props)(CustomChooseModel);
