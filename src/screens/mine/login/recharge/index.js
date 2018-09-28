@@ -24,7 +24,7 @@ class RechargeScreen extends Component {
     addedBalance: this.props.balance
   }
   _onChangeText = (text) => {
-    let num = parseFloat(text);
+    let num = (text == '') ? 0 : parseFloat(text);//to do ... 优化
     this.setState((prevState, props) => {
       return ({
         addedBalance: props.balance + num

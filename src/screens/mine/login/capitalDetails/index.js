@@ -64,7 +64,6 @@ class CapitalDetailsScreen extends Component {
     store.dispatch(action_custom_service_model_show());
   }
   render() {
-    console.log(this.props.fundList);
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_COMPONENT_BACKGROUNDCOLOR }}>
         <CapitalDetailsHeader

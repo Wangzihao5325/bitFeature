@@ -47,8 +47,8 @@ class MineScreen extends Component {
   _withDraw = () => {
     console.log('!!!!!!!!提现!!!!!');
   }
-  _recharge = () => {
-    console.log('!!!!!!!!充值!!!!!');
+  _recharge = () => {//充值
+    this.props.navigation.navigate('RechargeScreen');
   }
   render() {
     return (
