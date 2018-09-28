@@ -41,7 +41,7 @@ class api {
     let formData = new FormData();
     formData.append('loginName', userName);
     formData.append('password', password);
-    this.requset(url, formData, onSuccess, onError)
+    this.requset(url, formData, onSuccess, onError);
   }
 
   getbalancerate(businessType, couponBusinessType, onSuccess, onError) {
@@ -51,6 +51,14 @@ class api {
     if (couponBusinessType !== null) {
       formData.append('couponBusinessType', couponBusinessType);
     }
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getCapitalDetails(onSuccess, onError) {
+    const url = '/user/fund/list';
+    let formData = new FormData();
+    formData.append('pageIndex', 1);
+    formData.append('size', 10);
     this.requset(url, formData, onSuccess, onError);
   }
 }

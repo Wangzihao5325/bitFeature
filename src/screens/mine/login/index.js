@@ -43,8 +43,8 @@ class ItemBtn extends Component {
   _onPress = () => {
     const { mineNavigation } = this.context
     switch (this.props.title) {
-      case I_WILL_RECHARGE:
-        mineNavigation.navigate('RechargeScreen');
+      case CAPITAL_DETAILS:
+        mineNavigation.navigate('CapitalDetailsScreen');
         break;
       default:
         break;
