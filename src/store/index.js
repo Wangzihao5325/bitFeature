@@ -4,12 +4,14 @@ import testReducer from './reducers/testReducer';
 import accountReducer from './reducers/accountReducer';
 import marketReducer from './reducers/marketReducer';
 import customServiceReducer from './reducers/customServiceReducer';
+import capitalDetailReducer from './reducers/capitalDetailReducer';
 
 const rootReducer = combineReducers({
   test: testReducer,
   account: accountReducer,
   market: marketReducer,
-  customService: customServiceReducer
+  customService: customServiceReducer,
+  capitalDetail: capitalDetailReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

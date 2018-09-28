@@ -3,7 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import Api from '../../../../socket/platform/api';
 import VectorIconBtn from '../../../../components/IconBtn';
 import store from '../../../../store/index';
+import { connect } from 'react-redux';
 import { action_custom_service_model_show } from '../../../../store/actions/customServiceAction';
+import { action_init_capital_detail_store } from '../../../../store/actions/capitalDetailAction';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../../global/config';
 const NORMAL_BGCOLOR = 'black';//#17191E
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#20212A';
@@ -24,7 +26,7 @@ class CapitalDetailsHeader extends Component {
     );
   }
 }
-export default class CapitalDetailsScreen extends Component {
+class CapitalDetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '资金明细',  //header标题
@@ -38,16 +40,36 @@ export default class CapitalDetailsScreen extends Component {
   };
   componentDidMount() {
     this.props.navigation.setParams({ customService: this._customService });
-    Api.getCapitalDetails(function (result) { console.log(result) });
+    Api.getCapitalDetails(this._capitalDetailsGetSuccess);
+  }
+  _capitalDetailsGetSuccess = (result) => {
+    store.dispatch(action_init_capital_detail_store(result));
   }
   _customService = () => {
     store.dispatch(action_custom_service_model_show());
   }
   render() {
+    //console.log(this.props.fundList);
     return (
       <View style={{ flex: 1 }}>
-        <CapitalDetailsHeader incomeNum={3} incomeMoney={3000} outlayNum={10} outlayMoney={10000} />
+        <CapitalDetailsHeader
+          incomeNum={this.props.incomeNum}
+          incomeMoney={this.props.incomeMoney}
+          outlayNum={this.props.outlayNum}
+          outlayMoney={this.props.outlayMoney} />
       </View>
     );
   }
 }
+
+function mapState2Props(store) {
+  return {
+    incomeMoney: store.capitalDetail.incomeMoney,
+    incomeNum: store.capitalDetail.incomeNum,
+    outlayMoney: store.capitalDetail.outlayMoney,
+    outlayNum: store.capitalDetail.outlayNum,
+    fundList: store.capitalDetail.fundList
+  }
+}
+
+export default connect(mapState2Props)(CapitalDetailsScreen);
