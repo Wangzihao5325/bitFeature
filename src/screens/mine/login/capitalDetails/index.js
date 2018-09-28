@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 import Api from '../../../../socket/platform/api';
 import VectorIconBtn from '../../../../components/IconBtn';
 import store from '../../../../store/index';
@@ -15,12 +15,27 @@ const FONT_SIZE = 21;
 class CapitalDetailsHeader extends Component {
   render() {
     return (
-      <View style={{ backgroundColor: NORMAL_BGCOLOR }}>
+      <View style={{ backgroundColor: '#17191E', borderBottomColor: '#17191E', borderBottomWidth: 10 }}>
         <View style={{ backgroundColor: NORMAL_COMPONENT_BACKGROUNDCOLOR, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', alignItems: 'baseline', paddingVertical: 8 }}>
           <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE, marginLeft: 20 }}>收入:</Text><Text style={{ color: 'white', marginHorizontal: 20, fontSize: FONT_SIZE }}>{this.props.incomeNum + ' 笔'}</Text><Text style={{ color: HIGHLIGHT_TEXTCOLOR, fontSize: FONT_SIZE }}>{this.props.incomeMoney + ' 元'}</Text>
         </View>
         <View style={{ marginTop: 1, backgroundColor: NORMAL_COMPONENT_BACKGROUNDCOLOR, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', alignItems: 'baseline', paddingVertical: 8 }}>
           <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: FONT_SIZE, marginLeft: 20 }}>支出:</Text><Text style={{ color: 'white', marginHorizontal: 20, fontSize: FONT_SIZE }}>{this.props.outlayNum + ' 笔'}</Text><Text style={{ color: HIGHLIGHT_TEXTCOLOR, fontSize: FONT_SIZE }}>{this.props.outlayMoney + ' 元'}</Text>
+        </View>
+      </View>
+    );
+  }
+}
+class ListItem extends Component {
+  render() {
+    return (
+      <View style={{ height: 120, width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_COMPONENT_BACKGROUNDCOLOR }}>
+        <View style={{ flex: 1, justifyContent: 'center', borderBottomColor: '#17191E', borderBottomWidth: 1 }}><Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10 }}>{this.props.time}</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center' }}>
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+            <Text style={{ color: 'white', fontSize: 15, marginLeft: 10 }}>{this.props.money}</Text>
+            <Text style={{ color: 'white', fontSize: 15, marginLeft: 20 }}>{this.props.remark}</Text>
+          </View>
         </View>
       </View>
     );
@@ -49,14 +64,22 @@ class CapitalDetailsScreen extends Component {
     store.dispatch(action_custom_service_model_show());
   }
   render() {
-    //console.log(this.props.fundList);
+    console.log(this.props.fundList);
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: NORMAL_COMPONENT_BACKGROUNDCOLOR }}>
         <CapitalDetailsHeader
           incomeNum={this.props.incomeNum}
           incomeMoney={this.props.incomeMoney}
           outlayNum={this.props.outlayNum}
           outlayMoney={this.props.outlayMoney} />
+        {this.props.fundList.length > 0 &&
+          <FlatList
+            style={{ flex: 1 }}
+            data={this.props.fundList}
+            renderItem={({ item }) => <ListItem time={item.payTime} money={item.money} remark={item.remark} />}
+            ItemSeparatorComponent={() => <View style={{ height: 10, width: DEVICE_WIDTH, backgroundColor: '#17191E' }} />}
+          />
+        }
       </View>
     );
   }
