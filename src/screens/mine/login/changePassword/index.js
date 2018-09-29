@@ -4,11 +4,13 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../
 import Variables from '../../../../global/Variables';
 import VectorIconBtn from '../../../../components/IconBtn';
 import NormalBtn from '../../../../components/NormalBtn';
+import Api from '../../../../socket/platform/api';
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARKER_BGCOLOR = '#17191E';
 const HIGHLIGHT_BGCOLOR = '#FED330';
+let reg = { pwd: '', pwdConfirm: '', code: '' };
 class SecurityItem extends Component {
   state = {
     security: true,
@@ -42,10 +44,25 @@ export default class ChangePasswordScreen extends Component {
     headerTintColor: HEADER_TINT_COLOR
   };
   _changePassword = () => {
-    console.log('let us change password');
+    Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess)
   }
-  _getMessageCode=()=>{
-    console.log('message code');
+  _changePasswordSuccess = () => {
+    console.log('更换密码成功');
+  }
+  _getMessageCode = () => {
+    Api.sendMessageWithToken(Variables.account.mobileAccount, 1, this._getMessageSuccess);
+  }
+  _getMessageSuccess = () => {
+    console.log('get message success');
+  }
+  _newPasswordTextChange = (text) => {
+    reg.pwd = text;
+  }
+  _newPasswordConfirmTextChange = (text) => {
+    reg.pwdConfirm = text;
+  }
+  _codeTextChange = (text) => {
+    reg.code = text;
   }
   render() {
     let phoneNum = Variables.account.mobileAccount.concat();
@@ -63,12 +80,12 @@ export default class ChangePasswordScreen extends Component {
           {/*验证码*/}
           <View style={{ height: 60, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
             <View style={{ height: 40, width: 0.25 * DEVICE_WIDTH, alignItems: 'center', flexDirection: 'row-reverse' }}><Text style={{ fontSize: 18, marginRight: 10, color: NORMAL_TEXTCOLOR }}>验证码</Text></View>
-            <View style={{ height: 40, width: 0.75 * DEVICE_WIDTH - 10, alignItems: 'center', flexDirection: 'row', backgroundColor: DARKER_BGCOLOR, borderRadius: 5 }}><TextInput style={{ flex: 1, color: 'white', fontSize: 18, marginLeft: 10 }} /><TouchableHighlight onPress={this._getMessageCode} style={{ backgroundColor: 'transparent', borderLeftColor: NORMAL_TEXTCOLOR, borderLeftWidth: 1 }}><Text style={{ color: NORMAL_TEXTCOLOR, marginHorizontal: 10 }}>获取验证码</Text></TouchableHighlight></View>
+            <View style={{ height: 40, width: 0.75 * DEVICE_WIDTH - 10, alignItems: 'center', flexDirection: 'row', backgroundColor: DARKER_BGCOLOR, borderRadius: 5 }}><TextInput onChangeText={this._codeTextChange} style={{ flex: 1, color: 'white', fontSize: 18, marginLeft: 10 }} /><TouchableHighlight onPress={this._getMessageCode} style={{ backgroundColor: 'transparent', borderLeftColor: NORMAL_TEXTCOLOR, borderLeftWidth: 1 }}><Text style={{ color: NORMAL_TEXTCOLOR, marginHorizontal: 10 }}>获取验证码</Text></TouchableHighlight></View>
           </View>
           {/*新密码*/}
-          <SecurityItem title={'新密码'} onChangeText={(text) => { console.log(text) }} />
+          <SecurityItem title={'新密码'} onChangeText={this._newPasswordTextChange} />
           {/*确认密码*/}
-          <SecurityItem title={'确认密码'} onChangeText={(text) => { console.log(text) }} />
+          <SecurityItem title={'确认密码'} onChangeText={this._newPasswordConfirmTextChange} />
           {/*确认按钮*/}
           <NormalBtn
             disabled={false}

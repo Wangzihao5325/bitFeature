@@ -61,6 +61,22 @@ class api {
     formData.append('size', 10);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  sendMessageWithToken(mobile, type, onSuccess, onError) {
+    const url = '/user/security/send_sms';
+    let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('type', type);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  updateLoginPwd(password, code, onSuccess, onError) {
+    const url = '/user/security/update_loginPwd';
+    let formData = new FormData();
+    formData.append('password', password);
+    formData.append('code', code);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
