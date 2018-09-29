@@ -46,6 +46,9 @@ class ItemBtn extends Component {
       case CAPITAL_DETAILS:
         mineNavigation.navigate('CapitalDetailsScreen');
         break;
+      case CHANGE_LOGIN_PASSWORDS:
+        mineNavigation.navigate('ChangePasswordScreen');
+        break;
       default:
         break;
     }
@@ -53,10 +56,10 @@ class ItemBtn extends Component {
   render() {
     let contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1, backgroundColor: NORMAL_BACKGROUNDCOLOR };
     if (this.props.title === BIND_CARD) {
-      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1+20, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: '#17191E', borderTopColor: '#17191E', borderBottomWidth: 10, borderTopWidth: 10 };
+      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1 + 20, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: '#17191E', borderTopColor: '#17191E', borderBottomWidth: 10, borderTopWidth: 10 };
     }
     if (this.props.title === APP_VERSION) {
-      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1+10, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderTopColor: '#17191E', borderTopWidth: 10 };
+      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1 + 10, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderTopColor: '#17191E', borderTopWidth: 10 };
     }
     return (
       <TouchableHighlight style={contentStyle} onPress={this._onPress}>
