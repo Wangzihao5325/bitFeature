@@ -49,6 +49,7 @@ export default class AccountLogScreen extends Component {
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
   }
   _login = () => {
+    Variables.account.mobileAccount = reg.accountInput.concat();
     Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess);
   }
   _accountChange = (text) => {

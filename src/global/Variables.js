@@ -1,6 +1,7 @@
 export default {
   account:{
     secret:null,
-    token:null
+    token:null,
+    mobileAccount:null,
   }
 }

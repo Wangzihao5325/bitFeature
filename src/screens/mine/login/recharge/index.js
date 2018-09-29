@@ -13,6 +13,7 @@ const NORMAL_TEXTCOLOR = '#7E829B';
 const HIGHLIGHT_TEXTCOLOR = '#FED330';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const DARK_BGCOLOR = '#17191E';
+let reg = { money: 0 };
 class RechargeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -40,11 +41,15 @@ class RechargeScreen extends Component {
   }
   _onChangeText = (text) => {
     let num = (text == '') ? 0 : parseFloat(text);//to do ... 优化
+    reg.money = num;
     this.setState((prevState, props) => {
       return ({
         addedBalance: props.balance + num
       });
     });
+  }
+  _recharge = () => {
+    this.props.navigation.navigate('AccountDepositWebView', { money: `${reg.money}` })
   }
   render() {
     return (
@@ -71,7 +76,7 @@ class RechargeScreen extends Component {
           </View>
         </View>
         {/*立即充值按钮*/}
-        <NormalBtn title={RECHARGE_RIGHT_NOW} style={{ backgroundColor: HIGHLIGHT_TEXTCOLOR, height: 45, width: DEVICE_WIDTH - 20, alignSelf: 'center', marginTop: 30 }} titleStyle={{ color: 'black' }} />
+        <NormalBtn title={RECHARGE_RIGHT_NOW} style={{ backgroundColor: HIGHLIGHT_TEXTCOLOR, height: 45, width: DEVICE_WIDTH - 20, alignSelf: 'center', marginTop: 30 }} titleStyle={{ color: 'black' }} onPress={this._recharge} />
       </View>
     );
   }
