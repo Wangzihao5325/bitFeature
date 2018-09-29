@@ -49,6 +49,9 @@ class ItemBtn extends Component {
       case CHANGE_LOGIN_PASSWORDS:
         mineNavigation.navigate('ChangePasswordScreen');
         break;
+      case BIND_PHONE:
+        mineNavigation.navigate('BindPhoneScreen');
+        break;
       default:
         break;
     }
