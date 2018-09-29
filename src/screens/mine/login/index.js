@@ -10,12 +10,12 @@ import {
 } from '../../../global/I18n';
 
 const itemsData = [
-  { key: CAPITAL_DETAILS, iconName: 'shield' },
-  { key: ACCOUNT_LIST, iconName: 'shield' },
-  { key: BIND_CARD, iconName: 'shield' },
-  { key: BIND_PHONE, iconName: 'shield' },
-  { key: CHANGE_LOGIN_PASSWORDS, iconName: 'shield' },
-  { key: APP_VERSION, iconName: 'shield' }
+  { key: CAPITAL_DETAILS, iconName: 'yen' },
+  { key: ACCOUNT_LIST, iconName: 'list' },
+  { key: BIND_CARD, iconName: 'credit-card' },
+  { key: BIND_PHONE, iconName: 'tablet' },
+  { key: CHANGE_LOGIN_PASSWORDS, iconName: 'lock' },
+  { key: APP_VERSION, iconName: 'vimeo' }
 ];
 const DefaultIconColor = '#3B475F';
 const ItemsHeight = 39;
@@ -65,8 +65,8 @@ class ItemBtn extends Component {
       <TouchableHighlight style={contentStyle} onPress={this._onPress}>
         <View style={[{ height: ItemsHeight, width: DEVICE_WIDTH, display: 'flex', justifyContent: 'space-between' }, CommonStyles.innerLineCenterStyle]}>
           <View style={[CommonStyles.innerLineCenterStyle, { height: ItemsHeight, width: 150, marginLeft: MarginSize }]}>
-            <Icon name={this.props.iconName} size={this.props.iconSize} color={this.props.iconColor} />
-            <Text style={{ marginLeft: MarginSize * 2, color: DEFAULT_GRAY }}>{this.props.title}</Text>
+            <View style={{ height: 30, width: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Icon name={this.props.iconName} size={this.props.iconSize} color={this.props.iconColor} /></View>
+            <Text style={{ marginLeft: MarginSize, color: DEFAULT_GRAY }}>{this.props.title}</Text>
           </View>
           <Icon style={{ marginRight: MarginSize }} name='chevron-right' size={this.props.iconSize} color={this.props.iconColor} />
         </View>
@@ -78,7 +78,7 @@ class ItemBtn extends Component {
 export default class LoginSubview extends Component {
   _renderItem = ({ item }) => {
     return (
-      <ItemBtn iconName={item.iconName} title={item.key} />
+      <ItemBtn iconName={item.iconName} title={item.key} iconSize={20} />
     );
   }
   render() {
