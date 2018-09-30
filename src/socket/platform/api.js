@@ -7,11 +7,8 @@ class api {
     let headers = Variables.account.secret !== null && Variables.account.token !== null ?
       { 'Content-Type': 'multipart/form-data', token: Variables.account.token, secret: Variables.account.secret } :
       { 'Content-Type': 'multipart/form-data' };
-    fetch(fullUrl, {
-      method: 'POST',
-      headers: headers,
-      body: formData
-    }).then((response) => response.json())
+    let obj = formData ? { method: 'POST', headers: headers, body: formData } : { method: 'POST', headers: headers }
+    fetch(fullUrl, obj).then((response) => response.json())
       .then((responseJson) => {
         const result = responseJson.data;
         if (responseJson.success) {
@@ -75,6 +72,13 @@ class api {
     let formData = new FormData();
     formData.append('password', password);
     formData.append('code', code);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getTradeAccount(onSuccess, onError) {
+    const url = '/user/ftrade/list';
+    let formData = new FormData();
+    formData.append('businessType', 99);
     this.requset(url, formData, onSuccess, onError);
   }
 }

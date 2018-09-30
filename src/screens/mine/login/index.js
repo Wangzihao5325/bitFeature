@@ -52,6 +52,9 @@ class ItemBtn extends Component {
       case BIND_PHONE:
         mineNavigation.navigate('BindPhoneScreen');
         break;
+      case ACCOUNT_LIST:
+        mineNavigation.navigate('TradeAccountDetailScreen');
+        break;
       default:
         break;
     }

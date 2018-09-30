@@ -84,7 +84,9 @@ export default class UsualTabBar extends Component {
       HighlightIndex: 1
     };
   }
-
+  static defaultProps = {
+    isDefault: true
+  }
   tabTap = (keyValue) => {
     this.setState({ HighlightIndex: keyValue });
     this.props.tabTap(this.tabNames[keyValue]);
@@ -102,13 +104,21 @@ export default class UsualTabBar extends Component {
 
   render() {
     let tabs = this.tabsGenerator(this.tabCount);
-    return (
-      <View style={[styles.container, { width: NORMAL_BARWIDTH }]}>
-        <ScrollView horizontal={true} alwaysBounceHorizontal={false} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+    if (this.props.isDefault) {
+      return (
+        <View style={[styles.container, { width: NORMAL_BARWIDTH }]}>
+          <ScrollView horizontal={true} alwaysBounceHorizontal={false} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+            {tabs}
+          </ScrollView>
+        </View>
+      )
+    } else {
+      return (
+        <View style={[styles.container, { width: NORMAL_BARWIDTH, justifyContent: 'space-around' }]}>
           {tabs}
-        </ScrollView>
-      </View>
-    )
+        </View>
+      )
+    }
   }
 
 }
