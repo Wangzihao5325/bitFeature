@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../../global/config';
 import NormalBtn from '../../../../components/NormalBtn';
-import SecurityInput from '../../../../components/SecurityInput';
 import VerificationCode from '../../../../components/VerificationCode';
 import MaterialInput from '../../../../components/MaterialInput';
 import Variables from '../../../../global/Variables';
