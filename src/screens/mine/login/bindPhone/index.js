@@ -4,6 +4,7 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../
 import NormalBtn from '../../../../components/NormalBtn';
 import SecurityInput from '../../../../components/SecurityInput';
 import VerificationCode from '../../../../components/VerificationCode';
+import MaterialInput from '../../../../components/MaterialInput';
 import Variables from '../../../../global/Variables';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -52,7 +53,7 @@ export default class BindPhoneScreen extends Component {
           {/*验证码*/}
           <VerificationCode onChangeText={this._codeOldTextChange} getMessageCode={this._getMessageCodeOld} />
           {/*新手机号*/}
-          <SecurityInput title={'新手机号'} onChangeText={this._newMobileTextChange} />
+          <MaterialInput title={'新手机号'} onChangeText={this._newMobileTextChange} />
           {/*验证码*/}
           <VerificationCode onChangeText={this._codeNewTextChange} getMessageCode={this._getMessageCodeNew} />
           {/*确认按钮*/}

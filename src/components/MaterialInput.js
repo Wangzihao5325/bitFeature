@@ -18,7 +18,7 @@ export default class MaterialInput extends Component {
           <Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10, fontSize: 20 }}>{this.props.title}</Text>
         </View>
         <View style={{ flex: 1, height: 40, marginLeft: 10, marginRight: 15, backgroundColor: DARK_BGCOLOR, flexDirection: 'row', borderRadius: 5, alignItems: 'center' }}>
-          <TextInput style={{ flex: 1, color: 'white', marginLeft: 10 }} onChangeText={this.props.onChangeText} />
+          <TextInput style={{ flex: 1, color: 'white', marginLeft: 10, fontSize: 18 }} onChangeText={this.props.onChangeText} />
           {this.props.footerStr && <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 20, marginRight: 5 }}>{this.props.footerStr}</Text>}
         </View>
       </View>
