@@ -4,6 +4,7 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../
 import Variables from '../../../../global/Variables';
 import VectorIconBtn from '../../../../components/IconBtn';
 import NormalBtn from '../../../../components/NormalBtn';
+import VerificationCode from '../../../../components/VerificationCode';
 import Api from '../../../../socket/platform/api';
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -78,10 +79,7 @@ export default class ChangePasswordScreen extends Component {
             <View style={{ height: 40, width: 0.75 * DEVICE_WIDTH - 10, alignItems: 'center', flexDirection: 'row', backgroundColor: NORMAL_COMPONENT_BACKGROUNDCOLOR, borderRadius: 5 }}><Text style={{ fontSize: 20, marginLeft: 10, color: 'white' }}>{showPhoneNum}</Text></View>
           </View>
           {/*验证码*/}
-          <View style={{ height: 60, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ height: 40, width: 0.25 * DEVICE_WIDTH, alignItems: 'center', flexDirection: 'row-reverse' }}><Text style={{ fontSize: 18, marginRight: 10, color: NORMAL_TEXTCOLOR }}>验证码</Text></View>
-            <View style={{ height: 40, width: 0.75 * DEVICE_WIDTH - 10, alignItems: 'center', flexDirection: 'row', backgroundColor: DARKER_BGCOLOR, borderRadius: 5 }}><TextInput onChangeText={this._codeTextChange} style={{ flex: 1, color: 'white', fontSize: 18, marginLeft: 10 }} /><TouchableHighlight onPress={this._getMessageCode} style={{ backgroundColor: 'transparent', borderLeftColor: NORMAL_TEXTCOLOR, borderLeftWidth: 1 }}><Text style={{ color: NORMAL_TEXTCOLOR, marginHorizontal: 10 }}>获取验证码</Text></TouchableHighlight></View>
-          </View>
+          <VerificationCode onChangeText={this._codeTextChange} getMessageCode={this._getMessageCode} />
           {/*新密码*/}
           <SecurityItem title={'新密码'} onChangeText={this._newPasswordTextChange} />
           {/*确认密码*/}
