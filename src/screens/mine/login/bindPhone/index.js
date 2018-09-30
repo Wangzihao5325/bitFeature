@@ -1,38 +1,14 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput } from 'react-native';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../../global/config';
-import VectorIconBtn from '../../../../components/IconBtn';
 import NormalBtn from '../../../../components/NormalBtn';
+import SecurityInput from '../../../../components/SecurityInput';
 import VerificationCode from '../../../../components/VerificationCode';
 import Variables from '../../../../global/Variables';
 const NORMAL_TEXTCOLOR = '#7E829B';
-const DARKER_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
 const HIGHLIGHT_BGCOLOR = '#FED330';
-class SecurityItem extends Component {
-  state = {
-    security: true,
-    iconName: 'eye'
-  }
-  _changeSecurity = () => {
-    this.setState((preState, props) => {
-      let name = preState.iconName === 'eye' ? 'eye-slash' : 'eye';
-      return {
-        security: !preState.security,
-        iconName: name
-      }
-    })
-  }
-  render() {
-    return (
-      <View style={{ height: 60, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <View style={{ height: 40, width: 0.25 * DEVICE_WIDTH, alignItems: 'center', flexDirection: 'row-reverse' }}><Text style={{ fontSize: 18, marginRight: 10, color: NORMAL_TEXTCOLOR }}>{this.props.title}</Text></View>
-        <View style={{ height: 40, width: 0.75 * DEVICE_WIDTH - 10, alignItems: 'center', flexDirection: 'row', backgroundColor: DARKER_BGCOLOR, borderRadius: 5 }}><TextInput onChangeText={this.props.onChangeText} secureTextEntry={this.state.security} style={{ flex: 1, color: 'white', fontSize: 18, marginLeft: 10 }} /><VectorIconBtn color={NORMAL_TEXTCOLOR} name={this.state.iconName} onPress={this._changeSecurity} /></View>
-      </View>
-    );
-  }
-}
 export default class BindPhoneScreen extends Component {
   static navigationOptions = {
     title: "修改手机号",  //header标题
@@ -76,7 +52,7 @@ export default class BindPhoneScreen extends Component {
           {/*验证码*/}
           <VerificationCode onChangeText={this._codeOldTextChange} getMessageCode={this._getMessageCodeOld} />
           {/*新手机号*/}
-          <SecurityItem title={'新手机号'} onChangeText={this._newMobileTextChange} />
+          <SecurityInput title={'新手机号'} onChangeText={this._newMobileTextChange} />
           {/*验证码*/}
           <VerificationCode onChangeText={this._codeNewTextChange} getMessageCode={this._getMessageCodeNew} />
           {/*确认按钮*/}
