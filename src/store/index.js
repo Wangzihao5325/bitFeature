@@ -6,6 +6,7 @@ import marketReducer from './reducers/marketReducer';
 import customServiceReducer from './reducers/customServiceReducer';
 import capitalDetailReducer from './reducers/capitalDetailReducer';
 import tradeAccountReducer from './reducers/tradeAccountReducer';
+import classifyReducer from './reducers/classifyReducer';
 
 const rootReducer = combineReducers({
   test: testReducer,
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   market: marketReducer,
   customService: customServiceReducer,
   capitalDetail: capitalDetailReducer,
-  tradeAccount: tradeAccountReducer
+  tradeAccount: tradeAccountReducer,
+  contractClassify: classifyReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

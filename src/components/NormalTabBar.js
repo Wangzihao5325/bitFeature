@@ -50,6 +50,7 @@ class TabBtn extends Component {       //tabBar的定制btn
     this.setState({ isHighLight: isHighlightValue });
   }
 
+  /*会引发渲染不完全的问题，先注释掉
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.isHighLight == this.state.isHighLight) {
       return false;
@@ -57,7 +58,7 @@ class TabBtn extends Component {       //tabBar的定制btn
       return true;
     }
   }
-
+  */
   tabTap = () => {
     if (this.state.isHighLight) { return }
     this.props.tabTap(this.props.keyValue);
@@ -78,8 +79,8 @@ export default class UsualTabBar extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    this.tabNames = props.tabNames;
-    this.tabCount = this.tabNames.length;
+    // this.tabNames = props.tabNames;
+    // this.tabCount = this.tabNames.length;
     this.state = {
       HighlightIndex: 1
     };
@@ -89,21 +90,21 @@ export default class UsualTabBar extends Component {
   }
   tabTap = (keyValue) => {
     this.setState({ HighlightIndex: keyValue });
-    this.props.tabTap(this.tabNames[keyValue]);
+    this.props.tabTap(this.props.tabNames[keyValue]);
   }
 
   tabsGenerator = (count) => {
     let tabs = [];
     for (let i = 0; i < count; i++) {
       tabs.push(
-        <TabBtn key={i} keyValue={i} highlightIndex={this.state.HighlightIndex} tabText={this.tabNames[i]} tabTap={this.tabTap} />
+        <TabBtn key={i} keyValue={i} highlightIndex={this.state.HighlightIndex} tabText={this.props.tabNames[i]} tabTap={this.tabTap} />
       );
     }
     return tabs;
   }
 
   render() {
-    let tabs = this.tabsGenerator(this.tabCount);
+    let tabs = this.tabsGenerator(this.props.tabNames.length);
     if (this.props.isDefault) {
       return (
         <View style={[styles.container, { width: NORMAL_BARWIDTH }]}>

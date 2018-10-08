@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Drawer from 'react-native-drawer';
 import VectorIconBtn from '../../components/IconBtn';
 import CommonStyle from '../../global/common_styles';
@@ -8,7 +9,7 @@ import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../..
 import UsualTabBar from '../../components/NormalTabBar';
 import OptionalMarket from './OptionalMarket';
 import MarketList from './MarketList';
-export default class MarketScreen extends Component {
+class MarketScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: TAB_NAVI_NAME[0],  //header标题
@@ -49,6 +50,7 @@ export default class MarketScreen extends Component {
       drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
       main: { paddingLeft: 0 },
     }
+    console.log(this.props.classifyData);
     return (
       <Drawer
         ref={(ref) => this._drawer = ref}
@@ -66,11 +68,19 @@ export default class MarketScreen extends Component {
         })}
       >
         <View style={{ flex: 1, backgroundColor: 'black' }}>
-          <UsualTabBar tabNames={['自选', '商品', '股指', '有色', '外汇', '利率', '数字货币', 'LME金属']} tabTap={(keyValue) => { console.log('!!!!____' + keyValue) }} />
+          <UsualTabBar tabNames={this.props.classifyData} tabTap={(keyValue) => { console.log('!!!!____' + keyValue) }} />
           <OptionalMarket />
-          <MarketList/>
+          <MarketList />
         </View>
       </Drawer>
     );
   }
 }
+
+function mapState2Props(store) {
+  return {
+    classifyData: store.contractClassify.data
+  }
+}
+
+export default connect(mapState2Props)(MarketScreen);

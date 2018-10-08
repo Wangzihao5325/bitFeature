@@ -6,6 +6,7 @@
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
 import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
+import { update_classify } from '../../store/actions/classifyAction';
 import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
@@ -68,6 +69,7 @@ class MarketSocket {
       //console.log(contractMap2Config); // ... debug log
       subscribe_list.push(contract_structure);
     }
+    store.dispatch(update_classify(classifyContractMap));
     // console.log(classifyContractMap);
     // console.log(recommendContractMap);
     return subscribe_list;
