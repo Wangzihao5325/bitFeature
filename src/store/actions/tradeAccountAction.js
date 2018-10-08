@@ -32,3 +32,21 @@ export function update_trade_account_list(tradeList) {
     });
   }
 }
+
+export function page_change(keyValue) {
+  return (dispatch) => {
+    dispatch({
+      type: types.ACCOUNT_LIST_PAGE_CHANGE,
+      page: keyValue
+    });
+  }
+}
+
+export function page_reset() {
+  return (dispatch) => {
+    dispatch({
+      type: types.ACCOUNT_LIST_PAGE_RESET,
+      page: '已结算'
+    });
+  }
+}
