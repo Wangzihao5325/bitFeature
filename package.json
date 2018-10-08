@@ -11,6 +11,7 @@
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-drawer": "^2.5.0",
+    "react-native-root-toast": "^3.0.1",
     "react-native-text-input-enhance": "^1.0.11",
     "react-native-vector-icons": "^5.0.0",
     "react-navigation": "^2.12.1",

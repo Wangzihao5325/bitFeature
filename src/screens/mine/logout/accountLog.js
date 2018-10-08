@@ -8,6 +8,7 @@ import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
 import VectorIconBtn from '../../../components/IconBtn';
 import Variables from '../../../global/Variables';
+import ToastRoot from '../../../components/ToastRoot';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -41,16 +42,19 @@ export default class AccountLogScreen extends Component {
     store.dispatch(action_login());
     this.props.navigation.pop();
   }
-  _loginSuccess = (result) => {
+  _loginSuccess = (result, code, message) => {
     Variables.account.token = result.token;
     Variables.account.secret = result.secret;
-
+    ToastRoot.show('登录成功');
     //init account data
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
   }
+  _loginFailed = (result, code, message) => {
+    ToastRoot.show(message);
+  }
   _login = () => {
     Variables.account.mobileAccount = reg.accountInput.concat();
-    Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess);
+    Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess, this._loginFailed);
   }
   _accountChange = (text) => {
     reg.accountInput = text;

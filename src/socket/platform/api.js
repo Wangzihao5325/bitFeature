@@ -10,15 +10,17 @@ class api {
     let obj = formData ? { method: 'POST', headers: headers, body: formData } : { method: 'POST', headers: headers }
     fetch(fullUrl, obj).then((response) => response.json())
       .then((responseJson) => {
-        const result = responseJson.data;
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
         if (responseJson.success) {
           try {
-            onSuccess(result);
+            onSuccess(result, code, message);
           } catch (error) {
             console.log(error);
           }
         } else {
-          onError ? onError(result) : console.log(responseJson);
+          onError ? onError(result, code, message) : console.log(responseJson);
         }
       })
       .catch((error) => {
