@@ -83,6 +83,13 @@ class api {
     formData.append('businessType', 99);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getClassifyInfo(onSuccess, onError) {
+    const url = '/commodity/classifyInfo';
+    let formData = new FormData();
+    formData.append('RN', 'RN');
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();

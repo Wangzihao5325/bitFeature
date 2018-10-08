@@ -6,7 +6,7 @@
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
 import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
-import { contractMap2Config, aliveContractList, aliveContractSnapShot } from '../../global/commodity_list';
+import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
   constructor(url) {
@@ -21,7 +21,7 @@ class MarketSocket {
     this.ws.send(JSON.stringify(json));
   }
   _queryComList() {
-    let json = { 'method': 'req_commodity_list', 'data': { 'security_type': 'FUT_OUT' } };
+    let json = { 'method': 'req_commodity_list', 'data': { 'security_type': null } };
     this.ws.send(JSON.stringify(json));
   }
   _subscribe(listObj) {
@@ -37,8 +37,12 @@ class MarketSocket {
   contractFilter(rtnData, isMain, index) {
     let subscribe_list = [];
     let commodity_list = rtnData.data.commodity_list;
-    for (let i = 0; i < 3; i++) {// to do ... 此处暂时只订阅2条合约
+
+    for (let i = 0; i < commodity_list.length; i++) {// to do ... 此处暂时只订阅2条合约
       let commodity_details = commodity_list[i];
+      if (_.indexOf(initContractList, commodity_details.commodity_no) < 0) {
+        continue;
+      }
       let contract_no_obj = isMain ? commodity_details.contract_no_list.filter(function (item) { return (item.flags === 1); }) : commodity_details.contract_no_list[index];
       /*此处配置信息分为两部分处理structure／others，因为structure是后台约定的合约标识,others为配置信息 */
       let contract_structure = {
@@ -48,10 +52,24 @@ class MarketSocket {
         'contract_no': contract_no_obj[0].contract_no
       };
       let contractName = commodity_details.commodity_no + contract_no_obj[0].contract_no;
+      //分类列表加入期数信息
+      let regKey = _.findKey(classifyContractMap, function (o) { return _.indexOf(o, commodity_details.commodity_no) >= 0; });
+      _.pull(classifyContractMap[regKey], commodity_details.commodity_no);
+      classifyContractMap[regKey].push(contractName);
+
+      //推荐列表加入期数信息
+      let regKeyTwo = _.findKey(recommendContractMap, function (o) { return _.indexOf(o, commodity_details.commodity_no) >= 0; });
+      if (regKeyTwo) {
+        _.pull(recommendContractMap[regKeyTwo], commodity_details.commodity_no);
+        recommendContractMap[regKeyTwo].push(contractName);
+      }
+
       contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, structure: contract_structure };
       //console.log(contractMap2Config); // ... debug log
       subscribe_list.push(contract_structure);
     }
+    // console.log(classifyContractMap);
+    // console.log(recommendContractMap);
     return subscribe_list;
   }
   marketStoreInit(list) {
