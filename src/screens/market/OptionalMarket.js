@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { DEVICE_WIDTH, DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../../global/config';
 import CommonStyles from '../../global/common_styles';
 import { rateStrGenerator, priceStrGenerator } from '../../global/util/index';
-import { contractMap2Config } from '../../global/commodity_list';
+import { contractMap2Config, recommendContractMap } from '../../global/commodity_list';
 
 const DEFAULT_DOT_SIZES = 2;
 
@@ -47,9 +47,12 @@ class OptionalMarket extends Component {
     const { marketNavigation } = this.context;
     let { marketStore } = this.props;
     let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
+    if(recommendContractMap[this.props.page]){
+      contractList = recommendContractMap[this.props.page];
+    }
     //let contractList = ['CD1812','CU3M','ZN3M'];
     if (contractList.length > 3) {
-      contractList = contractList.slice(0,3);
+      contractList = contractList.slice(0, 3);
     }
     return (
       <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
@@ -63,7 +66,8 @@ class OptionalMarket extends Component {
 }
 function mapState2Props(store) {
   return {
-    marketStore: store.market
+    marketStore: store.market,
+    page: store.contractClassify.page
   }
 }
 export default connect(mapState2Props)(OptionalMarket);

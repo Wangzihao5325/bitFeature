@@ -152,7 +152,6 @@ class MarkList extends Component {
     if (classifyContractMap[this.props.page]) {
       contractList = classifyContractMap[this.props.page];
     }
-    //let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
     let pickedContractList = _.pick(marketStore, contractList);//当前为冗余，后续需要筛选合约
     let data = _.values(pickedContractList);
     return (
