@@ -50,7 +50,6 @@ class MarketScreen extends Component {
       drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
       main: { paddingLeft: 0 },
     }
-    console.log(this.props.classifyData);
     return (
       <Drawer
         ref={(ref) => this._drawer = ref}

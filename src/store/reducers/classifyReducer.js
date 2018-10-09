@@ -1,6 +1,6 @@
 import * as types from '../actionType';
 
-const initialState = { data: ['自选', '商品', '股指', '有色', '外汇', '利率', '数字货币', 'LME金属'] };
+const initialState = { page: '商品', data: ['自选', '商品', '股指', '有色', '外汇', '利率', '数字货币', 'LME金属'] };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -8,6 +8,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.data,
+        page: action.data[1]
       };
     default: return state;
   }

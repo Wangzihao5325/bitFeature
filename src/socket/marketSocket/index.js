@@ -7,7 +7,7 @@ import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } fro
 import store from '../../store/index';
 import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
 import { update_classify } from '../../store/actions/classifyAction';
-import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList } from '../../global/commodity_list';
+import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
   constructor(url) {
@@ -26,7 +26,19 @@ class MarketSocket {
     this.ws.send(JSON.stringify(json));
   }
   _subscribe(listObj) {
-    let json = { 'method': 'req_subscribe', 'data': listObj };
+    let storeState = store.getState();
+    let classifyPage = storeState.contractClassify.page;
+    let subscribeList = classifyContractMap[classifyPage];
+    let subscribeObj = [];
+    listObj.map(function (item) {
+      let name = item.commodity_no + item.contract_no;
+      if (_.indexOf(subscribeList, name) >= 0) {
+        subscribeObj.push(item);
+      }
+    });
+    console.log('subscribeObj!!!');
+    console.log(subscribeObj);
+    let json = { 'method': 'req_subscribe', 'data': subscribeObj };
     this.ws.send(JSON.stringify(json));
   }
   _unsubscribe(listObj) {
@@ -66,10 +78,10 @@ class MarketSocket {
       }
 
       contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, structure: contract_structure };
-      //console.log(contractMap2Config); // ... debug log
       subscribe_list.push(contract_structure);
     }
     store.dispatch(update_classify(classifyContractMap));
+    subscribeObjList.data = subscribe_list
     // console.log(classifyContractMap);
     // console.log(recommendContractMap);
     return subscribe_list;
@@ -126,6 +138,8 @@ class MarketSocket {
           break;
         case 'on_rsp_subscribe':                                  //订阅成功 -> 维护合约状态列表
           this.managerAliveContractList(data);
+          console.log('subscribe_success!!!');
+          console.log(data);
           break;
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);

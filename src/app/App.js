@@ -40,13 +40,10 @@ export default class App extends Component {
       recommendContractMap[item.classifyName] = recommedArr;
       classifyContractMap[item.classifyName] = classifyArr;
     });
-    // console.log(recommendContractMap);
-    // console.log(classifyContractMap);
-    // console.log(initContractList);
+    MarketSocket.connectSocket();
   }
   componentDidMount() {
     Api.getClassifyInfo(this._getClassifySuccess);
-    MarketSocket.connectSocket();
   }
   render() {
     return (

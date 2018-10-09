@@ -19,6 +19,9 @@ let classifyContractMap = {};
 
 /*允许订阅合约的全集，用于初始化合约store*/
 let initContractList = [];
+
+/*订阅结构体列表，包含所有可订阅合约，存储于data字段 */
+let subscribeObjList = {};
 export {
   contractMap2Config,
   aliveContractList,
@@ -26,5 +29,6 @@ export {
 
   recommendContractMap,
   classifyContractMap,
-  initContractList
+  initContractList,
+  subscribeObjList
 }
