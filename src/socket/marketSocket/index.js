@@ -36,8 +36,6 @@ class MarketSocket {
         subscribeObj.push(item);
       }
     });
-    console.log('subscribeObj!!!');
-    console.log(subscribeObj);
     let json = { 'method': 'req_subscribe', 'data': subscribeObj };
     this.ws.send(JSON.stringify(json));
   }
@@ -82,8 +80,6 @@ class MarketSocket {
     }
     store.dispatch(update_classify(classifyContractMap));
     subscribeObjList.data = subscribe_list
-    // console.log(classifyContractMap);
-    // console.log(recommendContractMap);
     return subscribe_list;
   }
   marketStoreInit(list) {
@@ -93,7 +89,6 @@ class MarketSocket {
     store.dispatch(action_updateStore(rtnObj));
   }
   managerAliveContractList(rtnObj) {
-    console.log(rtnObj);
     let successArr = rtnObj.data.succ_list;
     successArr.map(function (item) {
       let name = item.commodity_no + item.contract_no;
@@ -101,7 +96,6 @@ class MarketSocket {
     })
   }
   managerAliveContractList2(rtnObj) {
-    console.log(rtnObj);
     let successArr = rtnObj.data.contract_list;
     successArr.map(function (item) {
       let name = item.commodity_no + item.contract_no;
@@ -138,8 +132,6 @@ class MarketSocket {
           break;
         case 'on_rsp_subscribe':                                  //订阅成功 -> 维护合约状态列表
           this.managerAliveContractList(data);
-          console.log('subscribe_success!!!');
-          console.log(data);
           break;
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);
@@ -176,6 +168,22 @@ class MarketSocket {
       reg.push(structure);
     });
     this._subscribe(reg);
+  }
+  /*合约类别切换 */
+  contractChange(beforeClass) {
+    if (subscribeObjList.data) {
+      let objList = subscribeObjList.data;
+      this._subscribe(objList);
+      let unsubscribeObj = [];
+      objList.map(function (item) {
+        let name = item.commodity_no + item.contract_no;
+        let beforeArr = classifyContractMap[beforeClass];
+        if (_.indexOf(beforeArr, name) >= 0) {
+          unsubscribeObj.push(item);
+        }
+      });
+      this._unsubscribe(unsubscribeObj);
+    }
   }
 }
 

@@ -11,6 +11,7 @@ import OptionalMarket from './OptionalMarket';
 import MarketList from './MarketList';
 import store from '../../store/index';
 import { market_page_change } from '../../store/actions/classifyAction';
+import MarketSocket from '../../socket/marketSocket';
 class MarketScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -48,9 +49,14 @@ class MarketScreen extends Component {
     }
   };
   _pageChange = (keyValue) => {
-    //自选需要单独处理
-    if (keyValue !== this.props.page) {
+    if (keyValue === '自选') {
+      return;  //自选需要单独处理
+    }
+    let storeState = store.getState();
+    let classifyPage = storeState.contractClassify.page;
+    if (keyValue !== classifyPage) {
       store.dispatch(market_page_change(keyValue));
+      MarketSocket.contractChange(classifyPage);
     }
   }
   render() {
