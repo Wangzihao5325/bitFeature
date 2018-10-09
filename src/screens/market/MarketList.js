@@ -8,6 +8,7 @@ import { contractMap2Config } from '../../global/commodity_list';
 import { rateStrGenerator, priceStr2Generator } from '../../global/util/index';
 import { DEVICE_WIDTH, DEVICE_HEIGHT, UP_TEXT_COLOR, DOWN_TEXT_COLOR } from '../../global/config';
 import CommonStyles from '../../global/common_styles';
+import { classifyContractMap } from '../../global/commodity_list';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const FONT_SIZE = 18;
@@ -147,7 +148,11 @@ class MarkList extends Component {
   render() {
     const { marketNavigation } = this.context;
     let { marketStore } = this.props;
-    let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
+    let contractList = Object.keys(marketStore);
+    if (classifyContractMap[this.props.page]) {
+      contractList = classifyContractMap[this.props.page];
+    }
+    //let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
     let pickedContractList = _.pick(marketStore, contractList);//当前为冗余，后续需要筛选合约
     let data = _.values(pickedContractList);
     return (
@@ -183,7 +188,8 @@ class MarkList extends Component {
 }
 function mapState2Props(store) {
   return {
-    marketStore: store.market
+    marketStore: store.market,
+    page: store.contractClassify.page
   }
 }
 export default connect(mapState2Props)(MarkList);
