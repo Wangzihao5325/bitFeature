@@ -12,6 +12,7 @@ import MarketList from './MarketList';
 import store from '../../store/index';
 import { market_page_change } from '../../store/actions/classifyAction';
 import MarketSocket from '../../socket/marketSocket';
+import DrawScreen from '../draw/index';
 class MarketScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -69,7 +70,7 @@ class MarketScreen extends Component {
         ref={(ref) => this._drawer = ref}
         side='right'
         type="overlay"
-        content={<View style={{ flex: 1, backgroundColor: TAB_NAVI_HEADER_BGCOLOR }}><Text>MarketDetail</Text></View>}
+        content={<DrawScreen />}
         acceptPan={false}
         tapToClose={true}
         openDrawerOffset={0.6} // 40% gap on the right side of drawer
