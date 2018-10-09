@@ -8,7 +8,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         data: action.data,
-        page: action.data[1]
+        page: action.data[1] //默认index=1的类别，0为自选
+      };
+    case types.MARKET_PAGE_CHANGE:
+      return {
+        ...state,
+        page: action.page
       };
     default: return state;
   }

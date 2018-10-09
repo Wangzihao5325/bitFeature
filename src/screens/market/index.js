@@ -9,6 +9,8 @@ import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../..
 import UsualTabBar from '../../components/NormalTabBar';
 import OptionalMarket from './OptionalMarket';
 import MarketList from './MarketList';
+import store from '../../store/index';
+import { market_page_change } from '../../store/actions/classifyAction';
 class MarketScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -45,6 +47,12 @@ class MarketScreen extends Component {
       this._drawer.open();
     }
   };
+  _pageChange = (keyValue) => {
+    //自选需要单独处理
+    if (keyValue !== this.props.page) {
+      store.dispatch(market_page_change(keyValue));
+    }
+  }
   render() {
     const drawerStyles = {
       drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
@@ -67,7 +75,7 @@ class MarketScreen extends Component {
         })}
       >
         <View style={{ flex: 1, backgroundColor: 'black' }}>
-          <UsualTabBar tabNames={this.props.classifyData} tabTap={(keyValue) => { console.log('!!!!____' + keyValue) }} />
+          <UsualTabBar tabNames={this.props.classifyData} tabTap={this._pageChange} />
           <OptionalMarket />
           <MarketList />
         </View>
@@ -78,7 +86,8 @@ class MarketScreen extends Component {
 
 function mapState2Props(store) {
   return {
-    classifyData: store.contractClassify.data
+    classifyData: store.contractClassify.data,
+    page: store.contractClassify.page
   }
 }
 

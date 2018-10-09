@@ -35,3 +35,4 @@ export const ACCOUNT_LIST_PAGE_RESET = 'ACCOUNT_LIST_PAGE_RESET';
 
 // classify store types
 export const UPDATE_CLASSIFY = 'UPDATE_CLASSIFY';
+export const MARKET_PAGE_CHANGE = 'MARKET_PAGE_CHANGE';
