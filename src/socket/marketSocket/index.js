@@ -41,7 +41,12 @@ class MarketSocket {
     this.ws.send(JSON.stringify(json));
   }
   _unsubscribe(listObj) {
-    let json = { 'method': 'req_unsubscribe', 'data': { 'contract_list': listObj } };
+    let reg = [];
+    listObj.map(function (item) {
+      let wsObj = item.security_type + '_' + item.commodity_no + '_' + item.contract_no;
+      reg.push(wsObj);
+    });
+    let json = { 'method': 'req_unsubscribe', 'data': { 'contract_list': reg } };
     this.ws.send(JSON.stringify(json));
   }
 
@@ -90,8 +95,6 @@ class MarketSocket {
     store.dispatch(action_updateStore(rtnObj));
   }
   managerAliveContractList(rtnObj) {
-    console.log('dddd');
-    console.log(rtnObj);
     let successArr = rtnObj.data.succ_list;
     successArr.map(function (item) {
       let regArr = item.split('_');
@@ -101,8 +104,6 @@ class MarketSocket {
     })
   }
   managerAliveContractList2(rtnObj) {
-    console.log('ssssssss');
-    console.log(rtnObj);
     let successArr = rtnObj.data.contract_list;
     successArr.map(function (item) {
       let regArr = item.split('_');
@@ -145,8 +146,7 @@ class MarketSocket {
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);
           break;
-        case 'on_rtn_quote':   
-        console.log(data);                                   //收到ticker -> 更新数据  
+        case 'on_rtn_quote':                                      //收到ticker -> 更新数据  
           this.updateMarketStoreData(data);
           break;
       }
@@ -189,8 +189,7 @@ class MarketSocket {
         let name = item.commodity_no + item.contract_no;
         let beforeArr = classifyContractMap[beforeClass];
         if (_.indexOf(beforeArr, name) >= 0) {
-          let wsObj = item.security_type + '_' + item.commodity_no + '_' + item.contract_no;
-          unsubscribeObj.push(wsObj);
+          unsubscribeObj.push(item);
         }
       });
       this._unsubscribe(unsubscribeObj);
