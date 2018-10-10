@@ -25,7 +25,6 @@ export function action_storeinit(list) {
 
 export function action_updateStore(rtnParams) {
   let data = rtnParams.data;
-  // let contract_name = data.contract_info.commodity_no + data.contract_info.contract_no;
   let regArr = data[0].split('_');
   regArr.shift();
   let contract_name = _.join(regArr, '');

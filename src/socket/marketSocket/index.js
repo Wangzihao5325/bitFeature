@@ -41,7 +41,7 @@ class MarketSocket {
     this.ws.send(JSON.stringify(json));
   }
   _unsubscribe(listObj) {
-    let json = { 'method': 'req_unsubscribe', 'data': listObj };
+    let json = { 'method': 'req_unsubscribe', 'data': { 'contract_list': listObj } };
     this.ws.send(JSON.stringify(json));
   }
 
@@ -90,16 +90,24 @@ class MarketSocket {
     store.dispatch(action_updateStore(rtnObj));
   }
   managerAliveContractList(rtnObj) {
+    console.log('dddd');
+    console.log(rtnObj);
     let successArr = rtnObj.data.succ_list;
     successArr.map(function (item) {
-      let name = item.commodity_no + item.contract_no;
+      let regArr = item.split('_');
+      regArr.shift();
+      let name = _.join(regArr, '');
       aliveContractList.push(name);
     })
   }
   managerAliveContractList2(rtnObj) {
+    console.log('ssssssss');
+    console.log(rtnObj);
     let successArr = rtnObj.data.contract_list;
     successArr.map(function (item) {
-      let name = item.commodity_no + item.contract_no;
+      let regArr = item.split('_');
+      regArr.shift();
+      let name = _.join(regArr, '');
       _.pull(aliveContractList, name);
     })
   }
@@ -132,13 +140,14 @@ class MarketSocket {
           this._subscribe(subscribe_list);
           break;
         case 'on_rsp_subscribe':                                  //订阅成功 -> 维护合约状态列表 
-        this.managerAliveContractList(data);
+          this.managerAliveContractList(data);
           break;
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);
           break;
-        case 'on_rtn_quote':                                      //收到ticker -> 更新数据  
-        this.updateMarketStoreData(data);
+        case 'on_rtn_quote':   
+        console.log(data);                                   //收到ticker -> 更新数据  
+          this.updateMarketStoreData(data);
           break;
       }
     }
@@ -180,7 +189,8 @@ class MarketSocket {
         let name = item.commodity_no + item.contract_no;
         let beforeArr = classifyContractMap[beforeClass];
         if (_.indexOf(beforeArr, name) >= 0) {
-          unsubscribeObj.push(item);
+          let wsObj = item.security_type + '_' + item.commodity_no + '_' + item.contract_no;
+          unsubscribeObj.push(wsObj);
         }
       });
       this._unsubscribe(unsubscribeObj);
