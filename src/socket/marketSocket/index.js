@@ -49,7 +49,24 @@ class MarketSocket {
     let json = { 'method': 'req_unsubscribe', 'data': { 'contract_list': reg } };
     this.ws.send(JSON.stringify(json));
   }
-
+  _subscribe_depth(listObj) {
+    let reg = [];
+    listObj.map(function (item) {
+      let wsObj = item.security_type + '_' + item.commodity_no + '_' + item.contract_no;
+      reg.push(wsObj);
+    });
+    let json = { 'method': 'req_subscribe_depth', 'data': { 'level': 5, 'contract_list': reg } };
+    this.ws.send(JSON.stringify(json));
+  }
+  _unsubscribe_depth(listObj) {
+    let reg = [];
+    listObj.map(function (item) {
+      let wsObj = item.security_type + '_' + item.commodity_no + '_' + item.contract_no;
+      reg.push(wsObj);
+    });
+    let json = { 'method': 'req_unsubscribe_depth', 'data': { 'contract_list': reg } };
+    this.ws.send(JSON.stringify(json));
+  }
   /*查找需要订阅的合约，返回对应的结构体集合 */
   contractFilter(rtnData, isMain, index) {
     let subscribe_list = [];
@@ -149,26 +166,35 @@ class MarketSocket {
         case 'on_rtn_quote':                                      //收到ticker -> 更新数据  
           this.updateMarketStoreData(data);
           break;
+        case 'on_rtn_depth':                                      //收到深度订阅ticker -> 更新数据  
+          console.log('this is depth!!!!');
+          console.log(data);
+          break;
       }
     }
   }
 
-  /*退订其他合约，只保留正在查看的一条(to do 需要保留有持仓的行情)*/
+  /*退订其他合约，只保留正在查看的一条,同时为该条订阅深度行情(to do 需要保留有持仓的行情)*/
   otherContractPause(contract, isSnap) {
     let reg = [];
+    let deepReg = [];
     aliveContractList.map(function (item) {
       if (item !== contract) {
         let structure = contractMap2Config[item].structure;
         reg.push(structure);
+      } else {
+        let structure = contractMap2Config[item].structure;
+        deepReg.push(structure);
       }
     });
     if (isSnap) {
       _.pullAll(aliveContractSnapShot, aliveContractSnapShot);
       _.assign(aliveContractSnapShot, aliveContractList);
     }
+    this._subscribe_depth(deepReg);
     this._unsubscribe(reg);
   }
-  /*恢复快照中合约的订阅*/
+  /*恢复快照中合约的订阅,同时退订深度行情*/
   contractGoingOn() {
     let reg = [];
     let arr = aliveContractSnapShot.concat();
@@ -178,6 +204,12 @@ class MarketSocket {
       reg.push(structure);
     });
     this._subscribe(reg);
+    let deepReg = [];
+    aliveContractList.map(function (item) {
+      let structure = contractMap2Config[item].structure;
+      deepReg.push(structure);
+    });
+    this._unsubscribe_depth(deepReg);
   }
   /*合约类别切换 */
   contractChange(beforeClass) {
