@@ -43,11 +43,32 @@ export function action_updateStore(rtnParams) {
         last_volume: data[8],
         pre_close: data[9],
         pre_settle: data[10],
-        ask: [data[11], data[12]],
-        bid: [data[13], data[14]],
+        ask1: [data[11], data[12]],
+        bid1: [data[13], data[14]],
         change_rate: change_rate,
         change_value: change_value
       }
+    });
+  }
+}
+
+export function action_updateAskAndBid(rtnParams) {
+  let dataArr = rtnParams.data;
+  let nameStr = dataArr[0];
+  let regArr = nameStr.split('_');
+  regArr.shift();
+  let contract_name = _.join(regArr, '');
+  let level = dataArr[2];
+  let askKey = 'ask' + level;
+  let bidKey = 'bid' + level;
+  let obj = {};
+  obj[askKey] = [dataArr[3], dataArr[4]];
+  obj[bidKey] = [dataArr[5], dataArr[6]];
+  return (dispatch) => {
+    dispatch({
+      type: types.UPDATE_MARKET_STORE_ASKANDBID,
+      contractName: contract_name,
+      newData: obj
     });
   }
 }

@@ -18,6 +18,7 @@ export const GET_ACCOUNT_INFO = 'GET_ACCOUNT_INFO';
 // market store types
 export const INIT_MARKET_STORE = 'INIT_MARKET_STORE';
 export const UPDATE_MARKET_STORE = 'UPDATE_MARKET_STORE';
+export const UPDATE_MARKET_STORE_ASKANDBID = 'UPDATE_MARKET_STORE_ASKANDBID';
 
 // custom service store types
 export const CUSTOM_CHOOSE_MODEL_SHOW = 'CUSTOM_CHOOSE_MODEL_SHOW';

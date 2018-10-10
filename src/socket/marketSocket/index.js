@@ -5,7 +5,7 @@
  */
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
-import { action_storeinit, action_updateStore } from '../../store/actions/marketAction';
+import { action_storeinit, action_updateStore, action_updateAskAndBid } from '../../store/actions/marketAction';
 import { update_classify } from '../../store/actions/classifyAction';
 import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList } from '../../global/commodity_list';
 import _ from 'lodash';
@@ -111,6 +111,9 @@ class MarketSocket {
   updateMarketStoreData(rtnObj) {
     store.dispatch(action_updateStore(rtnObj));
   }
+  updateMarketDepthData(rtnObj) {
+    store.dispatch(action_updateAskAndBid(rtnObj));
+  }
   managerAliveContractList(rtnObj) {
     let successArr = rtnObj.data.succ_list;
     successArr.map(function (item) {
@@ -167,8 +170,7 @@ class MarketSocket {
           this.updateMarketStoreData(data);
           break;
         case 'on_rtn_depth':                                      //收到深度订阅ticker -> 更新数据  
-          console.log('this is depth!!!!');
-          console.log(data);
+          this.updateMarketDepthData(data);
           break;
       }
     }
