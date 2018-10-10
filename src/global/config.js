@@ -4,10 +4,10 @@ const PLATFORM_DOMAIN = 'http://test.api.duokongtai.cn';
 const CUSTOM_SERVICE_URL = 'http://www.vs.com/topic/consistentBeauty/qiw_quoteApp_service.html';
 const RECHARGE_URL = 'http://pay.duokongtai.cn';
 const APP_VERSIONS = 6.1;
-const MARKET_DOMAIN = 'ws://quote.vs.com:9102';
+const MARKET_DOMAIN = 'ws://192.168.0.232:9102';//ws://192.168.0.232:9102 ws://quote.vs.com:9102
 const MARKET_USER_NAME = 'fut_game_inner';
 const MARKET_PASSWORDS = 'a123456';
-const MARKET_VERSION = '6.2';
+const MARKET_VERSION = '2.0';
 
 const TAB_NAVI_NAME = ['行情', '模拟交易', '资讯', '我的'];
 //react-native-vector-icon中icon的key值，不可随意改动

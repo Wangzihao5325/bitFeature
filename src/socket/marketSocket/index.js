@@ -33,10 +33,11 @@ class MarketSocket {
     listObj.map(function (item) {
       let name = item.commodity_no + item.contract_no;
       if (_.indexOf(subscribeList, name) >= 0) {
-        subscribeObj.push(item);
+        let wsObj = item.security_type + '_' + item.commodity_no + '_' + item.contract_no;
+        subscribeObj.push(wsObj);
       }
     });
-    let json = { 'method': 'req_subscribe', 'data': subscribeObj };
+    let json = { 'method': 'req_subscribe', 'data': { 'mode': 'MODE_TRADE_TICK', 'contract_list': subscribeObj } };
     this.ws.send(JSON.stringify(json));
   }
   _unsubscribe(listObj) {
@@ -130,14 +131,14 @@ class MarketSocket {
           this.marketStoreInit(subscribe_list);
           this._subscribe(subscribe_list);
           break;
-        case 'on_rsp_subscribe':                                  //订阅成功 -> 维护合约状态列表
-          this.managerAliveContractList(data);
+        case 'on_rsp_subscribe':                                  //订阅成功 -> 维护合约状态列表 
+        this.managerAliveContractList(data);
           break;
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);
           break;
-        case 'on_rtn_quote':                                      //收到ticker -> 更新数据
-          this.updateMarketStoreData(data);
+        case 'on_rtn_quote':                                      //收到ticker -> 更新数据  
+        this.updateMarketStoreData(data);
           break;
       }
     }
