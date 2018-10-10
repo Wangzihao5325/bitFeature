@@ -8,6 +8,7 @@ import MarketScreen from '../screens/market/index';
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 
 import TradeScreen from '../screens/trade/index';
+import OperateDetailsScreen from '../screens/trade/operateDetails';
 
 import NewsScreen from '../screens/news';
 
@@ -44,15 +45,20 @@ MarketStack.navigationOptions = ({ navigation }) => {
     tabBarVisible
   }
 };
-let TradeStack = createStackNavigator({ TradeScreen }, {    //模拟交易
-  navigationOptions: {
-    title: TAB_NAVI_NAME[1],
-    headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR
-    },
-    headerTintColor: HEADER_TINT_COLOR
-  }
-});
+let TradeStack = createStackNavigator(
+  {
+    TradeScreen,
+    OperateDetailsScreen
+  },
+  {    //模拟交易
+    navigationOptions: {
+      title: TAB_NAVI_NAME[1],
+      headerStyle: {
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+      },
+      headerTintColor: HEADER_TINT_COLOR
+    }
+  });
 TradeStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
