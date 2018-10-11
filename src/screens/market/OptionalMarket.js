@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import store from '../../store';
+import { action_detailMarketDidMount } from '../../store/actions/markDetailsAction';
 import { DEVICE_WIDTH, DOWN_TEXT_COLOR, UP_TEXT_COLOR } from '../../global/config';
 import CommonStyles from '../../global/common_styles';
 import { rateStrGenerator, priceStrGenerator } from '../../global/util/index';
@@ -47,7 +49,7 @@ class OptionalMarket extends Component {
     const { marketNavigation } = this.context;
     let { marketStore } = this.props;
     let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
-    if(recommendContractMap[this.props.page]){
+    if (recommendContractMap[this.props.page]) {
       contractList = recommendContractMap[this.props.page];
     }
     //let contractList = ['CD1812','CU3M','ZN3M'];
@@ -58,7 +60,20 @@ class OptionalMarket extends Component {
       <View style={[styles.optionalContainer, CommonStyles.innerLineCenterStyle]}>
         {contractList.map(function (item) {
           let contractStore = marketStore[item];
-          return (<ItemContent key={item} title={contractMap2Config[item].fullName} dotSize={contractMap2Config[item].dotSize} price={contractStore.last} changeRate={contractStore.change_rate} changeNum={contractStore.change_value} onPress={() => marketNavigation.navigate('MarketDetailScreen', { contract: `${item}` })} />)
+          return (
+            <ItemContent
+              key={item}
+              title={contractMap2Config[item].fullName}
+              dotSize={contractMap2Config[item].dotSize}
+              price={contractStore.last}
+              changeRate={contractStore.change_rate}
+              changeNum={contractStore.change_value}
+              onPress={() => {
+                store.dispatch(action_detailMarketDidMount(item));
+                marketNavigation.navigate('MarketDetailScreen', { contract: `${item}` })
+              }}
+            />
+          )
         })}
       </View>
     );
