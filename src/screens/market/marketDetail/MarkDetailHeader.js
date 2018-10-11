@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../global/config';
 import VectorIconBtn from '../../../components/IconBtn';
@@ -14,6 +14,16 @@ class MarketDetailHeader extends Component {
   state = {
     isOpen: false
   };
+  _open = () => {
+    this.setState({
+      isOpen: true
+    });
+  }
+  _unopen = () => {
+    this.setState({
+      isOpen: false
+    });
+  }
   render() {
     return (
       <View style={{ width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
@@ -92,10 +102,40 @@ class MarketDetailHeader extends Component {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>100123</Text></View>
           </View>
           {/*change btn*/}
-          <View style={{ flex: 1 }}>
-            {this.state.isOpen ? <View></View> : <VectorIconBtn name='user' />}
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            {this.state.isOpen ?
+              <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>昨结</Text></View>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>100123</Text></View>
+              </View>
+              : <VectorIconBtn name='chevron-down' onPress={this._open} />}
           </View>
         </View>
+        {/*扩展列 成交量 持仓量 现手*/}
+        {
+          this.state.isOpen &&
+          <View style={{ height: lineHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
+            {/*成交量*/}
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交量</Text></View>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>100123</Text></View>
+            </View>
+            {/*持仓量*/}
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>持仓量</Text></View>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>100123</Text></View>
+            </View>
+            {/*现手*/}
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>现手</Text></View>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>100123</Text></View>
+            </View>
+            {/*change btn*/}
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <VectorIconBtn name='chevron-up' onPress={this._unopen} />
+            </View>
+          </View>
+        }
       </View>
     );
   }
