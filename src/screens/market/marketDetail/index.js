@@ -6,6 +6,7 @@ import HeaderTitle from './HeaderTitle';
 import CommonStyle from '../../../global/common_styles';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/config';
 import MarketSocket from '../../../socket/marketSocket/index';
+import MarketDetailHeader from './MarkDetailHeader';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -13,7 +14,8 @@ export default class MarketDetailScreen extends Component {
       headerTitle: <HeaderTitle onPress={navigation.getParam('showDrawer')} />,
       headerRight: (<VectorIconBtn name={'list'} onPress={navigation.getParam('showDrawer')} />),
       headerStyle: {
-        backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
+        borderBottomColor: 'black',
       },
       headerTintColor: HEADER_TINT_COLOR
     }
@@ -44,7 +46,7 @@ export default class MarketDetailScreen extends Component {
   render() {
     const drawerStyles = {
       drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-      main: { paddingLeft: 3 },
+      main: { paddingLeft: 0 },
     }
     return (
       <Drawer
@@ -59,11 +61,11 @@ export default class MarketDetailScreen extends Component {
         closedDrawerOffset={-3}
         styles={drawerStyles}
         tweenHandler={(ratio) => ({
-          main: { opacity: (2 - ratio) / 2 }
+          main: { opacity: (5 - ratio) / 5 }
         })}
       >
-        <View style={CommonStyle.absoluateCenterStyle}>
-          <Text>MarketDetail</Text>
+        <View style={{ flex: 1 }}>
+          <MarketDetailHeader />
         </View>
       </Drawer>
     );
