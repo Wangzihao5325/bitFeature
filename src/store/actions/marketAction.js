@@ -30,6 +30,8 @@ export function action_updateStore(rtnParams) {
   let contract_name = _.join(regArr, '');
   let change_value = data[3] - data[10];
   let change_rate = change_value * 100 / data[10];
+  let time = data[1];
+  let open = data[2];
   return (dispatch) => {
     dispatch({
       type: types.UPDATE_MARKET_STORE,
@@ -46,7 +48,9 @@ export function action_updateStore(rtnParams) {
         ask1: [data[11], data[12]],
         bid1: [data[13], data[14]],
         change_rate: change_rate,
-        change_value: change_value
+        change_value: change_value,
+        open: open,
+        time: time
       }
     });
   }

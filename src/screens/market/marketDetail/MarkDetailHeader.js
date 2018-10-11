@@ -37,6 +37,8 @@ class MarketDetailHeader extends Component {
     let volume = dataObj.volume ? dataObj.volume : 0;
     let position = dataObj.position ? dataObj.position : 0;
     let lastVolume = dataObj.last_volume ? dataObj.last_volume : 0;
+    let time = dataObj.time ? dataObj.time : '';
+    let open = dataObj.open ? dataObj.open : 0;
     return (
       <View style={{ width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ height: doubleHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
@@ -49,7 +51,7 @@ class MarketDetailHeader extends Component {
                 <View style={{ flex: 1, alignItems: 'flex-end' }}><Text style={{ color: 'white' }}>-2.2 /</Text></View>
                 <View style={{ flex: 1, alignItems: 'flex-start' }}><Text style={{ color: 'white' }}>-2.2%</Text></View>
               </View>
-              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>08-29 15:50:25</Text></View>
+              <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>{time}</Text></View>
             </View>
           </View>
           {/*买卖 买量卖量*/}
@@ -111,7 +113,7 @@ class MarketDetailHeader extends Component {
           {/*开盘*/}
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>开盘</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>100123</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{open}</Text></View>
           </View>
           {/*change btn*/}
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>

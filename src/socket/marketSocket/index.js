@@ -166,8 +166,8 @@ class MarketSocket {
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);
           break;
-        case 'on_rtn_quote':                                      //收到ticker -> 更新数据  
-          this.updateMarketStoreData(data);
+        case 'on_rtn_quote':                                      //收到ticker -> 更新数据   
+        this.updateMarketStoreData(data);
           break;
         case 'on_rtn_depth':                                      //收到深度订阅ticker -> 更新数据  
           this.updateMarketDepthData(data);

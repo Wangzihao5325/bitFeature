@@ -9,6 +9,7 @@ import _ from 'lodash';
 function objCreate(name) {
   return (
     {
+      open:0,                              //开盘价
       height: 0,                           //最高价
       low: 0,                              //最低价
       last: 0,                             //最新价
@@ -20,6 +21,7 @@ function objCreate(name) {
       contract_name: name,                 //合约编码
       change_rate: 0,                      //价格变化率
       change_value: 0,                     //价格变化量
+      time:'2018-1-1 00:00:00.000',        //时间戳
       ask1: [0, 0],                        //1档卖价
       bid1: [0, 0],                        //1档买价
       ask2: [0, 0],                        //2档卖价
