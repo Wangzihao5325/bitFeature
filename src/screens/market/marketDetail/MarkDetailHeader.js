@@ -3,6 +3,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../global/config';
 import VectorIconBtn from '../../../components/IconBtn';
+import { contractMap2Config } from '../../../global/commodity_list';
+import { rateStrGenerator, priceStr2Generator } from '../../../global/util/index';
+import { UP_TEXT_COLOR, DOWN_TEXT_COLOR } from '../../../global/config';
 const lineHeight = 50;
 const halfHeight = lineHeight / 2;
 const doubleHeight = 2 * lineHeight;
@@ -25,8 +28,18 @@ class MarketDetailHeader extends Component {
     });
   }
   render() {
+    let dotSize = contractMap2Config[this.props.nowDetail].dotSize
     let dataObj = this.props.marketStore[this.props.nowDetail];
+
     let last = dataObj.last ? dataObj.last : 0;
+    let changeRate = dataObj.change_rate ? dataObj.change_rate : 0;
+    let changeNum = dataObj.change_value ? dataObj.change_value : 0;
+    let priceText = priceStr2Generator(last, dotSize);
+    let changeRateText = rateStrGenerator(changeRate, 2, true);
+    let changeNumText = rateStrGenerator(changeNum, dotSize, false);
+    let color = changeRate >= 0 ? UP_TEXT_COLOR : DOWN_TEXT_COLOR;
+
+
     let ask1Price = dataObj.ask1[0] ? dataObj.ask1[0] : 0;
     let ask1Vol = dataObj.ask1[1] ? dataObj.ask1[1] : 0;
     let bid1Price = dataObj.bid1[0] ? dataObj.bid1[0] : 0;
@@ -41,22 +54,22 @@ class MarketDetailHeader extends Component {
     let open = dataObj.open ? dataObj.open : 0;
     return (
       <View style={{ width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-        <View style={{ height: doubleHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-          <View style={{ height: doubleHeight, width: halfWidth }}>
+        <View style={{ height: doubleHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#17191E' }}>
+          <View style={{ height: doubleHeight, width: halfWidth, borderRightWidth: 1, borderRightColor: '#17191E' }}>
             {/*最新价*/}
-            <View style={{ height: lineHeight, width: halfWidth, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{last}</Text></View>
+            <View style={{ height: lineHeight, width: halfWidth, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: color,fontSize:24 }}>{priceText}</Text></View>
             {/*涨跌&&时间*/}
             <View style={{ height: lineHeight, width: halfWidth }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
-                <View style={{ flex: 1, alignItems: 'flex-end' }}><Text style={{ color: 'white' }}>-2.2 /</Text></View>
-                <View style={{ flex: 1, alignItems: 'flex-start' }}><Text style={{ color: 'white' }}>-2.2%</Text></View>
+                <View style={{ flex: 1, alignItems: 'flex-end' }}><Text style={{ color: color }}>{changeNumText + ' /'}</Text></View>
+                <View style={{ flex: 1, alignItems: 'flex-start' }}><Text style={{ color: color }}>{changeRateText}</Text></View>
               </View>
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>{time}</Text></View>
             </View>
           </View>
           {/*买卖 买量卖量*/}
           <View style={{ height: doubleHeight, width: halfWidth, display: 'flex' }}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={{ flex: 1, flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#17191E' }}>
               {/*卖*/}
               <View style={{ flex: 1 }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -99,16 +112,16 @@ class MarketDetailHeader extends Component {
           </View>
         </View>
         {/*最高价&最低价&开盘&展开*/}
-        <View style={{ height: lineHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
+        <View style={{ height: lineHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#17191E' }}>
           {/*最高价*/}
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>最高价</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{height}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: UP_TEXT_COLOR }}>{height}</Text></View>
           </View>
           {/*最低价*/}
           <View style={{ flex: 1 }}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>最低价</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{low}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: DOWN_TEXT_COLOR }}>{low}</Text></View>
           </View>
           {/*开盘*/}
           <View style={{ flex: 1 }}>
@@ -128,7 +141,7 @@ class MarketDetailHeader extends Component {
         {/*扩展列 成交量 持仓量 现手*/}
         {
           this.state.isOpen &&
-          <View style={{ height: lineHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
+          <View style={{ height: lineHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#17191E' }}>
             {/*成交量*/}
             <View style={{ flex: 1 }}>
               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交量</Text></View>
