@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, TouchableHighlight, Text, FlatList, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import store from '../../store';
+import { action_detailMarketDidMount } from '../../store/actions/markDetailsAction';
 import _ from 'lodash';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { contractMap2Config } from '../../global/commodity_list';
@@ -175,7 +177,10 @@ class MarkList extends Component {
               changeNum={item.change_value}
               tradeValue={item.volume}
               holdValue={item.position}
-              onPress={() => marketNavigation.navigate('MarketDetailScreen', { contract: `${item.contract_name}` })}
+              onPress={() => {
+                store.dispatch(action_detailMarketDidMount(item.contract_name));
+                marketNavigation.navigate('MarketDetailScreen', { contract: `${item.contract_name}` });
+              }}
               isRate={this.state.isRate}
               isTradeValue={this.state.isTradeValue}
             />

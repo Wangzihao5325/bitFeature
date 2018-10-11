@@ -7,6 +7,7 @@ import CommonStyle from '../../../global/common_styles';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/config';
 import MarketSocket from '../../../socket/marketSocket/index';
 import MarketDetailHeader from './MarkDetailHeader';
+import store from '../../../store/index';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
