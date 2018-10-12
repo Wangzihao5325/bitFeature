@@ -71,21 +71,21 @@ class MarketSocket {
   contractFilter(rtnData, isMain, index) {
     let subscribe_list = [];
     let commodity_list = rtnData.data.commodity_list;
-
     for (let i = 0; i < commodity_list.length; i++) {// to do ... 此处暂时只订阅2条合约
       let commodity_details = commodity_list[i];
       if (_.indexOf(initContractList, commodity_details.commodity_no) < 0) {
         continue;
       }
-      let contract_no_obj = isMain ? commodity_details.contract_no_list.filter(function (item) { return (item.flags === 1); }) : commodity_details.contract_no_list[index];
+      // let contract_no_obj = isMain ? commodity_details.contract_no_list.filter(function (item) { return (item.flags === 1); }) : commodity_details.contract_no_list[index];
+      let contract_no_obj = isMain ? commodity_details.main_contract_no : commodity_details.main_contract_no;
       /*此处配置信息分为两部分处理structure／others，因为structure是后台约定的合约标识,others为配置信息 */
       let contract_structure = {
         'security_type': commodity_details.security_type,
         'exchange_no': commodity_details.exchange_no,
         'commodity_no': commodity_details.commodity_no,
-        'contract_no': contract_no_obj[0].contract_no
+        'contract_no': contract_no_obj
       };
-      let contractName = commodity_details.commodity_no + contract_no_obj[0].contract_no;
+      let contractName = commodity_details.commodity_no + contract_no_obj;
       //分类列表加入期数信息
       let regKey = _.findKey(classifyContractMap, function (o) { return _.indexOf(o, commodity_details.commodity_no) >= 0; });
       _.pull(classifyContractMap[regKey], commodity_details.commodity_no);
@@ -167,7 +167,7 @@ class MarketSocket {
           this.managerAliveContractList2(data);
           break;
         case 'on_rtn_quote':                                      //收到ticker -> 更新数据   
-        this.updateMarketStoreData(data);
+          this.updateMarketStoreData(data);
           break;
         case 'on_rtn_depth':                                      //收到深度订阅ticker -> 更新数据  
           this.updateMarketDepthData(data);
