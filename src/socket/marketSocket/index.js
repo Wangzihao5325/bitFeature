@@ -67,6 +67,38 @@ class MarketSocket {
     let json = { 'method': 'req_unsubscribe_depth', 'data': { 'contract_list': reg } };
     this.ws.send(JSON.stringify(json));
   }
+  _history_data(contractObj, typeNum) {
+    let wsObj = contractObj.security_type + '_' + contractObj.commodity_no + '_' + contractObj.contract_no;
+    let type = '';
+    switch (typeNum) {
+      case 0: type = 'TIME_SHARING';
+        break;
+      case 1: type = 'KLINE_1MIN';
+        break;
+      case 5: type = 'KLINE_5MIN';
+        break;
+      case 15: type = 'KLINE_15MIN';
+        break;
+      case 30: type = 'KLINE_30MIN';
+        break;
+      case 60: type = 'KLINE_1HR';
+        break;
+      case 120: type = 'KLINE_2HR';
+        break;
+      case 240: type = 'KLINE_4HR';
+        break;
+      case 720: type = 'KLINE_12HR';
+        break;
+      case 1440: type = 'KLINE_1DAY';
+        break;
+      default: type = 'KLINE_5MIN';
+        break;
+    }
+    let sharingParams = { 'contract_code': wsObj, 'period': type };
+    let kLineParams = { 'contract_code': wsObj, 'period': type, 'count': 40 };
+    const json = type == 'TIME_SHARING' ? { 'method': 'req_history_data', 'data': sharingParams } : { 'method': 'req_history_data', 'data': kLineParams };
+    this.ws.send(JSON.stringify(json));
+  }
   /*查找需要订阅的合约，返回对应的结构体集合 */
   contractFilter(rtnData, isMain, index) {
     let subscribe_list = [];
@@ -132,6 +164,10 @@ class MarketSocket {
       _.pull(aliveContractList, name);
     })
   }
+  updateHistoryData(data) {
+    console.log('on_rsp_history_data!!!!!!');
+    console.log(data);
+  }
 
   /*初次链接socket*/
   connectSocket() {
@@ -168,6 +204,9 @@ class MarketSocket {
           break;
         case 'on_rtn_quote':                                      //收到ticker -> 更新数据   
           this.updateMarketStoreData(data);
+          break;
+        case 'on_rsp_history_data':                                      //收到K线数据 -> 更新数据   
+          this.updateHistoryData(data);
           break;
         case 'on_rtn_depth':                                      //收到深度订阅ticker -> 更新数据  
           this.updateMarketDepthData(data);
@@ -228,6 +267,10 @@ class MarketSocket {
       });
       this._unsubscribe(unsubscribeObj);
     }
+  }
+  getHistoryData(contract, typeNum) {
+    let contractObj = contractMap2Config[contract].structure;
+    this._history_data(contractObj, typeNum);
   }
 }
 

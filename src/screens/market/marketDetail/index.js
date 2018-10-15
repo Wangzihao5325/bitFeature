@@ -8,6 +8,8 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/conf
 import MarketSocket from '../../../socket/marketSocket/index';
 import MarketDetailHeader from './MarkDetailHeader';
 import store from '../../../store/index';
+import KView from './chartView/KView';
+import marketSocket from '../../../socket/marketSocket/index';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -24,6 +26,7 @@ export default class MarketDetailScreen extends Component {
   componentDidMount() {
     this.props.navigation.setParams({ showDrawer: this._openDrawer });
     const name = this.props.navigation.getParam('contract', 'undefine_contract');
+    marketSocket.getHistoryData(name,1);//查询k线数据
     MarketSocket.otherContractPause(name, true);
   }
   componentWillUnmount() {
@@ -67,6 +70,7 @@ export default class MarketDetailScreen extends Component {
       >
         <View style={{ flex: 1 }}>
           <MarketDetailHeader />
+      
         </View>
       </Drawer>
     );
