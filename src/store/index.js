@@ -8,6 +8,7 @@ import capitalDetailReducer from './reducers/capitalDetailReducer';
 import tradeAccountReducer from './reducers/tradeAccountReducer';
 import classifyReducer from './reducers/classifyReducer';
 import marketDetailsReducer from './reducers/markDetailsReducer';
+import KReducer from './reducers/chartReducers/KReducer';
 
 const rootReducer = combineReducers({
   test: testReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   capitalDetail: capitalDetailReducer,
   tradeAccount: tradeAccountReducer,
   contractClassify: classifyReducer,
-  marketDetail: marketDetailsReducer
+  marketDetail: marketDetailsReducer,
+  KStore:KReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

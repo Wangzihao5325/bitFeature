@@ -7,6 +7,7 @@ import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } fro
 import store from '../../store/index';
 import { action_storeinit, action_updateStore, action_updateAskAndBid } from '../../store/actions/marketAction';
 import { update_classify } from '../../store/actions/classifyAction';
+import { action_startKStore } from '../../store/actions/chartActions/KActions';
 import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
@@ -164,9 +165,14 @@ class MarketSocket {
       _.pull(aliveContractList, name);
     })
   }
-  updateHistoryData(data) {
+  updateHistoryData(result) {
     console.log('on_rsp_history_data!!!!!!');
-    console.log(data);
+    console.log(result);
+    if (result.data.period === 'TIME_SHARING') {
+      
+    } else {
+      store.dispatch(action_startKStore(result.data));
+    }
   }
 
   /*初次链接socket*/

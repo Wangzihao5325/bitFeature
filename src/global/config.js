@@ -33,6 +33,7 @@ const DEVICE_HEIGHT = Dimensions.get('window').height;
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const ICON_SIZE = 24;
 const CARD_HEADER_HEIGHT = 265;
+const CHART_DATA_LIMITED = 40;
 export {
   PLATFORM_DOMAIN,
   CUSTOM_SERVICE_URL,
@@ -65,5 +66,6 @@ export {
   DEVICE_HEIGHT,
   DEVICE_WIDTH,
   ICON_SIZE,
-  CARD_HEADER_HEIGHT
+  CARD_HEADER_HEIGHT,
+  CHART_DATA_LIMITED
 }

@@ -26,7 +26,7 @@ export default class MarketDetailScreen extends Component {
   componentDidMount() {
     this.props.navigation.setParams({ showDrawer: this._openDrawer });
     const name = this.props.navigation.getParam('contract', 'undefine_contract');
-    marketSocket.getHistoryData(name,1);//查询k线数据
+    marketSocket.getHistoryData(name, 1);//查询k线数据
     MarketSocket.otherContractPause(name, true);
   }
   componentWillUnmount() {
@@ -70,7 +70,7 @@ export default class MarketDetailScreen extends Component {
       >
         <View style={{ flex: 1 }}>
           <MarketDetailHeader />
-      
+          <KView />
         </View>
       </Drawer>
     );
