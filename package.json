@@ -10,6 +10,7 @@
     "moment": "^2.22.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-charts-wrapper": "^0.4.2",
     "react-native-drawer": "^2.5.0",
     "react-native-root-toast": "^3.0.1",
     "react-native-text-input-enhance": "^1.0.11",
