@@ -7,16 +7,17 @@ import { View, processColor, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { CombinedChart, BarChart } from 'react-native-charts-wrapper';
+
 import { DEVICE_WIDTH } from '../../../../global/config';
 import Loading from '../../../../components/Loading';
 import ChartUtil from '../../../../global/util/ChartUtil';
 
 let DOT_SIZE = 2
 let MA = { five: 0, ten: 0, twenty: 0, thirty: 0 };
+
 class KView extends Component {
   constructor(props) {
     super(props);
-    this.store = this.props.KStore;
   }
   _renderLoading() {
     return (
@@ -268,6 +269,7 @@ class KView extends Component {
   }
   render() {
     // return this.store.isLoading ? this._renderLoading() : this._renderContent();
+    console.log('is rerending!!!!!!!');
     return this._renderContent()
   }
 }
@@ -279,6 +281,7 @@ function mapState2Props(store) {
     storeDateLabels: store.KStore.dateLabels,
     storetimeLabels: store.KStore.timeLabels,
     storeVolumns: store.KStore.volumns,
+    storeTimes: store.KStore.times
   }
 }
 

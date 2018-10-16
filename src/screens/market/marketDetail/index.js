@@ -33,9 +33,9 @@ export default class MarketDetailScreen extends Component {
     //恢复之前暂停的行情推送
     MarketSocket.contractGoingOn();
   }
-  shouldComponentUpdate() {
-    return false            //发现navi至页面render了2次，先禁止了 ... to do
-  }
+  // shouldComponentUpdate() {
+  //   return false            //发现navi至页面render了2次，先禁止了 ... to do
+  // }
   constructor() {
     super();
     this.isDrawerShow = false;

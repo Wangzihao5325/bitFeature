@@ -7,7 +7,7 @@ import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } fro
 import store from '../../store/index';
 import { action_storeinit, action_updateStore, action_updateAskAndBid } from '../../store/actions/marketAction';
 import { update_classify } from '../../store/actions/classifyAction';
-import { action_startKStore } from '../../store/actions/chartActions/KActions';
+import { action_startKStore, action_addKStore } from '../../store/actions/chartActions/KActions';
 import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
@@ -166,15 +166,18 @@ class MarketSocket {
     })
   }
   updateHistoryData(result) {
-    console.log('on_rsp_history_data!!!!!!');
-    console.log(result);
     if (result.data.period === 'TIME_SHARING') {
-      
+
     } else {
       store.dispatch(action_startKStore(result.data));
     }
   }
-
+  updateRtnChartDate(result) {
+    let kStoreSnap = store.getState().KStore;
+    if (kStoreSnap.isActive) {
+      store.dispatch(action_addKStore(result));
+    }
+  }
   /*初次链接socket*/
   connectSocket() {
     this.ws = new WebSocket(this.url);
@@ -210,6 +213,7 @@ class MarketSocket {
           break;
         case 'on_rtn_quote':                                      //收到ticker -> 更新数据   
           this.updateMarketStoreData(data);
+          this.updateRtnChartDate(data);
           break;
         case 'on_rsp_history_data':                                      //收到K线数据 -> 更新数据   
           this.updateHistoryData(data);
