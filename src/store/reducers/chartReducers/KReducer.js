@@ -15,7 +15,6 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.K_STORE_START:
-      console.log(action.prices);
       return {
         ...state,
         times: action.times,
@@ -57,6 +56,11 @@ const reducer = (state = initialState, action) => {
         dateLabelsReg.push(action.addDateLabels);
         timeLabelsReg.push(action.addTimeLabels);
         pricesReg.push(action.addPrices);
+        // if (action.addVolumns === 0) {
+        //   volumnsReg.push(volumnsReg[volumnsReg.length-1]);
+        // } else {
+        //   volumnsReg.push(action.addVolumns);
+        // }
         volumnsReg.push(action.addVolumns);
         return {
           ...state,

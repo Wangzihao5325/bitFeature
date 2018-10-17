@@ -107,10 +107,6 @@ export function action_addKStore(param) {
   const oldestDateTimeString = kStoreSnap.times[kStoreSnap.times.length - 1];
   const oldTime = Math.round(moment(oldestDateTimeString).valueOf() / 1000);
   const newTime = getRangeTime(dataSent[1],kStoreSnap);
-  console.log('_____________timme____________')
-  console.log(kStoreSnap)
-  console.log(newTime);
-  console.log(oldTime);
   const lastPrice = _.toNumber(dataSent[3].toFixed(dotSize));
   if (oldTime === newTime) {
     const length = kStoreSnap.prices.length;

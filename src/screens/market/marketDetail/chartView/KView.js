@@ -83,10 +83,10 @@ class KView extends Component {
             shadowColor: processColor('black'),
             shadowWidth: 1,
             shadowColorSameAsCandle: true,
-            increasingColor: processColor('rgb(235, 82, 83)'),
+            increasingColor: processColor('rgb(235, 82, 83)'),//'rgb(235, 82, 83)'
 
             increasingPaintStyle: 'fill',
-            decreasingColor: processColor('rgb(76, 166, 74)'),
+            decreasingColor: processColor('rgb(76, 166, 74)'),//'rgb(76, 166, 74)'
             drawHighlightIndicators: false,
           }
 
@@ -269,7 +269,6 @@ class KView extends Component {
   }
   render() {
     // return this.store.isLoading ? this._renderLoading() : this._renderContent();
-    console.log('is rerending!!!!!!!');
     return this._renderContent()
   }
 }
