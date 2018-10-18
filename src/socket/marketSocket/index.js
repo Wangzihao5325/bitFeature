@@ -9,6 +9,7 @@ import { action_storeinit, action_updateStore, action_updateAskAndBid } from '..
 import { update_classify } from '../../store/actions/classifyAction';
 import { action_startKStore, action_addKStore } from '../../store/actions/chartActions/KActions';
 import { action_startLightningStore, action_updateLightningStore } from '../../store/actions/chartActions/LightningAction';
+import { action_startTimeStore, action_updateTimeStore } from '../../store/actions/chartActions/TimeAction';
 import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
@@ -167,8 +168,8 @@ class MarketSocket {
     })
   }
   updateHistoryData(result) {
-    if (result.data.period === 'TIME_SHARING') {
-
+    if (result.data.period === 'KLINE_UNKNOWN') {//TIME_SHARING
+      store.dispatch(action_startTimeStore(result.data));
     } else {
       store.dispatch(action_startKStore(result.data));
     }
@@ -176,11 +177,15 @@ class MarketSocket {
   updateRtnChartDate(result) {
     let kStoreSnap = store.getState().KStore;
     let lightningStoreSnap = store.getState().LightningStore;
+    let timeStoreSnap = store.getState().TimeStore;
     if (kStoreSnap.isActive) {
       store.dispatch(action_addKStore(result));
     }
     if (lightningStoreSnap.isActive) {
       store.dispatch(action_updateLightningStore(result));
+    }
+    if (timeStoreSnap.isActive) {
+      store.dispatch(action_updateTimeStore(result));
     }
   }
   /*初次链接socket*/
@@ -216,7 +221,7 @@ class MarketSocket {
         case 'on_rsp_unsubscribe':                                //取消订阅成功 -> 维护合约状态列表
           this.managerAliveContractList2(data);
           break;
-        case 'on_rtn_quote':                                      //收到ticker -> 更新数据    
+        case 'on_rtn_quote':                                      //收到ticker -> 更新数据     
           this.updateMarketStoreData(data);
           this.updateRtnChartDate(data);
           break;
