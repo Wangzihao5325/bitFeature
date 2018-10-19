@@ -214,7 +214,7 @@ export default connect(mapState2Props)(LightningView);
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    height: 250,
     width: DEVICE_WIDTH,
     display: 'flex'
     // backgroundColor: Colors.bg

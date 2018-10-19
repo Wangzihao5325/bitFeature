@@ -275,7 +275,7 @@ export default connect(mapState2Props)(TimeView);
 
 const styles = StyleSheet.create({
   container: {
-    height: 300,
+    height: 250,
     width: DEVICE_WIDTH,
     position: 'relative', // for Marker
     display: 'flex'

@@ -13,6 +13,7 @@ import LightningView from './chartView/LightningView';
 import TimeView from './chartView/TimeView';
 import marketSocket from '../../../socket/marketSocket/index';
 import { action_startLightningStore } from './../../../store/actions/chartActions/LightningAction';
+import MarketDetailFooter from './marketDetailFooter/index';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -77,6 +78,7 @@ export default class MarketDetailScreen extends Component {
           <TimeView />
           {/*<KView />*/}
           {/*<LightningView />*/}
+          <MarketDetailFooter />
         </View>
       </Drawer>
     );

@@ -16,20 +16,20 @@ const reducer = (state = initialState, action) => {
     case types.MARK_DETAIL_CHANGE_CONTRACT:
       return {
         ...state,
-        isLogin: false,
+        // isLogin: false,
       };
     case types.MARK_DETAIL_WILL_UNMOUNT:
       return {
         ...state,
-        user: action.user,
-        balance: action.balance,
-        userVerified: action.userVerified,
-        isCertification: action.isCertification,
-        isSetDrawPwd: action.isSetDrawPwd,
-        operateMoney: action.operateMoney,
-        frozenCapital: action.frozenCapital,
-        drawHandleFee: action.drawHandleFee,
-        wxAccount: action.wxAccount
+        // user: action.user,
+        // balance: action.balance,
+        // userVerified: action.userVerified,
+        // isCertification: action.isCertification,
+        // isSetDrawPwd: action.isSetDrawPwd,
+        // operateMoney: action.operateMoney,
+        // frozenCapital: action.frozenCapital,
+        // drawHandleFee: action.drawHandleFee,
+        // wxAccount: action.wxAccount
       };
     default: return state;
   }
