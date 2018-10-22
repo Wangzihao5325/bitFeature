@@ -11,6 +11,7 @@ import marketDetailsReducer from './reducers/markDetailsReducer';
 import KReducer from './reducers/chartReducers/KReducer';
 import LightningReducer from './reducers/chartReducers/LightningReducer';
 import TimeReducer from './reducers/chartReducers/TimeReducer';
+import marketDeatilFootReducer from './reducers/marketDetailFooterReducer';
 
 const rootReducer = combineReducers({
   test: testReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
   marketDetail: marketDetailsReducer,
   KStore: KReducer,
   LightningStore: LightningReducer,
-  TimeStore: TimeReducer
+  TimeStore: TimeReducer,
+  MarketDetailFooter: marketDeatilFootReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
