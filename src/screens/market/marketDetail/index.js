@@ -3,18 +3,12 @@ import { View, Text } from 'react-native';
 import Drawer from 'react-native-drawer';
 import VectorIconBtn from '../../../components/IconBtn';
 import HeaderTitle from './HeaderTitle';
-import CommonStyle from '../../../global/common_styles';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/config';
 import MarketSocket from '../../../socket/marketSocket/index';
 import MarketDetailHeader from './MarkDetailHeader';
-import store from '../../../store/index';
-import KView from './chartView/KView';
-import LightningView from './chartView/LightningView';
-import TimeView from './chartView/TimeView';
-import marketSocket from '../../../socket/marketSocket/index';
-import { action_startLightningStore } from './../../../store/actions/chartActions/LightningAction';
 import MarketDetailFooter from './marketDetailFooter/index';
 import MarketChartView from './chartView/index';
+import BottomBtn from './BottomBtn';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -31,10 +25,6 @@ export default class MarketDetailScreen extends Component {
   componentDidMount() {
     this.props.navigation.setParams({ showDrawer: this._openDrawer });
     const name = this.props.navigation.getParam('contract', 'undefine_contract');
-    // console.log('1233333333');
-    // console.log(name);
-    // marketSocket.getHistoryData(name, 0);//1查询k线数据 0时序图
-    // // store.dispatch(action_startLightningStore(name));//开启闪电图
     MarketSocket.otherContractPause(name, true);
   }
   componentWillUnmount() {
@@ -78,11 +68,9 @@ export default class MarketDetailScreen extends Component {
       >
         <View style={{ flex: 1 }}>
           <MarketDetailHeader />
-          {/*<TimeView />*/}
-          {/*<KView />*/}
-          {/*<LightningView />*/}
           <MarketChartView/>
           <MarketDetailFooter />
+          <BottomBtn/>
         </View>
       </Drawer>
     );

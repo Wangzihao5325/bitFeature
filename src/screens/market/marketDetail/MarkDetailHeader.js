@@ -6,7 +6,7 @@ import VectorIconBtn from '../../../components/IconBtn';
 import { contractMap2Config } from '../../../global/commodity_list';
 import { rateStrGenerator, priceStr2Generator } from '../../../global/util/index';
 import { UP_TEXT_COLOR, DOWN_TEXT_COLOR } from '../../../global/config';
-const lineHeight = 50;
+const lineHeight = 40;
 const halfHeight = lineHeight / 2;
 const doubleHeight = 2 * lineHeight;
 const halfWidth = DEVICE_WIDTH / 2;

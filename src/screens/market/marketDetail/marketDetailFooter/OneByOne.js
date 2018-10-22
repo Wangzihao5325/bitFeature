@@ -6,10 +6,10 @@ const NORMAL_BACKGROUNDCOLOR = '#20212A';
 class Header extends Component {
   render() {
     return (
-      <View style={{ height: 20, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' ,backgroundColor:NORMAL_BACKGROUNDCOLOR}}>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}><Text style={{ marginLeft: 5,color:'white' }}>时间</Text></View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{color:'white'}}>价格</Text></View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}><Text style={{ marginRight: 5,color:'white' }}>数量</Text></View>
+      <View style={{ height: 20, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}><Text style={{ marginLeft: 5, color: 'white' }}>时间</Text></View>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>价格</Text></View>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}><Text style={{ marginRight: 5, color: 'white' }}>数量</Text></View>
       </View>
     );
   }
@@ -17,10 +17,10 @@ class Header extends Component {
 class Item extends Component {
   render() {
     return (
-      <View style={{ height: 20, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' ,backgroundColor:NORMAL_BACKGROUNDCOLOR}}>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}><Text style={{ marginLeft: 5,color:'white' }}>{this.props.time}</Text></View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{color:'white'}}>{this.props.price}</Text></View>
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}><Text style={{ marginRight: 5,color:'white' }}>{this.props.vol}</Text></View>
+      <View style={{ height: 20, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}><Text style={{ marginLeft: 5, color: 'white' }}>{this.props.time}</Text></View>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.price}</Text></View>
+        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}><Text style={{ marginRight: 5, color: 'white' }}>{this.props.vol}</Text></View>
       </View>
     );
   }
@@ -43,11 +43,11 @@ class OneByOne extends Component {
       }
       dataList.unshift(dataItem);
       dataArr = dataList.concat();
-    }else{
+    } else {
       dataArr = dataList.concat();
     }
     return (
-      <View style={{ flex: 1,backgroundColor:NORMAL_BACKGROUNDCOLOR }}>
+      <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <Header />
         <FlatList data={dataArr} renderItem={({ item }) => <Item time={item.time} price={item.price} vol={item.vol} />} />
       </View>
