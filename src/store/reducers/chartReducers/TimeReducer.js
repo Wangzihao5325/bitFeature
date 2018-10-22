@@ -96,6 +96,8 @@ const reducer = (state = initialState, action) => {
           preSettlePrice: action.preSettlePrice
         };
       }
+    case types.TIME_STORE_RESET:
+      return initialState;
     default: return state;
   }
 };

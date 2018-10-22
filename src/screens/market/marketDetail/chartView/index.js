@@ -4,6 +4,7 @@ import UsualTabBar from '../../../../components/NormalTabBar';
 import { connect } from 'react-redux';
 import store from './../../../../store/index';
 import { market_chart_view_screen_change } from './../../../../store/actions/chartActions/marketChartViewAction';
+import * as types from '../../../../store/actionType';
 import KView from './KView';
 import LightningView from './LightningView';
 import TimeView from './TimeView';
@@ -15,7 +16,16 @@ class MarketChartView extends Component {
     marketSocket.getHistoryData(name, 0);//1查询k线数据 0时序图
     // store.dispatch(action_startLightningStore(name));//开启闪电图
   }
-  chartChange = (keyValue) => {
+  chartChange = (keyValue, oldValue) => {
+    if (oldValue === '闪电') {
+      store.dispatch({ type: types.LIGHTNING_STORE_RESET });
+    } else if (oldValue === '分时') {
+      store.dispatch({ type: types.TIME_STORE_RESET });
+    } else {
+      store.dispatch({ type: types.K_STORE_RESET });
+    }
+    
+    store.dispatch(market_chart_view_screen_change(keyValue));
 
     let name = this.props.nowContract;
     if (keyValue === '闪电') {
@@ -33,18 +43,19 @@ class MarketChartView extends Component {
     } else if (keyValue === '30分') {
       marketSocket.getHistoryData(name, 30);
     }
-    store.dispatch(market_chart_view_screen_change(keyValue));
+
   }
   render() {
-    console.log('zxczxczxc');
-    console.log(this.props.nowChart);
-    console.log(this.props.nowChart === '闪电');
     return (
       <View>
         <UsualTabBar tabNames={['闪电', '分时', '日k', '1分', '5分', '15分', '30分']} tabTap={this.chartChange} />
         {this.props.nowChart === '闪电' && <LightningView />}
         {this.props.nowChart === '分时' && <TimeView />}
         {this.props.nowChart === '日k' && <KView />}
+        {this.props.nowChart === '1分' && <KView />}
+        {this.props.nowChart === '5分' && <KView />}
+        {this.props.nowChart === '15分' && <KView />}
+        {this.props.nowChart === '30分' && <KView />}
       </View>
     );
   }

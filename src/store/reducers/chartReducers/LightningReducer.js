@@ -29,7 +29,10 @@ const reducer = (state = initialState, action) => {
         times: timesReg,
         prices: pricesReg
       };
-    default: return state;
+    case types.LIGHTNING_STORE_RESET:
+      return initialState;
+    default:
+      return state;
   }
 };
 export default reducer;

@@ -89,8 +89,9 @@ export default class UsualTabBar extends Component {
     isDefault: true
   }
   tabTap = (keyValue) => {
+    let oldstate = this.props.tabNames[this.state.HighlightIndex];
     this.setState({ HighlightIndex: keyValue });
-    this.props.tabTap(this.props.tabNames[keyValue]);
+    this.props.tabTap(this.props.tabNames[keyValue], oldstate);
   }
 
   tabsGenerator = (count) => {

@@ -268,6 +268,7 @@ class KView extends Component {
     );
   }
   render() {
+    console.log('is rending!!!!!!');
     // return this.store.isLoading ? this._renderLoading() : this._renderContent();
     return this._renderContent()
   }

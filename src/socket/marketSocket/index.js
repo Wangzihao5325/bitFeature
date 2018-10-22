@@ -171,6 +171,7 @@ class MarketSocket {
     if (result.data.period === 'KLINE_UNKNOWN') {//TIME_SHARING
       store.dispatch(action_startTimeStore(result.data));
     } else {
+      console.log(result);
       store.dispatch(action_startKStore(result.data));
     }
   }
