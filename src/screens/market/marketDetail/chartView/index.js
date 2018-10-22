@@ -16,6 +16,11 @@ class MarketChartView extends Component {
     marketSocket.getHistoryData(name, 0);//1查询k线数据 0时序图
     // store.dispatch(action_startLightningStore(name));//开启闪电图
   }
+  componentWillUnmount() {
+    store.dispatch({ type: types.LIGHTNING_STORE_RESET });
+    store.dispatch({ type: types.TIME_STORE_RESET });
+    store.dispatch({ type: types.K_STORE_RESET });
+  }
   chartChange = (keyValue, oldValue) => {
     if (oldValue === '闪电') {
       store.dispatch({ type: types.LIGHTNING_STORE_RESET });
@@ -24,7 +29,7 @@ class MarketChartView extends Component {
     } else {
       store.dispatch({ type: types.K_STORE_RESET });
     }
-    
+
     store.dispatch(market_chart_view_screen_change(keyValue));
 
     let name = this.props.nowContract;
