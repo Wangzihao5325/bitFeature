@@ -61,3 +61,6 @@ export const TIME_STORE_DEFALUT = 'TIME_STORE_DEFALUT';
 
 //market detail footer types
 export const MARKET_DETAIL_SCREEN_CHANGE = 'MARKET_DETAIL_SCREEN_CHANGE';
+
+//chart view types
+export const CHART_VIEW_SCREEN_CHANGE = 'CHART_VIEW_SCREEN_CHANGE';

@@ -14,6 +14,7 @@ import TimeView from './chartView/TimeView';
 import marketSocket from '../../../socket/marketSocket/index';
 import { action_startLightningStore } from './../../../store/actions/chartActions/LightningAction';
 import MarketDetailFooter from './marketDetailFooter/index';
+import MarketChartView from './chartView/index';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -30,8 +31,10 @@ export default class MarketDetailScreen extends Component {
   componentDidMount() {
     this.props.navigation.setParams({ showDrawer: this._openDrawer });
     const name = this.props.navigation.getParam('contract', 'undefine_contract');
-    marketSocket.getHistoryData(name, 0);//1查询k线数据 0时序图
-    // store.dispatch(action_startLightningStore(name));//开启闪电图
+    // console.log('1233333333');
+    // console.log(name);
+    // marketSocket.getHistoryData(name, 0);//1查询k线数据 0时序图
+    // // store.dispatch(action_startLightningStore(name));//开启闪电图
     MarketSocket.otherContractPause(name, true);
   }
   componentWillUnmount() {
@@ -75,9 +78,10 @@ export default class MarketDetailScreen extends Component {
       >
         <View style={{ flex: 1 }}>
           <MarketDetailHeader />
-          <TimeView />
+          {/*<TimeView />*/}
           {/*<KView />*/}
           {/*<LightningView />*/}
+          <MarketChartView/>
           <MarketDetailFooter />
         </View>
       </Drawer>

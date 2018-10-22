@@ -163,41 +163,39 @@ class LightningView extends Component {
   render() {
 
     return (
-      <View style={{ flex: 1 }}>
-        <View style={styles.container}>
-          <LineChart
-            style={styles.chart}
+      <View style={styles.container}>
+        <LineChart
+          style={styles.chart}
 
-            data={this.lineData()}
-            xAxis={this.getLineXAxis()}
-            yAxis={this.getLineYAxis()}
+          data={this.lineData()}
+          xAxis={this.getLineXAxis()}
+          yAxis={this.getLineYAxis()}
 
-            chartDescription={{ text: '' }}
-            chartBackgroundColor={processColor('rgb(14, 12, 12)')}
-            // decorator
-            legend={{ enabled: false }}
-            marker={{ enabled: false, backgroundTint: processColor('teal'), markerColor: processColor('#F0C0FF8C'), textColor: processColor('white') }}
-            // grid - false後 之後的設定也沒用 留著做紀錄
-            drawGridBackground={false}
-            // borders - false後 之後的設定也沒用 留著做紀錄
-            drawBorders={false}
-            borderColor={processColor('rgb(28, 25, 24)')}
-            // borderWidth={1}
+          chartDescription={{ text: '' }}
+          chartBackgroundColor={processColor('rgb(14, 12, 12)')}
+          // decorator
+          legend={{ enabled: false }}
+          marker={{ enabled: false, backgroundTint: processColor('teal'), markerColor: processColor('#F0C0FF8C'), textColor: processColor('white') }}
+          // grid - false後 之後的設定也沒用 留著做紀錄
+          drawGridBackground={false}
+          // borders - false後 之後的設定也沒用 留著做紀錄
+          drawBorders={false}
+          borderColor={processColor('rgb(28, 25, 24)')}
+          // borderWidth={1}
 
-            animation={{ durationX: 0 }}
+          animation={{ durationX: 0 }}
 
-            touchEnabled={true}
-            dragEnabled={true}
-            scaleEnabled={false}
-            scaleXEnabled={false}
-            scaleYEnabled={false}
-            pinchZoom={false}
-            doubleTapToZoomEnabled={false}
-            dragDecelerationEnabled={true}
-            dragDecelerationFrictionCoef={0.99}
-            keepPositionOnRotation={false}
-          />
-        </View>
+          touchEnabled={true}
+          dragEnabled={true}
+          scaleEnabled={false}
+          scaleXEnabled={false}
+          scaleYEnabled={false}
+          pinchZoom={false}
+          doubleTapToZoomEnabled={false}
+          dragDecelerationEnabled={true}
+          dragDecelerationFrictionCoef={0.99}
+          keepPositionOnRotation={false}
+        />
       </View>
     );
   }
