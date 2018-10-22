@@ -6,6 +6,7 @@ import store from './../../../../store/index';
 import { market_detail_footer_screen_change } from './../../../../store/actions/marketDetailFooterAction';
 import FiveLevels from './FiveLevels';
 import OneByOne from './OneByOne';
+import TradeRules from './TradeRules';
 class MarketDetailFooter extends Component {
   screenChange = (keyValue) => {
     store.dispatch(market_detail_footer_screen_change(keyValue));
@@ -16,6 +17,7 @@ class MarketDetailFooter extends Component {
         <UsualTabBar tabNames={['五档行情', '逐笔明细', '合约规则']} tabTap={this.screenChange} />
         {this.props.nowScreen === '五档行情' && <FiveLevels />}
         {this.props.nowScreen === '逐笔明细' && <OneByOne />}
+        {this.props.nowScreen === '合约规则' && <TradeRules />}
       </View>
     );
   }

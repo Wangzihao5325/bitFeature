@@ -90,6 +90,13 @@ class api {
     formData.append('RN', 'RN');
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getCommodityTradeRules(commodityCode, onSuccess, onError) {
+    const url = '/commodity/tradeRules';
+    let formData = new FormData();
+    formData.append('commodityCode', commodityCode);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
