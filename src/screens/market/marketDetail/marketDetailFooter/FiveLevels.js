@@ -10,12 +10,12 @@ class Item extends Component {
     return (
       <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderBottomColor: '#17191E', borderBottomWidth: 1 }}>
         <View style={{ height: 30, width: DEVICE_WIDTH / 2, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View style={{ height: 15, width: 15, backgroundColor: UP_TEXT_COLOR, marginLeft: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'black' }}>{this.props.index}</Text></View>
+          <View style={{ height: 15, width: 15, backgroundColor: UP_TEXT_COLOR, marginLeft: 10, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.index}</Text></View>
           <Text style={{ color: UP_TEXT_COLOR }}>{this.props.bidPrice}</Text>
           <Text style={{ color: 'white', marginRight: 5 }}>{this.props.bidVol}</Text>
         </View>
         <View style={{ height: 30, width: DEVICE_WIDTH / 2, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-          <View style={{ height: 15, width: 15, backgroundColor: DOWN_TEXT_COLOR, marginLeft: 5, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'black' }}>{this.props.index}</Text></View>
+          <View style={{ height: 15, width: 15, backgroundColor: DOWN_TEXT_COLOR, marginLeft: 5, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.index}</Text></View>
           <Text style={{ color: DOWN_TEXT_COLOR }}>{this.props.askPrice}</Text>
           <Text style={{ color: 'white', marginRight: 10 }}>{this.props.askVol}</Text>
         </View>
