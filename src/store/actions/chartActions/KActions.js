@@ -53,7 +53,7 @@ export function action_startKStore(data) {
   }
 }
 // 消除range以下的數字，回傳是seconds
-function getRangeTime(dateTimeString,kStoreSnap) {
+function getRangeTime(dateTimeString, kStoreSnap) {
   let range = ''
   switch (kStoreSnap.klineType) {
     case 'TIME_SHARING': range = 0;
@@ -96,7 +96,7 @@ export function action_addKStore(param) {
   let dotSize = 2;
   let kStoreSnap = store.getState().KStore;
   isReady++;
-  if (isReady < 5 || kStoreSnap.klineType === 1440 || kStoreSnap.klineType === 720 || kStoreSnap.klineType === 240 || kStoreSnap.klineType === 120 || kStoreSnap.klineType === 60) {  //日k不需要更新
+  if (isReady < 5 || kStoreSnap.klineType === 'KLINE_1DAY' || kStoreSnap.klineType === 'KLINE_12HR' || kStoreSnap.klineType === 'KLINE_4HR' || kStoreSnap.klineType === 'KLINE_2HR' || kStoreSnap.klineType === 'KLINE_1HR') {  //日k不需要更新
     return (dispatch) => {
       dispatch({
         type: types.K_STORE_DEFALUT,
@@ -106,7 +106,7 @@ export function action_addKStore(param) {
   const dataSent = param.data;
   const oldestDateTimeString = kStoreSnap.times[kStoreSnap.times.length - 1];
   const oldTime = Math.round(moment(oldestDateTimeString).valueOf() / 1000);
-  const newTime = getRangeTime(dataSent[1],kStoreSnap);
+  const newTime = getRangeTime(dataSent[1], kStoreSnap);
   const lastPrice = _.toNumber(dataSent[3].toFixed(dotSize));
   if (oldTime === newTime) {
     const length = kStoreSnap.prices.length;
@@ -134,18 +134,6 @@ export function action_addKStore(param) {
     // 2017-09-01 10:30:00('YYYY-MM-DD HH:mm:ss') -> 不需要ss
     const dateTimeString = moment.unix(newTime).format('YYYY-MM-DD HH:mm');
     const dateTimeArr = dateTimeString.split(' ');
-    // if (kStoreSnap.times.length === 40) {
-    //   kStoreSnap.times.shift();
-    //   kStoreSnap.dateLabels.shift();
-    //   kStoreSnap.timeLabels.shift();
-    //   kStoreSnap.prices.shift();
-    //   kStoreSnap.volumns.shift();
-    // }
-    // kStoreSnap.times.push(dateTimeString);
-    // kStoreSnap.dateLabels.push(dateTimeArr[0]);
-    // kStoreSnap.timeLabels.push(dateTimeArr[1]);
-    // kStoreSnap.prices.push({ shadowH: lastPrice, shadowL: lastPrice, open: lastPrice, close: lastPrice });
-    // kStoreSnap.volumns.push(getVolumn(dataSent[6]));
     let addVolumns = getVolumn(dataSent[6]);
     return (dispatch) => {
       dispatch({

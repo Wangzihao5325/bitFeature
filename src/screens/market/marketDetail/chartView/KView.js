@@ -70,6 +70,31 @@ class KView extends Component {
     MA.ten = this.calculateMa(10, this.props.storePrice.slice());
     MA.twenty = this.calculateMa(20, this.props.storePrice.slice());
     MA.thirty = this.calculateMa(30, this.props.storePrice.slice());
+    let dsArr = null;
+    const dataNum = this.props.storePrice.length;
+    if (dataNum > 30) {
+      dsArr = [
+        this.getMADataSets(MA.five, 'MA5', 'rgb(47, 126, 170)'),
+        this.getMADataSets(MA.ten, 'MA10', 'rgb(170, 48, 170)'),
+        this.getMADataSets(MA.twenty, 'MA20', 'rgb(170, 104, 48)'),
+        this.getMADataSets(MA.thirty, 'MA30', 'rgb(169, 170, 48)')
+      ];
+    } else if (dataNum > 20) {
+      dsArr = [
+        this.getMADataSets(MA.five, 'MA5', 'rgb(47, 126, 170)'),
+        this.getMADataSets(MA.ten, 'MA10', 'rgb(170, 48, 170)'),
+        this.getMADataSets(MA.twenty, 'MA20', 'rgb(170, 104, 48)')
+      ];
+    } else if (dataNum > 10) {
+      dsArr = [
+        this.getMADataSets(MA.five, 'MA5', 'rgb(47, 126, 170)'),
+        this.getMADataSets(MA.ten, 'MA10', 'rgb(170, 48, 170)')
+      ];
+    } else {
+      dsArr = [
+        this.getMADataSets(MA.five, 'MA5', 'rgb(47, 126, 170)')
+      ];
+    }
     return {
       candleData: {
         dataSets: [{
@@ -95,13 +120,7 @@ class KView extends Component {
         }],
       },
       lineData: {
-        dataSets: [
-          this.getMADataSets(MA.five, 'MA5', 'rgb(47, 126, 170)'),
-          this.getMADataSets(MA.ten, 'MA10', 'rgb(170, 48, 170)'),
-          this.getMADataSets(MA.twenty, 'MA20', 'rgb(170, 104, 48)'),
-          this.getMADataSets(MA.thirty, 'MA30', 'rgb(169, 170, 48)'),
-          // ChartUtil.getLastestLineDataSet(this.props.storePrice)
-        ]
+        dataSets: dsArr
       }
     };
   }
