@@ -120,6 +120,8 @@
 		FF7D2EC3213CC348005B5072 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF7D2E90213CC348005B5072 /* SimpleLineIcons.ttf */; };
 		FF7D2EC4213CC348005B5072 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF7D2E91213CC348005B5072 /* Zocial.ttf */; };
 		FF7D2EFE213CC662005B5072 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7D2ECA213CC604005B5072 /* libRNVectorIcons.a */; };
+		FF8459F4217EA8C300637A3F /* index.ios.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = FF8459F3217EA8C300637A3F /* index.ios.jsbundle */; };
+		FF8459F6217EA8C900637A3F /* assets in Resources */ = {isa = PBXBuildFile; fileRef = FF8459F5217EA8C900637A3F /* assets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -606,6 +608,8 @@
 		FF7D2E90213CC348005B5072 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		FF7D2E91213CC348005B5072 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		FF7D2EC5213CC604005B5072 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		FF8459F3217EA8C300637A3F /* index.ios.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = index.ios.jsbundle; path = bundle/index.ios.jsbundle; sourceTree = "<group>"; };
+		FF8459F5217EA8C900637A3F /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; name = assets; path = bundle/assets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -750,6 +754,8 @@
 		13B07FAE1A68108700A75B9A /* bitFeature */ = {
 			isa = PBXGroup;
 			children = (
+				FF8459F5217EA8C900637A3F /* assets */,
+				FF8459F3217EA8C300637A3F /* index.ios.jsbundle */,
 				FF7D2E83213CC348005B5072 /* Fonts */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -1653,10 +1659,12 @@
 				4A8186E3905F4EA6A1A3B466 /* EvilIcons.ttf in Resources */,
 				4BA7950956DE403493A2B6A9 /* Feather.ttf in Resources */,
 				70FFD4E362D64B48BE91B7EE /* FontAwesome.ttf in Resources */,
+				FF8459F4217EA8C300637A3F /* index.ios.jsbundle in Resources */,
 				BEFD79A6647C498E963B843F /* FontAwesome5_Brands.ttf in Resources */,
 				C92FFEE3D1304D7FB1DE0C81 /* FontAwesome5_Regular.ttf in Resources */,
 				D9AE8CC53A484FEEA684C60C /* FontAwesome5_Solid.ttf in Resources */,
 				09512A30B8994045993E05CB /* Foundation.ttf in Resources */,
+				FF8459F6217EA8C900637A3F /* assets in Resources */,
 				C26AF22347EA4DBCACF85AA7 /* Ionicons.ttf in Resources */,
 				91AE4FD9317B49ADB223968A /* MaterialCommunityIcons.ttf in Resources */,
 				998D063FD7B643FD8A6CB0CC /* MaterialIcons.ttf in Resources */,

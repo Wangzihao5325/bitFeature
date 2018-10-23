@@ -97,6 +97,13 @@ class api {
     formData.append('commodityCode', commodityCode);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getAccountOpenScheme(onSuccess, onError) {
+    const url = '/ftrade/params';
+    let formData = new FormData();
+    formData.append('businessType', 99);
+    this.requset(url, formData, onSuccess, onError)
+  }
 }
 
 export default new api();

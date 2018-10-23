@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import CommonStyle from '../../global/common_styles';
+import Api from '../../socket/platform/api';
+import {contractMap2Config} from '../../global/commodity_list';
 import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../global/config';
 import VectorIconBtn from '../../components/IconBtn';
 import store from '../../store/index';
 import { action_custom_service_model_show } from '../../store/actions/customServiceAction';
+import DepositSelect from './ DepositSelect';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -20,6 +22,10 @@ export default class TradeScreen extends Component {
   };
   componentDidMount() {
     this.props.navigation.setParams({ customService: this._customService, questionAsk: this._questionAsk });
+    Api.getAccountOpenScheme(this._getAccountOpenSchemeSuccess);
+  }
+  _getAccountOpenSchemeSuccess(e) {
+    //store.dispatch(action_custom_service_model_show());
   }
   _customService = () => {
     store.dispatch(action_custom_service_model_show());
@@ -29,8 +35,8 @@ export default class TradeScreen extends Component {
   }
   render() {
     return (
-      <View style={CommonStyle.absoluateCenterStyle}>
-        <Text>trade</Text>
+      <View style={{ flex: 1 }}>
+        <DepositSelect />
       </View>
     );
   }
