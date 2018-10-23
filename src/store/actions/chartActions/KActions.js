@@ -96,7 +96,7 @@ export function action_addKStore(param) {
   let dotSize = 2;
   let kStoreSnap = store.getState().KStore;
   isReady++;
-  if (isReady < 5 || kStoreSnap.klineType === 1440) {  //日k不需要更新
+  if (isReady < 5 || kStoreSnap.klineType === 1440 || kStoreSnap.klineType === 720 || kStoreSnap.klineType === 240 || kStoreSnap.klineType === 120 || kStoreSnap.klineType === 60) {  //日k不需要更新
     return (dispatch) => {
       dispatch({
         type: types.K_STORE_DEFALUT,

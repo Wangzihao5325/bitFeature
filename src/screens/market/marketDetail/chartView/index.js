@@ -50,13 +50,20 @@ class MarketChartView extends Component {
       marketSocket.getHistoryData(name, 15);
     } else if (keyValue === '30分') {
       marketSocket.getHistoryData(name, 30);
+    } else if (keyValue === '1小时') {
+      marketSocket.getHistoryData(name, 60);
+    } else if (keyValue === '2小时') {
+      marketSocket.getHistoryData(name, 120);
+    } else if (keyValue === '4小时') {
+      marketSocket.getHistoryData(name, 240);
+    } else if (keyValue === '12小时') {
+      marketSocket.getHistoryData(name, 720);
     }
-
   }
   render() {
     return (
       <View>
-        <UsualTabBar tabNames={['闪电', '分时', '日k', '1分', '5分', '15分', '30分']} tabTap={this.chartChange} />
+        <UsualTabBar tabNames={['闪电', '分时', '日k', '1分', '5分', '15分', '30分', '1小时', '2小时', '4小时', '12小时']} tabTap={this.chartChange} />
         {this.props.nowChart === '闪电' && <LightningView />}
         {this.props.nowChart === '分时' && <TimeView />}
         {this.props.nowChart === '日k' && <KView />}
@@ -64,6 +71,10 @@ class MarketChartView extends Component {
         {this.props.nowChart === '5分' && <KView />}
         {this.props.nowChart === '15分' && <KView />}
         {this.props.nowChart === '30分' && <KView />}
+        {this.props.nowChart === '1小时' && <KView />}
+        {this.props.nowChart === '2小时' && <KView />}
+        {this.props.nowChart === '4小时' && <KView />}
+        {this.props.nowChart === '12小时' && <KView />}
       </View>
     );
   }
