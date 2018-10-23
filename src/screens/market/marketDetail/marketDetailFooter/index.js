@@ -8,6 +8,9 @@ import FiveLevels from './FiveLevels';
 import OneByOne from './OneByOne';
 import TradeRules from './TradeRules';
 class MarketDetailFooter extends Component {
+  componentWillUnmount() {
+    store.dispatch(market_detail_footer_screen_change('逐笔明细'));//reset
+  }
   screenChange = (keyValue) => {
     store.dispatch(market_detail_footer_screen_change(keyValue));
   }
