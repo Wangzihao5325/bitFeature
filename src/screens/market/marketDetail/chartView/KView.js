@@ -21,7 +21,9 @@ class KView extends Component {
   }
   _renderLoading() {
     return (
-      <Loading />
+      <View style={[styles.container, {display:'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
+        <Loading />
+      </View>
     );
   }
   handleSelect(event) {
@@ -268,9 +270,8 @@ class KView extends Component {
     );
   }
   render() {
-    console.log('is rending!!!!!!');
-    // return this.store.isLoading ? this._renderLoading() : this._renderContent();
-    return this._renderContent()
+    return this.props.isActive ? this._renderContent() : this._renderLoading();
+    // return this._renderContent()
   }
 }
 
@@ -281,7 +282,8 @@ function mapState2Props(store) {
     storeDateLabels: store.KStore.dateLabels,
     storetimeLabels: store.KStore.timeLabels,
     storeVolumns: store.KStore.volumns,
-    storeTimes: store.KStore.times
+    storeTimes: store.KStore.times,
+    isActive: store.KStore.isActive
   }
 }
 

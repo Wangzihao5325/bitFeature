@@ -5,7 +5,7 @@ import ChartUtil from '../../../../global/util/ChartUtil';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import { DEVICE_WIDTH } from '../../../../global/config';
-
+import Loading from '../../../../components/Loading';
 let dotSize = 2;
 class LightningView extends Component {
 
@@ -160,8 +160,15 @@ class LightningView extends Component {
     };
   }
 
-  render() {
+  _renderLoading() {
+    return (
+      <View style={[styles.container, { justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
+        <Loading />
+      </View>
+    );
+  }
 
+  _renderContent() {
     return (
       <View style={styles.container}>
         <LineChart
@@ -199,12 +206,16 @@ class LightningView extends Component {
       </View>
     );
   }
+  render() {
+    return this.props.isLoading ? this._renderLoading() : this._renderContent();
+  }
 }
 
 function mapState2Props(store) {
   return {
     storePrices: store.LightningStore.prices,
-    storeTimes: store.LightningStore.times
+    storeTimes: store.LightningStore.times,
+    isLoading: store.LightningStore.isLoading
   }
 }
 

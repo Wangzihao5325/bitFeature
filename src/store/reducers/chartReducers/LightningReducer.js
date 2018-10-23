@@ -4,7 +4,8 @@ const initialState = {
   times: [],
   prices: [],
   dotSize: null,
-  isActive: false
+  isActive: false,
+  isLoading:true,
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,7 +28,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         times: timesReg,
-        prices: pricesReg
+        prices: pricesReg,
+        isLoading:false
       };
     case types.LIGHTNING_STORE_RESET:
       return initialState;

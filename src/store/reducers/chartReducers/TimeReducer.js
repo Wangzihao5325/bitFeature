@@ -97,7 +97,10 @@ const reducer = (state = initialState, action) => {
         };
       }
     case types.TIME_STORE_RESET:
-      return initialState;
+      return {
+        ...state,
+        isActive: false
+      };
     default: return state;
   }
 };

@@ -179,6 +179,7 @@ class MarketSocket {
     let kStoreSnap = store.getState().KStore;
     let lightningStoreSnap = store.getState().LightningStore;
     let timeStoreSnap = store.getState().TimeStore;
+    //let nowChart = store.getState().marketChartView.nowChart;
     if (kStoreSnap.isActive) {
       store.dispatch(action_addKStore(result));
     }

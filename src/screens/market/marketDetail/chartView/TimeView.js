@@ -26,7 +26,11 @@ class TimeView extends Component {
     // this.store.handleSelect(event.nativeEvent);
   }
   _renderLoading() {
-    return <Loading />;
+    return (
+      <View style={[styles.container, {display:'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
+        <Loading />
+      </View>
+    );
   }
   getRealLineDataSet() {
     const lineArr = this.props.storePrice.map((price) => {
@@ -257,8 +261,8 @@ class TimeView extends Component {
     );
   }
   render() {
-    return this._renderContent();
-    // return this.store.isLoading ? this._renderLoading() : this._renderContent();
+    // return this._renderContent();
+    return this.props.isActive ? this._renderContent() : this._renderLoading();
   }
 }
 
@@ -267,7 +271,8 @@ function mapState2Props(store) {
     storePrice: store.TimeStore.prices,
     storetimeLabels: store.TimeStore.timeLabels,
     storeVolumns: store.TimeStore.volumns,
-    storeTimes: store.TimeStore.times
+    storeTimes: store.TimeStore.times,
+    isActive: store.TimeStore.isActive
   }
 }
 
