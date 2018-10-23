@@ -101,6 +101,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         isActive: false
       };
+    case types.TIME_STORE_CLEAR_DATA:
+      return initialState;
     default: return state;
   }
 };

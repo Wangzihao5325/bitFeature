@@ -171,7 +171,6 @@ class MarketSocket {
     if (result.data.period === 'KLINE_UNKNOWN') {//TIME_SHARING
       store.dispatch(action_startTimeStore(result.data));
     } else {
-      console.log(result);
       store.dispatch(action_startKStore(result.data));
     }
   }
@@ -227,7 +226,7 @@ class MarketSocket {
           this.updateMarketStoreData(data);
           this.updateRtnChartDate(data);
           break;
-        case 'on_rsp_history_data':                                      //收到K线数据 -> 更新数据   
+        case 'on_rsp_history_data':                                      //收到K线数据 -> 更新数据    
           this.updateHistoryData(data);
           break;
         case 'on_rtn_depth':                                      //收到深度订阅ticker -> 更新数据  

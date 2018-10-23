@@ -21,7 +21,7 @@ class KView extends Component {
   }
   _renderLoading() {
     return (
-      <View style={[styles.container, {display:'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
+      <View style={[styles.container, { display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
         <Loading />
       </View>
     );
@@ -100,7 +100,7 @@ class KView extends Component {
           this.getMADataSets(MA.ten, 'MA10', 'rgb(170, 48, 170)'),
           this.getMADataSets(MA.twenty, 'MA20', 'rgb(170, 104, 48)'),
           this.getMADataSets(MA.thirty, 'MA30', 'rgb(169, 170, 48)'),
-          // ChartUtil.getLastestLineDataSet(this.data.prices)
+          // ChartUtil.getLastestLineDataSet(this.props.storePrice)
         ]
       }
     };
@@ -124,7 +124,8 @@ class KView extends Component {
       drawGridLines: false,                   // 不畫格線
       drawAxisLine: false,                    // 不畫X Y 軸線
 
-      axisMaximum: 45
+      axisMaximum: 45,
+      visibleRange: { x: { min: 1 } }
     };
   }
   getCandleYAxis() {
@@ -216,7 +217,6 @@ class KView extends Component {
             drawBorders={false}
             // borderColor={processColor(Colors.chartBorderColor)}
             // borderWidth={1}
-
             animation={{ durationX: 0 }}
 
             touchEnabled={true}

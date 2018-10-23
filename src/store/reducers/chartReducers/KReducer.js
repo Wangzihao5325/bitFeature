@@ -71,6 +71,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         isActive: false
       };
+    case types.K_STORE_CLEAR_DATA:
+      return initialState;
     default:
       return state;
   }

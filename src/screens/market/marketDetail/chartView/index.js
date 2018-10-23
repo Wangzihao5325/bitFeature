@@ -24,10 +24,13 @@ class MarketChartView extends Component {
   chartChange = (keyValue, oldValue) => {
     if (oldValue === '闪电') {
       store.dispatch({ type: types.LIGHTNING_STORE_RESET });
+      // store.dispatch({ type: types.CHART_CLAER_DATA });
     } else if (oldValue === '分时') {
       store.dispatch({ type: types.TIME_STORE_RESET });
+      store.dispatch({ type: types.TIME_STORE_CLEAR_DATA });
     } else {
       store.dispatch({ type: types.K_STORE_RESET });
+      store.dispatch({ type: types.K_STORE_CLEAR_DATA });
     }
 
     store.dispatch(market_chart_view_screen_change(keyValue));
