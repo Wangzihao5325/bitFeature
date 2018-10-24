@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../global/config';
 import { connect } from 'react-redux';
+import NormalBtn from '../../../components/NormalBtn';
+const COM_BTN_HEIGHT = 35;
+const COM_BTN_WIDTH = DEVICE_WIDTH - 40;
 const LIGHT_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
+const HIGHLIGHT_TEXTCOLOR = '#FED330';
 class Items extends Component {
   render() {
     let choose = this.props.choose;
@@ -33,7 +37,9 @@ class OpenTradeAccountScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
-
+  _openTradeAccount = () => {
+    console.log('kaihu');
+  }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
@@ -55,6 +61,20 @@ class OpenTradeAccountScreen extends Component {
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: LIGHT_BGCOLOR, borderBottomWidth: 1 }}><View style={{ height: 30, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>交易保证金</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.choose + ' 元'}</Text></View></View>
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: LIGHT_BGCOLOR, borderBottomWidth: 1 }}><View style={{ height: 30, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>操盘总资金</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.scheme[this.props.choose]['traderTotal'] + ' 元'}</Text></View></View>
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: LIGHT_BGCOLOR, borderBottomWidth: 1 }}><View style={{ height: 30, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>亏损平仓线</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.scheme[this.props.choose]['lineLoss'] + ' 元'}</Text></View></View>
+        <View style={{ height: 10, width: DEVICE_WIDTH, backgroundColor: LIGHT_BGCOLOR }} />
+        <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: LIGHT_BGCOLOR, borderBottomWidth: 1 }}><View style={{ height: 30, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>账户余额:</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}><Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>{this.props.accountMoney + ' 元'}</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 5 }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={function () { console.log('去充值') }}>去充值 ></Text></View></View>
+        <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: LIGHT_BGCOLOR, borderBottomWidth: 1 }}><View style={{ height: 30, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>支付金额:</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}><Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>{this.props.choose + ' 元'}</Text></View ><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 5 }}><Text style={{ color: NORMAL_TEXTCOLOR }}>交易保证金</Text></View></View>
+        <View style={{ flex: 1, backgroundColor: LIGHT_BGCOLOR, justifyContent: 'center', alignItems: 'center' }}>
+          <NormalBtn
+            title={'确认支付'}
+            onPress={this._openTradeAccount}
+            titleStyle={{ color: 'black' }}
+            style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
+          />
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10 }}>提交申请表表示阅读并同意</Text>
+          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }}>《国际期货操盘合作协议》</Text>
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 5 }}>客服热线：400-852-8008</Text>
+        </View>
       </View>
     );
   }
@@ -65,6 +85,7 @@ function mapState2Props(store) {
     contract: store.depositStore.contract,
     choose: store.depositStore.choose,
     scheme: store.depositStore.scheme,
+    accountMoney: store.account.balance
   }
 }
 
