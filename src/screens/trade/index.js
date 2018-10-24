@@ -8,6 +8,7 @@ import store from '../../store/index';
 import { action_custom_service_model_show } from '../../store/actions/customServiceAction';
 import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
+import MiddleContent from './MiddleContent';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -38,6 +39,7 @@ export default class TradeScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <DepositSelect />
+        <MiddleContent />
       </View>
     );
   }
