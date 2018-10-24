@@ -9,6 +9,7 @@ import { action_custom_service_model_show } from '../../store/actions/customServ
 import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
 import MiddleContent from './MiddleContent';
+import ContractInfoList from './ContractInfoList';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -40,6 +41,7 @@ export default class TradeScreen extends Component {
       <View style={{ flex: 1 }}>
         <DepositSelect />
         <MiddleContent />
+        <ContractInfoList/>
       </View>
     );
   }

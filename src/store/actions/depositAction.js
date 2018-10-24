@@ -14,7 +14,16 @@ export function action_depositStoreInit(rtnData) {
       for (let i = 0; i < contractList.length; i++) {
         if (item.commodityNo == contractList[i].mainContract) {
           let key = traderBond + 'initialAmount';
-          contractList[i][key] = item.initialAmount;
+          contractList[i][key] = item.initialAmount === '' ? '0' : item.initialAmount;
+          if (!contractList[i]['index']) {
+            contractList[i]['index'] = i;
+          }
+          if (!contractList[i]['fullName']) {
+            contractList[i]['fullName'] = item.commodityName;
+          }
+          if (!contractList[i]['fullNum']) {
+            contractList[i]['fullNum'] = item.mainContract;
+          }
         }
       }
     });
