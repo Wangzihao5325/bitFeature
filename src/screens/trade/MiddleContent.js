@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import NormalBtn from '../../components/NormalBtn';
+import store from '../../store/index';
+import ToastRoot from '../../components/ToastRoot';
 import { DEVICE_WIDTH } from '../../global/config';
 const COM_BTN_HEIGHT = 35;
 const COM_BTN_WIDTH = DEVICE_WIDTH - 40;
@@ -12,8 +14,14 @@ export default class MiddleContent extends Component {
     tradeNavigation: PropTypes.object // 声明需要使用的Context属性
   }
   _openTradeAccount = () => {
-    const { tradeNavigation } = this.context;
-    tradeNavigation.navigate('OpenTradeAccountScreen');
+    let storeSnap = store.getState();
+    let isPlatformAccountLogin = storeSnap.account.isLogin;
+    if (isPlatformAccountLogin) {
+      const { tradeNavigation } = this.context;
+      tradeNavigation.navigate('OpenTradeAccountScreen');
+    } else {
+      ToastRoot.show('请先行登陆平台账号，再进行开户操作');
+    }
   }
   _tradeAccountLogin = () => {
     // const { tradeNavigation } = this.context;
