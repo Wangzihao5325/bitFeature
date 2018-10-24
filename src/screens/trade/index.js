@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import Api from '../../socket/platform/api';
+import PropTypes from 'prop-types';
 import { contractMap2Config } from '../../global/commodity_list';
 import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../global/config';
 import VectorIconBtn from '../../components/IconBtn';
@@ -23,6 +24,15 @@ export default class TradeScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
+  /* context - https://www.jianshu.com/p/eba2b76b290b */
+  static childContextTypes = {
+    tradeNavigation: PropTypes.object,       // 声明Context对象属性
+  }
+  getChildContext() {
+    return {
+      tradeNavigation: this.props.navigation // 返回Context对象
+    }
+  }
   componentDidMount() {
     this.props.navigation.setParams({ customService: this._customService, questionAsk: this._questionAsk });
     Api.getAccountOpenScheme(this._getAccountOpenSchemeSuccess);
@@ -41,7 +51,7 @@ export default class TradeScreen extends Component {
       <View style={{ flex: 1 }}>
         <DepositSelect />
         <MiddleContent />
-        <ContractInfoList/>
+        <ContractInfoList />
       </View>
     );
   }

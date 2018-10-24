@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 import NormalBtn from '../../components/NormalBtn';
 import { DEVICE_WIDTH } from '../../global/config';
 const COM_BTN_HEIGHT = 35;
@@ -7,11 +8,16 @@ const COM_BTN_WIDTH = DEVICE_WIDTH - 40;
 const HIGHLIGHT_TEXTCOLOR = '#FED330';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 export default class MiddleContent extends Component {
-  _openTradeAccount() {
-    console.log('open trade account');
+  static contextTypes = {
+    tradeNavigation: PropTypes.object // 声明需要使用的Context属性
   }
-  _tradeAccountLogin() {
-    console.log('trade account login');
+  _openTradeAccount = () => {
+    const { tradeNavigation } = this.context;
+    tradeNavigation.navigate('OpenTradeAccountScreen');
+  }
+  _tradeAccountLogin = () => {
+    // const { tradeNavigation } = this.context;
+    // tradeNavigation.navigate('CapitalDetailsScreen');
   }
   render() {
     return (

@@ -8,6 +8,7 @@ import MarketScreen from '../screens/market/index';
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 
 import TradeScreen from '../screens/trade/index';
+import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
 import OperateDetailsScreen from '../screens/trade/operateDetails';
 
 import NewsScreen from '../screens/news';
@@ -48,6 +49,7 @@ MarketStack.navigationOptions = ({ navigation }) => {
 let TradeStack = createStackNavigator(
   {
     TradeScreen,
+    OpenTradeAccountScreen,
     OperateDetailsScreen
   },
   {    //模拟交易
