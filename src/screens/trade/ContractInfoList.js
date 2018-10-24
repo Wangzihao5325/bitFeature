@@ -46,7 +46,7 @@ class ContractInfoList extends Component {
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: DARK_BGCOLOR }}>
           <Text style={{ color: NORMAL_TEXTCOLOR }}>-可交易品种-</Text>
         </View>
-        <ListHeader/>
+        <ListHeader />
         {this.props.contract &&
           <FlatList
             style={{ flex: 1 }}
