@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import Api from '../../socket/platform/api';
-import {contractMap2Config} from '../../global/commodity_list';
+import { contractMap2Config } from '../../global/commodity_list';
 import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../global/config';
 import VectorIconBtn from '../../components/IconBtn';
 import store from '../../store/index';
 import { action_custom_service_model_show } from '../../store/actions/customServiceAction';
+import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -25,7 +26,7 @@ export default class TradeScreen extends Component {
     Api.getAccountOpenScheme(this._getAccountOpenSchemeSuccess);
   }
   _getAccountOpenSchemeSuccess(e) {
-    //store.dispatch(action_custom_service_model_show());
+    store.dispatch(action_depositStoreInit(e));
   }
   _customService = () => {
     store.dispatch(action_custom_service_model_show());

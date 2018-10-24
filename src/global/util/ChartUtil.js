@@ -29,7 +29,6 @@ export default {
         lastestLineArr[latestIndex] = { y: lastest };
         // line: 增加一條平行的最新線，最新線的值 - value
         setNumOfLastestLine(lastestLineArr, lastest);
-        
         return {
             values: lastestLineArr,
             label: '',

@@ -22,6 +22,9 @@ let initContractList = [];
 
 /*订阅结构体列表，包含所有可订阅合约，存储于data字段 */
 let subscribeObjList = {};
+
+/*商品类别与合约的映射表 -deposit use- ag->ag1812*/
+let commodityNoMap2MainContract = {}
 export {
   contractMap2Config,
   aliveContractList,
@@ -30,5 +33,6 @@ export {
   recommendContractMap,
   classifyContractMap,
   initContractList,
-  subscribeObjList
+  subscribeObjList,
+  commodityNoMap2MainContract
 }
