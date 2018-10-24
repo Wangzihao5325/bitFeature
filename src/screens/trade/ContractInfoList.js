@@ -45,9 +45,9 @@ class ContractInfoList extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+      <View style={{ height: 290, width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', paddingRight: 20, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-          <Text onPress={this._toTradeAccountList} style={{ color: NORMAL_TEXTCOLOR,fontSize:10 }}>查看全部开户记录 >></Text>
+          <Text onPress={this._toTradeAccountList} style={{ color: NORMAL_TEXTCOLOR, fontSize: 10 }}>查看全部开户记录 >></Text>
         </View>
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: DARK_BGCOLOR }}>
           <Text style={{ color: NORMAL_TEXTCOLOR }}>-可交易品种-</Text>

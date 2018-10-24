@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import Api from '../../socket/platform/api';
 import PropTypes from 'prop-types';
 import { contractMap2Config } from '../../global/commodity_list';
-import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../global/config';
+import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../global/config';
 import VectorIconBtn from '../../components/IconBtn';
 import store from '../../store/index';
 import { action_custom_service_model_show } from '../../store/actions/customServiceAction';
@@ -11,6 +11,7 @@ import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
 import MiddleContent from './MiddleContent';
 import ContractInfoList from './ContractInfoList';
+const NORMAL_BACKGROUNDCOLOR = '#20212A';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -48,11 +49,13 @@ export default class TradeScreen extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        <DepositSelect />
-        <MiddleContent />
-        <ContractInfoList />
-      </View>
+      <ScrollView style={{ height: 660, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+        <View style={{ flex: 1 }}>
+          <DepositSelect />
+          <MiddleContent />
+          <ContractInfoList />
+        </View>
+      </ScrollView>
     );
   }
 }
