@@ -30,10 +30,17 @@ class Unlogin extends Component {
     );
   }
 }
+class Login extends Component {
+  render() {
+    return (
+      <View style={{ flex: 1 }}><Text>wwwwwww!!!</Text></View>
+    );
+  }
+}
 class TradeContent extends Component {
   render() {
     return (
-      this.props.isTradeAccountLogin ? <View /> : <Unlogin />
+      this.props.isTradeAccountLogin ? <Login /> : <Unlogin />
     );
   }
 }
