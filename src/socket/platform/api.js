@@ -1,4 +1,4 @@
-import { PLATFORM_DOMAIN, APP_VERSIONS } from '../../global/config';
+import { PLATFORM_DOMAIN, APP_VERSIONS, TRADE_DOMAIN, TRADE_VERSION } from '../../global/config';
 import Variables from '../../global/Variables';
 class api {
   requset(url, formData, onSuccess, onError) {
@@ -102,6 +102,13 @@ class api {
     const url = '/ftrade/params';
     let formData = new FormData();
     formData.append('businessType', 99);
+    this.requset(url, formData, onSuccess, onError)
+  }
+
+  getTradeURL(onSuccess, onError) {
+    const url = '/socket/config/getVersions';
+    let formData = new FormData();
+    formData.append('appVersions', TRADE_VERSION);
     this.requset(url, formData, onSuccess, onError)
   }
 }

@@ -9,6 +9,9 @@ const MARKET_USER_NAME = 'fut_game_inner';
 const MARKET_PASSWORDS = 'a123456';
 const MARKET_VERSION = '2.0';
 
+const TRADE_DOMAIN = { url: 'ws://192.168.0.227:36999' };
+const TRADE_VERSION = 6.1;
+
 const TAB_NAVI_NAME = ['行情', '模拟交易', '资讯', '我的'];
 //react-native-vector-icon中icon的key值，不可随意改动
 const TAB_ICON_KEY_STR = ['line-chart', 'file-text-o', 'dot-circle-o', 'user-o'];
@@ -43,6 +46,9 @@ export {
   MARKET_USER_NAME,
   MARKET_PASSWORDS,
   MARKET_VERSION,
+
+  TRADE_DOMAIN,
+  TRADE_VERSION,
 
   TAB_NAVI_NAME,
   TAB_ICON_KEY_STR,
