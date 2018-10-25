@@ -1,5 +1,6 @@
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
+import store from '../../store/index';
 class TradeSocket {
   _login(account, password) {//登陆
     let json = { 'Method': 'Login', 'Parameters': { 'ClientNo': account, 'PassWord': base64.encode(password), 'IsMock': 1, 'Version': '2.0.0', 'Source': 'app' } };
@@ -46,6 +47,7 @@ class TradeSocket {
   loginRtn(rthData, onSuccess, onFailed) {
     ToastRoot.show(rthData.Parameters.Message);
     if (rthData.Parameters.Code === 0) {
+
       onSuccess(rthData);
     } else {
       onFailed();

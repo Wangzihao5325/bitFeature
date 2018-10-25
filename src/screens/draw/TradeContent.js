@@ -40,8 +40,8 @@ class TradeContent extends Component {
 
 function mapState2Props(store) {
   return {
-    isTradeAccountLogin: store.tradeAccount.isTradeAccountLogin,
-    loginAccountNum: store.tradeAccount.loginAccountNum
+    isTradeAccountLogin: store.nowTradeAccount.isTradeAccountLogin,
+    loginAccountNum: store.nowTradeAccount.loginAccountNum
   }
 }
 
