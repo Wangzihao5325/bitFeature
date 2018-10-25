@@ -36,7 +36,9 @@ export default class TradeAccountLogScreen extends Component {
     console.log(e);
     this.props.navigation.pop();
   }
-  _login_failed = () => { }
+  _login_failed = () => {
+    console.log('failed!!');
+   }
   _login = () => {
     TradeSocket.connectSocket(TRADE_DOMAIN.url, reg.accountInput, reg.passwordInput, this._login_success, this._login_failed);
   }
