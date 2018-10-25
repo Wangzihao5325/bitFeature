@@ -43,9 +43,7 @@ export default class App extends Component {
     MarketSocket.connectSocket();
   }
   _getTradeURLSuccess = (e) => {
-    console.log('sdfsdfdS');
     TRADE_DOMAIN.url = e.socketUrl;
-    console.log(TRADE_DOMAIN);
   }
   componentDidMount() {
     Api.getClassifyInfo(this._getClassifySuccess);

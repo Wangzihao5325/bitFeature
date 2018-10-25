@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import TradeSocket from '../../../socket/tradeSocket/index';
 import store from '../../../store/index';
 import { action_custom_service_model_show } from '../../../store/actions/customServiceAction';
 import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
@@ -9,7 +10,7 @@ import NormalBtn from '../../../components/NormalBtn';
 import VectorIconBtn from '../../../components/IconBtn';
 import Variables from '../../../global/Variables';
 import ToastRoot from '../../../components/ToastRoot';
-import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
+import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH, TRADE_DOMAIN } from '../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
@@ -31,19 +32,13 @@ export default class TradeAccountLogScreen extends Component {
   // _customService = () => {
   //   store.dispatch(action_custom_service_model_show());
   // }
-  _loginSuccess = (result, code, message) => {
-    // Variables.account.token = result.token;
-    // Variables.account.secret = result.secret;
-    // ToastRoot.show('登录成功');
-    // //init account data
-    // Api.getbalancerate(4, null, this._getbalancerateSuccess);
+  _login_success = (e) => {
+    console.log(e);
+    this.props.navigation.pop();
   }
-  _loginFailed = (result, code, message) => {
-    // ToastRoot.show(message);
-  }
+  _login_failed = () => { }
   _login = () => {
-    // Variables.account.mobileAccount = reg.accountInput.concat();
-    // Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess, this._loginFailed);
+    TradeSocket.connectSocket(TRADE_DOMAIN.url, reg.accountInput, reg.passwordInput, this._login_success, this._login_failed);
   }
   _naviPop = () => {
     this.props.navigation.navigate('TradeScreen');
