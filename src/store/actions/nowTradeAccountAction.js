@@ -13,3 +13,14 @@ export function trade_socket_login(rtnData) {
     });
   }
 }
+
+export function trade_socket_queryAccount(balanceReg, canUseReg, depositReg) {
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_QUERY_ACCOUNT,
+      initBalance: balanceReg,
+      canUse: canUseReg,
+      deposit: depositReg
+    });
+  }
+}

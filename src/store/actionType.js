@@ -30,6 +30,7 @@ export const UPDATE_CAPITAL_DETAILS_STORE = 'UPDATE_CAPITAL_DETAILS_STORE';
 
 // now trade account types
 export const TRADE_ACCOUNT_LOGIN = 'TRADE_ACCOUNT_LOGIN';
+export const TRADE_QUERY_ACCOUNT = 'TRADE_QUERY_ACCOUNT';
 
 // trade account list store types
 export const NO_TRADE_ACCOUNT = 'NO_TRADE_ACCOUNT';
