@@ -6,7 +6,8 @@ import store from '../store/index';
 import Api from '../socket/platform/api';
 import MarketSocket from '../socket/marketSocket/index';
 import { MarketStack, TradeStack, NewsStack, MineStack } from './register_screens';
-import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR } from '../global/config';
+import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR, TRADE_DOMAIN } from '../global/config';
+import { recommendContractMap, classifyContractMap, initContractList } from '../global/commodity_list';
 const Router = createBottomTabNavigator(
   {
     MarketStack,
@@ -24,8 +25,29 @@ const Router = createBottomTabNavigator(
   }
 );
 export default class App extends Component {
-  componentDidMount() {
+  _getClassifySuccess = (e) => {
+    e.map(function (item) {
+      let classifyData = item.classifyData;
+      let recommedArr = [];
+      let classifyArr = [];
+      classifyData.map(function (innerItem) {
+        initContractList.push(innerItem.commodityCode);
+        classifyArr.push(innerItem.commodityCode);
+        if (innerItem.isRecommend == '1') {
+          recommedArr.push(innerItem.commodityCode);
+        }
+      });
+      recommendContractMap[item.classifyName] = recommedArr;
+      classifyContractMap[item.classifyName] = classifyArr;
+    });
     MarketSocket.connectSocket();
+  }
+  _getTradeURLSuccess = (e) => {
+    TRADE_DOMAIN.url = e.socketUrl;
+  }
+  componentDidMount() {
+    Api.getClassifyInfo(this._getClassifySuccess);
+    Api.getTradeURL(this._getTradeURLSuccess);
   }
   render() {
     return (

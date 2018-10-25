@@ -50,6 +50,7 @@ class TabBtn extends Component {       //tabBar的定制btn
     this.setState({ isHighLight: isHighlightValue });
   }
 
+  /*会引发渲染不完全的问题，先注释掉
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.isHighLight == this.state.isHighLight) {
       return false;
@@ -57,7 +58,7 @@ class TabBtn extends Component {       //tabBar的定制btn
       return true;
     }
   }
-
+  */
   tabTap = () => {
     if (this.state.isHighLight) { return }
     this.props.tabTap(this.props.keyValue);
@@ -67,7 +68,7 @@ class TabBtn extends Component {       //tabBar的定制btn
     let tabStyle = this.state.isHighLight ? styles.tabBtnHighlight : styles.tabBtnNormal;
     let textStyle = this.state.isHighLight ? styles.tabTextHighlight : styles.tabTextNormal;
     return (
-      <TouchableHighlight style={[styles.tabBtnCommon, tabStyle]} onPress={this.tabTap}>
+      <TouchableHighlight style={[styles.tabBtnCommon, tabStyle]} onPress={this.tabTap} underlayColor={NORMAL_BACKGROUNDCOLOR}>
         <Text style={[styles.tabTextCommon, textStyle]}>{this.props.tabText}</Text>
       </TouchableHighlight>
     );
@@ -78,37 +79,48 @@ export default class UsualTabBar extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-    this.tabNames = props.tabNames;
-    this.tabCount = this.tabNames.length;
+    // this.tabNames = props.tabNames;
+    // this.tabCount = this.tabNames.length;
     this.state = {
       HighlightIndex: 1
     };
   }
-
+  static defaultProps = {
+    isDefault: true
+  }
   tabTap = (keyValue) => {
+    let oldstate = this.props.tabNames[this.state.HighlightIndex];
     this.setState({ HighlightIndex: keyValue });
-    this.props.tabTap(keyValue);
+    this.props.tabTap(this.props.tabNames[keyValue], oldstate);
   }
 
   tabsGenerator = (count) => {
     let tabs = [];
     for (let i = 0; i < count; i++) {
       tabs.push(
-        <TabBtn key={i} keyValue={i} highlightIndex={this.state.HighlightIndex} tabText={this.tabNames[i]} tabTap={this.tabTap} />
+        <TabBtn key={i} keyValue={i} highlightIndex={this.state.HighlightIndex} tabText={this.props.tabNames[i]} tabTap={this.tabTap} />
       );
     }
     return tabs;
   }
 
   render() {
-    let tabs = this.tabsGenerator(this.tabCount);
-    return (
-      <View style={[styles.container, { width: NORMAL_BARWIDTH }]}>
-        <ScrollView horizontal={true} alwaysBounceHorizontal={false} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+    let tabs = this.tabsGenerator(this.props.tabNames.length);
+    if (this.props.isDefault) {
+      return (
+        <View style={[styles.container, { width: NORMAL_BARWIDTH }]}>
+          <ScrollView horizontal={true} alwaysBounceHorizontal={false} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+            {tabs}
+          </ScrollView>
+        </View>
+      )
+    } else {
+      return (
+        <View style={[styles.container, { width: NORMAL_BARWIDTH, justifyContent: 'space-around' }]}>
           {tabs}
-        </ScrollView>
-      </View>
-    )
+        </View>
+      )
+    }
   }
 
 }
@@ -118,6 +130,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: NORMAL_BACKGROUNDCOLOR,
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth
   },
   tabBtnCommon: {
     height: NORMAL_BTNHEIGHT,
@@ -141,7 +155,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     marginHorizontal: NORMAL_MARGINHOR,
     alignSelf: 'center',
-    fontSize:15
+    fontSize: 15
   },
   tabTextNormal: {
     color: NORMAL_TEXTCOLOR,

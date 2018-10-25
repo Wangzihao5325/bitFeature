@@ -8,12 +8,22 @@ import MarketScreen from '../screens/market/index';
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 
 import TradeScreen from '../screens/trade/index';
+import TradeAccountLogScreen from '../screens/trade/tradeLogin/index';
+import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
+import OperateDetailsScreen from '../screens/trade/operateDetails';
 
 import NewsScreen from '../screens/news';
 
 import MineScreen from '../screens/mine/index';
 import AccountLogScreen from '../screens/mine/logout/accountLog';
 import RechargeScreen from '../screens/mine/login/recharge/index';
+import CustomerServiceScreen from '../screens/mine/customerService/index';
+import CapitalDetailsScreen from '../screens/mine/login/capitalDetails/index';
+import AccountDepositWebView from '../screens/mine/login/recharge/AccountDepositWebView';
+import ChangePasswordScreen from '../screens/mine/login/changePassword/index';
+import BindPhoneScreen from '../screens/mine/login/bindPhone';
+import TradeAccountDetailScreen from '../screens/mine/login/tradeAccountDetails';
+import BindCardScreen from '../screens/mine/login/bindCard';
 
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
@@ -21,7 +31,8 @@ import RechargeScreen from '../screens/mine/login/recharge/index';
 let MarketStack = createStackNavigator(                      //行情
   {
     MarketScreen,
-    MarketDetailScreen
+    MarketDetailScreen,
+    'TradeAccountLogScreenInMarket': TradeAccountLogScreen
   },
   {
     navigationOptions: { gesturesEnabled: false }
@@ -37,15 +48,22 @@ MarketStack.navigationOptions = ({ navigation }) => {
     tabBarVisible
   }
 };
-let TradeStack = createStackNavigator({ TradeScreen }, {    //模拟交易
-  navigationOptions: {
-    title: TAB_NAVI_NAME[1],
-    headerStyle: {
-      backgroundColor: TAB_NAVI_HEADER_BGCOLOR
-    },
-    headerTintColor: HEADER_TINT_COLOR
-  }
-});
+let TradeStack = createStackNavigator(
+  {
+    TradeScreen,
+    OpenTradeAccountScreen,
+    OperateDetailsScreen,
+    'TradeAccountLogScreenInTrade': TradeAccountLogScreen,
+  },
+  {    //模拟交易
+    navigationOptions: {
+      title: TAB_NAVI_NAME[1],
+      headerStyle: {
+        backgroundColor: TAB_NAVI_HEADER_BGCOLOR
+      },
+      headerTintColor: HEADER_TINT_COLOR
+    }
+  });
 TradeStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true;
   if (navigation.state.index > 0) {
@@ -74,9 +92,16 @@ let MineStack = createStackNavigator(                       //我的
   {
     MineScreen,
     AccountLogScreen,
-    RechargeScreen
+    RechargeScreen,
+    CustomerServiceScreen,
+    CapitalDetailsScreen,
+    AccountDepositWebView,
+    ChangePasswordScreen,
+    BindPhoneScreen,
+    TradeAccountDetailScreen,
+    BindCardScreen
   },
-  {                                                       
+  {
     navigationOptions: {
       gesturesEnabled: false
     }

@@ -5,11 +5,11 @@
  */
 import * as types from '../actionType';
 import _ from 'lodash';
-import { contractMap2I18nName } from '../../global/commodity_list';
 
 function objCreate(name) {
   return (
     {
+      open:0,                              //开盘价
       height: 0,                           //最高价
       low: 0,                              //最低价
       last: 0,                             //最新价
@@ -19,14 +19,27 @@ function objCreate(name) {
       pre_close: 0,                        //昨收盘
       pre_settle: 0,                       //昨结算
       contract_name: name,                 //合约编码
-      contract_i18n_name: 'undefined',     //合约名
-      ask: [[0, 0]],                       //多档买价
-      bid: [[0, 0]]                        //多档卖价
+      change_rate: 0,                      //价格变化率
+      change_value: 0,                     //价格变化量
+      time:'2018-1-1 00:00:00.000',        //时间戳
+      ask1: [0, 0],                        //1档卖价
+      bid1: [0, 0],                        //1档买价
+      ask2: [0, 0],                        //2档卖价
+      bid2: [0, 0],                        //2档买价
+      ask3: [0, 0],                        //3档卖价
+      bid3: [0, 0],                        //3档买价
+      ask4: [0, 0],                        //4档卖价
+      bid4: [0, 0],                        //4档买价
+      ask5: [0, 0],                        //5档卖价
+      bid5: [0, 0],                        //5档买价
     }
   );
 }
+/*数据分为两部分变化部分和 配置部分（contractMap2Config）两边在初始状态要对齐 */
 const initialState = {
-  undefine_contract: objCreate('undefine_contract')
+  undefine_contract: objCreate('undefine_contract'),
+  undefine_contract1: objCreate('undefine_contract1'),
+  undefine_contract2: objCreate('undefine_contract2')
 };
 
 const reducer = (state = initialState, action) => {
@@ -36,16 +49,22 @@ const reducer = (state = initialState, action) => {
       let originDate = action.data;
       originDate.forEach(function (item) {
         let obj = _.set({}, item, objCreate(item));
-        _.assign(obj[item], { contract_i18n_name: contractMap2I18nName[item] });
+        //_.assign(obj[item], { contract_i18n_name: contractMap2Config[item].fullName }); 不要取消注释！！
         _.assign(originState, obj);
       });
-      //console.log(originState);     // ... debug log
       return originState;
     case types.UPDATE_MARKET_STORE:
-      let contractName = action.contractName;
-      _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); })
-      //console.log(state);          // ... debug log
-      return state;
+      {
+        let contractName = action.contractName;
+        _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); });
+        return Object.assign({}, state);
+      }
+    case types.UPDATE_MARKET_STORE_ASKANDBID:
+      {
+        let contractName = action.contractName;
+        _.update(state, `${contractName}`, function (itemObj) { return (_.assign(itemObj, action.newData)); });
+        return Object.assign({}, state);
+      }
     default:
       return state;
   }

@@ -1,19 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import store from '../../store/index'
 import { connect } from 'react-redux'
 import CommonStyle from '../../global/common_styles';
 import { BRIGHT_BLUE, DEFAULT_GRAY } from '../../global/config';
 import { ACCOUNT_BALANCE_STR } from '../../global/I18n';
+const HIGHLIGHT_TEXTCOLOR = '#FED330';
+const NORMAL_TEXTCOLOR = '#7E829B';
 class CardBalance extends Component {
   render() {
     return (
-      <View style={CommonStyle.innerAbsCenterStyle}>
-        <View style={[CommonStyle.innerAbsCenterStyle, { height: 45, width: 150 }]}>
-          <Text style={{ color: BRIGHT_BLUE, fontSize: 30 }}>{this.props.balance}</Text>
-        </View>
-        <View style={[CommonStyle.innerAbsCenterStyle, { height: 25, width: 80 }]}>
-          <Text style={{ color: DEFAULT_GRAY }}>{ACCOUNT_BALANCE_STR}</Text>
+      <View style={[CommonStyle.innerAbsCenterStyle, { borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: 'black' }]}>
+        <View style={[CommonStyle.innerAbsCenterStyle, { height: 70, width: 150 }]}>
+          <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }}>
+            <Text style={{ color: HIGHLIGHT_TEXTCOLOR, fontSize: 30 }}>{this.props.balance}</Text>
+            <Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>元</Text>
+          </View>
         </View>
       </View>
     );

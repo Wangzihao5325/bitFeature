@@ -5,25 +5,23 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import CommonStyles from '../../../global/common_styles';
 import { DEVICE_WIDTH, ICON_SIZE, DEFAULT_GRAY } from '../../../global/config';
 import {
-  I_WILL_RECHARGE, I_WILL_WITHDRAW, CAPITAL_DETAILS, NAME_CERTIFICATION,
-  BIND_CARD, BIND_PHONE, CHANGE_LOGIN_PASSWORDS, TRADE_ACCOUNT
+  I_WILL_RECHARGE, I_WILL_WITHDRAW, CAPITAL_DETAILS, ACCOUNT_LIST,
+  BIND_CARD, BIND_PHONE, CHANGE_LOGIN_PASSWORDS, APP_VERSION
 } from '../../../global/I18n';
 
 const itemsData = [
-  { key: I_WILL_RECHARGE, iconName: 'shield' },
-  { key: I_WILL_WITHDRAW, iconName: 'shield' },
-  { key: CAPITAL_DETAILS, iconName: 'shield' },
-  { key: NAME_CERTIFICATION, iconName: 'shield' },
-  { key: BIND_CARD, iconName: 'shield' },
-  { key: BIND_PHONE, iconName: 'shield' },
-  { key: CHANGE_LOGIN_PASSWORDS, iconName: 'shield' },
-  { key: TRADE_ACCOUNT, iconName: 'shield' }
+  { key: CAPITAL_DETAILS, iconName: 'yen' },
+  { key: ACCOUNT_LIST, iconName: 'list' },
+  { key: BIND_CARD, iconName: 'credit-card' },
+  { key: BIND_PHONE, iconName: 'tablet' },
+  { key: CHANGE_LOGIN_PASSWORDS, iconName: 'lock' },
+  { key: APP_VERSION, iconName: 'vimeo' }
 ];
 const DefaultIconColor = '#3B475F';
 const ItemsHeight = 39;
 const MarginSize = 10;
 const TotalHeight = 324;
-
+const NORMAL_BACKGROUNDCOLOR = '#20212A';
 class ItemBtn extends Component {
   constructor() {
     super();
@@ -45,20 +43,39 @@ class ItemBtn extends Component {
   _onPress = () => {
     const { mineNavigation } = this.context
     switch (this.props.title) {
-      case I_WILL_RECHARGE:
-        mineNavigation.navigate('RechargeScreen');
+      case CAPITAL_DETAILS:
+        mineNavigation.navigate('CapitalDetailsScreen');
+        break;
+      case CHANGE_LOGIN_PASSWORDS:
+        mineNavigation.navigate('ChangePasswordScreen');
+        break;
+      case BIND_PHONE:
+        mineNavigation.navigate('BindPhoneScreen');
+        break;
+      case ACCOUNT_LIST:
+        mineNavigation.navigate('TradeAccountDetailScreen');
+        break;
+      case BIND_CARD:
+        mineNavigation.navigate('BindCardScreen');
         break;
       default:
         break;
     }
   }
   render() {
+    let contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1, backgroundColor: NORMAL_BACKGROUNDCOLOR };
+    if (this.props.title === BIND_CARD) {
+      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1 + 20, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: '#17191E', borderTopColor: '#17191E', borderBottomWidth: 10, borderTopWidth: 10 };
+    }
+    if (this.props.title === APP_VERSION) {
+      contentStyle = { width: DEVICE_WIDTH, height: ItemsHeight + 1 + 10, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderTopColor: '#17191E', borderTopWidth: 10 };
+    }
     return (
-      <TouchableHighlight style={{ width: DEVICE_WIDTH, height: ItemsHeight + 1 }} onPress={this._onPress}>
+      <TouchableHighlight style={contentStyle} onPress={this._onPress}>
         <View style={[{ height: ItemsHeight, width: DEVICE_WIDTH, display: 'flex', justifyContent: 'space-between' }, CommonStyles.innerLineCenterStyle]}>
           <View style={[CommonStyles.innerLineCenterStyle, { height: ItemsHeight, width: 150, marginLeft: MarginSize }]}>
-            <Icon name={this.props.iconName} size={this.props.iconSize} color={this.props.iconColor} />
-            <Text style={{ marginLeft: MarginSize * 2, color: DEFAULT_GRAY }}>{this.props.title}</Text>
+            <View style={{ height: 30, width: 30, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Icon name={this.props.iconName} size={this.props.iconSize} color={this.props.iconColor} /></View>
+            <Text style={{ marginLeft: MarginSize, color: DEFAULT_GRAY }}>{this.props.title}</Text>
           </View>
           <Icon style={{ marginRight: MarginSize }} name='chevron-right' size={this.props.iconSize} color={this.props.iconColor} />
         </View>
@@ -70,18 +87,18 @@ class ItemBtn extends Component {
 export default class LoginSubview extends Component {
   _renderItem = ({ item }) => {
     return (
-      <ItemBtn iconName={item.iconName} title={item.key} />
+      <ItemBtn iconName={item.iconName} title={item.key} iconSize={20} />
     );
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'transparent', borderTopWidth: 1, borderTopColor: '#000000' }}>
+      <View style={{ flex: 1, backgroundColor: '#17191E', borderTopWidth: 10, borderTopColor: '#17191E' }}>
         <FlatList
-          scrollEnabled={true}
+          alwaysBounceVertical={false}
           style={{ flex: 1 }}
           data={itemsData}
           renderItem={this._renderItem}
-          ItemSeparatorComponent={() => <View style={{ height: 1, width: DEVICE_WIDTH - 16, marginLeft: 8, backgroundColor: '#252E3C' }} />}
+          ItemSeparatorComponent={() => <View style={{ height: 1, width: DEVICE_WIDTH - 16, marginLeft: 8, backgroundColor: '#17191E' }} />}
         />
       </View>
     );
