@@ -8,6 +8,7 @@ import MarketScreen from '../screens/market/index';
 import MarketDetailScreen from '../screens/market/marketDetail/index';
 
 import TradeScreen from '../screens/trade/index';
+import TradeAccountLogScreen from '../screens/trade/tradeLogin/index';
 import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
 import OperateDetailsScreen from '../screens/trade/operateDetails';
 
@@ -30,7 +31,8 @@ import BindCardScreen from '../screens/mine/login/bindCard';
 let MarketStack = createStackNavigator(                      //行情
   {
     MarketScreen,
-    MarketDetailScreen
+    MarketDetailScreen,
+    'TradeAccountLogScreenInMarket': TradeAccountLogScreen
   },
   {
     navigationOptions: { gesturesEnabled: false }
@@ -50,7 +52,8 @@ let TradeStack = createStackNavigator(
   {
     TradeScreen,
     OpenTradeAccountScreen,
-    OperateDetailsScreen
+    OperateDetailsScreen,
+    'TradeAccountLogScreenInTrade': TradeAccountLogScreen,
   },
   {    //模拟交易
     navigationOptions: {

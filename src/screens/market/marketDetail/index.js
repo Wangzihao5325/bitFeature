@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import Drawer from 'react-native-drawer';
 import VectorIconBtn from '../../../components/IconBtn';
 import HeaderTitle from './HeaderTitle';
@@ -23,6 +24,14 @@ export default class MarketDetailScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
+  static childContextTypes = {
+    marketNavigation: PropTypes.object,
+  }
+  getChildContext() {
+    return {
+      marketNavigation: this.props.navigation
+    }
+  }
   componentDidMount() {
     this.props.navigation.setParams({ showDrawer: this._openDrawer });
     const name = this.props.navigation.getParam('contract', 'undefine_contract');
