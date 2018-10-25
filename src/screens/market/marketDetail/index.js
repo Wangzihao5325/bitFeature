@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import Drawer from 'react-native-drawer';
 import VectorIconBtn from '../../../components/IconBtn';
 import HeaderTitle from './HeaderTitle';
+import DrawScreen from '../../draw/index';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/config';
 import MarketSocket from '../../../socket/marketSocket/index';
 import MarketDetailHeader from './MarkDetailHeader';
@@ -55,11 +56,11 @@ export default class MarketDetailScreen extends Component {
         ref={(ref) => this._drawer = ref}
         side='right'
         type="overlay"
-        content={<View style={{ flex: 1, backgroundColor: TAB_NAVI_HEADER_BGCOLOR }}><Text>MarketDetail</Text></View>}
+        content={<DrawScreen />}
         acceptPan={false}
         tapToClose={true}
-        openDrawerOffset={0.6} // 40% gap on the right side of drawer
-        panCloseMask={0.6}
+        openDrawerOffset={0.4} // 60% gap on the right side of drawer
+        panCloseMask={0.4}
         closedDrawerOffset={-3}
         styles={drawerStyles}
         tweenHandler={(ratio) => ({
@@ -68,9 +69,9 @@ export default class MarketDetailScreen extends Component {
       >
         <View style={{ flex: 1 }}>
           <MarketDetailHeader />
-          <MarketChartView/>
+          <MarketChartView />
           <MarketDetailFooter />
-          <BottomBtn/>
+          <BottomBtn />
         </View>
       </Drawer>
     );

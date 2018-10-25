@@ -73,8 +73,8 @@ class MarketScreen extends Component {
         content={<DrawScreen />}
         acceptPan={false}
         tapToClose={true}
-        openDrawerOffset={0.6} // 40% gap on the right side of drawer
-        panCloseMask={0.6}
+        openDrawerOffset={0.4} // 60% gap on the right side of drawer
+        panCloseMask={0.4}
         closedDrawerOffset={-3}
         styles={drawerStyles}
         tweenHandler={(ratio) => ({

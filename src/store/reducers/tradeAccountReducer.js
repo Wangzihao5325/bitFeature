@@ -5,6 +5,8 @@ const initialState = {
   isHaveAccount: false,
   onTradingAccountList: [],
   endedAccountList: [],
+  isTradeAccountLogin: false,
+  loginAccountNum: null
 }
 
 const reducer = (state = initialState, action) => {
