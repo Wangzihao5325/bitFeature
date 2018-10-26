@@ -1,8 +1,10 @@
 import * as types from '../actionType';
 import TradeUtil from '../../global/util/TradeUtil';
 import Order from '../../model/Order';
+import Designate from '../../model/Designate';
 import { contractMap2Config } from '../../global/commodity_list';
 import { TRADE_DIRECTION, PRICE_TYPE } from '../../global/config';
+import store from '..';
 export function trade_socket_login(rtnData) {
   let clientNo = rtnData.Parameters.ClientNo;
   let forceLine = rtnData.Parameters.ForceLine;
@@ -73,4 +75,38 @@ function getOrderPriceText(param, dotSize) {
     orderPriceText = PRICE_TYPE.market.text;
   }
   return orderPriceText;
+}
+
+export function add_designate(param, isInsert) {
+  let productName = `${param.CommodityNo}${param.ContractNo}`;
+  let productInfo = contractMap2Config[productName];
+  if (!productInfo) {
+    return (dispatch) => {
+      dispatch({
+        type: types.TRADE_ADD_ORDER_DEFALUT,
+      });
+    }
+  }
+  const directionObj = TRADE_DIRECTION[param.Drection];
+  const openCloseType = param.OpenCloseType;
+  const orderPriceText = getOrderPriceText(param, productInfo.dotSize);
+  const orderNum = param.OrderNum;          // 委託量
+  const tradeNum = param.TradeNum;          // 已成交
+  const designateNum = orderNum - tradeNum; // 掛單量
+  let designate = new Designate(productName, directionObj, orderPriceText, orderNum, designateNum, param.InsertDateTime, param.OrderID, param.OrderSysID, param.TriggerPrice, openCloseType)
+  if (isInsert) {
+    return (dispatch) => {
+      dispatch({
+        type: types.TRADE_ADD_DESIGNATE_INSERT,
+        designate: designate
+      });
+    }
+  } else {
+    return (dispatch) => {
+      dispatch({
+        type: types.TRADE_ADD_DESIGNATE_UNINSERT,
+        designate: designate
+      });
+    }
+  }
 }

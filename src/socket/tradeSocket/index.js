@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
-import { trade_socket_login, trade_socket_queryAccount } from '../../store/actions/nowTradeAccountAction';
+import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate } from '../../store/actions/nowTradeAccountAction';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
 class TradeSocket {
@@ -67,9 +67,11 @@ class TradeSocket {
       return;
     }
     const orderStatus = rtnData.Parameters.OrderStatus;
-    this.addOrder(rtnData.Parameters, isInsert);
+    store.dispatch(add_order(rtnData.Parameters, isInsert));
+    //this.addOrder(rtnData.Parameters, isInsert);
     if (orderStatus < 3) {
-      this.addDesignate(rtnData.Parameters, isInsert);
+      store.dispatch(add_designate(rtnData.Parameters, isInsert));
+      // this.addDesignate(rtnData.Parameters, isInsert);
     }
   }
   updateAccountInfo(rtnData) {

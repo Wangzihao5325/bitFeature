@@ -8,6 +8,7 @@ const initialState = {
   canUse: 0,                  //余额
   deposit: 0,                 //保证金
   orders: [],                 //委托
+  designates: [],             //挂单
 }
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +46,26 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           orders: orders
+        };
+      }
+    case types.TRADE_ADD_DESIGNATE_INSERT:
+      {
+        let designate = action.designate;
+        let designates = state.designates.concat();
+        designates.unshift(designate);
+        return {
+          ...state,
+          designates: designates
+        };
+      }
+    case types.TRADE_ADD_DESIGNATE_UNINSERT:
+      {
+        let designate = action.designate;
+        let designates = state.designates.concat();
+        designates.push(designate);
+        return {
+          ...state,
+          designates: designates
         };
       }
     default: return state;
