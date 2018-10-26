@@ -37,6 +37,16 @@ const DEVICE_WIDTH = Dimensions.get('window').width;
 const ICON_SIZE = 24;
 const CARD_HEADER_HEIGHT = 265;
 const CHART_DATA_LIMITED = 40;
+
+const TRADE_DIRECTION = [
+  { value: 0, text: '多', display: '买', color: 'rgb(216, 92, 97)' },
+  { value: 1, text: '空', display: '卖', color: 'rgb(89, 165, 87)' }
+];
+const PRICE_TYPE = {
+  limit: { value: 0, text: '限价' },
+  market: { value: 1, text: '市价' },
+  stopLoss: { value: 2, text: '止损' }
+};
 export {
   PLATFORM_DOMAIN,
   CUSTOM_SERVICE_URL,
@@ -73,5 +83,8 @@ export {
   DEVICE_WIDTH,
   ICON_SIZE,
   CARD_HEADER_HEIGHT,
-  CHART_DATA_LIMITED
+  CHART_DATA_LIMITED,
+
+  TRADE_DIRECTION,
+  PRICE_TYPE
 }

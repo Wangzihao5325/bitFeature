@@ -56,7 +56,20 @@ class TradeSocket {
         case 'OnRspQryAccount':                                 //查询账户信息成功 
           this.updateAccountInfo(data);
           break;
+        case 'OnRspQryOrder':                                 //查询订单信息成功 
+          this.addDesignateAndOrder(data, false);
+          break;
       }
+    }
+  }
+  addDesignateAndOrder(rtnData, isInsert) {
+    if (!rtnData.Parameters) {
+      return;
+    }
+    const orderStatus = rtnData.Parameters.OrderStatus;
+    this.addOrder(rtnData.Parameters, isInsert);
+    if (orderStatus < 3) {
+      this.addDesignate(rtnData.Parameters, isInsert);
     }
   }
   updateAccountInfo(rtnData) {
@@ -104,7 +117,7 @@ class TradeSocket {
       store.dispatch(trade_socket_login(rtnData));
       let nowAccount = rtnData.Parameters.ClientNo;
       this._queryTradeAccount(nowAccount);
-      // this._queryOrder(nowAccount);
+      this._queryOrder(nowAccount);
       // this._queryTrade(nowAccount);
       // this._queryHold(nowAccount);
       // this._queryStopLoss(nowAccount);

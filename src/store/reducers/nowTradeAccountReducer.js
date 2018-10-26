@@ -7,6 +7,7 @@ const initialState = {
   initBalance: 0,             //总资产
   canUse: 0,                  //余额
   deposit: 0,                 //保证金
+  orders: [],                 //委托
 }
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +27,26 @@ const reducer = (state = initialState, action) => {
         canUse: action.canUse,
         deposit: action.deposit,
       };
+    case types.TRADE_ADD_ORDER_INSERT:
+      {
+        let order = action.order;
+        let orders = state.orders.concat();
+        orders.unshift(order);
+        return {
+          ...state,
+          orders: orders
+        };
+      }
+    case types.TRADE_ADD_ORDER_UNINSERT:
+      {
+        let order = action.order;
+        let orders = state.orders.concat();
+        orders.push(order);
+        return {
+          ...state,
+          orders: orders
+        };
+      }
     default: return state;
   }
 };
