@@ -9,6 +9,7 @@ const initialState = {
   deposit: 0,                 //保证金
   orders: [],                 //委托
   designates: [],             //挂单
+  deals: [],                  //成交
 }
 
 const reducer = (state = initialState, action) => {
@@ -58,14 +59,24 @@ const reducer = (state = initialState, action) => {
           designates: designates
         };
       }
-    case types.TRADE_ADD_DESIGNATE_UNINSERT:
+    case types.TRADE_ADD_DEAL_INSERT:
       {
-        let designate = action.designate;
-        let designates = state.designates.concat();
-        designates.push(designate);
+        let deal = action.deal;
+        let deals = state.deals.concat();
+        deals.unshift(deal);
         return {
           ...state,
-          designates: designates
+          deals: deals
+        };
+      }
+    case types.TRADE_ADD_DEAL_UNINSERT:
+      {
+        let deal = action.deal;
+        let deals = state.deals.concat();
+        deals.push(deal);
+        return {
+          ...state,
+          deals: deals
         };
       }
     default: return state;

@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
-import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate } from '../../store/actions/nowTradeAccountAction';
+import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal } from '../../store/actions/nowTradeAccountAction';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
 class TradeSocket {
@@ -59,8 +59,17 @@ class TradeSocket {
         case 'OnRspQryOrder':                                 //查询订单信息成功 
           this.addDesignateAndOrder(data, false);
           break;
+        case 'OnRspQryTrade':                                 //查询成交记录成功 
+          this.addDeal(data, false);
+          break;
       }
     }
+  }
+  addDeal(rtnData, isInsert) {
+    if (!rtnData.Parameters) {
+      return;
+    }
+    store.dispatch(add_deal(rtnData.Parameters, isInsert));
   }
   addDesignateAndOrder(rtnData, isInsert) {
     if (!rtnData.Parameters) {
@@ -120,7 +129,7 @@ class TradeSocket {
       let nowAccount = rtnData.Parameters.ClientNo;
       this._queryTradeAccount(nowAccount);
       this._queryOrder(nowAccount);//需要验证
-      // this._queryTrade(nowAccount);
+      this._queryTrade(nowAccount);
       // this._queryHold(nowAccount);
       // this._queryStopLoss(nowAccount);
       // this._queryCondition(nowAccount);
