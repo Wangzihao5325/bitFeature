@@ -119,7 +119,7 @@ class TradeSocket {
       store.dispatch(trade_socket_login(rtnData));
       let nowAccount = rtnData.Parameters.ClientNo;
       this._queryTradeAccount(nowAccount);
-      this._queryOrder(nowAccount);
+      this._queryOrder(nowAccount);//需要验证
       // this._queryTrade(nowAccount);
       // this._queryHold(nowAccount);
       // this._queryStopLoss(nowAccount);
