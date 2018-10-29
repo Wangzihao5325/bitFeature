@@ -132,8 +132,14 @@ class MarketSocket {
         _.pull(recommendContractMap[regKeyTwo], commodity_details.commodity_no);
         recommendContractMap[regKeyTwo].push(contractName);
       }
-
-      contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, miniTickerSize: commodity_details.mini_ticker_size, structure: contract_structure };
+      contractMap2Config[contractName] = {
+        fullName: commodity_details.commodity_name,
+        dotSize: commodity_details.dot_size,
+        miniTickerSize: commodity_details.mini_ticker_size,
+        contractSize: commodity_details.contract_size,
+        currencyNo: commodity_details.currency_no,
+        structure: contract_structure
+      };
       subscribe_list.push(contract_structure);
     }
     store.dispatch(update_classify(classifyContractMap));

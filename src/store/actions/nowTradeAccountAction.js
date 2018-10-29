@@ -25,7 +25,7 @@ export function trade_socket_queryAccount(balanceReg, canUseReg, depositReg) {
   return (dispatch) => {
     dispatch({
       type: types.TRADE_QUERY_ACCOUNT,
-      initBalance: balanceReg,
+      balance: balanceReg,
       canUse: canUseReg,
       deposit: depositReg
     });
@@ -148,8 +148,6 @@ export function add_deal(param, isInsert) {
 export function manage_hold(param) {
   let productName = `${param.CommodityNo}${param.ContractNo}`;
   let productInfo = contractMap2Config[productName];
-  console.log(productInfo);
-  console.log(param);
   if (!productInfo) {
     return (dispatch) => {
       dispatch({

@@ -6,6 +6,7 @@ import { iconMake } from '../components/Vector_icons';
 
 import MarketScreen from '../screens/market/index';
 import MarketDetailScreen from '../screens/market/marketDetail/index';
+import TradeCenter from '../screens/market/tradeCenter/index';
 
 import TradeScreen from '../screens/trade/index';
 import TradeAccountLogScreen from '../screens/trade/tradeLogin/index';
@@ -32,7 +33,8 @@ let MarketStack = createStackNavigator(                      //行情
   {
     MarketScreen,
     MarketDetailScreen,
-    'TradeAccountLogScreenInMarket': TradeAccountLogScreen
+    'TradeAccountLogScreenInMarket': TradeAccountLogScreen,
+    TradeCenter
   },
   {
     navigationOptions: { gesturesEnabled: false }

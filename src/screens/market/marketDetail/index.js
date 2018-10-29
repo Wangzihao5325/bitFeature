@@ -65,7 +65,7 @@ export default class MarketDetailScreen extends Component {
         ref={(ref) => this._drawer = ref}
         side='right'
         type="overlay"
-        content={<DrawScreen />}
+        content={<DrawScreen drawer={this._drawer}/>}
         acceptPan={false}
         tapToClose={true}
         openDrawerOffset={0.4} // 60% gap on the right side of drawer

@@ -5,7 +5,8 @@ const initialState = {
   isTradeAccountLogin: false,
   loginAccountNum: '',
   forceLine: 0,
-  initBalance: 0,             //总资产
+  initBalance: 0,             //初始资产
+  balance: 0,                  //总资产
   canUse: 0,                  //余额
   deposit: 0,                 //保证金
   orders: [],                 //委托
@@ -27,7 +28,7 @@ const reducer = (state = initialState, action) => {
     case types.TRADE_QUERY_ACCOUNT:
       return {
         ...state,
-        initBalance: action.initBalance,
+        balance: action.balance,
         canUse: action.canUse,
         deposit: action.deposit,
       };

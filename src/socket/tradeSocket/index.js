@@ -51,7 +51,7 @@ class TradeSocket {
       //console.log(data);  // ... debug log
       switch (data.Method) {
         case 'OnRspLogin':                                      //登陆成功 
-          this.loginRtn(data, onSuccess, onFailed);
+        this.loginRtn(data, onSuccess, onFailed);
           break;
         case 'OnRspQryAccount':                                 //查询账户信息成功 
           this.updateAccountInfo(data);

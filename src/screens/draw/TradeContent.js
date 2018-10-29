@@ -40,7 +40,7 @@ class Login extends Component {
       this.props.drawer.close();
     }
     const { marketNavigation } = this.context;
-    marketNavigation.navigate('TradeAccountLogScreenInMarket');
+    marketNavigation.navigate('TradeCenter');
   }
   render() {
     return (
