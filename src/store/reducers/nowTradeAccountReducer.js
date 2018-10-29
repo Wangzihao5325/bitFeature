@@ -1,5 +1,6 @@
 import * as types from '../actionType';
-
+import _ from 'lodash';
+import HoldPosition from '../../model/HoldPosition';
 const initialState = {
   isTradeAccountLogin: false,
   loginAccountNum: '',
@@ -10,6 +11,7 @@ const initialState = {
   orders: [],                 //委托
   designates: [],             //挂单
   deals: [],                  //成交
+  holdPositions: new Map(),   //持仓
 }
 
 const reducer = (state = initialState, action) => {
@@ -77,6 +79,38 @@ const reducer = (state = initialState, action) => {
         return {
           ...state,
           deals: deals
+        };
+      }
+    case types.TRADE_DELETE_HOLD:
+      {
+        let productName = action.productName;
+        let holdPositions = state.holdPositions;
+        holdPositions.delete(productName);
+        // let newHold = _.assign({}, holdPositions);
+        return {
+          ...state,
+          holdPositions: holdPositions
+        };
+      }
+    case types.TRADE_UPDATE_AND_ADD_HOLD:
+      {
+        let productName = action.productName;
+        let holdPositions = state.holdPositions;
+        let direction = action.direction;
+        let holdNum = action.holdNum;
+        let holdAvgPrice = action.holdAvgPrice;
+        if (holdPositions.has(productName)) {
+          let hold = holdPositions.get(productName);
+          hold.update(direction, holdNum, holdAvgPrice);
+        } else {
+          let contractCode = action.contractCode;
+          let hold = new HoldPosition(contractCode, direction, holdNum, holdAvgPrice);
+          holdPositions.set(productName, hold);
+        }
+        // let newHold = _.assign({}, holdPositions);
+        return {
+          ...state,
+          holdPositions: holdPositions
         };
       }
     default: return state;

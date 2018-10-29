@@ -133,7 +133,7 @@ class MarketSocket {
         recommendContractMap[regKeyTwo].push(contractName);
       }
 
-      contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, structure: contract_structure };
+      contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, miniTickerSize: commodity_details.mini_ticker_size, structure: contract_structure };
       subscribe_list.push(contract_structure);
     }
     store.dispatch(update_classify(classifyContractMap));

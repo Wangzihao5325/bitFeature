@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as types from '../actionType';
 import TradeUtil from '../../global/util/TradeUtil';
 import Order from '../../model/Order';
@@ -141,5 +142,43 @@ export function add_deal(param, isInsert) {
         deal: deal
       });
     }
+  }
+}
+
+export function manage_hold(param) {
+  let productName = `${param.CommodityNo}${param.ContractNo}`;
+  let productInfo = contractMap2Config[productName];
+  console.log(productInfo);
+  console.log(param);
+  if (!productInfo) {
+    return (dispatch) => {
+      dispatch({
+        type: types.TRADE_ADD_ORDER_DEFALUT,
+      });
+    }
+  }
+  let future_type = productInfo.structure.security_type;
+  // 手数
+  const holdNum = param.HoldNum;
+  const productNameWithDirection = future_type ? `${productName}${param.Drection}` : productName;
+  if (holdNum === 0) {
+    return (dispatch) => {
+      dispatch({
+        type: types.TRADE_DELETE_HOLD,
+        productName: productNameWithDirection,
+      });
+    }
+  }
+  let dotSize = productInfo.dotSize;
+  let holdAvgPrice = _.toNumber(param.HoldAvgPrice.toFixed(dotSize));
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_UPDATE_AND_ADD_HOLD,
+      productName: productNameWithDirection,
+      contractCode: productName,
+      direction: param.Drection,
+      holdNum: holdNum,
+      holdAvgPrice: holdAvgPrice
+    });
   }
 }

@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
-import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal } from '../../store/actions/nowTradeAccountAction';
+import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold } from '../../store/actions/nowTradeAccountAction';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
 class TradeSocket {
@@ -62,8 +62,20 @@ class TradeSocket {
         case 'OnRspQryTrade':                                 //查询成交记录成功 
           this.addDeal(data, false);
           break;
+        case 'OnRspQryHoldTotal':                                 //查询持仓成功 
+          this.manageHold(data);
+          break;
       }
     }
+  }
+  manageHold(rtnData) {
+    console.log(rtnData);
+    if (!rtnData.Parameters) {
+      return;
+    }
+    store.dispatch(manage_hold(rtnData.Parameters));
+    let state = store.getState();
+    console.log(state);
   }
   addDeal(rtnData, isInsert) {
     if (!rtnData.Parameters) {
@@ -128,9 +140,9 @@ class TradeSocket {
       store.dispatch(trade_socket_login(rtnData));
       let nowAccount = rtnData.Parameters.ClientNo;
       this._queryTradeAccount(nowAccount);
-      this._queryOrder(nowAccount);//需要验证
+      this._queryOrder(nowAccount);
       this._queryTrade(nowAccount);
-      // this._queryHold(nowAccount);
+      this._queryHold(nowAccount);//需要验证
       // this._queryStopLoss(nowAccount);
       // this._queryCondition(nowAccount);
       onSuccess(rtnData);
