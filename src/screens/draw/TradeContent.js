@@ -31,16 +31,29 @@ class Unlogin extends Component {
   }
 }
 class Login extends Component {
+  static contextTypes = {
+    marketNavigation: PropTypes.object
+  }
+
+  _tradeCenter = () => {
+    if (this.props.drawer._open) {
+      this.props.drawer.close();
+    }
+    const { marketNavigation } = this.context;
+    marketNavigation.navigate('TradeAccountLogScreenInMarket');
+  }
   render() {
     return (
-      <View style={{ flex: 1 }}><Text>wwwwwww!!!</Text></View>
+      <View style={{ flex: 1 }}>
+        <ItemBtn icon='user' title='交易中心' onPress={this._tradeCenter} />
+      </View>
     );
   }
 }
 class TradeContent extends Component {
   render() {
     return (
-      this.props.isTradeAccountLogin ? <Login /> : <Unlogin />
+      this.props.isTradeAccountLogin ? <Login drawer={this.props.drawer} /> : <Unlogin />
     );
   }
 }
