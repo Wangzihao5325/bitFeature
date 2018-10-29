@@ -69,13 +69,10 @@ class TradeSocket {
     }
   }
   manageHold(rtnData) {
-    console.log(rtnData);
     if (!rtnData.Parameters) {
       return;
     }
     store.dispatch(manage_hold(rtnData.Parameters));
-    let state = store.getState();
-    console.log(state);
   }
   addDeal(rtnData, isInsert) {
     if (!rtnData.Parameters) {
@@ -142,9 +139,9 @@ class TradeSocket {
       this._queryTradeAccount(nowAccount);
       this._queryOrder(nowAccount);
       this._queryTrade(nowAccount);
-      this._queryHold(nowAccount);//需要验证
-      // this._queryStopLoss(nowAccount);
-      // this._queryCondition(nowAccount);
+      this._queryHold(nowAccount);
+      // this._queryStopLoss(nowAccount);//止盈止损单初始化
+      // this._queryCondition(nowAccount);//条件单初始化
       onSuccess(rtnData);
     } else {
       onFailed();
