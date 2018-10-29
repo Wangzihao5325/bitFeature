@@ -158,7 +158,7 @@ export function manage_hold(param) {
   let future_type = productInfo.structure.security_type;
   // 手数
   const holdNum = param.HoldNum;
-  const productNameWithDirection = future_type ? `${productName}${param.Drection}` : productName;
+  const productNameWithDirection = future_type === 'FI' ? `${productName}${param.Drection}` : productName;
   if (holdNum === 0) {
     return (dispatch) => {
       dispatch({
