@@ -28,7 +28,7 @@ export default class Order {
     this.orderPrice = orderPrice;
     this.orderNum = orderNum;
     this.tradeNum = tradeNum;
-    this.cdNum = cdNum;
+    this.cdNum = cdNum;//撤单
     this.insertDateTime = insertDateTime;
     switch (openCloseType) {
       case 0:

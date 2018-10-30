@@ -4,6 +4,7 @@ import UsualTabBar from '../../../components/NormalTabBar';
 import HoldPositionList from './holdPositionList/index';
 import DealList from './dealList/index';
 import DesignateList from './designateList/index';
+import OrderList from './orderList/index';
 export default class TradeCenterBottom extends Component {
   pageChange = () => {
 
@@ -15,6 +16,7 @@ export default class TradeCenterBottom extends Component {
         {/* <HoldPositionList /> */}
         {/* <DealList /> */}
         {/* <DesignateList /> */}
+        {/* <OrderList /> */}
       </View>
     );
   }
