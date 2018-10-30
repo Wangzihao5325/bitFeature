@@ -180,3 +180,11 @@ export function manage_hold(param) {
     });
   }
 }
+export function list_change(nowPage) {
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_LIST_CHANGE,
+      nowList: nowPage
+    });
+  }
+}

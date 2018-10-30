@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../../global/config';
 import { contractMap2Config } from '../../../../global/commodity_list';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
+const NORMAL_TEXTCOLOR = '#7E829B';
 class Item extends Component {
   render() {
     let contractCode = this.props.item.productName;
@@ -23,7 +24,7 @@ class Item extends Component {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderStatus}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderPrice.toFixed(dotSize)}</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderPrice}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderNum}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{tradeNum}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{cdNum}</Text></View>

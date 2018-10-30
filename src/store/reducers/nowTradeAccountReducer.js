@@ -13,6 +13,7 @@ const initialState = {
   designates: [],             //挂单
   deals: [],                  //成交
   holdPositions: new Map(),   //持仓
+  nowList: '挂单'
 }
 
 const reducer = (state = initialState, action) => {
@@ -113,6 +114,14 @@ const reducer = (state = initialState, action) => {
           ...state,
           holdPositions: holdPositions
         };
+      }
+    case types.TRADE_LIST_CHANGE:
+      {
+        let nowList = action.nowList;
+        return {
+          ...state,
+          nowList: nowList
+        }
       }
     default: return state;
   }
