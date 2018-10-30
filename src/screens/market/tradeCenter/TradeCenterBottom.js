@@ -11,8 +11,8 @@ export default class TradeCenterBottom extends Component {
     return (
       <View >
         <UsualTabBar tabNames={['持仓', '挂单', '委托', '成交']} tabTap={this.pageChange} />
-        {/* <HoldPositionList /> */}
-        <DealList />
+        <HoldPositionList />
+        {/* <DealList /> */}
       </View>
     );
   }

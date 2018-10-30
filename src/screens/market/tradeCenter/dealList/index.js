@@ -28,6 +28,7 @@ class Item extends Component {
 }
 class DealList extends Component {
   render() {
+    console.log(this.props.deals);
     return (
       <View style={{ width: DEVICE_WIDTH, height: 150, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
         <View style={{ height: 150, width: DEVICE_WIDTH }}>
