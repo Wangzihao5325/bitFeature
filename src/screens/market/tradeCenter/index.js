@@ -20,12 +20,12 @@ export default class TradeCenter extends Component {
   };
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'black' }}>
-        <ScrollView style={{ height: DEVICE_HEIGHT, width: DEVICE_WIDTH }} >
+      <ScrollView style={{ height: DEVICE_HEIGHT, width: DEVICE_WIDTH }} >
+        <View style={{ flex: 1, backgroundColor: 'black' }}>
           <TradeCenterHeader />
           <TradeCenterBottom />
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }

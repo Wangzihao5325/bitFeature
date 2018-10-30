@@ -40,12 +40,13 @@ class TradeCenterHeader extends Component {
     let dotSize = contractMap2Config[defalutContract].dotSize;
     let color = this.props.market[defalutContract].change_rate >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
     return (
-      <View style={{ height: 100, height: DEVICE_WIDTH, display: 'flex' }}>
+      <View style={{ height: 100, width: DEVICE_WIDTH, display: 'flex' }}>
         <View style={{ height: 50, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: LIGHT_BGCOLOR }}>
           <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>总资产</Text><Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>{this.props.balance.toFixed(0)}</Text></View>
           <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>持仓盈亏</Text><Text style={{ color: totalColor }}>{TOTALFLOAT.toFixed(2)}</Text></View>
           <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>平仓盈亏</Text><Text>无效</Text></View>
-          <View style={{ flex: 3, justifyContent: 'space-around', alignItems: 'center' }}><Text style={{ color: 'white' }}>{`平仓线:${this.props.forceLine}`}</Text><Text style={{ color: 'white' }}>{`风险度:${risk}`}</Text></View></View>
+          <View style={{ flex: 3, justifyContent: 'space-around', alignItems: 'center' }}><Text style={{ color: 'white' }}>{`平仓线:${this.props.forceLine}`}</Text><Text style={{ color: 'white' }}>{`风险度:${risk}`}</Text></View>
+        </View>
         <View style={{ height: 50, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
           <View style={{ flex: 5, borderRightColor: 'black', borderRightWidth: 1, flexDirection: 'row' }}>
             <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center' }}><Text style={{ color: 'white' }}>{fullName}</Text><Text style={{ color: color }}>{this.props.market[defalutContract].last}</Text></View>

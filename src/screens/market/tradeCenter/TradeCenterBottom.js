@@ -8,6 +8,7 @@ import HoldPositionList from './holdPositionList/index';
 import DealList from './dealList/index';
 import DesignateList from './designateList/index';
 import OrderList from './orderList/index';
+import { DEVICE_WIDTH } from '../../../global/config';
 class TradeCenterBottom extends Component {
   componentWillUnmount() {
     store.dispatch(list_change('挂单'));
@@ -17,7 +18,7 @@ class TradeCenterBottom extends Component {
   }
   render() {
     return (
-      <View >
+      <View style={{ height: 180, width: DEVICE_WIDTH }} >
         <UsualTabBar tabNames={['持仓', '挂单', '委托', '成交']} tabTap={this.pageChange} />
         {this.props.nowList === '持仓' && <HoldPositionList />}
         {this.props.nowList === '成交' && <DealList />}
