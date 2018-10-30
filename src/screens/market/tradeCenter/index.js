@@ -8,6 +8,7 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, DEVICE_HEIGHT
 import TradeCenterHeader from './TradeCenterHeader';
 import TradeCenterBottom from './TradeCenterBottom';
 import TradeContent from './TradeContent';
+import NumberInput from '../../../components/NumberInput/index';
 export default class TradeCenter extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -25,6 +26,7 @@ export default class TradeCenter extends Component {
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <TradeCenterHeader />
           <TradeContent />
+          <NumberInput />
           <TradeCenterBottom />
         </View>
       </ScrollView>
