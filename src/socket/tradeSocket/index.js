@@ -60,7 +60,6 @@ class TradeSocket {
           this.addDesignateAndOrder(data, false);
           break;
         case 'OnRspQryTrade':                                 //查询成交记录成功 
-        console.log(data);  
         this.addDeal(data, false);
           break;
         case 'OnRspQryHoldTotal':                                 //查询持仓成功 
