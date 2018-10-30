@@ -9,6 +9,9 @@ import DealList from './dealList/index';
 import DesignateList from './designateList/index';
 import OrderList from './orderList/index';
 class TradeCenterBottom extends Component {
+  componentWillUnmount() {
+    store.dispatch(list_change('挂单'));
+  }
   pageChange = (keyValue, oldValue) => {
     store.dispatch(list_change(keyValue));
   }
