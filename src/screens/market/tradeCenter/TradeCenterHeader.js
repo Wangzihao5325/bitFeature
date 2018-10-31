@@ -35,7 +35,7 @@ class TradeCenterHeader extends Component {
     this.props.holdPositions.forEach(this.totalFloat);
     let totalColor = TOTALFLOAT >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
     let risk = this.riskText(TOTALFLOAT);
-    let defalutContract = classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
+    let defalutContract = this.props.contractCode;
     let fullName = contractMap2Config[defalutContract].fullName;
     let dotSize = contractMap2Config[defalutContract].dotSize;
     let color = this.props.market[defalutContract].change_rate >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';

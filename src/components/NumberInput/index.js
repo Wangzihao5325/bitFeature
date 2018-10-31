@@ -5,7 +5,7 @@ const NORMAL_TEXTCOLOR = '#7E829B';
 const DARKER_BGCOLOR = '#17191E';
 export default class NumberInput extends Component {
   state = {
-    inputValue: 0
+    inputValue: this.props.defaultValue ? this.props.defaultValue : 0
   }
   _plus = () => {
     this.setState((preState, props) => {

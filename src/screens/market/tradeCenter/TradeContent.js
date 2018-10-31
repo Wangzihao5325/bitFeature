@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { DEVICE_WIDTH } from '../../../global/config';
+import store from '../../../store/index';
+import { connect } from 'react-redux';
+import { DEVICE_WIDTH } from '../../../global/config'
+import { classifyContractMap } from '../../../global/commodity_list';
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberInput from '../../../components/NumberInput/index';
 import NormalBtn from '../../../components/NormalBtn';
@@ -9,10 +12,20 @@ const DARKER_BGCOLOR = '#17191E';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const COM_BTN_HEIGHT = 35;
 const COM_BTN_WIDTH = DEVICE_WIDTH / 2 - 20;
-export default class TradeContent extends Component {
+class TradeContent extends Component {
+  _contractSelect = (index, value) => {
+    console.log('_________');
+    console.log(index);
+    console.log(value);
+  }
   _bug = () => { }
   _sell = () => { }
   render() {
+    let defalutContract = this.props.contractCode;
+    let arrList = classifyContractMap[this.props.classifyPage];
+    let state = store.getState();
+    let price = state.market[defalutContract].last;
+    console.log(price);
     return (
       <View style={{ height: 170, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         {/*合约选择 */}
@@ -20,8 +33,9 @@ export default class TradeContent extends Component {
           <View style={{ height: 40, width: 100, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>合约代码</Text></View>
           <View style={{ height: 40, width: DEVICE_WIDTH - 170, justifyContent: 'center' }}>
             <ModalDropdown
-              options={['option 1', 'option 2']}
-              defaultValue='option 1'
+              onSelect={this._contractSelect}
+              options={arrList}
+              defaultValue={defalutContract}
               style={{
                 alignSelf: 'center',
                 width: DEVICE_WIDTH - 170,
@@ -107,7 +121,7 @@ export default class TradeContent extends Component {
             />
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <NumberInput style={{ width: DEVICE_WIDTH - 170 - 30 }} />
+            <NumberInput style={{ width: DEVICE_WIDTH - 170 - 30 }} defaultValue={price} />
           </View>
         </View>
         {/*委托数量 */}
@@ -136,3 +150,10 @@ export default class TradeContent extends Component {
     );
   }
 }
+function mapState2Props(store) {
+  return {
+    classifyPage: store.contractClassify.page
+  }
+}
+
+export default connect(mapState2Props)(TradeContent);
