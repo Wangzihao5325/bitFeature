@@ -47,10 +47,10 @@ class OrderList extends Component {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>已撤单</Text></View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>下单时间</Text></View>
         </View>
-        <FlatList
+        {this.props.orders.length > 0 && <FlatList
           data={this.props.orders}
           renderItem={({ item }) => <Item item={item} />}
-        />
+        />}
       </View>
     );
   }

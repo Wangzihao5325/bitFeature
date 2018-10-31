@@ -1,6 +1,9 @@
 import * as types from '../actionType';
 import _ from 'lodash';
 import HoldPosition from '../../model/HoldPosition';
+import ArrayUtil from '../../global/util/ArrayUtil';
+import TradeUtil from '../../global/util/TradeUtil';
+import { contractMap2Config } from '../../global/commodity_list'
 const initialState = {
   isTradeAccountLogin: false,
   loginAccountNum: '',
@@ -13,7 +16,7 @@ const initialState = {
   designates: [],             //挂单
   deals: [],                  //成交
   holdPositions: new Map(),   //持仓
-  nowList: '挂单'
+  nowList: '挂单',
 }
 
 const reducer = (state = initialState, action) => {
@@ -36,6 +39,8 @@ const reducer = (state = initialState, action) => {
     case types.TRADE_ADD_ORDER_INSERT:
       {
         let order = action.order;
+        console.log('ddddd');
+        console.log(state.orders);
         let orders = state.orders.concat();
         orders.unshift(order);
         return {
@@ -98,7 +103,7 @@ const reducer = (state = initialState, action) => {
         let productName = action.productName;
         let holdPositions = state.holdPositions;
         holdPositions.delete(productName);
-        // let newHold = _.assign({}, holdPositions);
+        // let newHold = _.assign(new Map(), holdPositions);
         return {
           ...state,
           holdPositions: holdPositions
@@ -119,10 +124,10 @@ const reducer = (state = initialState, action) => {
           let hold = new HoldPosition(contractCode, direction, holdNum, holdAvgPrice);
           holdPositions.set(productName, hold);
         }
-        // let newHold = _.assign({}, holdPositions);
+        // let newHold = _.assign(new Map(), holdPositions);
         return {
           ...state,
-          holdPositions: holdPositions
+          holdPositions: holdPositions,
         };
       }
     case types.TRADE_LIST_CHANGE:
@@ -133,7 +138,90 @@ const reducer = (state = initialState, action) => {
           nowList: nowList
         }
       }
+    case types.TRADE_UPDATE_ORDER:
+      {
+        let param = action.param;
+        let orderPrice = param.OrderPrice;
+        let orderStatus = param.OrderStatus;
+        let tradeNum = param.TradeNum;
+        let orderNum = param.OrderNum;
+        let contractCode = param.ContractCode;
+        let dotSize = contractMap2Config[contractCode].dotSize;
+        let orderId = param.OrderID;
+        let orders = state.orders;
+        const order = orders.find((o) => {
+          return o.orderId === orderId;
+        });
+        if (order.orderPrice !== '市价') {
+          order.orderPrice = orderPrice.toFixed(dotSize);
+        }
+        order.orderStatus = TradeUtil.getOrderStatusText(orderStatus);
+        if (orderStatus === 4) {
+          order.cdNum = orderNum - tradeNum;
+        }
+        order.orderNum = orderNum;
+        order.tradeNum = tradeNum;
+
+        let newOrders = _.assign([], orders);
+        return {
+          ...state,
+          orders: newOrders,
+        }
+      }
+    case types.TRADE_DELETE_DESIGNATE:
+      {
+        let designates = state.designates;
+        let param = action.param;
+        if (designates.length === 0) {
+          return state;
+        }
+        if (typeof param === 'string') {
+          ArrayUtil.remove(designates, (designate) => {
+            return designate.orderId === param;
+          });
+          let newDes = _.assign([], designates);
+          return {
+            ...state,
+            designates: newDes
+          }
+        }
+        let contractCode = param.ContractCode;
+        ArrayUtil.remove(designates, (designate) => {
+          return designate.productName === contractCode;
+        });
+        let newDes = _.assign([], designates);
+        return {
+          ...state,
+          designates: newDes,
+        }
+      }
+    case types.TRADE_LIST_CHANGE:
+      {
+        let designates = state.designates;
+        let param = action.param;
+        let contractCode = param.ContractCode;
+        let dotSize = contractMap2Config[contractCode].dotSize;
+        const orderPriceText = TradeUtil.getOrderPriceText(param, dotSize);
+        const orderId = param.OrderID;
+        const orderNum = param.OrderNum;          // 委託量
+        const tradeNum = param.TradeNum;          // 已成交
+        const designateNum = orderNum - tradeNum; // 掛單量
+        const designate = designates.find((d) => {
+          return d.orderId === orderId;
+        });
+        designate.update(orderPriceText, orderNum, designateNum);
+        if (designate.isUpdate) {
+          ToastRoot.show(`改单成功:合约【${designate.productName}】,委托价【${designate.orderPrice}】,委托量【${designate.orderNum}】`);
+          designate.isUpdate = false;
+        }
+        let newDes = _.assign([], designates);
+        return {
+          ...state,
+          designates: newDes,
+        }
+      }
     default: return state;
   }
 };
+
 export default reducer;

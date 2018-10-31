@@ -41,10 +41,10 @@ class DesignateList extends Component {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>挂单量</Text></View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>挂单时间</Text></View>
         </View>
-        <FlatList
+        {this.props.designates.length > 0 && <FlatList
           data={this.props.designates}
           renderItem={({ item }) => <Item item={item} />}
-        />
+        />}
       </View>
     );
   }

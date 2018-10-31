@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
-import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold } from '../../store/actions/nowTradeAccountAction';
+import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold, update_order, delete_designate, update_designate } from '../../store/actions/nowTradeAccountAction';
 import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
@@ -80,8 +80,7 @@ class TradeSocket {
           this.updateAccountInfo(data);
           break;
         case 'OnRspQryOrder':                                 //查询订单信息成功 
-        console.log(data);  
-        this.addDesignateAndOrder(data, false);
+          this.addDesignateAndOrder(data, false);
           break;
         case 'OnRspQryTrade':                                 //查询成交记录成功 
           this.addDeal(data, false);
@@ -93,6 +92,44 @@ class TradeSocket {
           this.addDesignateAndOrder(data, true);
           this.addDesignateAndOrderMessage(data);
           break;
+        case 'OnRtnOrderTraded':                                 //订单成交回复 
+          this.addDeal(data, true);
+          this.addDealMessage(data);
+          break;
+        case 'OnRtnOrderState':                                 //订单状态通知(成交完成后处理挂单) 
+          this.manageDesignateAndOrder(data);
+          break;
+        case 'OnRtnHoldTotal':                                 //更新持仓
+          this.manageHold(data);
+          break;
+      }
+    }
+  }
+  manageDesignateAndOrder(rtnData) {
+    let param = rtnData.Parameters;
+    const orderStatus = param.OrderStatus;
+    const orderNum = param.OrderNum;          // 委託量
+    const tradeNum = param.TradeNum;          // 已成交
+    const designateNum = orderNum - tradeNum; // 掛單量
+    const orderId = param.OrderID;
+    store.dispatch(update_order(param));
+    if (orderStatus === 0 || orderStatus === 1 || orderStatus === 2) {
+      if (designateNum === 0) {
+        store.dispatch(delete_designate(param));
+      } else {
+        store.dispatch(update_designate(param));
+      }
+    } else if (orderStatus === 3) {
+      store.dispatch(delete_designate(orderId));
+    } else if (orderStatus === 4) {
+      store.dispatch(delete_designate(orderId));
+      ToastRoot.show(`撤单成功:合约【${param.ContractCode}】,订单号【${orderId}】`);
+    } else if (orderStatus === 5) {
+      store.dispatch(delete_designate(orderId));
+      if (param.ContractCode == undefined) {
+        ToastRoot.show(`交易失败:合约【${param.ContractCode}】,原因【${param.StatusMsg}】`);
+      } else {
+        ToastRoot.show(`交易失败:原因【${param.StatusMsg}】`);
       }
     }
   }
@@ -107,6 +144,13 @@ class TradeSocket {
       return;
     }
     store.dispatch(add_deal(rtnData.Parameters, isInsert));
+  }
+  addDealMessage(data) {
+    ToastRoot.show('交易成功');
+    // console.log(data);
+    // const { dotSize } = this.tradeStore.product
+    // //parameters.TradePrice.toFixed(2) 保留两位小数
+    // ToastRoot.show(`交易成功：合约【${0}】,交易手数:【${1}】,交易价格:【${2}】`);
   }
   addDesignateAndOrder(rtnData, isInsert) {
     if (!rtnData.Parameters) {

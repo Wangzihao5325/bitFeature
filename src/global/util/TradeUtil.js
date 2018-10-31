@@ -145,5 +145,14 @@ class TradeUtil {
     }
     return result;
   }
+
+  getOrderPriceText(param, dotSize) {
+    let orderPriceText = param.OrderPrice.toFixed(dotSize);
+    const orderPriceType = param.OrderPriceType;
+    if (orderPriceType === 1) {
+      orderPriceText = '市价';
+    }
+    return orderPriceText;
+  }
 }
 export default new TradeUtil();

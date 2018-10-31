@@ -47,10 +47,10 @@ class HoldPositionList extends Component {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>持仓均价</Text></View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>浮动盈亏</Text></View>
         </View>
-        <FlatList
+        {dataArr.length > 0 && <FlatList
           data={dataArr}
           renderItem={({ item }) => <Item value={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
-        />
+        />}
       </View>
     );
   }

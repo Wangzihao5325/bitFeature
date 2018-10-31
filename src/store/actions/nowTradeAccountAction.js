@@ -188,3 +188,29 @@ export function list_change(nowPage) {
     });
   }
 }
+export function update_order(param) {
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_UPDATE_ORDER,
+      param: param
+    });
+  }
+}
+
+export function delete_designate(param) {
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_DELETE_DESIGNATE,
+      param: param
+    });
+  }
+}
+
+export function update_designate(param) {
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_UPDATE_DESIGNATE,
+      param: param
+    });
+  }
+}

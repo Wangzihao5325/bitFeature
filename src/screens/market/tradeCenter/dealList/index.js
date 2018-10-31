@@ -28,7 +28,6 @@ class Item extends Component {
 }
 class DealList extends Component {
   render() {
-    console.log(this.props.deals);
     return (
       <View style={{ width: DEVICE_WIDTH, height: 150, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
         <View style={{ height: 150, width: DEVICE_WIDTH }}>
@@ -39,10 +38,10 @@ class DealList extends Component {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交量</Text></View>
             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交时间</Text></View>
           </View>
-          <FlatList
+          {this.props.deals > 0 && <FlatList
             data={this.props.deals}
             renderItem={({ item }) => <Item item={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
-          />
+          />}
         </View>
       </View>
     );
