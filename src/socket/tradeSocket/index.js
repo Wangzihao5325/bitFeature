@@ -2,6 +2,7 @@ import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
 import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold } from '../../store/actions/nowTradeAccountAction';
+import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
 class TradeSocket {
@@ -33,6 +34,28 @@ class TradeSocket {
     let json = { 'Method': 'QryCondition', 'Parameters': { 'ClientNo': account } };
     this.ws.send(JSON.stringify(json));
   }
+  insertOrder(contractCode, orderNum, direction, priceType, openCloseType, limitPrice) {
+    let contract_structure = contractMap2Config[contractCode].structure;
+    let commodity_no = contract_structure.commodity_no;
+    let contract_no = contract_structure.contract_no;
+    let exchange_no = contract_structure.exchange_no;
+    let orderRef = new Date().getTime();
+    let json = {
+      'Method': 'InsertOrder',
+      'Parameters': {
+        'ExchangeNo': exchange_no,
+        'CommodityNo': commodity_no,
+        'ContractNo': contract_no,
+        'OrderNum': orderNum,
+        'Direction': direction,
+        'PriceType': priceType,
+        'OpenCloseType': openCloseType,
+        'LimitPrice': limitPrice,
+        'OrderRef': orderRef.toString()
+      }
+    };
+    this.ws.send(JSON.stringify(json));
+  }
   connectSocket(url, account, password, onSuccess, onFailed) {
     this._url = url;
     this._account = account;
@@ -51,19 +74,24 @@ class TradeSocket {
       //console.log(data);  // ... debug log
       switch (data.Method) {
         case 'OnRspLogin':                                      //登陆成功 
-        this.loginRtn(data, onSuccess, onFailed);
+          this.loginRtn(data, onSuccess, onFailed);
           break;
         case 'OnRspQryAccount':                                 //查询账户信息成功 
           this.updateAccountInfo(data);
           break;
         case 'OnRspQryOrder':                                 //查询订单信息成功 
-          this.addDesignateAndOrder(data, false);
+        console.log(data);  
+        this.addDesignateAndOrder(data, false);
           break;
         case 'OnRspQryTrade':                                 //查询成交记录成功 
-        this.addDeal(data, false);
+          this.addDeal(data, false);
           break;
         case 'OnRspQryHoldTotal':                                 //查询持仓成功 
           this.manageHold(data);
+          break;
+        case 'OnRspOrderInsert':                                 //报单请求回复 
+          this.addDesignateAndOrder(data, true);
+          this.addDesignateAndOrderMessage(data);
           break;
       }
     }
@@ -90,6 +118,18 @@ class TradeSocket {
     if (orderStatus < 3) {
       store.dispatch(add_designate(rtnData.Parameters, isInsert));
       // this.addDesignate(rtnData.Parameters, isInsert);
+    }
+  }
+  addDesignateAndOrderMessage(param) {
+    const orderStatus = param.Parameters.OrderStatus;
+    if (orderStatus === 5) {
+      if (param.Parameters.ContractCode == undefined) {
+        ToastRoot.show(`交易失败:原因【${param.Parameters.StatusMsg}】`);
+      } else {
+        ToastRoot.show(`交易失败:合约【${param.Parameters.ContractCode}】,原因【${param.Parameters.StatusMsg}】`);
+      }
+    } else {
+      ToastRoot.show('提交成功,等待交易');
     }
   }
   updateAccountInfo(rtnData) {

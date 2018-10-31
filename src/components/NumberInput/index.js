@@ -32,6 +32,7 @@ export default class NumberInput extends Component {
       this.setState({
         inputValue: value
       });
+      this.props.textChange(value);
     }
   }
   render() {

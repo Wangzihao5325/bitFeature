@@ -63,6 +63,16 @@ const reducer = (state = initialState, action) => {
           designates: designates
         };
       }
+    case types.TRADE_ADD_DESIGNATE_UNINSERT:
+      {
+        let designate = action.designate;
+        let designates = state.designates.concat();
+        designates.push(designate);
+        return {
+          ...state,
+          designates: designates
+        };
+      }
     case types.TRADE_ADD_DEAL_INSERT:
       {
         let deal = action.deal;
