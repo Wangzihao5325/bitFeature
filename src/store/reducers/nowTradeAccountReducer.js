@@ -39,8 +39,6 @@ const reducer = (state = initialState, action) => {
     case types.TRADE_ADD_ORDER_INSERT:
       {
         let order = action.order;
-        console.log('ddddd');
-        console.log(state.orders);
         let orders = state.orders.concat();
         orders.unshift(order);
         return {

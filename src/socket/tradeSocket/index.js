@@ -47,7 +47,7 @@ class TradeSocket {
         'CommodityNo': commodity_no,
         'ContractNo': contract_no,
         'OrderNum': orderNum,
-        'Direction': direction,
+        'Drection': direction, //Drection 是接口的错别字，一直保留下来了
         'PriceType': priceType,
         'OpenCloseType': openCloseType,
         'LimitPrice': limitPrice,
