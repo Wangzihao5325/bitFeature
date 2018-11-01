@@ -38,7 +38,7 @@ class DealList extends Component {
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交量</Text></View>
             <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交时间</Text></View>
           </View>
-          {this.props.deals > 0 && <FlatList
+          {this.props.deals.length > 0 && <FlatList
             data={this.props.deals}
             renderItem={({ item }) => <Item item={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
           />}
