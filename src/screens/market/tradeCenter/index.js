@@ -29,19 +29,12 @@ class TradeCenter extends Component {
     }
   }
   componentDidMount() {
-    console.log('aliveContractList');
-    console.log(aliveContractList);
-    console.log('aliveContractSnapShot');
-    console.log(aliveContractSnapShot);
-    console.log('holdPositions');
-    console.log(this.props.holdPositions);
     MarketSocket.holdPositionMarketSocketStart();
   }
   componentWillUnmount() {
     MarketSocket.holdPositionMarketSocketStop();
   }
   render() {
-    // let defalutContract = classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
     return (
       <ScrollView style={{ height: DEVICE_HEIGHT, width: DEVICE_WIDTH }} >
         <View style={{ flex: 1, backgroundColor: 'black' }}>
