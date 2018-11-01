@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, Button } from 'react-native';
 import { connect } from 'react-redux';
-import { classifyContractMap } from '../../../global/commodity_list';
+import { classifyContractMap, aliveContractList, aliveContractSnapShot } from '../../../global/commodity_list';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, DEVICE_HEIGHT } from '../../../global/config';
 import TradeCenterHeader from './TradeCenterHeader';
 import TradeCenterBottom from './TradeCenterBottom';
@@ -17,6 +17,16 @@ class TradeCenter extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
+
+  componentDidMount() {
+    console.log('aliveContractList');
+    console.log(aliveContractList);
+    console.log('aliveContractSnapShot');
+    console.log(aliveContractSnapShot);
+    console.log('holdPositions');
+    console.log(this.props.holdPositions);
+  }
+
   render() {
     let defalutContract = classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
     return (
@@ -32,7 +42,8 @@ class TradeCenter extends Component {
 }
 function mapState2Props(store) {
   return {
-    classifyPage: store.contractClassify.page
+    classifyPage: store.contractClassify.page,
+    holdPositions: store.nowTradeAccount.holdPositions
   }
 }
 

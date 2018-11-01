@@ -278,6 +278,7 @@ class MarketSocket {
       deepReg.push(structure);
     });
     this._unsubscribe_depth(deepReg);
+    aliveContractSnapShot.length = 0;//清空快照
   }
   /*合约类别切换 */
   contractChange(beforeClass) {
