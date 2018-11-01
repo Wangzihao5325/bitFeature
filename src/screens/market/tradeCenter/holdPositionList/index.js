@@ -35,9 +35,13 @@ class Item extends Component {
 class HoldPositionList extends Component {
   render() {
     let dataArr = [];
-    this.props.holdPositions.forEach(function (value) {
+    _.mapValues(this.props.holdPositions, function (value) {
       dataArr.push(value);
+      return null;
     });
+    // this.props.holdPositions.forEach(function (value) {
+    //   dataArr.push(value);
+    // });
     return (
       <View style={{ width: DEVICE_WIDTH, height: 150, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>

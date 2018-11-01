@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { DEVICE_WIDTH } from '../../../global/config';
 import { classifyContractMap, contractMap2Config } from '../../../global/commodity_list';
 import { cache } from '../../../global/trade_list';
@@ -22,7 +23,7 @@ class TradeCenterHeader extends Component {
     }
     return riskText;
   }
-  totalFloat = (value, key, map) => {
+  totalFloat = (value) => {
     let contract = value.contractCode;
     let currencyNo = contractMap2Config[contract].currencyNo;
     let currencyRate = cache.get(currencyNo).currencyRate;
@@ -32,7 +33,8 @@ class TradeCenterHeader extends Component {
   }
   render() {
     TOTALFLOAT = 0;
-    this.props.holdPositions.forEach(this.totalFloat);
+    // this.props.holdPositions.forEach(this.totalFloat);
+    _.mapValues(this.props.holdPositions, this.totalFloat);
     let totalColor = TOTALFLOAT >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
     let risk = this.riskText(TOTALFLOAT);
     let defalutContract = this.props.contractCode;

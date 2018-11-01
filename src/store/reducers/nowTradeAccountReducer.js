@@ -15,7 +15,7 @@ const initialState = {
   orders: [],                 //委托
   designates: [],             //挂单
   deals: [],                  //成交
-  holdPositions: new Map(),   //持仓
+  holdPositions: {},   //持仓
   nowList: '挂单',
 }
 
@@ -102,11 +102,12 @@ const reducer = (state = initialState, action) => {
       {
         let productName = action.productName;
         let holdPositions = state.holdPositions;
-        holdPositions.delete(productName);
-        // let newHold = _.assign(new Map(), holdPositions);
+        _.unset(holdPositions, productName);
+        /* holdPositions.delete(productName);*/
+        let newHold = _.assign({}, holdPositions);
         return {
           ...state,
-          holdPositions: holdPositions
+          holdPositions: newHold
         };
       }
     case types.TRADE_UPDATE_AND_ADD_HOLD:
@@ -116,18 +117,19 @@ const reducer = (state = initialState, action) => {
         let direction = action.direction;
         let holdNum = action.holdNum;
         let holdAvgPrice = action.holdAvgPrice;
-        if (holdPositions.has(productName)) {
-          let hold = holdPositions.get(productName);
+        /*if (holdPositions.has(productName)) {*/
+        if (_.has(holdPositions, productName)) {
+          let hold = holdPositions[productName];
           hold.update(direction, holdNum, holdAvgPrice);
         } else {
           let contractCode = action.contractCode;
           let hold = new HoldPosition(contractCode, direction, holdNum, holdAvgPrice);
-          holdPositions.set(productName, hold);
+          holdPositions[productName] = hold;
         }
-        // let newHold = _.assign(new Map(), holdPositions);
+        let newHold = _.assign({}, holdPositions);
         return {
           ...state,
-          holdPositions: holdPositions,
+          holdPositions: newHold,
         };
       }
     case types.TRADE_LIST_CHANGE:
