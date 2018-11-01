@@ -64,7 +64,7 @@ class TradeContent extends Component {
           <View style={{ height: 40, width: DEVICE_WIDTH - 170, justifyContent: 'center' }}>
             <ModalDropdown
               onSelect={this._contractSelect}
-              options={arrList}
+              options={[defalutContract]}//options={arrList}
               defaultValue={defalutContract}
               style={{
                 alignSelf: 'center',

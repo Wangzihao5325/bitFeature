@@ -14,6 +14,9 @@ let tradeAliveContractList = [];
 /*合约快照，用来保存某一时刻合约定约状态，用来进行恢复订阅的操作*/
 let aliveContractSnapShot = [];
 
+/*合约快照，用来保存某一时刻合约定约状态，用来进行恢复订阅的操作 -- 交易用*/
+let tradeAliveContractSnapShot = [];
+
 /*分类推荐合约映射表*/
 let recommendContractMap = {};
 
@@ -33,6 +36,7 @@ export {
   aliveContractList,
   tradeAliveContractList,
   aliveContractSnapShot,
+  tradeAliveContractSnapShot,
 
   recommendContractMap,
   classifyContractMap,
