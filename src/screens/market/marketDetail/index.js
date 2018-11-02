@@ -11,6 +11,8 @@ import MarketDetailHeader from './MarkDetailHeader';
 import MarketDetailFooter from './marketDetailFooter/index';
 import MarketChartView from './chartView/index';
 import BottomBtn from './BottomBtn';
+import store from '../../../store';
+import { action_detailMarketWillUnmount } from '../../../store/actions/markDetailsAction';
 
 export default class MarketDetailScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -40,6 +42,7 @@ export default class MarketDetailScreen extends Component {
   componentWillUnmount() {
     //恢复之前暂停的行情推送
     MarketSocket.contractGoingOn();
+    store.dispatch(action_detailMarketWillUnmount());
   }
   // shouldComponentUpdate() {
   //   return false            //发现navi至页面render了2次，先禁止了 ... to do
@@ -65,7 +68,7 @@ export default class MarketDetailScreen extends Component {
         ref={(ref) => this._drawer = ref}
         side='right'
         type="overlay"
-        content={<DrawScreen drawer={this._drawer}/>}
+        content={<DrawScreen drawer={this._drawer} />}
         acceptPan={false}
         tapToClose={true}
         openDrawerOffset={0.4} // 60% gap on the right side of drawer

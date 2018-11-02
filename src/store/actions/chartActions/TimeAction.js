@@ -6,6 +6,7 @@ import moment from 'moment';
 let dotSize = 2;
 let isReady = 0;
 export function action_startTimeStore(data) {
+  let contractCodeStr = data.contract_code;
   let dataSent = data.Lines;//400
   //to do .... 抽稀
   // let length = dataSent.length;
@@ -26,6 +27,7 @@ export function action_startTimeStore(data) {
     dispatch({
       type: types.TIME_STORE_START,
       dataSent: dataSent,
+      contractCodeStr: contractCodeStr
     });
   }
 }

@@ -156,8 +156,6 @@ class MarketSocket {
     store.dispatch(action_updateAskAndBid(rtnObj));
   }
   managerAliveContractList(rtnObj) {
-    console.log('dddddd');
-    console.log(rtnObj);
     if (rtnObj.data.succ_list) {
       let successArr = rtnObj.data.succ_list;
       successArr.map(function (item) {
@@ -185,17 +183,19 @@ class MarketSocket {
     }
   }
   updateRtnChartDate(result) {
+    let contractCodeStr = result.data[0];
+
     let kStoreSnap = store.getState().KStore;
     let lightningStoreSnap = store.getState().LightningStore;
     let timeStoreSnap = store.getState().TimeStore;
     //let nowChart = store.getState().marketChartView.nowChart;
-    if (kStoreSnap.isActive) {
+    if (kStoreSnap.isActive && contractCodeStr === kStoreSnap.contractCodeStr) {
       store.dispatch(action_addKStore(result));
     }
-    if (lightningStoreSnap.isActive) {
+    if (lightningStoreSnap.isActive && contractCodeStr === lightningStoreSnap.contractCodeStr) {
       store.dispatch(action_updateLightningStore(result));
     }
-    if (timeStoreSnap.isActive) {
+    if (timeStoreSnap.isActive && contractCodeStr === timeStoreSnap.contractCodeStr) {
       store.dispatch(action_updateTimeStore(result));
     }
   }

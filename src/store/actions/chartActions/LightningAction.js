@@ -3,6 +3,7 @@ import * as types from '../../actionType';
 import { contractMap2Config } from '../../../global/commodity_list';
 export function action_startLightningStore(productName) {
   let dotSize = contractMap2Config[productName].dotSize;
+  let contractCodeStr = `${contractMap2Config[productName].structure.security_type}_${contractMap2Config[productName].structure.commodity_no}_${contractMap2Config[productName].structure.contract_no}`
   //没有初始信息，只取dotsize
   //   if (product.time_flag) {
   //     this.data.prices.push(product.last);
@@ -11,7 +12,8 @@ export function action_startLightningStore(productName) {
   return (dispatch) => {
     dispatch({
       type: types.LIGHTNING_STORE_START,
-      dotSize: dotSize
+      dotSize: dotSize,
+      contractCodeStr: contractCodeStr
     });
   }
 }

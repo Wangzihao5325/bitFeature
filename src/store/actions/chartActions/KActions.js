@@ -6,6 +6,7 @@ import moment from 'moment';
 let isReady = 0;
 let total_Volumn = null;
 export function action_startKStore(data) {
+  let contractCodeStr = data.contract_code;
   const dataSent = data.Lines;
   const kLineType = data.period;
 
@@ -48,7 +49,8 @@ export function action_startKStore(data) {
       prices: prices,
       volumns: volumns,
       isLoading: isLoading,
-      klineType: kLineType
+      klineType: kLineType,
+      contractCodeStr: contractCodeStr
     });
   }
 }

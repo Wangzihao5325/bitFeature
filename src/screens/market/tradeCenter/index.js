@@ -5,6 +5,7 @@ import store from '../../../store/index';
 import MarketSocket from '../../../socket/marketSocket/index';
 import { classifyContractMap, aliveContractList, aliveContractSnapShot } from '../../../global/commodity_list';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, DEVICE_HEIGHT } from '../../../global/config';
+import MarketChartView from '../marketDetail/chartView/index';
 import TradeCenterHeader from './TradeCenterHeader';
 import TradeCenterBottom from './TradeCenterBottom';
 import TradeContent from './TradeContent';
@@ -39,6 +40,7 @@ class TradeCenter extends Component {
       <ScrollView style={{ height: DEVICE_HEIGHT, width: DEVICE_WIDTH }} >
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <TradeCenterHeader contractCode={this.defalutContract} />
+          <MarketChartView />
           <TradeContent contractCode={this.defalutContract} />
           <TradeCenterBottom />
         </View>

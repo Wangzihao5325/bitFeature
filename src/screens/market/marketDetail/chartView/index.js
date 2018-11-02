@@ -10,10 +10,13 @@ import LightningView from './LightningView';
 import TimeView from './TimeView';
 import marketSocket from './../../../../socket/marketSocket/index';
 import { action_startLightningStore } from '../../../../store/actions/chartActions/LightningAction';
+import { classifyContractMap } from '../../../../global/commodity_list';
 class MarketChartView extends Component {
   componentDidMount() {
-    let name = this.props.nowContract;
-    marketSocket.getHistoryData(name, 0);//1查询k线数据 0时序图
+    this.name = this.props.nowContract ? this.props.nowContract : classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
+    console.log('11111______________1');
+    console.log(this.name);
+    marketSocket.getHistoryData(this.name, 0);//1查询k线数据 0时序图
     // store.dispatch(action_startLightningStore(name));//开启闪电图
   }
   componentWillUnmount() {
@@ -35,7 +38,7 @@ class MarketChartView extends Component {
 
     store.dispatch(market_chart_view_screen_change(keyValue));
 
-    let name = this.props.nowContract;
+    let name = this.name;
     if (keyValue === '闪电') {
       store.dispatch(action_startLightningStore(name));//开启闪电图
     } else if (keyValue === '分时') {
@@ -83,7 +86,8 @@ class MarketChartView extends Component {
 function mapState2Props(store) {
   return {
     nowChart: store.marketChartView.nowChart,
-    nowContract: store.marketDetail.nowContract
+    nowContract: store.marketDetail.nowContract,
+    classifyPage: store.contractClassify.page,
   }
 }
 

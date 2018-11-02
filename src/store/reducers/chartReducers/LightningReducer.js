@@ -5,7 +5,8 @@ const initialState = {
   prices: [],
   dotSize: null,
   isActive: false,
-  isLoading:true,
+  isLoading: true,
+  contractCodeStr: ''//FO_CL_1812
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,7 +15,8 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         dotSize: action.dotSize,
-        isActive: true
+        isActive: true,
+        contractCodeStr: action.contractCodeStr
       };
     case types.LIGHTNING_STORE_UPDATE:
       let timesReg = state.times.concat();
@@ -29,7 +31,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         times: timesReg,
         prices: pricesReg,
-        isLoading:false
+        isLoading: false
       };
     case types.LIGHTNING_STORE_RESET:
       return initialState;
