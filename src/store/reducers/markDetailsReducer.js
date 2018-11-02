@@ -1,8 +1,8 @@
 import * as types from '../actionType';
 
 const initialState = {
-  originContract: 'undefine_contract',
-  nowContract: 'undefine_contract',
+  originContract: null,
+  nowContract: null,
 }
 
 const reducer = (state = initialState, action) => {

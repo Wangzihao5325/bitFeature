@@ -13,7 +13,7 @@ import { action_startLightningStore } from '../../../../store/actions/chartActio
 import { classifyContractMap } from '../../../../global/commodity_list';
 class MarketChartView extends Component {
   componentDidMount() {
-    this.name = this.props.nowContract !== 'undefine_contract' ? this.props.nowContract : classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
+    this.name = this.props.nowContract ? this.props.nowContract : classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
     marketSocket.getHistoryData(this.name, 0);//1查询k线数据 0时序图
     // store.dispatch(action_startLightningStore(name));//开启闪电图
   }
