@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import Api from '../../../socket/platform/api';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../global/config';
 import { connect } from 'react-redux';
 import NormalBtn from '../../../components/NormalBtn';
+import ToastRoot from '../../../components/ToastRoot';
 const COM_BTN_HEIGHT = 35;
 const COM_BTN_WIDTH = DEVICE_WIDTH - 40;
 const LIGHT_BGCOLOR = '#17191E';
@@ -37,8 +39,15 @@ class OpenTradeAccountScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
+  _openSuccess = (e) => {
+    let tranAccount = e.tranAccount;
+    let tranPassword = e.tranPassword;
+    ToastRoot.show(`开户成功,账号:${tranAccount},密码:${tranPassword}`);
+    // console.log(e);
+  }
   _openTradeAccount = () => {
-    console.log('kaihu');
+    let chooseNum = parseInt(this.props.choose);
+    Api.payApplyTrade(chooseNum, this._openSuccess);
   }
   render() {
     return (

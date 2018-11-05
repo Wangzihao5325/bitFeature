@@ -111,6 +111,17 @@ class api {
     formData.append('appVersions', TRADE_VERSION);
     this.requset(url, formData, onSuccess, onError)
   }
+
+  payApplyTrade(traderBond, onSuccess, onError) {
+    const url = '/user/ftrade/handle';
+    let formData = new FormData();
+    formData.append('vid', -1);
+    formData.append('tranLever', 0);
+    formData.append('businessType', 99);
+    formData.append('version', 1);
+    formData.append('traderBond', traderBond);
+    this.requset(url, formData, onSuccess, onError)
+  }
 }
 
 export default new api();
