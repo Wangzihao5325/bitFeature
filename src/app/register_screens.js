@@ -13,7 +13,7 @@ import TradeAccountLogScreen from '../screens/trade/tradeLogin/index';
 import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
 import OperateDetailsScreen from '../screens/trade/operateDetails';
 
-import NewsScreen from '../screens/news';
+import NewsScreen from '../screens/news/index';
 
 import MineScreen from '../screens/mine/index';
 import AccountLogScreen from '../screens/mine/logout/accountLog';
