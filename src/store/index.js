@@ -14,6 +14,7 @@ import TimeReducer from './reducers/chartReducers/TimeReducer';
 import marketDeatilFootReducer from './reducers/marketDetailFooterReducer';
 import marketChartViewReducer from './reducers/chartReducers/marketChartViewReducer';
 import depositReducer from './reducers/depositReducer';
+import nowTradeAccountReducer from './reducers/nowTradeAccountReducer';
 
 const rootReducer = combineReducers({
   test: testReducer,
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   TimeStore: TimeReducer,
   MarketDetailFooter: marketDeatilFootReducer,
   marketChartView: marketChartViewReducer,
-  depositStore: depositReducer
+  depositStore: depositReducer,
+  nowTradeAccount: nowTradeAccountReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

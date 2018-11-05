@@ -10,3 +10,14 @@ export function action_detailMarketDidMount(contract) {
     });
   }
 }
+
+export function action_detailMarketWillUnmount() {
+
+  return (dispatch) => {
+    dispatch({
+      type: types.MARK_DETAIL_DID_MOUNT,
+      nowContract: null,
+      originContract: null,
+    });
+  }
+}

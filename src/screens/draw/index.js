@@ -8,7 +8,7 @@ export default class DrawScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: BGCOLOR }}>
         <Header/>
-        <TradeContent/>
+        <TradeContent drawer={this.props.drawer}/>
       </View>
     );
   }

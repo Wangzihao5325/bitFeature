@@ -10,7 +10,7 @@ import { update_classify } from '../../store/actions/classifyAction';
 import { action_startKStore, action_addKStore } from '../../store/actions/chartActions/KActions';
 import { action_startLightningStore, action_updateLightningStore } from '../../store/actions/chartActions/LightningAction';
 import { action_startTimeStore, action_updateTimeStore } from '../../store/actions/chartActions/TimeAction';
-import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList } from '../../global/commodity_list';
+import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList, tradeAliveContractSnapShot } from '../../global/commodity_list';
 import _ from 'lodash';
 class MarketSocket {
   constructor(url) {
@@ -132,8 +132,14 @@ class MarketSocket {
         _.pull(recommendContractMap[regKeyTwo], commodity_details.commodity_no);
         recommendContractMap[regKeyTwo].push(contractName);
       }
-
-      contractMap2Config[contractName] = { fullName: commodity_details.commodity_name, dotSize: commodity_details.dot_size, structure: contract_structure };
+      contractMap2Config[contractName] = {
+        fullName: commodity_details.commodity_name,
+        dotSize: commodity_details.dot_size,
+        miniTickerSize: commodity_details.mini_ticker_size,
+        contractSize: commodity_details.contract_size,
+        currencyNo: commodity_details.currency_no,
+        structure: contract_structure
+      };
       subscribe_list.push(contract_structure);
     }
     store.dispatch(update_classify(classifyContractMap));
@@ -150,13 +156,15 @@ class MarketSocket {
     store.dispatch(action_updateAskAndBid(rtnObj));
   }
   managerAliveContractList(rtnObj) {
-    let successArr = rtnObj.data.succ_list;
-    successArr.map(function (item) {
-      let regArr = item.split('_');
-      regArr.shift();
-      let name = _.join(regArr, '');
-      aliveContractList.push(name);
-    })
+    if (rtnObj.data.succ_list) {
+      let successArr = rtnObj.data.succ_list;
+      successArr.map(function (item) {
+        let regArr = item.split('_');
+        regArr.shift();
+        let name = _.join(regArr, '');
+        aliveContractList.push(name);
+      });
+    }
   }
   managerAliveContractList2(rtnObj) {
     let successArr = rtnObj.data.contract_list;
@@ -168,6 +176,7 @@ class MarketSocket {
     })
   }
   updateHistoryData(result) {
+    console.log('asdfghjklasdfghjkk');
     if (result.data.period === 'KLINE_UNKNOWN') {//TIME_SHARING
       store.dispatch(action_startTimeStore(result.data));
     } else {
@@ -175,17 +184,19 @@ class MarketSocket {
     }
   }
   updateRtnChartDate(result) {
+    let contractCodeStr = result.data[0];
+
     let kStoreSnap = store.getState().KStore;
     let lightningStoreSnap = store.getState().LightningStore;
     let timeStoreSnap = store.getState().TimeStore;
     //let nowChart = store.getState().marketChartView.nowChart;
-    if (kStoreSnap.isActive) {
+    if (kStoreSnap.isActive && contractCodeStr === kStoreSnap.contractCodeStr) {
       store.dispatch(action_addKStore(result));
     }
-    if (lightningStoreSnap.isActive) {
+    if (lightningStoreSnap.isActive && contractCodeStr === lightningStoreSnap.contractCodeStr) {
       store.dispatch(action_updateLightningStore(result));
     }
-    if (timeStoreSnap.isActive) {
+    if (timeStoreSnap.isActive && contractCodeStr === timeStoreSnap.contractCodeStr) {
       store.dispatch(action_updateTimeStore(result));
     }
   }
@@ -272,6 +283,66 @@ class MarketSocket {
       deepReg.push(structure);
     });
     this._unsubscribe_depth(deepReg);
+    aliveContractSnapShot.length = 0;//清空快照
+  }
+  /*开启交易页面的行情 */
+  holdPositionMarketSocketStart() {
+    // to do多合约订阅状态下是否需要退订？？？当前未退订
+    //存储快照
+    _.pullAll(tradeAliveContractSnapShot, tradeAliveContractSnapShot);
+    _.assign(tradeAliveContractSnapShot, aliveContractList);
+    let storeState = store.getState();
+    let holdPosition = storeState.nowTradeAccount.holdPositions;
+    let holdPositionMap = {};
+    _.mapValues(holdPosition, function (value) {
+      holdPositionMap[value.contractCode] = true;
+      return null;
+    });
+    let holdPositionList = _.keys(holdPositionMap);
+    if (holdPositionList.length === 0) {
+      return;
+    }
+    let listReg = holdPositionList.concat();
+    _.pullAll(listReg, aliveContractList);
+    if (listReg.length === 0) {
+      return;
+    }
+    let subscribeObjArr = [];
+    listReg.map(function (value) {
+      let valueStructure = contractMap2Config[value].structure;
+      let wsObj = valueStructure.security_type + '_' + valueStructure.commodity_no + '_' + valueStructure.contract_no;
+      subscribeObjArr.push(wsObj);
+    });
+    let json = { 'method': 'req_subscribe', 'data': { 'mode': 'MODE_TRADE_TICK', 'contract_list': subscribeObjArr } };
+    this.ws.send(JSON.stringify(json));
+  }
+  /*停止交易页面的行情 */
+  holdPositionMarketSocketStop() {
+    // to do多合约订阅状态下是否需要退订？？？当前未退订
+    let storeState = store.getState();
+    let holdPosition = storeState.nowTradeAccount.holdPositions;
+    let holdPositionMap = {};
+    _.mapValues(holdPosition, function (value) {
+      holdPositionMap[value.contractCode] = true;
+      return null;
+    });
+    let holdPositionList = _.keys(holdPositionMap);
+    if (holdPositionList.length === 0) {
+      return;
+    }
+    let listReg = holdPositionList.concat();
+    _.pullAll(listReg, tradeAliveContractSnapShot);
+    if (listReg.length === 0) {
+      return;
+    }
+    let subscribeObjArr = [];
+    listReg.map(function (value) {
+      let valueStructure = contractMap2Config[value].structure;
+      let wsObj = valueStructure.security_type + '_' + valueStructure.commodity_no + '_' + valueStructure.contract_no;
+      subscribeObjArr.push(wsObj);
+    });
+    let json = { 'method': 'req_unsubscribe', 'data': { 'contract_list': subscribeObjArr } };
+    this.ws.send(JSON.stringify(json));
   }
   /*合约类别切换 */
   contractChange(beforeClass) {

@@ -30,18 +30,38 @@ class Unlogin extends Component {
     );
   }
 }
+class Login extends Component {
+  static contextTypes = {
+    marketNavigation: PropTypes.object
+  }
+
+  _tradeCenter = () => {
+    if (this.props.drawer._open) {
+      this.props.drawer.close();
+    }
+    const { marketNavigation } = this.context;
+    marketNavigation.navigate('TradeCenter');
+  }
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <ItemBtn icon='user' title='交易中心' onPress={this._tradeCenter} />
+      </View>
+    );
+  }
+}
 class TradeContent extends Component {
   render() {
     return (
-      this.props.isTradeAccountLogin ? <View /> : <Unlogin />
+      this.props.isTradeAccountLogin ? <Login drawer={this.props.drawer} /> : <Unlogin />
     );
   }
 }
 
 function mapState2Props(store) {
   return {
-    isTradeAccountLogin: store.tradeAccount.isTradeAccountLogin,
-    loginAccountNum: store.tradeAccount.loginAccountNum
+    isTradeAccountLogin: store.nowTradeAccount.isTradeAccountLogin,
+    loginAccountNum: store.nowTradeAccount.loginAccountNum
   }
 }
 

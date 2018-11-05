@@ -8,6 +8,7 @@ import MarketSocket from '../socket/marketSocket/index';
 import { MarketStack, TradeStack, NewsStack, MineStack } from './register_screens';
 import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR, TRADE_DOMAIN } from '../global/config';
 import { recommendContractMap, classifyContractMap, initContractList } from '../global/commodity_list';
+import classify from '../mock/platForm';
 const Router = createBottomTabNavigator(
   {
     MarketStack,
@@ -46,6 +47,7 @@ export default class App extends Component {
     TRADE_DOMAIN.url = e.socketUrl;
   }
   componentDidMount() {
+    // this._getClassifySuccess(classify);//mock数据
     Api.getClassifyInfo(this._getClassifySuccess);
     Api.getTradeURL(this._getTradeURLSuccess);
   }

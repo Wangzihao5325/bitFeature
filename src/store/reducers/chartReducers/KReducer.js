@@ -9,7 +9,8 @@ const initialState = {
   volumns: [],
   isLoading: true,
   klineType: 5,
-  isActive: false
+  isActive: false,
+  contractCodeStr: ''//FO_CL_1812
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,7 +25,8 @@ const reducer = (state = initialState, action) => {
         volumns: action.volumns,
         isLoading: action.isLoading,
         klineType: action.klineType,
-        isActive: true
+        isActive: true,
+        contractCodeStr: action.contractCodeStr
       };
     case types.K_STORE_SAME_TIME_UPDATE:
       {

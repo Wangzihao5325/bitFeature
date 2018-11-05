@@ -10,7 +10,8 @@ const initialState = {
   volumns: [],
   isLoading: true,
   isActive: false,
-  totalVolumn: null
+  totalVolumn: null,
+  contractCodeStr: ''
 }
 let dotSize = 2;
 
@@ -62,7 +63,8 @@ const reducer = (state = initialState, action) => {
           prices: prices,
           volumns: volumns,
           isLoading: isLoading,
-          isActive: true
+          isActive: true,
+          contractCodeStr: action.contractCodeStr
         };
       }
     case types.TIME_STORE_UPDATE:
