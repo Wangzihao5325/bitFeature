@@ -120,7 +120,15 @@ class api {
     formData.append('businessType', 99);
     formData.append('version', 1);
     formData.append('traderBond', traderBond);
-    this.requset(url, formData, onSuccess, onError)
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getBusinessNews(pageIndex, size, onSuccess, onError) {
+    const url = '/crawler/getCrawler';
+    let formData = new FormData();
+    formData.append('pageIndex', pageIndex);
+    formData.append('size', size);
+    this.requset(url, formData, onSuccess, onError);
   }
 }
 

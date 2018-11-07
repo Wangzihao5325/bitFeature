@@ -40,7 +40,7 @@ class CustomChooseModel extends Component {
   }
   render() {
     return (
-      <Modal
+      <Modal 
         animationType="fade"
         transparent={true}
         visible={this.props.isShow}
