@@ -47,7 +47,7 @@ export default class App extends Component {
     TRADE_DOMAIN.url = e.socketUrl;
   }
   componentDidMount() {
-    // this._getClassifySuccess(classify);//mock数据
+    //  this._getClassifySuccess(classify);//mock数据
     Api.getClassifyInfo(this._getClassifySuccess);
     Api.getTradeURL(this._getTradeURLSuccess);
   }
