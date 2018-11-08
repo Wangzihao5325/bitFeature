@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Api from '../../socket/platform/api';
 import moment from 'moment';
 import { DEVICE_WIDTH } from '../../global/config';
+import Calender from '../../components/Calender';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
@@ -105,6 +106,7 @@ export default class BusinessCalender extends Component {
   render() {
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
+        <Calender />
         {this.state.data.length > 0 &&
           <FlatList
             data={this.state.data}
