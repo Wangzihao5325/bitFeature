@@ -3,7 +3,7 @@ import { View, Modal, Text, TouchableHighlight, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../store/index';
-import { action_custom_service_model_unshow } from '../../../store/actions/customServiceAction';
+import { action_custom_service_model_unshow, action_custom_service_model_show } from '../../../store/actions/customServiceAction';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../global/config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const marginH = 50;
