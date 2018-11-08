@@ -130,6 +130,16 @@ class api {
     formData.append('size', size);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getCrawlerCalendar(pageIndex, size, startTime, endTime, onSuccess, onError) {
+    const url = '/crawler/getCrawlerCalendar';
+    let formData = new FormData();
+    formData.append('pageIndex', pageIndex);
+    formData.append('size', size);
+    formData.append('startTime', startTime);
+    formData.append('endTime', endTime);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();

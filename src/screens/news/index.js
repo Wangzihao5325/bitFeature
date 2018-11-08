@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import Api from '../../socket/platform/api';
 import UsualTabBar from '../../components/NormalTabBar';
 import News from './news';
+import BusinessCalender from './businessCalendar';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../global/config';
 
 export default class NewsScreen extends Component {
@@ -24,7 +25,8 @@ export default class NewsScreen extends Component {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
         <UsualTabBar tabNames={['财经日历', '7×24']} isDefault={false} tabTap={this._pageChange} />
-        <News />
+        {/* <News /> */}
+        <BusinessCalender />
       </View>
     );
   }
