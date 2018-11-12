@@ -19,7 +19,7 @@ class RechargeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: I_WILL_RECHARGE,  //header标题
-      headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
+      // headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
         borderBottomColor: 'black',
@@ -35,7 +35,7 @@ class RechargeScreen extends Component {
     addedBalance: this.props.balance
   }
   componentDidMount() {
-    this.props.navigation.setParams({ customService: this._customService });
+    // this.props.navigation.setParams({ customService: this._customService });
   }
   _customService = () => {
     store.dispatch(action_custom_service_model_show());
