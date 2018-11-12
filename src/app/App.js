@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from '../store/index';
@@ -8,6 +8,7 @@ import MarketSocket from '../socket/marketSocket/index';
 import { MarketStack, TradeStack, NewsStack, MineStack } from './register_screens';
 import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR, TRADE_DOMAIN } from '../global/config';
 import { recommendContractMap, classifyContractMap, initContractList } from '../global/commodity_list';
+import CustomChooseModel from '../screens/mine/customerService/CustomChooseModel';
 import classify from '../mock/platForm';
 const Router = createBottomTabNavigator(
   {
@@ -54,7 +55,10 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router />
+        <View style={{flex:1}}>
+          <CustomChooseModel />
+          <Router />
+        </View>
       </Provider>
     );
   }

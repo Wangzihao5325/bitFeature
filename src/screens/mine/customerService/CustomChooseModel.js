@@ -24,13 +24,11 @@ class CustomServiceItem extends Component {
   }
 }
 class CustomChooseModel extends Component {
-  static contextTypes = {
-    mineNavigation: PropTypes.object
-  }
   _online = () => {
-    const { mineNavigation } = this.context;
     store.dispatch(action_custom_service_model_unshow());
-    mineNavigation.navigate('CustomerServiceScreen');
+    if (this.props.navi) {
+      this.props.navi.navigate('CustomerServiceScreen');
+    }
   }
   _onPhone = () => {
     Linking.openURL('tel:4008528008');
@@ -40,7 +38,7 @@ class CustomChooseModel extends Component {
   }
   render() {
     return (
-      <Modal 
+      <Modal
         animationType="fade"
         transparent={true}
         visible={this.props.isShow}
@@ -60,7 +58,8 @@ class CustomChooseModel extends Component {
 }
 function mapState2Props(store) {
   return {
-    isShow: store.customService.isShow
+    isShow: store.customService.isShow,
+    navi: store.customService.navi
   }
 }
 

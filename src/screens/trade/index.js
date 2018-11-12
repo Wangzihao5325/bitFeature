@@ -42,7 +42,7 @@ export default class TradeScreen extends Component {
     store.dispatch(action_depositStoreInit(e));
   }
   _customService = () => {
-    store.dispatch(action_custom_service_model_show());
+    store.dispatch(action_custom_service_model_show(this.props.navigation));
   }
   _questionAsk = () => {
     this.props.navigation.navigate('OperateDetailsScreen');
