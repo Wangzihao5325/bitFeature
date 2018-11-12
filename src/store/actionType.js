@@ -91,3 +91,6 @@ export const CHART_VIEW_SCREEN_CHANGE = 'CHART_VIEW_SCREEN_CHANGE';
 //deposit store types
 export const DEPOSIT_STORE_INIT = 'DEPOSIT_STORE_INIT';
 export const DEPOSIT_CHOOSE_SCHEME = 'DEPOSIT_CHOOSE_SCHEME';
+
+// news
+export const NEWS_PAGE_CHANGE = 'NEWS_PAGE_CHANGE';
