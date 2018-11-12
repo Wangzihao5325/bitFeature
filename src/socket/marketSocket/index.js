@@ -176,7 +176,6 @@ class MarketSocket {
     })
   }
   updateHistoryData(result) {
-    console.log('asdfghjklasdfghjkk');
     if (result.data.period === 'KLINE_UNKNOWN') {//TIME_SHARING
       store.dispatch(action_startTimeStore(result.data));
     } else {

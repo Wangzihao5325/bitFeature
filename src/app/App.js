@@ -27,6 +27,7 @@ const Router = createBottomTabNavigator(
 );
 export default class App extends Component {
   _getClassifySuccess = (e) => {
+    MarketSocket.connectSocket();
     e.map(function (item) {
       let classifyData = item.classifyData;
       let recommedArr = [];
@@ -41,7 +42,6 @@ export default class App extends Component {
       recommendContractMap[item.classifyName] = recommedArr;
       classifyContractMap[item.classifyName] = classifyArr;
     });
-    MarketSocket.connectSocket();
   }
   _getTradeURLSuccess = (e) => {
     TRADE_DOMAIN.url = e.socketUrl;
