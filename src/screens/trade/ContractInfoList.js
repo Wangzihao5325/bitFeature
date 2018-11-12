@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, FlatList, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../global/config';
+import PropTypes from 'prop-types';
+import ToastRoot from '../../components/ToastRoot';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -40,8 +42,16 @@ class Items extends Component {
   }
 }
 class ContractInfoList extends Component {
+  static contextTypes = {
+    tradeNavigation: PropTypes.object
+  }
   _toTradeAccountList = () => {
-    console.log('go to trade account list');
+    const { tradeNavigation } = this.context;
+    if (this.props.login) {
+      tradeNavigation.navigate('TradeAccountDetailScreen');
+    } else {
+      ToastRoot.show('请首先登陆平台账户');
+    }
   }
   render() {
     return (
@@ -66,7 +76,8 @@ class ContractInfoList extends Component {
 function mapState2Props(store) {
   return {
     contract: store.depositStore.contract,
-    choose: store.depositStore.choose
+    choose: store.depositStore.choose,
+    login: store.account.isLogin,
   }
 }
 
