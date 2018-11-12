@@ -98,15 +98,21 @@ export default class BusinessCalender extends Component {
   }
   _getCalenderSuccess = (e) => {
     let data = e.data;
-    console.log(e.data);
+    console.log(data);
     this.setState({
       data: data
     })
   }
+  _refresh = (date) => {
+    let tomorrow = new Date(date.getTime() + 24 * 3600 * 1000);
+    let formDate = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    let tomorrowFormDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth() + 1}-${tomorrow.getDate()}`;
+    Api.getCrawlerCalendar(0, 10, formDate, tomorrowFormDate, this._getCalenderSuccess);
+  }
   render() {
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
-        <Calender />
+        <Calender dayChange={this._refresh} />
         {this.state.data.length > 0 &&
           <FlatList
             data={this.state.data}

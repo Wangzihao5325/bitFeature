@@ -80,7 +80,10 @@ export default class Calender extends Component {
     let dateArr = [{ data: date03, key: 0 }, { data: date02, key: 1 }, { data: date01, key: 2 }, { data: date, key: 3 }, { data: date1, key: 4 }, { data: date2, key: 5 }, { data: date3, key: 6 }];
     this.setState({
       dateArr: dateArr
-    })
+    });
+    if (typeof this.props.dayChange === 'function') {
+      this.props.dayChange(date);
+    }
   }
   render() {
     let nowDate = this.state.dateArr[3].data;
@@ -89,6 +92,7 @@ export default class Calender extends Component {
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>{nowDate.toDateString()}</Text></View>
         <View style={{ height: 40, width: DEVICE_WIDTH }}>
           <FlatList
+            keyExtractor={(item, index) => index.toString()}
             horizontal={true}
             data={this.state.dateArr}
             renderItem={({ item }) => <Item item={item} itemPress={this.dayChange} />}
