@@ -98,7 +98,6 @@ export default class BusinessCalender extends Component {
   }
   _getCalenderSuccess = (e) => {
     let data = e.data;
-    console.log(data);
     this.setState({
       data: data
     })
