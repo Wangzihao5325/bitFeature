@@ -42,7 +42,7 @@ class MineScreen extends Component {
     this.props.navigation.navigate('AccountLogScreen');
   }
   _register = () => {
-    console.log('!!!!!!!!注册!!!!!');
+    this.props.navigation.navigate('RegisterScreen');
   }
   _withDraw = () => {
     console.log('!!!!!!!!提现!!!!!');
