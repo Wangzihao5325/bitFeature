@@ -9,8 +9,10 @@ import NormalBtn from '../../../components/NormalBtn';
 import VectorIconBtn from '../../../components/IconBtn';
 import Variables from '../../../global/Variables';
 import ToastRoot from '../../../components/ToastRoot';
-import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
+import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, PLATFORM_DOMAIN, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
 import NormalVerificationCode from '../../../components/NormalVerificationCode';
+import Dialog from '../../../components/ImageVerification/Dialog';
+import ImageVerification from '../../../components/ImageVerification/index';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
@@ -31,6 +33,9 @@ export default class RegisterScreen extends Component {
     super();
     this._loginSuccess = this._loginSuccess.bind(this);
     this._getbalancerateSuccess = this._getbalancerateSuccess.bind(this);
+  }
+  state = {
+    isShowDialog: false
   }
   componentDidMount() {
     //this.props.navigation.setParams({ customService: this._customService });
@@ -54,8 +59,19 @@ export default class RegisterScreen extends Component {
     ToastRoot.show(message);
   }
   _login = () => {
-    Variables.account.mobileAccount = reg.accountInput.concat();
-    Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess, this._loginFailed);
+    // Variables.account.mobileAccount = reg.accountInput.concat();
+    // Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess, this._loginFailed);
+    this.setState({
+      isShowDialog: true
+    })
+  }
+  _onConfirm = () => {
+
+  }
+  _onCancel = () => {
+    this.setState({
+      isShowDialog: false
+    })
   }
   _accountChange = (text) => {
     reg.accountInput = text;
@@ -70,6 +86,7 @@ export default class RegisterScreen extends Component {
     reg.code = text;
   }
   render() {
+    const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${reg.accountInput}`;
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='手机' tips='请输入正确手机号码' />
@@ -82,6 +99,13 @@ export default class RegisterScreen extends Component {
           titleStyle={{ color: 'black' }}
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}
           onPress={this._login}
+        />
+        <Dialog
+          visible={this.state.isShowDialog}
+          header={'请先输入图形验证码'}
+          renderContent={() => <ImageVerification url={imgUri} />}
+          onConfirm={this._onConfirm}
+          onCancel={this._onCancel}
         />
       </View>
     );
