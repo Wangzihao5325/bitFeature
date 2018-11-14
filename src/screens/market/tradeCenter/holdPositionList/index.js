@@ -1,13 +1,51 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, TouchableHighlight } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../../global/config';
 import { contractMap2Config } from '../../../../global/commodity_list';
 import { cache } from '../../../../global/trade_list';
+import TradeSocket from '../../../../socket/tradeSocket/index';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
+const DARK_BGCOLOR = '#17191E';
 class Item extends Component {
+  state = {
+    isBtnShow: false
+  }
+  _btnClick = () => {
+    this.setState(function (preSate, props) {
+      return {
+        isBtnShow: !preSate.isBtnShow
+      }
+    });
+  }
+  _sellout = () => {
+    let contractCode = this.props.contractCode;
+    let type = contractMap2Config[contractCode].structure.security_type;
+    let direction = this.props.direction === 0 ? 1 : 0;
+    let holdNum = this.props.holdNum;
+    if (type === 'FO') {
+      TradeSocket.insertOrder(contractCode, holdNum, direction, 1, 1, 0);//市价 开仓
+    } else if (type === 'FI') {
+      TradeSocket.insertOrder(contractCode, holdNum, direction, 1, 2, 0);//市价 平仓
+    }
+  }
+  _changeDir = () => {
+    let contractCode = this.props.contractCode;
+    let type = contractMap2Config[contractCode].structure.security_type;
+    let direction = this.props.direction === 0 ? 1 : 0;
+    let holdNum = this.props.holdNum;
+    if (type === 'FO') {
+      TradeSocket.insertOrder(contractCode, holdNum * 2, direction, 1, 1, 0);//市价 反向买2倍
+    } else if (type === 'FI') {
+      TradeSocket.insertOrder(contractCode, holdNum, direction, 1, 2, 0);//市价 先平仓再开仓
+      TradeSocket.insertOrder(contractCode, holdNum, direction, 1, 1, 0);
+    }
+  }
+  _stopLoss = () => {
+    console.log('stop loss');
+  }
   render() {
     let contractCode = this.props.contractCode;
     let contractName = contractMap2Config[contractCode].fullName;
@@ -22,12 +60,23 @@ class Item extends Component {
     let floatShow = floatValue.value * currencyRate;
     let floatColor = floatShow >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
     return (
-      <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdNum}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdAvgPrice}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: floatColor }}>{floatShow.toFixed(dotSize)}</Text></View>
+      <View>
+        <TouchableHighlight onPress={this._btnClick}>
+          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdNum}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdAvgPrice}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: floatColor }}>{floatShow.toFixed(dotSize)}</Text></View>
+          </View>
+        </TouchableHighlight>
+        {this.state.isBtnShow &&
+          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: DARK_BGCOLOR }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._sellout}>平仓</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._changeDir}>反手</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._stopLoss}>止盈止损</Text></View>
+          </View>
+        }
       </View>
     );
   }
