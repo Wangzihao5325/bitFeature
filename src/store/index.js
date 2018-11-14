@@ -16,6 +16,7 @@ import marketChartViewReducer from './reducers/chartReducers/marketChartViewRedu
 import depositReducer from './reducers/depositReducer';
 import nowTradeAccountReducer from './reducers/nowTradeAccountReducer';
 import newsReducer from './reducers/newsReducer';
+import popReducer from './reducers/popReducer';
 
 const rootReducer = combineReducers({
   test: testReducer,
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   depositStore: depositReducer,
   nowTradeAccount: nowTradeAccountReducer,
   news: newsReducer,
+  pop: popReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

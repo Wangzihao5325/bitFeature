@@ -9,6 +9,7 @@ import MarketChartView from '../marketDetail/chartView/index';
 import TradeCenterHeader from './TradeCenterHeader';
 import TradeCenterBottom from './TradeCenterBottom';
 import TradeContent from './TradeContent';
+import ChangeOrderPop from './Pop/changeOrderPop';
 class TradeCenter extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -38,6 +39,7 @@ class TradeCenter extends Component {
   render() {
     return (
       <ScrollView style={{ height: DEVICE_HEIGHT, width: DEVICE_WIDTH }} >
+        <ChangeOrderPop />
         <View style={{ flex: 1, backgroundColor: 'black' }}>
           <TradeCenterHeader contractCode={this.defalutContract} />
           <MarketChartView />

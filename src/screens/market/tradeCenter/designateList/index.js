@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../../global/config';
 import { contractMap2Config } from '../../../../global/commodity_list';
 import TradeSocket from '../../../../socket/tradeSocket';
+import store from '../../../../store/index';
+import { order_change_pop_show } from '../../../../store/actions/popAction'
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
@@ -31,7 +33,7 @@ class Item extends Component {
     TradeSocket.cancelOrder(orderSysId, orderId, exchangeNo, commodityNo, contractNo, orderNum, direction, orderPrice);
   }
   _change = () => {
-    console.log('change!');
+    store.dispatch(order_change_pop_show());
   }
   render() {
     let contractCode = this.props.item.productName;
