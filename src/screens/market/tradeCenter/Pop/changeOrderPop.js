@@ -52,8 +52,10 @@ class ChangeOrderPop extends Component {
             <CustomServiceItem name={'user'} text='1111111111' style={{ height: contentHeight / 5, width: contentWidth }} onPress={this._onPhone} />
             <CustomServiceItem name={'user'} text='2222222222' style={{ height: contentHeight / 5, width: contentWidth }} onPress={this._online} />
             <CustomServiceItem name={'user'} text='3333333333' style={{ height: contentHeight / 5, width: contentWidth }} />
-            <TouchableHighlight onPress={this._unShow} style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>确定>></Text></TouchableHighlight>
-            <TouchableHighlight onPress={this._unShow} style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>取消>></Text></TouchableHighlight>
+            <View style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', flexDirection: 'row' }}>
+              <TouchableHighlight onPress={this._unShow} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>确定</Text></TouchableHighlight>
+              <TouchableHighlight onPress={this._unShow} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>取消</Text></TouchableHighlight>
+            </View>
           </View>
         </View>
       </Modal>
