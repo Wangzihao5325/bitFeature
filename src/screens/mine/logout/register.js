@@ -16,7 +16,7 @@ import ImageVerification from '../../../components/ImageVerification/index';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
-let reg = { accountInput: '', passwordInput: '', code: '' };
+let reg = { accountInput: '', passwordInput: '', code: '', imageCode: '' };
 export default class RegisterScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -66,7 +66,10 @@ export default class RegisterScreen extends Component {
     })
   }
   _onConfirm = () => {
-
+    console.log(reg);//处理开户
+    this.setState({
+      isShowDialog: false
+    })
   }
   _onCancel = () => {
     this.setState({
@@ -84,6 +87,9 @@ export default class RegisterScreen extends Component {
   }
   _codeTextChange = (text) => {
     reg.code = text;
+  }
+  _imageCodeChange = (text) => {
+    reg.imageCode = text;
   }
   render() {
     const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${reg.accountInput}`;
@@ -103,7 +109,7 @@ export default class RegisterScreen extends Component {
         <Dialog
           visible={this.state.isShowDialog}
           header={'请先输入图形验证码'}
-          renderContent={() => <ImageVerification url={imgUri} />}
+          renderContent={() => <ImageVerification url={imgUri} textChange={this._imageCodeChange} />}
           onConfirm={this._onConfirm}
           onCancel={this._onCancel}
         />

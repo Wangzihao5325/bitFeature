@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
+import { View, Image, TextInput } from 'react-native';
 import PropTypes from 'prop-types';
 import { PLATFORM_DOMAIN } from '../../global/config';
 
@@ -17,6 +17,7 @@ export default class ImageVerification extends Component {
                     resizeMode={'contain'}
                     source={{ uri: this.props.url }}
                 />
+                <TextInput style={{ flex: 1, borderBottomColor: 'grey', borderBottomWidth: 1,marginBottom:10,fontSize:14,justifyContent:'center',alignItems:'center' }} onChangeText={this.props.textChange} />
             </View>
         );
     }
