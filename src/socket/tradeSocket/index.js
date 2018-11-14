@@ -56,6 +56,22 @@ class TradeSocket {
     };
     this.ws.send(JSON.stringify(json));
   }
+  cancelOrder(OrderSysID, OrderID, ExchangeNo, CommodityNo, ContractNo, OrderNum, Direction, OrderPrice) {
+    let json = {
+      'Method': 'CancelOrder',
+      'Parameters': {
+        'OrderSysID': OrderSysID,
+        'OrderID': OrderID,
+        'ExchangeNo': ExchangeNo,
+        'CommodityNo': CommodityNo,
+        'ContractNo': ContractNo,
+        'OrderNum': OrderNum,
+        'Direction': Direction,
+        'OrderPrice': OrderPrice
+      }
+    };
+    this.ws.send(JSON.stringify(json));
+  }
   connectSocket(url, account, password, onSuccess, onFailed) {
     this._url = url;
     this._account = account;
@@ -83,7 +99,7 @@ class TradeSocket {
           this.addDesignateAndOrder(data, false);
           break;
         case 'OnRspQryTrade':                                 //查询成交记录成功  
-        this.addDeal(data, false);
+          this.addDeal(data, false);
           break;
         case 'OnRspQryHoldTotal':                                 //查询持仓成功 
           this.manageHold(data);

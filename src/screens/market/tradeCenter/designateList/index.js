@@ -1,11 +1,38 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../../global/config';
 import { contractMap2Config } from '../../../../global/commodity_list';
+import TradeSocket from '../../../../socket/tradeSocket';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
+const DARK_BGCOLOR = '#17191E';
 class Item extends Component {
+  state = {
+    isBtnShow: false
+  }
+  _btnClick = () => {
+    this.setState(function (preSate, props) {
+      return {
+        isBtnShow: !preSate.isBtnShow
+      }
+    });
+  }
+  _delete = () => {
+    let orderSysId = this.props.item.orderSysID;
+    let orderId = this.props.item.orderId;
+    let contractStructure = contractMap2Config[this.props.item.productName].structure;
+    let exchangeNo = contractStructure.exchange_no;
+    let commodityNo = contractStructure.commodity_no;
+    let contractNo = contractStructure.contract_no;
+    let orderNum = this.props.item.orderNum;
+    let direction = this.props.item.direction.value;
+    let orderPrice = this.props.item.orderPrice;
+    TradeSocket.cancelOrder(orderSysId, orderId, exchangeNo, commodityNo, contractNo, orderNum, direction, orderPrice);
+  }
+  _change = () => {
+    console.log('change!');
+  }
   render() {
     let contractCode = this.props.item.productName;
     let contractName = contractMap2Config[contractCode].fullName;
@@ -18,13 +45,23 @@ class Item extends Component {
     let designateNum = this.props.item.designateNum;
     let insertDateTime = this.props.item.insertDateTime;
     return (
-      <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderPrice}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderNum}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{designateNum}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{insertDateTime}</Text></View>
+      <View>
+        <TouchableHighlight onPress={this._btnClick}>
+          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderPrice}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderNum}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{designateNum}</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{insertDateTime}</Text></View>
+          </View>
+        </TouchableHighlight>
+        {this.state.isBtnShow &&
+          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: DARK_BGCOLOR }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text onPress={this._delete} style={{ color: NORMAL_TEXTCOLOR }}>撤单</Text></View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text onPress={this._change} style={{ color: NORMAL_TEXTCOLOR }}>改单</Text></View>
+          </View>
+        }
       </View>
     );
   }
