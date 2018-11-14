@@ -6,6 +6,7 @@ import { DEVICE_WIDTH } from '../../../../global/config';
 import { contractMap2Config } from '../../../../global/commodity_list';
 import { cache } from '../../../../global/trade_list';
 import TradeSocket from '../../../../socket/tradeSocket/index';
+import ToastRoot from '../../../../components/ToastRoot';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
@@ -44,7 +45,7 @@ class Item extends Component {
     }
   }
   _stopLoss = () => {
-    console.log('stop loss');
+    ToastRoot.show('此功能暂未开放，敬请期待');
   }
   render() {
     let contractCode = this.props.contractCode;
