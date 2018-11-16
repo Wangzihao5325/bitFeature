@@ -24,8 +24,8 @@ export default class MiddleContent extends Component {
     }
   }
   _tradeAccountLogin = () => {
-    // const { tradeNavigation } = this.context;
-    // tradeNavigation.navigate('CapitalDetailsScreen');
+    const { tradeNavigation } = this.context;
+    tradeNavigation.navigate('TradeAccountLogScreenInMarket');
   }
   render() {
     return (
