@@ -13,7 +13,7 @@ export default class NumberInput extends Component {
       return {
         inputValue: value
       }
-    }, this.props.textChange(this.state.inputValue))
+    }, () => this.props.textChange(this.state.inputValue))
   }
   _sub = () => {
     this.setState((preState, props) => {
@@ -21,7 +21,7 @@ export default class NumberInput extends Component {
       return {
         inputValue: value
       }
-    }, this.props.textChange(this.state.inputValue))
+    }, () => this.props.textChange(this.state.inputValue))
   }
   _onChangeText = (text) => {
     if (text == '') {
@@ -31,7 +31,7 @@ export default class NumberInput extends Component {
     if (typeof value === 'number') {
       this.setState({
         inputValue: value
-      }, this.props.textChange(this.state.inputValue));
+      }, () => this.props.textChange(this.state.inputValue));
     }
   }
   render() {

@@ -49,8 +49,8 @@ class ChangeOrderPop extends Component {
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}>
           <View style={{ display: 'flex', width: contentWidth, marginTop: marginV, marginLeft: marginH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
             <View style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', justifyContent: 'center', borderBottomColor: 'black', borderBottomWidth: 2 }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>请选择客服类型</Text></View>
-            <CustomServiceItem name={'user'} text='1111111111' style={{ height: contentHeight / 5, width: contentWidth }} onPress={this._onPhone} />
-            <CustomServiceItem name={'user'} text='2222222222' style={{ height: contentHeight / 5, width: contentWidth }} onPress={this._online} />
+            <CustomServiceItem name={'user'} text='11111' style={{ height: contentHeight / 5, width: contentWidth }} onPress={this._onPhone} />
+            <CustomServiceItem name={'user'} text='22222' style={{ height: contentHeight / 5, width: contentWidth }} onPress={this._online} />
             <CustomServiceItem name={'user'} text='3333333333' style={{ height: contentHeight / 5, width: contentWidth }} />
             <View style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', flexDirection: 'row' }}>
               <TouchableHighlight onPress={this._unShow} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>确定</Text></TouchableHighlight>
