@@ -176,6 +176,16 @@ class api {
     formData.append('realName', realName);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  updatePhone(newMobile, oldCode, newCode, onSuccess, onError) {
+    const url = '/user/security/upphone';
+    let formData = new FormData();
+    formData.append('newMobile', newMobile);
+    formData.append('oldCode', oldCode);
+    formData.append('newCode', newCode);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
 }
 
 export default new api();
