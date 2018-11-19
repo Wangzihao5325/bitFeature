@@ -110,9 +110,9 @@ export default class BusinessCalender extends Component {
   }
   render() {
     return (
-      <View style={{ backgroundColor: 'white', flex: 1 }}>
+      <View style={{ backgroundColor: NORMAL_BACKGROUNDCOLOR, flex: 1 }}>
         <Calender dayChange={this._refresh} />
-        {this.state.data.length > 0 &&
+        {this.state.data &&
           <FlatList
             data={this.state.data}
             renderItem={({ item }) => <Item item={item} />}
