@@ -65,6 +65,7 @@ class ContractInfoList extends Component {
         <ListHeader />
         {this.props.contract &&
           <FlatList
+            nestedScrollEnabled={true}
             style={{ flex: 1 }}
             data={this.props.contract}
             renderItem={({ item }) => <Items item={item} choose={this.props.choose} />}

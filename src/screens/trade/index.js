@@ -49,7 +49,7 @@ export default class TradeScreen extends Component {
   }
   render() {
     return (
-      <ScrollView style={{ height: 660, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+      <ScrollView style={{ height: 660, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }} nestedScrollEnabled={true}>
         <View style={{ flex: 1 }}>
           <DepositSelect />
           <MiddleContent />
