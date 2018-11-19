@@ -25,7 +25,9 @@ import ChangePasswordScreen from '../screens/mine/login/changePassword/index';
 import BindPhoneScreen from '../screens/mine/login/bindPhone';
 import TradeAccountDetailScreen from '../screens/mine/login/tradeAccountDetails';
 import BindCardScreen from '../screens/mine/login/bindCard';
+import InnerCardBind from '../screens/mine/login/bindCard/InnerCardBind';
 import RegisterScreen from '../screens/mine/logout/register';
+
 
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
@@ -105,7 +107,8 @@ let MineStack = createStackNavigator(                       //我的
     BindPhoneScreen,
     TradeAccountDetailScreen,
     BindCardScreen,
-    RegisterScreen
+    RegisterScreen,
+    InnerCardBind
   },
   {
     navigationOptions: {
