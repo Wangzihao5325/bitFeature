@@ -60,7 +60,7 @@ export default class News extends Component {
   }
   render() {
     return (
-      <View style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         {this.state.dataArr.length >= 1 &&
           <FlatList
             style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}
