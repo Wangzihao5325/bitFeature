@@ -157,6 +157,25 @@ class api {
     formData.append('app', 'RN');
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getSupportBanks(onSuccess, onError) {
+    const url = '/user/withdraw/support_banks';
+    let formData = new FormData();
+    formData.append('app', 'RN');
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  addBankCards(bank, card, prov, city, address, realName, onSuccess, onError) {
+    const url = '/user/withdraw/add_bank';
+    let formData = new FormData();
+    formData.append('bank', bank);
+    formData.append('card', card);
+    formData.append('prov', prov);
+    formData.append('city', city);
+    formData.append('address', address);
+    formData.append('realName', realName);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
