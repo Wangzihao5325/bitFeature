@@ -6,6 +6,8 @@ import NormalBtn from '../../../../components/NormalBtn';
 import VerificationCode from '../../../../components/VerificationCode';
 import SecurityInput from '../../../../components/SecurityInput';
 import Api from '../../../../socket/platform/api';
+import ToastRoot from '../../../../components/ToastRoot';
+
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -24,13 +26,14 @@ export default class ChangePasswordScreen extends Component {
     Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess)
   }
   _changePasswordSuccess = () => {
-    console.log('更换密码成功');
+    ToastRoot.show('更换密码成功');
+    this.props.navigation.pop();
   }
   _getMessageCode = () => {
     Api.sendMessageWithToken(Variables.account.mobileAccount, 1, this._getMessageSuccess);
   }
   _getMessageSuccess = () => {
-    console.log('get message success');
+    ToastRoot.show('验证码已发送');
   }
   _newPasswordTextChange = (text) => {
     reg.pwd = text;
