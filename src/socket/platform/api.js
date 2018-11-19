@@ -150,6 +150,13 @@ class api {
   //   formData.append('endTime', endTime);
   //   this.requset(url, formData, onSuccess, onError);
   // }
+
+  getBindedBankCard(onSuccess, onError) {
+    const url = '/user/withdraw/bank_list';
+    let formData = new FormData();
+    formData.append('app', 'RN');
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
