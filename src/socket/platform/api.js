@@ -202,6 +202,22 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
+  tradeAccountRecharge(id, addBond, onSuccess, onError) {
+    const url = '/user/ftrade/addbond';
+    let formData = new FormData();
+    formData.append('id', id);
+    formData.append('addBond', addBond);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  endTradeAccount(id, onSuccess, onError) {
+    const url = '/user/ftrade/endtrade';
+    let formData = new FormData();
+    formData.append('id', id);
+    formData.append('businessType', 99);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
 }
 
 export default new api();

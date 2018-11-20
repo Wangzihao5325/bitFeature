@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import PropTypes from 'prop-types';
 import { DEVICE_WIDTH } from '../../../../../global/config';
+import Api from '../../../../../socket/platform/api';
+import ToastRoot from '../../../../../components/ToastRoot';
+import store from '../../../../../store/index';
+import { action_getbalancerate } from '../../../../../store/actions/accountAction';
+
 const DARK_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -31,14 +37,34 @@ class BtnItem extends Component {
 }
 
 export default class DetailView extends Component {
+  static contextTypes = {
+    mineNavigation: PropTypes.object
+  }
   _goTrade = () => {
-    console.log('go to trade');
+    const { mineNavigation } = this.context;
+    mineNavigation.popToTop();
+    mineNavigation.navigate('TradeAccountLogScreenInMarket');
   }
   _tradeAccountRecharge = () => {
-    console.log('go to recharge');
+    const { mineNavigation } = this.context;
+    let id = this.props.data.id;
+    mineNavigation.navigate('TradeAccountRecharge', { id: `${id}` });
   }
   _overTradeAccount = () => {
-    console.log('over!');
+    let id = this.props.data.id;
+    Api.endTradeAccount(id, this._endSuccess, this._endFailed);
+  }
+  _endSuccess = (data, code, message) => {
+    Api.getbalancerate(4, null, this._getbalancerateSuccess);
+    ToastRoot.show('方案结算成功');
+    const { mineNavigation } = this.context;
+    mineNavigation.popToTop();
+  }
+  _getbalancerateSuccess = (result) => {
+    store.dispatch(action_getbalancerate(result));
+  }
+  _endFailed = (data, code, messgae) => {
+    ToastRoot.show(messgae);
   }
   render() {
     let tradeAccount = this.props.data.tranAccount;
@@ -59,7 +85,7 @@ export default class DetailView extends Component {
         <Item headerText='最大持仓手数' contentText='参考初级可持仓手数' />
         <Item headerText='交易保证金' contentText={traderBond} />
         {/* <Item headerText='追加保证金' contentText={appendTraderBond} /> */}
-        <BtnItem headerText='追加保证金' contentText={appendTraderBond} btnText='追加资金' btnPress={this._goTrade} />
+        <BtnItem headerText='追加保证金' contentText={appendTraderBond} btnText='追加资金' btnPress={this._tradeAccountRecharge} />
         <Item headerText='总操盘资金' contentText={traderTotal} />
         <Item headerText='亏损平仓线' contentText={lineLoss} />
         <Item headerText='账户管理费' contentText='免费' />

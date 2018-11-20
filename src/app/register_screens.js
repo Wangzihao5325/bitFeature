@@ -25,6 +25,7 @@ import ChangePasswordScreen from '../screens/mine/login/changePassword/index';
 import BindPhoneScreen from '../screens/mine/login/bindPhone';
 import TradeAccountDetailScreen from '../screens/mine/login/tradeAccountDetails';
 import InnerDetail from '../screens/mine/login/tradeAccountDetails/InnerDetails/index';
+import TradeAccountRecharge from '../screens/mine/login/tradeAccountDetails/InnerDetails/TradeAccountRecharge';
 import BindCardScreen from '../screens/mine/login/bindCard';
 import InnerCardBind from '../screens/mine/login/bindCard/InnerCardBind';
 import RegisterScreen from '../screens/mine/logout/register';
@@ -109,6 +110,7 @@ let MineStack = createStackNavigator(                       //我的
     BindPhoneScreen,
     TradeAccountDetailScreen,
     InnerDetail,
+    TradeAccountRecharge,
     BindCardScreen,
     RegisterScreen,
     InnerCardBind

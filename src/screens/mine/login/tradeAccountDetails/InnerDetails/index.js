@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import PropTypes from 'prop-types';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../../../global/config';
 import DetailView from './DetailView';
 
@@ -14,6 +15,14 @@ export default class InnerDeatil extends Component {
   };
   state = {
     accountData: null
+  }
+  static childContextTypes = {
+    mineNavigation: PropTypes.object
+  }
+  getChildContext() {
+    return {
+      mineNavigation: this.props.navigation
+    }
   }
   componentDidMount() {
     const accountInfoJsonStr = this.props.navigation.getParam('tranAccount', 'undefine_tranAccount');
