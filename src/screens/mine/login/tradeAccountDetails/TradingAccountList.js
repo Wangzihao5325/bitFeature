@@ -13,10 +13,7 @@ class ListItem extends Component {
   }
   _toDetail = () => {
     const { mineNavigation } = this.context;
-    // console.log('1111111111');
-    // console.log(this.props.item);
-    // let reg = this.props.item;
-    mineNavigation.navigate('InnerDetail', { tranAccount: `${this.props.item}` });
+    mineNavigation.navigate('InnerDetail', { tranAccount: JSON.stringify(this.props.item) });
   }
   render() {
     let quarterHeight = ITEM_HEIGHT * 0.25;

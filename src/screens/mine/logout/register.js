@@ -58,7 +58,6 @@ export default class RegisterScreen extends Component {
   }
   _getMessageSuccess = (e, code, message) => {
     ToastRoot.show(message);
-    this.props.navigation.pop();
   }
   _getMessageFailed = (e, code, message) => {
     ToastRoot.show(message);
@@ -68,6 +67,9 @@ export default class RegisterScreen extends Component {
   }
   _imageCodeChange = (text) => {
     reg.imageCode = text;
+  }
+  _login = () => {
+    // resignter
   }
   render() {
     const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${this.state.accountInput}`;
