@@ -5,6 +5,7 @@ const DARK_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const BTN_BGCOLOR = '#CCD6FD';
+const HIGHLIGHT_BGCOLOR = '#FED330';
 class Item extends Component {
   render() {
     return (
@@ -36,6 +37,9 @@ export default class DetailView extends Component {
   _tradeAccountRecharge = () => {
     console.log('go to recharge');
   }
+  _overTradeAccount = () => {
+    console.log('over!');
+  }
   render() {
     let tradeAccount = this.props.data.tranAccount;
     let password = this.props.data.tranPassword;
@@ -59,6 +63,14 @@ export default class DetailView extends Component {
         <Item headerText='总操盘资金' contentText={traderTotal} />
         <Item headerText='亏损平仓线' contentText={lineLoss} />
         <Item headerText='账户管理费' contentText='免费' />
+        <View style={{ flex: 1, justifyContent: 'flex-end', backgroundColor: NORMAL_BACKGROUNDCOLOR, marginTop: StyleSheet.hairlineWidth }}>
+          <TouchableHighlight
+            style={{ height: 50, width: DEVICE_WIDTH, backgroundColor: HIGHLIGHT_BGCOLOR, display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            onPress={this._overTradeAccount}
+          >
+            <Text>申请终结方案</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     );
   }
