@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, FlatList, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 import { DEVICE_WIDTH } from '../../../../global/config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const fontSize = 12;
@@ -7,17 +8,24 @@ const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const ITEM_HEIGHT = 120;
 class ListItem extends Component {
+  static contextTypes = {
+    mineNavigation: PropTypes.object
+  }
+  _toDetail = () => {
+    const { mineNavigation } = this.context;
+    mineNavigation.navigate('InnerDetail');
+  }
   render() {
     let quarterHeight = ITEM_HEIGHT * 0.25;
     let threeQuarterHeight = ITEM_HEIGHT * 0.75;
     let contentHeight = ITEM_HEIGHT * 0.375;
     return (
-      <TouchableHighlight style={{ height: ITEM_HEIGHT, width: DEVICE_WIDTH }}>
+      <TouchableHighlight style={{ height: ITEM_HEIGHT, width: DEVICE_WIDTH }} onPress={this._toDetail}>
         <View style={{ height: ITEM_HEIGHT, width: DEVICE_WIDTH }}>
           <View style={{ height: quarterHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderBottomColor: '#17191E', borderBottomWidth: StyleSheet.hairlineWidth, backgroundColor: NORMAL_BACKGROUNDCOLOR, alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }}>
             <Text style={{ color: NORMAL_TEXTCOLOR }}>{this.props.state}</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
-              <Text style={{ color: NORMAL_TEXTCOLOR,marginRight:10 }}>{this.props.applyTime}</Text>
+              <Text style={{ color: NORMAL_TEXTCOLOR, marginRight: 10 }}>{this.props.applyTime}</Text>
               <Icon name='chevron-right' size={20} color={NORMAL_TEXTCOLOR} />
             </View>
           </View>
