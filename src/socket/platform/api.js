@@ -69,6 +69,28 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
+  sendMessageWithoutToken(mobile, type, yzm, onSuccess, onError) {
+    const url = '/sms';
+    let fullUrl = PLATFORM_DOMAIN + url;
+    let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
+    let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('type', type);
+    formData.append('yzm', yzm);
+    let obj = { method: 'POST', headers: headers, body: formData };
+    this.requset(url, formData, onSuccess, onError);
+    fetch(fullUrl, obj).then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
+        onSuccess(result, code, message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   updateLoginPwd(password, code, onSuccess, onError) {
     const url = '/user/security/update_loginPwd';
     let formData = new FormData();
@@ -140,16 +162,6 @@ class api {
     formData.append('endTime', endTime);
     this.requset(url, formData, onSuccess, onError);
   }
-
-  // registerCode(pageIndex, size, startTime, endTime, onSuccess, onError) {
-  //   const url = '/sms';
-  //   let formData = new FormData();
-  //   formData.append('pageIndex', pageIndex);
-  //   formData.append('size', size);
-  //   formData.append('startTime', startTime);
-  //   formData.append('endTime', endTime);
-  //   this.requset(url, formData, onSuccess, onError);
-  // }
 
   getBindedBankCard(onSuccess, onError) {
     const url = '/user/withdraw/bank_list';

@@ -8,7 +8,7 @@ export default class ImageVerification extends Component {
         form: PropTypes.object
     }
     render() {
-
+        console.log(this.props.url);
         return (
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 {/* <InputField name='imageCode' type={'stringNumber'} valueColor={Colors.black} style={{ backgroundColor: 'transparent', borderWidth: 1, borderRadius: 5, borderColor: 'rgb(197, 197, 197)', justifyContent: 'center', margin: 8 }} /> */}
