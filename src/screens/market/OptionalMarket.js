@@ -49,7 +49,7 @@ class OptionalMarket extends Component {
     const { marketNavigation } = this.context;
     let { marketStore } = this.props;
     let contractList = Object.keys(marketStore);// ... to do 在订阅两条的情况下，把订阅的作为推荐合约
-    if (recommendContractMap[this.props.page]) {
+    if (recommendContractMap[this.props.page] && contractList.length > 3) {
       contractList = recommendContractMap[this.props.page];
     }
     //let contractList = ['CD1812','CU3M','ZN3M'];

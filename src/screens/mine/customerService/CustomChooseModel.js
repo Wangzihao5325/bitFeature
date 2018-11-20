@@ -3,7 +3,7 @@ import { View, Modal, Text, TouchableHighlight, Linking } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../store/index';
-import { action_custom_service_model_unshow } from '../../../store/actions/customServiceAction';
+import { action_custom_service_model_unshow, action_custom_service_model_show } from '../../../store/actions/customServiceAction';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../../global/config';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const marginH = 50;
@@ -24,13 +24,11 @@ class CustomServiceItem extends Component {
   }
 }
 class CustomChooseModel extends Component {
-  static contextTypes = {
-    mineNavigation: PropTypes.object
-  }
   _online = () => {
-    const { mineNavigation } = this.context;
     store.dispatch(action_custom_service_model_unshow());
-    mineNavigation.navigate('CustomerServiceScreen');
+    if (this.props.navi) {
+      this.props.navi.navigate('CustomerServiceScreen');
+    }
   }
   _onPhone = () => {
     Linking.openURL('tel:4008528008');
@@ -60,7 +58,8 @@ class CustomChooseModel extends Component {
 }
 function mapState2Props(store) {
   return {
-    isShow: store.customService.isShow
+    isShow: store.customService.isShow,
+    navi: store.customService.navi
   }
 }
 

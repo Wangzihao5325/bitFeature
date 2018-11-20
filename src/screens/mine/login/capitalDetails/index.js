@@ -45,7 +45,7 @@ class CapitalDetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '资金明细',  //header标题
-      headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
+      //headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
         borderBottomColor: 'black',
@@ -54,7 +54,7 @@ class CapitalDetailsScreen extends Component {
     }
   };
   componentDidMount() {
-    this.props.navigation.setParams({ customService: this._customService });
+    //this.props.navigation.setParams({ customService: this._customService });
     Api.getCapitalDetails(this._capitalDetailsGetSuccess);
   }
   _capitalDetailsGetSuccess = (result) => {

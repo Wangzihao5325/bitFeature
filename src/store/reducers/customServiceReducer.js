@@ -1,7 +1,8 @@
 import * as types from '../actionType';
 
 const initialState = {
-  isShow: false
+  isShow: false,
+  navi: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,11 +11,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isShow: true,
+        navi: action.navi
       };
     case types.CUSTOM_CHOOSE_MODEL_UNSHOW:
       return {
         ...state,
         isShow: false,
+        navi: null
       };
     default: return state;
   }

@@ -34,7 +34,7 @@ class TradeContent extends Component {
   _priceChange = (value) => {
     this.tradeParams.limitPrice = value;
   }
-  _orderNumChange = () => {
+  _orderNumChange = (value) => {
     this.tradeParams.orderNum = value;
   }
   _bug = () => {

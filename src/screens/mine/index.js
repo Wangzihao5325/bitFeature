@@ -8,7 +8,7 @@ import CardHeader from '../../components/CardHeader/index';
 import LogoutSubview from './logout/index';
 import LoginSubview from './login/index';
 import VectorIconBtn from '../../components/IconBtn';
-import CustomChooseModel from './customerService/CustomChooseModel';
+// import CustomChooseModel from './customerService/CustomChooseModel';
 import { SCREEN_BGCOLOR } from '../../global/config';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, TAB_NAVI_NAME } from '../../global/config';
 class MineScreen extends Component {
@@ -36,13 +36,13 @@ class MineScreen extends Component {
     this.props.navigation.setParams({ customService: this._customService });
   }
   _customService = () => {
-    store.dispatch(action_custom_service_model_show());
+    store.dispatch(action_custom_service_model_show(this.props.navigation));
   }
   _login = () => {
     this.props.navigation.navigate('AccountLogScreen');
   }
   _register = () => {
-    console.log('!!!!!!!!注册!!!!!');
+    this.props.navigation.navigate('RegisterScreen');
   }
   _withDraw = () => {
     console.log('!!!!!!!!提现!!!!!');
@@ -53,7 +53,6 @@ class MineScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
-        <CustomChooseModel />
         <CardHeader showAccountLogin={this._login} register={this._register} withDraw={this._withDraw} recharge={this._recharge} />
         {this.props.isLogin ? <LoginSubview /> : <LogoutSubview />}
       </View>

@@ -111,6 +111,81 @@ class api {
     formData.append('appVersions', TRADE_VERSION);
     this.requset(url, formData, onSuccess, onError)
   }
+
+  payApplyTrade(traderBond, onSuccess, onError) {
+    const url = '/user/ftrade/handle';
+    let formData = new FormData();
+    formData.append('vid', -1);
+    formData.append('tranLever', 0);
+    formData.append('businessType', 99);
+    formData.append('version', 1);
+    formData.append('traderBond', traderBond);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getBusinessNews(pageIndex, size, onSuccess, onError) {
+    const url = '/crawler/getCrawler';
+    let formData = new FormData();
+    formData.append('pageIndex', pageIndex);
+    formData.append('size', size);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getCrawlerCalendar(pageIndex, size, startTime, endTime, onSuccess, onError) {
+    const url = '/crawler/getCrawlerCalendar';
+    let formData = new FormData();
+    formData.append('pageIndex', pageIndex);
+    formData.append('size', size);
+    formData.append('startTime', startTime);
+    formData.append('endTime', endTime);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  // registerCode(pageIndex, size, startTime, endTime, onSuccess, onError) {
+  //   const url = '/sms';
+  //   let formData = new FormData();
+  //   formData.append('pageIndex', pageIndex);
+  //   formData.append('size', size);
+  //   formData.append('startTime', startTime);
+  //   formData.append('endTime', endTime);
+  //   this.requset(url, formData, onSuccess, onError);
+  // }
+
+  getBindedBankCard(onSuccess, onError) {
+    const url = '/user/withdraw/bank_list';
+    let formData = new FormData();
+    formData.append('app', 'RN');
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getSupportBanks(onSuccess, onError) {
+    const url = '/user/withdraw/support_banks';
+    let formData = new FormData();
+    formData.append('app', 'RN');
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  addBankCards(bank, card, prov, city, address, realName, onSuccess, onError) {
+    const url = '/user/withdraw/add_bank';
+    let formData = new FormData();
+    formData.append('bank', bank);
+    formData.append('card', card);
+    formData.append('prov', prov);
+    formData.append('city', city);
+    formData.append('address', address);
+    formData.append('realName', realName);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  updatePhone(newMobile, oldCode, newCode, onSuccess, onError) {
+    const url = '/user/security/upphone';
+    let formData = new FormData();
+    formData.append('newMobile', newMobile);
+    formData.append('oldCode', oldCode);
+    formData.append('newCode', newCode);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
 }
 
 export default new api();

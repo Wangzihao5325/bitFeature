@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from '../store/index';
@@ -8,6 +8,7 @@ import MarketSocket from '../socket/marketSocket/index';
 import { MarketStack, TradeStack, NewsStack, MineStack } from './register_screens';
 import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR, TRADE_DOMAIN } from '../global/config';
 import { recommendContractMap, classifyContractMap, initContractList } from '../global/commodity_list';
+import CustomChooseModel from '../screens/mine/customerService/CustomChooseModel';
 import classify from '../mock/platForm';
 const Router = createBottomTabNavigator(
   {
@@ -27,6 +28,7 @@ const Router = createBottomTabNavigator(
 );
 export default class App extends Component {
   _getClassifySuccess = (e) => {
+    MarketSocket.connectSocket();
     e.map(function (item) {
       let classifyData = item.classifyData;
       let recommedArr = [];
@@ -41,20 +43,22 @@ export default class App extends Component {
       recommendContractMap[item.classifyName] = recommedArr;
       classifyContractMap[item.classifyName] = classifyArr;
     });
-    MarketSocket.connectSocket();
   }
   _getTradeURLSuccess = (e) => {
     TRADE_DOMAIN.url = e.socketUrl;
   }
   componentDidMount() {
-    // this._getClassifySuccess(classify);//mock数据
+    //  this._getClassifySuccess(classify);//mock数据
     Api.getClassifyInfo(this._getClassifySuccess);
     Api.getTradeURL(this._getTradeURLSuccess);
   }
   render() {
     return (
       <Provider store={store}>
-        <Router />
+        <View style={{flex:1}}>
+          <CustomChooseModel />
+          <Router />
+        </View>
       </Provider>
     );
   }

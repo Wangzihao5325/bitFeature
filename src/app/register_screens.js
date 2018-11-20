@@ -13,7 +13,7 @@ import TradeAccountLogScreen from '../screens/trade/tradeLogin/index';
 import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
 import OperateDetailsScreen from '../screens/trade/operateDetails';
 
-import NewsScreen from '../screens/news';
+import NewsScreen from '../screens/news/index';
 
 import MineScreen from '../screens/mine/index';
 import AccountLogScreen from '../screens/mine/logout/accountLog';
@@ -25,6 +25,9 @@ import ChangePasswordScreen from '../screens/mine/login/changePassword/index';
 import BindPhoneScreen from '../screens/mine/login/bindPhone';
 import TradeAccountDetailScreen from '../screens/mine/login/tradeAccountDetails';
 import BindCardScreen from '../screens/mine/login/bindCard';
+import InnerCardBind from '../screens/mine/login/bindCard/InnerCardBind';
+import RegisterScreen from '../screens/mine/logout/register';
+
 
 /*
   4个一级页面注册（行情，模拟交易，资讯，我的），这四个页面要放入tab-navi.
@@ -34,7 +37,8 @@ let MarketStack = createStackNavigator(                      //行情
     MarketScreen,
     MarketDetailScreen,
     'TradeAccountLogScreenInMarket': TradeAccountLogScreen,
-    TradeCenter
+    TradeCenter,
+    CustomerServiceScreen,
   },
   {
     navigationOptions: { gesturesEnabled: false }
@@ -56,6 +60,7 @@ let TradeStack = createStackNavigator(
     OpenTradeAccountScreen,
     OperateDetailsScreen,
     'TradeAccountLogScreenInTrade': TradeAccountLogScreen,
+    CustomerServiceScreen,
   },
   {    //模拟交易
     navigationOptions: {
@@ -101,7 +106,9 @@ let MineStack = createStackNavigator(                       //我的
     ChangePasswordScreen,
     BindPhoneScreen,
     TradeAccountDetailScreen,
-    BindCardScreen
+    BindCardScreen,
+    RegisterScreen,
+    InnerCardBind
   },
   {
     navigationOptions: {
