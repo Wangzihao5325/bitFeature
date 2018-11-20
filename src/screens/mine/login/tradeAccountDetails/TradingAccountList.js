@@ -13,7 +13,10 @@ class ListItem extends Component {
   }
   _toDetail = () => {
     const { mineNavigation } = this.context;
-    mineNavigation.navigate('InnerDetail');
+    // console.log('1111111111');
+    // console.log(this.props.item);
+    // let reg = this.props.item;
+    mineNavigation.navigate('InnerDetail', { tranAccount: `${this.props.item}` });
   }
   render() {
     let quarterHeight = ITEM_HEIGHT * 0.25;
@@ -50,7 +53,7 @@ export default class TradingAccountList extends Component {
       <FlatList
         style={{ flex: 1, backgroundColor: '#17191E' }}
         data={this.props.data}
-        renderItem={({ item }) => <ListItem state={item.stateTypeStr} applyTime={item.appTimeStr} traderBond={item.traderBond} traderTotal={item.traderTotal} lineLoss={item.lineLoss} tranAccount={item.tranAccount} />}
+        renderItem={({ item }) => <ListItem state={item.stateTypeStr} applyTime={item.appTimeStr} traderBond={item.traderBond} traderTotal={item.traderTotal} lineLoss={item.lineLoss} tranAccount={item.tranAccount} item={item} />}
         ItemSeparatorComponent={() => <View style={{ height: 10, width: DEVICE_WIDTH, backgroundColor: '#17191E' }} />}
       />
 

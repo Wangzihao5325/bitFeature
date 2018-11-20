@@ -84,7 +84,11 @@ class api {
         const result = responseJson.data ? responseJson.data : null;
         const code = responseJson.code ? responseJson.code : null;
         const message = responseJson.message ? responseJson.message : null;
-        onSuccess(result, code, message);
+        if (responseJson.success) {
+          onSuccess(result, code, message);
+        } else {
+          onError(result, code, message);
+        }
       })
       .catch((error) => {
         console.log(error);

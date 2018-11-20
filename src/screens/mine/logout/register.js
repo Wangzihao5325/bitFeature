@@ -36,7 +36,7 @@ export default class RegisterScreen extends Component {
     this.setState({
       isShowDialog: false
     });
-    Api.sendMessageWithoutToken(this.state.accountInput, 1, reg.imageCode, this._getMessageSuccess);//此处修改 
+    Api.sendMessageWithoutToken(this.state.accountInput, 1, reg.imageCode, this._getMessageSuccess, this._getMessageFailed);//此处修改 
   }
   _onCancel = () => {
     this.setState({
@@ -57,6 +57,10 @@ export default class RegisterScreen extends Component {
     })
   }
   _getMessageSuccess = (e, code, message) => {
+    ToastRoot.show(message);
+    this.props.navigation.pop();
+  }
+  _getMessageFailed = (e, code, message) => {
     ToastRoot.show(message);
   }
   _codeTextChange = (text) => {
