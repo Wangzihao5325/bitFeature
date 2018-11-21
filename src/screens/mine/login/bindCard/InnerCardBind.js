@@ -40,7 +40,7 @@ export default class InnerCardBind extends Component {
     reg.cardNum = text
   }
   _addCard = () => {
-    // api.addBankCards();
+    api.addBankCards('cmb', reg.cardNum, reg.province, reg.city, reg.bankName, reg.name);
   }
   render() {
     return (

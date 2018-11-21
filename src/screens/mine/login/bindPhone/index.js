@@ -7,7 +7,6 @@ import MaterialInput from '../../../../components/MaterialInput';
 import Variables from '../../../../global/Variables';
 import Api from '../../../../socket/platform/api';
 import ToastRoot from '../../../../components/ToastRoot';
-import Variables from '../../../../global/Variables';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
