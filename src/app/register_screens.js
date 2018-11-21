@@ -29,6 +29,7 @@ import TradeAccountRecharge from '../screens/mine/login/tradeAccountDetails/Inne
 import BindCardScreen from '../screens/mine/login/bindCard';
 import InnerCardBind from '../screens/mine/login/bindCard/InnerCardBind';
 import RegisterScreen from '../screens/mine/logout/register';
+import WithdrawCashScreen from '../screens/mine/login/withdraw';
 
 
 
@@ -113,7 +114,8 @@ let MineStack = createStackNavigator(                       //我的
     TradeAccountRecharge,
     BindCardScreen,
     RegisterScreen,
-    InnerCardBind
+    InnerCardBind,
+    WithdrawCashScreen
   },
   {
     navigationOptions: {
