@@ -78,7 +78,6 @@ class api {
     formData.append('type', type);
     formData.append('yzm', yzm);
     let obj = { method: 'POST', headers: headers, body: formData };
-    this.requset(url, formData, onSuccess, onError);
     fetch(fullUrl, obj).then((response) => response.json())
       .then((responseJson) => {
         const result = responseJson.data ? responseJson.data : null;
@@ -100,8 +99,10 @@ class api {
     let fullUrl = PLATFORM_DOMAIN + url;
     let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
     let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('password', password);
+    formData.append('code', code);
     let obj = { method: 'POST', headers: headers, body: formData };
-    this.requset(url, formData, onSuccess, onError);
     fetch(fullUrl, obj).then((response) => response.json())
       .then((responseJson) => {
         const result = responseJson.data ? responseJson.data : null;
