@@ -95,6 +95,33 @@ class api {
       });
   }
 
+  register(mobile, password, code, onSuccess, onError) {
+    const url = '/regist';
+    let fullUrl = PLATFORM_DOMAIN + url;
+    let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
+    let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('password', password);
+    formData.append('code', code);
+    formData.append('source', '期货大赛');
+    let obj = { method: 'POST', headers: headers, body: formData };
+    this.requset(url, formData, onSuccess, onError);
+    fetch(fullUrl, obj).then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
+        if (responseJson.success) {
+          onSuccess(result, code, message);
+        } else {
+          onError(result, code, message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   updateLoginPwd(password, code, onSuccess, onError) {
     const url = '/user/security/update_loginPwd';
     let formData = new FormData();
@@ -224,7 +251,6 @@ class api {
     formData.append('id', id);
     this.requset(url, formData, onSuccess, onError);
   }
-
 }
 
 export default new api();

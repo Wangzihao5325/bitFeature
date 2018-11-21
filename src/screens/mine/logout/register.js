@@ -69,7 +69,15 @@ export default class RegisterScreen extends Component {
     reg.imageCode = text;
   }
   _login = () => {
+    Api.register(this.state.accountInput, reg.passwordInput, reg.code, this._registerSuccess, this._registerFailed);
     // resignter
+  }
+  _registerSuccess = (data, code, message) => {
+    ToastRoot.show('注册成功');
+    this.props.navigation.pop();
+  }
+  _registerFailed = (data, code, message) => {
+    ToastRoot.show(message);
   }
   render() {
     const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${this.state.accountInput}`;
