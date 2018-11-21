@@ -218,6 +218,13 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
+  getHistoryTradeList(id, onSuccess, onError) {
+    const url = '/user/ftrade/getFstTradeDetail';
+    let formData = new FormData();
+    formData.append('id', id);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
 }
 
 export default new api();

@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../../../global/config';
 import DetailView from './DetailView';
+import TradedDetailView from './TradedDetailView';
 
 export default class InnerDeatil extends Component {
   static navigationOptions = {
@@ -36,6 +37,7 @@ export default class InnerDeatil extends Component {
     return (
       <View style={{ flex: 1 }}>
         {this.state.accountData && this.state.accountData.stateType === 4 && <DetailView data={this.state.accountData} />}
+        {this.state.accountData && this.state.accountData.stateType !== 4 && <TradedDetailView data={this.state.accountData} />}
       </View>
     );
   }
