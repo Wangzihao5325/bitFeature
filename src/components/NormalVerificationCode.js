@@ -13,6 +13,11 @@ export default class NormalVerificationCode extends Component {
     super(props);
     this._onChangeText = this._onChangeText.bind(this);
   }
+  componentWillUnmount() {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
   state = {
     text: '获取验证码',
     disable: false,
