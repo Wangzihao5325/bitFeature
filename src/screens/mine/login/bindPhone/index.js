@@ -7,6 +7,7 @@ import MaterialInput from '../../../../components/MaterialInput';
 import Variables from '../../../../global/Variables';
 import Api from '../../../../socket/platform/api';
 import ToastRoot from '../../../../components/ToastRoot';
+import Variables from '../../../../global/Variables';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
@@ -29,13 +30,12 @@ export default class BindPhoneScreen extends Component {
     }
     Api.updatePhone(reg.newPhone, reg.oldCode, reg.newCode, this._changeMobileRtn);
   }
-  _changeMobileRtn = (e) => {
-    if (e.message) {
-      ToastRoot.show(e.message);
-    }
-    if (e.success === true) {
-      this.props.navigation.pop();
-    }
+  _changeMobileSuccess = (e, code, message) => {
+    Variables.account.mobileAccount = reg.newPhone.concat();
+    ToastRoot.show('更换手机号码成功');
+  }
+  _changeMobileFailed = (e, code, message) => {
+    ToastRoot.show(message);
   }
   _codeOldTextChange = (text) => {
     reg.oldCode = text;
