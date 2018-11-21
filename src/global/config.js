@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions } from 'react-native';
-const PLATFORM_DOMAIN = 'http://192.168.199.144:8080/vs-api';//'http://test.api.duokongtai.cn';
+const PLATFORM_DOMAIN = 'http://test.api.duokongtai.cn';
 const CUSTOM_SERVICE_URL = 'http://www.vs.com/topic/consistentBeauty/qiw_quoteApp_service.html';
 const RECHARGE_URL = 'http://pay.duokongtai.cn';
 const APP_VERSIONS = 6.1;

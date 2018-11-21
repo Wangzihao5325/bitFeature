@@ -35,11 +35,14 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
-  login(userName, password, onSuccess, onError) {
+  login(userName, password, code, onSuccess, onError) {
     const url = '/login';
     let formData = new FormData();
     formData.append('loginName', userName);
     formData.append('password', password);
+    if (code) {
+      formData.append('code', code);
+    }
     this.requset(url, formData, onSuccess, onError);
   }
 
