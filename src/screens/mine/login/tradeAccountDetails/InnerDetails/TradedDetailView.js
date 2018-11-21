@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, ScrollView, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import store from '../../../../../store/index';
+import { traded_page_change, traded_page_reset } from '../../../../../store/actions/tradeAccountAction';
 import UsualTabBar from '../../../../../components/NormalTabBar';
 import { DEVICE_WIDTH } from '../../../../../global/config';
 import Api from '../../../../../socket/platform/api';
@@ -165,21 +168,28 @@ class TradeList extends Component {
     );
   }
 }
-export default class TradedDetailView extends Component {
-  _pageChange = () => {
-    console.log('page change');
+class TradedDetailView extends Component {
+  componentWillUnmount() {
+    store.dispatch(traded_page_reset());
+  }
+  _pageChange = (keyValue) => {
+    store.dispatch(traded_page_change(keyValue));
   }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-        <UsualTabBar tabNames={['方案明细', '历史成交记录']} tabTap={this._pageChange} />
-        {/* <DetailItem data={this.props.data} /> */}
-        <TradeList id={this.props.data.id} />
+        <UsualTabBar tabNames={['方案明细', '历史成交记录']} isDefault={false} tabTap={this._pageChange} />
+        {this.props.page === '方案明细' && <DetailItem data={this.props.data} />}
+        {this.props.page === '历史成交记录' && <TradeList id={this.props.data.id} />}
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+function mapState2Props(store) {
+  return {
+    page: store.tradeAccount.tradedDetailPage,
+  }
+}
 
-});
+export default connect(mapState2Props)(TradedDetailView);

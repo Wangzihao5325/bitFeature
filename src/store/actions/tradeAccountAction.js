@@ -50,3 +50,21 @@ export function page_reset() {
     });
   }
 }
+
+export function traded_page_change(keyValue) {
+  return (dispatch) => {
+    dispatch({
+      type: types.ACCOUNT_LIST_TRADED_PAGE_CHANGE,
+      tradedDetailPage: keyValue
+    });
+  }
+}
+
+export function traded_page_reset() {
+  return (dispatch) => {
+    dispatch({
+      type: types.ACCOUNT_LIST_TRADED_PAGE_RESET,
+      tradedDetailPage: '历史成交记录'
+    });
+  }
+}
