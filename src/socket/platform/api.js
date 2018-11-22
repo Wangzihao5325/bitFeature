@@ -251,6 +251,14 @@ class api {
     formData.append('id', id);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  nameCertification(name, card, onSuccess, onError) {
+    const url = '/user/security/validatecard';
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('card', card);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();

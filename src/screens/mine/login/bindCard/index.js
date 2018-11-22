@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, Image, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Api from '../../../../socket/platform/api';
+import Dialog from '../../../../components/ImageVerification/Dialog';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, PLATFORM_DOMAIN } from '../../../../global/config';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
@@ -79,7 +81,7 @@ class Item extends Component {
     );
   }
 }
-export default class BindCardScreen extends Component {
+class BindCardScreen extends Component {
   static navigationOptions = {
     title: "绑定银行卡",  //header标题
     headerStyle: {
@@ -90,7 +92,8 @@ export default class BindCardScreen extends Component {
   };
 
   state = {
-    data: []
+    data: [],
+    isShow: false
   };
 
   componentDidMount() {
@@ -104,7 +107,24 @@ export default class BindCardScreen extends Component {
   }
 
   _goToBindCard = () => {
-    this.props.navigation.navigate('InnerCardBind');
+    if (this.props.isCertification) {
+      this.props.navigation.navigate('InnerCardBind');
+    } else {
+      this.setState({
+        isShow: true
+      });
+    }
+  }
+  _onConfirm = () => {
+    this.setState({
+      isShow: false
+    });
+    this.props.navigation.navigate('NameCertification');
+  }
+  _onCancel = () => {
+    this.setState({
+      isShow: false
+    });
   }
   render() {
     return (
@@ -125,7 +145,22 @@ export default class BindCardScreen extends Component {
         >
           <Text>绑定银行卡</Text>
         </TouchableHighlight>
+        <Dialog
+          visible={this.state.isShow}
+          header={'需要实名认证'}
+          renderContent={() => <Text>请先进行实名认证操作</Text>}
+          onConfirm={this._onConfirm}
+          onCancel={this._onCancel}
+        />
       </View>
     );
   }
 }
+
+function mapState2Props(store) {
+  return {
+    isCertification: store.account.isCertification
+  }
+}
+
+export default connect(mapState2Props)(BindCardScreen);
