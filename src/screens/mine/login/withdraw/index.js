@@ -18,7 +18,8 @@ class WithdrawCashScreen extends Component {
     headerTintColor: HEADER_TINT_COLOR
   };
   _goToBindCard = () => {
-    console.log('go to bind card');
+    this.props.navigation.popToTop();
+    this.props.navigation.navigate('BindCardScreen');
   }
   _withDrawMoneyChanged = (text) => {
 
@@ -35,11 +36,11 @@ class WithdrawCashScreen extends Component {
             <Text style={{ color: 'white', marginRight: 10 }}>绑定银行卡></Text>
           </View>
         </TouchableHighlight>
-        <View style={{ height: 40, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-          <Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>{`余额:${this.props.balance}元`}</Text>
+        <View style={{ height: 60, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 10, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, fontSize: 18 }}>{`余额:${this.props.balance}元`}</Text>
         </View>
-        <View style={{ height: 40, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-          <Text style={{ color: NORMAL_TEXTCOLOR }}>{`累计免提现手续费金额:${this.props.operateMoney}元`}</Text>
+        <View style={{ height: 60, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+          <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>{`累计免提现手续费金额:${this.props.operateMoney}元`}</Text>
         </View>
         <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR, marginTop: 10 }}>
           <NormalInput secureTextEntry={false} onChangeText={this._withDrawMoneyChanged} style={{ marginTop: 20 }} headerTitle='提现金额' tips='' />
