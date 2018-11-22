@@ -259,6 +259,20 @@ class api {
     formData.append('card', card);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  setDefalutBankCard(bankId, onSuccess, onError) {
+    const url = '/user/withdraw/set_default_bank';
+    let formData = new FormData();
+    formData.append('bankId', bankId);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  deleteBankCard(bankId, onSuccess, onError) {
+    const url = '/user/withdraw/del_bank ';
+    let formData = new FormData();
+    formData.append('bankId', bankId);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();

@@ -5,11 +5,33 @@ import PropTypes from 'prop-types';
 import Api from '../../../../socket/platform/api';
 import Dialog from '../../../../components/ImageVerification/Dialog';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, PLATFORM_DOMAIN } from '../../../../global/config';
+import VectorIconBtn from '../../../../components/IconBtn';
+import ToastRoot from '../../../../components/ToastRoot';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
 class Item extends Component {
+  _deleteCard = () => {
+    Api.deleteBankCard(this.props.item.bankId, this._deleteSuccess, this._deleteFailed);
+  }
+  _deleteSuccess = () => {
+    ToastRoot.show('删除银行卡成功');
+    this.props.update();
+  }
+  _deleteFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
+  _changeCard = () => {
+    Api.setDefalutBankCard(this.props.item.bankId, this._changeSuccess, this._changeFailed);
+  }
+  _changeSuccess = (e, code, message) => {
+    ToastRoot.show('设置默认银行卡成功');
+    this.props.update();
+  }
+  _changeFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
   render() {
     let imagePath = null;
     switch (this.props.item.abbreviation) {
@@ -66,11 +88,14 @@ class Item extends Component {
     let securityNum = ['****', '****', '****', cardFooterNum].join('  ');
     return (
       <View style={{ height: 120, width: DEVICE_WIDTH, padding: 5 }}>
-        <TouchableHighlight style={{ backgroundColor: DARK_BGCOLOR, flex: 1, borderRadius: 5 }}>
+        <TouchableHighlight onPress={this._changeCard} style={{ backgroundColor: DARK_BGCOLOR, flex: 1, borderRadius: 5 }}>
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
-              <Image style={{ height: 40, width: 40, marginLeft: 20 }} source={imagePath} />
-              <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18, marginLeft: 20 }}>{this.props.item.bankName}</Text>
+            <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Image style={{ height: 40, width: 40, marginLeft: 20 }} source={imagePath} />
+                <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18, marginLeft: 20 }}>{this.props.item.bankName}</Text>
+              </View>
+              <VectorIconBtn name='close' onPress={this._deleteCard} />
             </View>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18, marginLeft: 80 }}>{securityNum}</Text>
@@ -105,7 +130,9 @@ class BindCardScreen extends Component {
       data: e
     });
   }
-
+  dataUpdate = () => {
+    Api.getBindedBankCard(this._getBindedCardSuccess);
+  }
   _goToBindCard = () => {
     if (this.props.isCertification) {
       this.props.navigation.navigate('InnerCardBind');
@@ -135,7 +162,7 @@ class BindCardScreen extends Component {
             <FlatList
               style={{ flex: 1 }}
               data={this.state.data}
-              renderItem={({ item }) => <Item item={item} />}
+              renderItem={({ item }) => <Item item={item} update={this.dataUpdate} />}
             />
           }
         </View>
