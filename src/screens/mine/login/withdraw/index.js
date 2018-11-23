@@ -35,7 +35,7 @@ class WithdrawCashScreen extends Component {
     console.log('with draw');
   }
   _setWithdrawPassword = () => {
-    console.log('set psd')
+    this.props.navigation.navigate('WithdrawPassword');
   }
   render() {
     return (

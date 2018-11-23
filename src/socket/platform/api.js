@@ -274,10 +274,11 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
-  setWithdrawPassword(bankId, onSuccess, onError) {
-    const url = '/user/withdraw/del_bank ';
+  setWithdrawPassword(password, code, onSuccess, onError) {
+    const url = '/user/security/set_withdraw_pwd';
     let formData = new FormData();
-    formData.append('bankId', bankId);
+    formData.append('password', password);
+    formData.append('code', code);
     this.requset(url, formData, onSuccess, onError);
   }
 }
