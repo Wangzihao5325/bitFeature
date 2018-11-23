@@ -9,11 +9,13 @@ import NormalBtn from '../../../components/NormalBtn';
 import VectorIconBtn from '../../../components/IconBtn';
 import Variables from '../../../global/Variables';
 import ToastRoot from '../../../components/ToastRoot';
-import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
+import Dialog from '../../../components/ImageVerification/Dialog';
+import ImageVerification from '../../../components/ImageVerification/index';
+import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, PLATFORM_DOMAIN, DEVICE_WIDTH } from '../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
-let reg = { accountInput: '', passwordInput: '' };
+let reg = { passwordInput: '', codeInput: null };
 export default class AccountLogScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -30,6 +32,10 @@ export default class AccountLogScreen extends Component {
     super();
     this._loginSuccess = this._loginSuccess.bind(this);
     this._getbalancerateSuccess = this._getbalancerateSuccess.bind(this);
+  }
+  state = {
+    accountInput: '',
+    isShow: false
   }
   componentDidMount() {
     this.props.navigation.setParams({ customService: this._customService });
@@ -53,16 +59,35 @@ export default class AccountLogScreen extends Component {
     ToastRoot.show(message);
   }
   _login = () => {
-    Variables.account.mobileAccount = reg.accountInput.concat();
-    Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess, this._loginFailed);
+    this.setState({
+      isShow: false
+    })
+    Variables.account.mobileAccount = this.state.accountInput.concat();
+    Api.login(this.state.accountInput, reg.passwordInput, reg.codeInput, this._loginSuccess, this._loginFailed);
   }
   _accountChange = (text) => {
-    reg.accountInput = text;
+    this.setState({
+      accountInput: text
+    });
   }
   _passwordChange = (text) => {
     reg.passwordInput = text;
   }
+  _imageCodeChange = (text) => {
+    reg.codeInput = text;
+  }
+  _showDialog = () => {
+    this.setState({
+      isShow: true
+    })
+  }
+  _unshowDialog = () => {
+    this.setState({
+      isShow: false
+    })
+  }
   render() {
+    const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${this.state.accountInput}`;
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='手机' tips='请输入正确手机号码' />
@@ -73,7 +98,14 @@ export default class AccountLogScreen extends Component {
           style={{ height: 45, width: DEVICE_WIDTH - 20, backgroundColor: HIGHLIGHT_BGCOLOR, alignSelf: 'center', marginTop: 40 }}
           titleStyle={{ color: 'black' }}
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}
-          onPress={this._login}
+          onPress={this._showDialog}
+        />
+        <Dialog
+          visible={this.state.isShow}
+          header={'请先输入图形验证码'}
+          renderContent={() => <ImageVerification url={imgUri} textChange={this._imageCodeChange} />}
+          onConfirm={this._login}
+          onCancel={this._unshowDialog}
         />
       </View>
     );

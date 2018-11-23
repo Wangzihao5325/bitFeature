@@ -45,7 +45,7 @@ class MineScreen extends Component {
     this.props.navigation.navigate('RegisterScreen');
   }
   _withDraw = () => {
-    console.log('!!!!!!!!提现!!!!!');
+    this.props.navigation.navigate('WithdrawCashScreen');
   }
   _recharge = () => {//充值
     this.props.navigation.navigate('RechargeScreen');

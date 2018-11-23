@@ -5,6 +5,7 @@ const initialState = {
   isHaveAccount: false,
   onTradingAccountList: [],
   endedAccountList: [],
+  tradedDetailPage: '历史成交记录',
 }
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +31,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         page: action.page,
+      };
+    case types.ACCOUNT_LIST_TRADED_PAGE_CHANGE:
+      return {
+        ...state,
+        tradedDetailPage: action.tradedDetailPage,
+      };
+    case types.ACCOUNT_LIST_TRADED_PAGE_RESET:
+      return {
+        ...state,
+        tradedDetailPage: action.tradedDetailPage,
       };
     default: return state;
   }

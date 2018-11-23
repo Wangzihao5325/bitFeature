@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../../store/index';
 import { update_trade_account_list, page_change, page_reset } from '../../../../store/actions/tradeAccountAction';
@@ -16,6 +17,16 @@ class TradeAccountDetailScreen extends Component {
     },
     headerTintColor: HEADER_TINT_COLOR
   };
+
+  static childContextTypes = {
+    mineNavigation: PropTypes.object
+  }
+  getChildContext() {
+    return {
+      mineNavigation: this.props.navigation
+    }
+  }
+
   componentDidMount() {
     Api.getTradeAccount(this._getTradeAccountSuccess);
   }
@@ -37,7 +48,7 @@ class TradeAccountDetailScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <UsualTabBar tabNames={['交易中', '已结算']} isDefault={false} tabTap={this._pageChange} />
-        {!this.props.isHaveAccount && <View><Text>12345</Text></View>}
+        {!this.props.isHaveAccount && <View><Text>请先开户</Text></View>}
         {this.props.isHaveAccount && <TradingAccountList data={data} />}
       </View>
     );

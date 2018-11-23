@@ -35,11 +35,14 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
-  login(userName, password, onSuccess, onError) {
+  login(userName, password, code, onSuccess, onError) {
     const url = '/login';
     let formData = new FormData();
     formData.append('loginName', userName);
     formData.append('password', password);
+    if (code) {
+      formData.append('code', code);
+    }
     this.requset(url, formData, onSuccess, onError);
   }
 
@@ -67,6 +70,56 @@ class api {
     formData.append('mobile', mobile);
     formData.append('type', type);
     this.requset(url, formData, onSuccess, onError);
+  }
+
+  sendMessageWithoutToken(mobile, type, yzm, onSuccess, onError) {
+    const url = '/sms';
+    let fullUrl = PLATFORM_DOMAIN + url;
+    let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
+    let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('type', type);
+    formData.append('yzm', yzm);
+    let obj = { method: 'POST', headers: headers, body: formData };
+    fetch(fullUrl, obj).then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
+        if (responseJson.success) {
+          onSuccess(result, code, message);
+        } else {
+          onError(result, code, message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  register(mobile, password, code, onSuccess, onError) {
+    const url = '/regist';
+    let fullUrl = PLATFORM_DOMAIN + url;
+    let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
+    let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('password', password);
+    formData.append('code', code);
+    let obj = { method: 'POST', headers: headers, body: formData };
+    fetch(fullUrl, obj).then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
+        if (responseJson.success) {
+          onSuccess(result, code, message);
+        } else {
+          onError(result, code, message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   updateLoginPwd(password, code, onSuccess, onError) {
@@ -141,16 +194,6 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
-  // registerCode(pageIndex, size, startTime, endTime, onSuccess, onError) {
-  //   const url = '/sms';
-  //   let formData = new FormData();
-  //   formData.append('pageIndex', pageIndex);
-  //   formData.append('size', size);
-  //   formData.append('startTime', startTime);
-  //   formData.append('endTime', endTime);
-  //   this.requset(url, formData, onSuccess, onError);
-  // }
-
   getBindedBankCard(onSuccess, onError) {
     const url = '/user/withdraw/bank_list';
     let formData = new FormData();
@@ -186,6 +229,75 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
+  tradeAccountRecharge(id, addBond, onSuccess, onError) {
+    const url = '/user/ftrade/addbond';
+    let formData = new FormData();
+    formData.append('id', id);
+    formData.append('addBond', addBond);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  endTradeAccount(id, onSuccess, onError) {
+    const url = '/user/ftrade/endtrade';
+    let formData = new FormData();
+    formData.append('id', id);
+    formData.append('businessType', 99);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getHistoryTradeList(id, onSuccess, onError) {
+    const url = '/user/ftrade/getFstTradeDetail';
+    let formData = new FormData();
+    formData.append('id', id);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  nameCertification(name, card, onSuccess, onError) {
+    const url = '/user/security/validatecard';
+    let formData = new FormData();
+    formData.append('name', name);
+    formData.append('card', card);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  setDefalutBankCard(bankId, onSuccess, onError) {
+    const url = '/user/withdraw/set_default_bank';
+    let formData = new FormData();
+    formData.append('bankId', bankId);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  deleteBankCard(bankId, onSuccess, onError) {
+    const url = '/user/withdraw/del_bank ';
+    let formData = new FormData();
+    formData.append('bankId', bankId);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  setWithdrawPassword(password, code, onSuccess, onError) {
+    const url = '/user/security/set_withdraw_pwd';
+    let formData = new FormData();
+    formData.append('password', password);
+    formData.append('code', code);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  getWithdrawFee(money, onSuccess, onError) {
+    const url = '/user/withdraw/drawFee';
+    let formData = new FormData();
+    formData.append('money', money);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  handleWithdraw(bank, card, money, withdrawPwd, onSuccess, onError) {
+    const url = '/user/withdraw/handle';
+    let formData = new FormData();
+    formData.append('bank', bank);
+    formData.append('card', card);
+    formData.append('money', money);
+    formData.append('withdrawPwd', withdrawPwd);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();

@@ -3,6 +3,8 @@ import { View, Text, FlatList } from 'react-native';
 import Api from '../../../socket/platform/api';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../global/config';
 import { connect } from 'react-redux';
+import store from '../../../store/index';
+import { action_getbalancerate } from '../../../store/actions/accountAction';
 import NormalBtn from '../../../components/NormalBtn';
 import ToastRoot from '../../../components/ToastRoot';
 const COM_BTN_HEIGHT = 35;
@@ -42,8 +44,12 @@ class OpenTradeAccountScreen extends Component {
   _openSuccess = (e) => {
     let tranAccount = e.tranAccount;
     let tranPassword = e.tranPassword;
+    Api.getbalancerate(4, null, this._getbalancerateSuccess);
     ToastRoot.show(`开户成功,账号:${tranAccount},密码:${tranPassword}`);
-    // console.log(e);
+    this.props.navigation.pop();
+  }
+  _getbalancerateSuccess = (result) => {
+    store.dispatch(action_getbalancerate(result));
   }
   _openTradeAccount = () => {
     let chooseNum = parseInt(this.props.choose);

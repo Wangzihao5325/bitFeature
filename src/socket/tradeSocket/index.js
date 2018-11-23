@@ -39,10 +39,12 @@ class TradeSocket {
     let commodity_no = contract_structure.commodity_no;
     let contract_no = contract_structure.contract_no;
     let exchange_no = contract_structure.exchange_no;
+    let type = contract_structure.security_type === 'FO' ? 1 : 2;
     let orderRef = new Date().getTime();
     let json = {
       'Method': 'InsertOrder',
       'Parameters': {
+        'CommodityType': type,
         'ExchangeNo': exchange_no,
         'CommodityNo': commodity_no,
         'ContractNo': contract_no,

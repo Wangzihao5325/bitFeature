@@ -1,13 +1,37 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, Image, FlatList } from 'react-native';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Api from '../../../../socket/platform/api';
+import Dialog from '../../../../components/ImageVerification/Dialog';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, PLATFORM_DOMAIN } from '../../../../global/config';
+import VectorIconBtn from '../../../../components/IconBtn';
+import ToastRoot from '../../../../components/ToastRoot';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
 class Item extends Component {
+  _deleteCard = () => {
+    Api.deleteBankCard(this.props.item.bankId, this._deleteSuccess, this._deleteFailed);
+  }
+  _deleteSuccess = () => {
+    ToastRoot.show('删除银行卡成功');
+    this.props.update();
+  }
+  _deleteFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
+  _changeCard = () => {
+    Api.setDefalutBankCard(this.props.item.bankId, this._changeSuccess, this._changeFailed);
+  }
+  _changeSuccess = (e, code, message) => {
+    ToastRoot.show('设置默认银行卡成功');
+    this.props.update();
+  }
+  _changeFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
   render() {
     let imagePath = null;
     switch (this.props.item.abbreviation) {
@@ -64,11 +88,14 @@ class Item extends Component {
     let securityNum = ['****', '****', '****', cardFooterNum].join('  ');
     return (
       <View style={{ height: 120, width: DEVICE_WIDTH, padding: 5 }}>
-        <TouchableHighlight style={{ backgroundColor: DARK_BGCOLOR, flex: 1, borderRadius: 5 }}>
+        <TouchableHighlight onPress={this._changeCard} style={{ backgroundColor: DARK_BGCOLOR, flex: 1, borderRadius: 5 }}>
           <View style={{ flex: 1 }}>
-            <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center' }}>
-              <Image style={{ height: 40, width: 40, marginLeft: 20 }} source={imagePath} />
-              <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18, marginLeft: 20 }}>{this.props.item.bankName}</Text>
+            <View style={{ flex: 2, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <View style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+                <Image style={{ height: 40, width: 40, marginLeft: 20 }} source={imagePath} />
+                <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18, marginLeft: 20 }}>{this.props.item.bankName}</Text>
+              </View>
+              <VectorIconBtn name='close' onPress={this._deleteCard} />
             </View>
             <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
               <Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18, marginLeft: 80 }}>{securityNum}</Text>
@@ -79,7 +106,7 @@ class Item extends Component {
     );
   }
 }
-export default class BindCardScreen extends Component {
+class BindCardScreen extends Component {
   static navigationOptions = {
     title: "绑定银行卡",  //header标题
     headerStyle: {
@@ -90,7 +117,8 @@ export default class BindCardScreen extends Component {
   };
 
   state = {
-    data: []
+    data: [],
+    isShow: false
   };
 
   componentDidMount() {
@@ -102,9 +130,28 @@ export default class BindCardScreen extends Component {
       data: e
     });
   }
-
+  dataUpdate = () => {
+    Api.getBindedBankCard(this._getBindedCardSuccess);
+  }
   _goToBindCard = () => {
-    this.props.navigation.navigate('InnerCardBind');
+    if (this.props.isCertification) {
+      this.props.navigation.navigate('InnerCardBind');
+    } else {
+      this.setState({
+        isShow: true
+      });
+    }
+  }
+  _onConfirm = () => {
+    this.setState({
+      isShow: false
+    });
+    this.props.navigation.navigate('NameCertification');
+  }
+  _onCancel = () => {
+    this.setState({
+      isShow: false
+    });
   }
   render() {
     return (
@@ -115,7 +162,7 @@ export default class BindCardScreen extends Component {
             <FlatList
               style={{ flex: 1 }}
               data={this.state.data}
-              renderItem={({ item }) => <Item item={item} />}
+              renderItem={({ item }) => <Item item={item} update={this.dataUpdate} />}
             />
           }
         </View>
@@ -125,7 +172,22 @@ export default class BindCardScreen extends Component {
         >
           <Text>绑定银行卡</Text>
         </TouchableHighlight>
+        <Dialog
+          visible={this.state.isShow}
+          header={'需要实名认证'}
+          renderContent={() => <Text>请先进行实名认证操作</Text>}
+          onConfirm={this._onConfirm}
+          onCancel={this._onCancel}
+        />
       </View>
     );
   }
 }
+
+function mapState2Props(store) {
+  return {
+    isCertification: store.account.isCertification
+  }
+}
+
+export default connect(mapState2Props)(BindCardScreen);

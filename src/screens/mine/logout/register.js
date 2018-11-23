@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import store from '../../../store/index';
-import { action_custom_service_model_show } from '../../../store/actions/customServiceAction';
-import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
 import Api from '../../../socket/platform/api';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
-import VectorIconBtn from '../../../components/IconBtn';
-import Variables from '../../../global/Variables';
 import ToastRoot from '../../../components/ToastRoot';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, PLATFORM_DOMAIN, SCREEN_BGCOLOR, DEVICE_WIDTH } from '../../../global/config';
 import NormalVerificationCode from '../../../components/NormalVerificationCode';
@@ -16,7 +11,7 @@ import ImageVerification from '../../../components/ImageVerification/index';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
-let reg = { accountInput: '', passwordInput: '', code: '', imageCode: '' };
+let reg = { passwordInput: '', code: '', imageCode: '' };
 export default class RegisterScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -29,47 +24,19 @@ export default class RegisterScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
-  constructor() {
-    super();
-    this._loginSuccess = this._loginSuccess.bind(this);
-    this._getbalancerateSuccess = this._getbalancerateSuccess.bind(this);
-  }
+
   state = {
-    isShowDialog: false
+    isShowDialog: false,
+    accountInput: ''
   }
   componentDidMount() {
     //this.props.navigation.setParams({ customService: this._customService });
   }
-  _customService = () => {
-    store.dispatch(action_custom_service_model_show());
-  }
-  _getbalancerateSuccess = (result) => {
-    store.dispatch(action_getbalancerate(result));
-    store.dispatch(action_login());
-    this.props.navigation.pop();
-  }
-  _loginSuccess = (result, code, message) => {
-    Variables.account.token = result.token;
-    Variables.account.secret = result.secret;
-    ToastRoot.show('登录成功');
-    //init account data
-    Api.getbalancerate(4, null, this._getbalancerateSuccess);
-  }
-  _loginFailed = (result, code, message) => {
-    ToastRoot.show(message);
-  }
-  _login = () => {
-    // Variables.account.mobileAccount = reg.accountInput.concat();
-    // Api.login(reg.accountInput, reg.passwordInput, this._loginSuccess, this._loginFailed);
-    this.setState({
-      isShowDialog: true
-    })
-  }
   _onConfirm = () => {
-    console.log(reg);//处理开户
     this.setState({
       isShowDialog: false
-    })
+    });
+    Api.sendMessageWithoutToken(this.state.accountInput, 1, reg.imageCode, this._getMessageSuccess, this._getMessageFailed);//此处修改 
   }
   _onCancel = () => {
     this.setState({
@@ -77,13 +44,23 @@ export default class RegisterScreen extends Component {
     })
   }
   _accountChange = (text) => {
-    reg.accountInput = text;
+    this.setState({
+      accountInput: text
+    });
   }
   _passwordChange = (text) => {
     reg.passwordInput = text;
   }
   _getMessageCode = () => {
-    Api.sendMessageWithToken(reg.accountInput, 1, this._getMessageSuccess);//此处修改 
+    this.setState({
+      isShowDialog: true
+    })
+  }
+  _getMessageSuccess = (e, code, message) => {
+    ToastRoot.show(message);
+  }
+  _getMessageFailed = (e, code, message) => {
+    ToastRoot.show(message);
   }
   _codeTextChange = (text) => {
     reg.code = text;
@@ -91,8 +68,19 @@ export default class RegisterScreen extends Component {
   _imageCodeChange = (text) => {
     reg.imageCode = text;
   }
+  _login = () => {
+    Api.register(this.state.accountInput, reg.passwordInput, reg.code, this._registerSuccess, this._registerFailed);
+    // resignter
+  }
+  _registerSuccess = (data, code, message) => {
+    ToastRoot.show('注册成功');
+    this.props.navigation.pop();
+  }
+  _registerFailed = (data, code, message) => {
+    ToastRoot.show(message);
+  }
   render() {
-    const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${reg.accountInput}`;
+    const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${this.state.accountInput}`;
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='手机' tips='请输入正确手机号码' />

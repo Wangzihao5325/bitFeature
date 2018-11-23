@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import store from '../../../../store/index';
 import { action_custom_service_model_show } from '../../../../store/actions/customServiceAction';
 import VectorIconBtn from '../../../../components/IconBtn';

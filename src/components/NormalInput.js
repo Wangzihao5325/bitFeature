@@ -37,7 +37,7 @@ export default class NormalInput extends Component {
 
     return (
       <View style={[styles.container, { ...this.props.style }]}>
-        <View style={[CommonStyles.innerLineCenterStyle, styles.inputContainer, { backgroundColor: NORMAL_BACKGROUNDCOLOR, borderRadius: 5 }]}>
+        <View style={[CommonStyles.innerLineCenterStyle, styles.inputContainer, { backgroundColor: NORMAL_BACKGROUNDCOLOR, borderRadius: 5 }, this.props.bgColorStyle]}>
           <View style={[CommonStyles.innerAbsCenterStyle, styles.headerTitleContainer]}>
             <Text style={{ fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.headerTitle}</Text>
           </View>
