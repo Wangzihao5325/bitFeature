@@ -273,6 +273,13 @@ class api {
     formData.append('bankId', bankId);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  setWithdrawPassword(bankId, onSuccess, onError) {
+    const url = '/user/withdraw/del_bank ';
+    let formData = new FormData();
+    formData.append('bankId', bankId);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();

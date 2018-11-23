@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import NormalInput from '../../../../components/NormalInput';
+import NormalBtn from '../../../../components/NormalBtn';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_TEXTCOLOR = '#FED330';
 const DARK_BGCOLOR = '#17191E';
 const NORMAL_TEXTCOLOR = '#7E829B';
+const HIGHLIGHT_BGCOLOR = '#FED330';
+
+let reg = { money: '', password: '' }
 class WithdrawCashScreen extends Component {
   static navigationOptions = {
     title: "提现",  //header标题
@@ -22,10 +26,16 @@ class WithdrawCashScreen extends Component {
     this.props.navigation.navigate('BindCardScreen');
   }
   _withDrawMoneyChanged = (text) => {
-
+    reg.money = text;
   }
   _passwordChanged = (text) => {
-
+    reg.password = text;
+  }
+  _onConfirm = () => {
+    console.log('with draw');
+  }
+  _setWithdrawPassword = () => {
+    console.log('set psd')
   }
   render() {
     return (
@@ -45,6 +55,15 @@ class WithdrawCashScreen extends Component {
         <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR, marginTop: 10 }}>
           <NormalInput secureTextEntry={false} onChangeText={this._withDrawMoneyChanged} style={{ marginTop: 20 }} headerTitle='提现金额' tips='' />
           <NormalInput secureTextEntry={true} onChangeText={this._passwordChanged} style={{ marginTop: 20 }} headerTitle='提现密码' tips='' />
+          <NormalBtn
+            disabled={false}
+            title='确认提现'
+            style={{ height: 45, width: DEVICE_WIDTH - 20, backgroundColor: HIGHLIGHT_BGCOLOR, alignSelf: 'center', marginTop: 40 }}
+            titleStyle={{ color: 'black' }}
+            unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}
+            onPress={this._onConfirm}
+          />
+          <Text onPress={this._setWithdrawPassword} style={{ marginTop: 10, color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>设置／修改提现密码</Text>
         </View>
       </View>
     );
