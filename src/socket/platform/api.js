@@ -281,6 +281,23 @@ class api {
     formData.append('code', code);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getWithdrawFee(money, onSuccess, onError) {
+    const url = '/user/withdraw/drawFee';
+    let formData = new FormData();
+    formData.append('money', money);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  handleWithdraw(bank, card, money, withdrawPwd, onSuccess, onError) {
+    const url = '/user/withdraw/handle';
+    let formData = new FormData();
+    formData.append('bank', bank);
+    formData.append('card', card);
+    formData.append('money', money);
+    formData.append('withdrawPwd', withdrawPwd);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
