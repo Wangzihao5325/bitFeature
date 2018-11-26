@@ -58,7 +58,8 @@ class Item extends Component {
     let currencyRate = cache.get(currencyNo).currencyRate;
     let last = this.props.market[contractCode].last;
     let floatValue = this.props.value.floatProfit(last);
-    let floatShow = floatValue.value * currencyRate;
+    // let floatShow = floatValue.value * currencyRate;      //以人民币作为结算
+    let floatShow = floatValue.value;                        //以合约本身币种作为结算
     let floatColor = floatShow >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
     return (
       <View>
