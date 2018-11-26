@@ -39,8 +39,8 @@ class Item extends Component {
     let contractCode = this.props.item.productName;
     let contractName = contractMap2Config[contractCode].fullName;
     let direction = this.props.item.direction;
-    let directionText = direction === 0 ? '多' : '空';
-    let directionColor = direction === 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
+    let directionText = direction.text;
+    let directionColor = direction.color;
     let orderPrice = this.props.item.orderPrice;
     let dotSize = contractMap2Config[contractCode].dotSize;
     let orderNum = this.props.item.orderNum;
