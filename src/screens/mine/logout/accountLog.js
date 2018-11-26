@@ -94,7 +94,7 @@ export default class AccountLogScreen extends Component {
         <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='密码' tips='密码由6-16位数字和字母组成' />
         <NormalBtn
           disabled={false}
-          title='登陆'
+          title='登录'
           style={{ height: 45, width: DEVICE_WIDTH - 20, backgroundColor: HIGHLIGHT_BGCOLOR, alignSelf: 'center', marginTop: 40 }}
           titleStyle={{ color: 'black' }}
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}

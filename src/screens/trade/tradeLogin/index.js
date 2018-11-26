@@ -38,7 +38,7 @@ export default class TradeAccountLogScreen extends Component {
   }
   _login_failed = () => {
     console.log('failed!!');
-   }
+  }
   _login = () => {
     TradeSocket.connectSocket(TRADE_DOMAIN.url, reg.accountInput, reg.passwordInput, this._login_success, this._login_failed);
   }
@@ -58,7 +58,7 @@ export default class TradeAccountLogScreen extends Component {
         <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='交易密码' tips='请输入正确交易密码' />
         <NormalBtn
           disabled={false}
-          title='交易登陆'
+          title='交易登录'
           style={{ height: 45, width: DEVICE_WIDTH - 20, backgroundColor: HIGHLIGHT_BGCOLOR, alignSelf: 'center', marginTop: 40 }}
           titleStyle={{ color: 'black' }}
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}

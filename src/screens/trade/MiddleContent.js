@@ -20,7 +20,7 @@ export default class MiddleContent extends Component {
       const { tradeNavigation } = this.context;
       tradeNavigation.navigate('OpenTradeAccountScreen');
     } else {
-      ToastRoot.show('请先行登陆平台账号，再进行开户操作');
+      ToastRoot.show('请先行登录平台账号，再进行开户操作');
     }
   }
   _tradeAccountLogin = () => {
@@ -37,7 +37,7 @@ export default class MiddleContent extends Component {
           style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
         />
         <NormalBtn
-          title={'已经开户,直接登陆'}
+          title={'已经开户,直接登录'}
           onPress={this._tradeAccountLogin}
           titleStyle={{ color: 'black' }}
           style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
