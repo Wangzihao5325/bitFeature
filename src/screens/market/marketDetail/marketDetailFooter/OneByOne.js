@@ -27,6 +27,9 @@ class Item extends Component {
 }
 let dataList = [];
 class OneByOne extends Component {
+  componentWillUnmount() {
+    dataList.length = 0;
+  }
   render() {
     let dataArr = null;
     let dataObj = this.props.marketStore[this.props.nowDetail];

@@ -1897,6 +1897,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.bitFeature;
 				PRODUCT_NAME = bitFeature;
 				SWIFT_OBJC_BRIDGING_HEADER = "charts/bitFeature-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1920,6 +1921,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.bitFeature;
 				PRODUCT_NAME = bitFeature;
 				SWIFT_OBJC_BRIDGING_HEADER = "charts/bitFeature-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
