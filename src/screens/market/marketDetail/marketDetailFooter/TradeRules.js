@@ -24,8 +24,17 @@ class TradeRules extends Component {
     miniTikeSize: '',
     fee: '',
     time: '',
+    startTime: '--',
+    endTime: '--'
   };
   getRulesSuccess = (e) => {
+    let startTime = '--';
+    let endTime = '--';
+    if (e.tradingTimeSeg) {
+      let timeStrArr = e.tradingTimeSeg;
+      startTime = JSON.parse(timeStrArr[0]).TimeBucketBeginTime;
+      endTime = JSON.parse(timeStrArr[1]).TimeBucketBeginTime;
+    }
     this.setState({
       commodityName: e.commodityName,
       currencyNo: e.currencyNo,
@@ -33,6 +42,8 @@ class TradeRules extends Component {
       miniTikeSize: e.miniTikeSize,
       fee: e.fee,
       time: '8:00',
+      startTime: startTime,
+      endTime: endTime
     });
   }
   componentDidMount() {
@@ -49,9 +60,9 @@ class TradeRules extends Component {
           <Item title='交易单位' contant={this.state.contractSize} bgColor={LIGHT_BGCOLOR} />
           <Item title='波动盈亏' contant={this.state.miniTikeSize} />
           <Item title='交易综合费用' contant={this.state.fee} bgColor={LIGHT_BGCOLOR} />
-          <Item title='买入交易时间' contant={this.state.time} />
-          <Item title='卖出交易时间' contant={this.state.time} bgColor={LIGHT_BGCOLOR} />
-          <Item title='清仓时间' contant={this.state.time} />
+          <Item title='买入交易时间' contant={`${this.state.startTime}-第二日${this.state.endTime}`} />
+          <Item title='卖出交易时间' contant={`${this.state.startTime}-第二日${this.state.endTime}`} bgColor={LIGHT_BGCOLOR} />
+          <Item title='清仓时间' contant={`第二日${this.state.endTime}`} />
         </ScrollView>
       </View>
     );
