@@ -26,14 +26,7 @@ export default class TradeAccountLogScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
-  // componentDidMount() {
-  //   this.props.navigation.setParams({ customService: this._customService });
-  // }
-  // _customService = () => {
-  //   store.dispatch(action_custom_service_model_show());
-  // }
   _login_success = (e) => {
-    //console.log(e);
     this.props.navigation.pop();
   }
   _login_failed = () => {
