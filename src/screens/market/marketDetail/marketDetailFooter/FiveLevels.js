@@ -39,6 +39,16 @@ class Header extends Component {
   }
 }
 class FiveLevels extends Component {
+  state = {
+    type: true
+  }
+  componentDidMount() {
+    let featureType = contractMap2Config[this.props.nowDetail].structure.security_type;
+    let boolType = featureType === 'FO' ? true : false;
+    this.setState({
+      type: boolType
+    });
+  }
   render() {
     let dataObj = this.props.marketStore[this.props.nowDetail];
     let ask1 = dataObj.ask1;
@@ -58,10 +68,10 @@ class FiveLevels extends Component {
         <ScrollView>
           <Header askSum={askSum} bidSum={bidSum} />
           <Item index={1} askPrice={ask1[0]} askVol={ask1[1]} bidPrice={bid1[0]} bidVol={bid1[1]} />
-          <Item index={2} askPrice={ask2[0]} askVol={ask2[1]} bidPrice={bid2[0]} bidVol={bid2[1]} />
-          <Item index={3} askPrice={ask3[0]} askVol={ask3[1]} bidPrice={bid3[0]} bidVol={bid3[1]} />
-          <Item index={4} askPrice={ask4[0]} askVol={ask4[1]} bidPrice={bid4[0]} bidVol={bid4[1]} />
-          <Item index={5} askPrice={ask5[0]} askVol={ask5[1]} bidPrice={bid5[0]} bidVol={bid5[1]} />
+          {this.state.type && <Item index={2} askPrice={ask2[0]} askVol={ask2[1]} bidPrice={bid2[0]} bidVol={bid2[1]} />}
+          {this.state.type && <Item index={3} askPrice={ask3[0]} askVol={ask3[1]} bidPrice={bid3[0]} bidVol={bid3[1]} />}
+          {this.state.type && <Item index={4} askPrice={ask4[0]} askVol={ask4[1]} bidPrice={bid4[0]} bidVol={bid4[1]} />}
+          {this.state.type && <Item index={5} askPrice={ask5[0]} askVol={ask5[1]} bidPrice={bid5[0]} bidVol={bid5[1]} />}
         </ScrollView>
       </View>
     );
