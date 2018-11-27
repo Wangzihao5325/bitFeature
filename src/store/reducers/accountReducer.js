@@ -23,7 +23,7 @@ const reducer = (state = initialState, action) => {
     case types.LOG_OUT:
       return {
         ...state,
-        isLogin: false,
+        ...initialState
       };
     case types.GET_ACCOUNT_INFO:
       return {
