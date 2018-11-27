@@ -45,8 +45,8 @@ class OpenTradeAccountScreen extends Component {
     let tranAccount = e.tranAccount;
     let tranPassword = e.tranPassword;
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
-    ToastRoot.show(`开户成功,账号:${tranAccount},密码:${tranPassword}`);
-    this.props.navigation.pop();
+    ToastRoot.show(`开户成功`);
+    this.props.navigation.replace('ApplyTradeAccountSuccessScreen', { tranAccount: tranAccount, tranPassword: tranPassword });
   }
   _getbalancerateSuccess = (result) => {
     store.dispatch(action_getbalancerate(result));

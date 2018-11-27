@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import TradeSocket from '../../../socket/tradeSocket/index';
-import store from '../../../store/index';
-import { action_custom_service_model_show } from '../../../store/actions/customServiceAction';
-import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
-import Api from '../../../socket/platform/api';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
-import VectorIconBtn from '../../../components/IconBtn';
-import Variables from '../../../global/Variables';
-import ToastRoot from '../../../components/ToastRoot';
-import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, BTN_BGCOLOR_RED, SCREEN_BGCOLOR, DEVICE_WIDTH, TRADE_DOMAIN } from '../../../global/config';
+import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, TRADE_DOMAIN } from '../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
