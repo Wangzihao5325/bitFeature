@@ -41,9 +41,11 @@ class ItemContent extends Component {
   }
   render() {
     const { item } = this.context;
+    let importance = item.importance;
+    let textColor = importance === '3' ? 'red' : 'white';
     return (
       <View style={{ height: 60, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR, display: 'flex', flexDirection: 'row', alignItems: 'center', borderBottomColor: DARK_BGCOLOR, borderTopColor: DARK_BGCOLOR, borderBottomWidth: 1, borderTopWidth: 1 }}>
-        <Text style={{ color: 'white' }}>{item.title}</Text>
+        <Text style={{ color: textColor, marginLeft: 5 }}>{item.title}</Text>
       </View>
     );
   }

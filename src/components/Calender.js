@@ -87,9 +87,11 @@ export default class Calender extends Component {
   }
   render() {
     let nowDate = this.state.dateArr[3].data;
+    let year = nowDate.getFullYear();
+    let month = nowDate.getMonth() + 1;
     return (
       <View style={{ height: 70, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: 'black', borderBottomWidth: 1 }}>
-        <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>{nowDate.toDateString()}</Text></View>
+        <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>{`- ${year}年${month}月 -`}</Text></View>
         <View style={{ height: 40, width: DEVICE_WIDTH }}>
           <FlatList
             keyExtractor={(item, index) => index.toString()}
