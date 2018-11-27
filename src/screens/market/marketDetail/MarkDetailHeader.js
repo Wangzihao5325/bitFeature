@@ -50,14 +50,14 @@ class MarketDetailHeader extends Component {
     let volume = dataObj.volume ? dataObj.volume : 0;
     let position = dataObj.position ? dataObj.position : 0;
     let lastVolume = dataObj.last_volume ? dataObj.last_volume : 0;
-    let time = dataObj.time ? dataObj.time : '';
+    let time = dataObj.time ? dataObj.time.split('.')[0] : '';
     let open = dataObj.open ? dataObj.open : 0;
     return (
       <View style={{ width: DEVICE_WIDTH, display: 'flex', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ height: doubleHeight, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderBottomWidth: 1, borderBottomColor: '#17191E' }}>
           <View style={{ height: doubleHeight, width: halfWidth, borderRightWidth: 1, borderRightColor: '#17191E' }}>
             {/*最新价*/}
-            <View style={{ height: lineHeight, width: halfWidth, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: color,fontSize:24 }}>{priceText}</Text></View>
+            <View style={{ height: lineHeight, width: halfWidth, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: color, fontSize: 24 }}>{priceText}</Text></View>
             {/*涨跌&&时间*/}
             <View style={{ height: lineHeight, width: halfWidth }}>
               <View style={{ flex: 1, flexDirection: 'row' }}>
