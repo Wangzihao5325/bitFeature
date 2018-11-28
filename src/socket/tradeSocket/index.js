@@ -120,6 +120,9 @@ class TradeSocket {
         case 'OnRtnHoldTotal':                                 //更新持仓
           this.manageHold(data);
           break;
+        case 'OnRtnMoney':                                 //更新持仓
+          this.updateAccountInfo(data);
+          break;
       }
     }
   }
@@ -206,32 +209,36 @@ class TradeSocket {
 
     const balance = todayAmount;
     const canUse = balance - deposit - frozenMoney;
+    const closeProfit = rtnData.Parameters.CloseProfit;
     // 有時候後端傳回來的資料會有undefined, null...，這時候放棄此筆資料
     if (isNaN(balance) || isNaN(canUse) || isNaN(deposit)) {
       return;
     }
     // 只有第一次updateAccountMoney會傳currentRate，之後沒傳
     if (cache.has(currencyNo)) {
-      const existCache = this.cache.get(currencyNo);
+      const existCache = cache.get(currencyNo);
       existCache.balance = balance;
       existCache.canUse = canUse;
       existCache.deposit = deposit;
+      existCache.closeProfit = closeProfit;
       cache.set(currencyNo, existCache);
     } else {
-      cache.set(currencyNo, new Cache(currencyRate, balance, canUse, deposit));
+      cache.set(currencyNo, new Cache(currencyRate, balance, canUse, deposit, closeProfit));
     }
     // 每一次都重新匯總
     let balanceReg = 0;
     let canUseReg = 0;
     let depositReg = 0;
+    let closeProfitReg = 0;
     // iterate c: [key, value]
     for (const c of cache) {
       const value = c[1];
       balanceReg = balanceReg + (value.balance * value.currencyRate);
       canUseReg = canUseReg + (value.canUse * value.currencyRate);
       depositReg = depositReg + (value.deposit * value.currencyRate);
+      closeProfitReg = closeProfitReg + (value.closeProfit * value.currencyRate);
     }
-    store.dispatch(trade_socket_queryAccount(balanceReg, canUseReg, depositReg));
+    store.dispatch(trade_socket_queryAccount(balanceReg, canUseReg, depositReg, closeProfitReg));
   }
   loginRtn(rtnData, onSuccess, onFailed) {
     ToastRoot.show(rtnData.Parameters.Message);

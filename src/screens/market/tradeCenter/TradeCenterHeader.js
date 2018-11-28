@@ -36,6 +36,8 @@ class TradeCenterHeader extends Component {
     // this.props.holdPositions.forEach(this.totalFloat);
     _.mapValues(this.props.holdPositions, this.totalFloat);
     let totalColor = TOTALFLOAT >= 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
+    let closeProfit = this.props.closeProfit.toFixed(2);
+    let closeProfitColor = closeProfit > 0 ? 'rgb(216, 92, 97)' : 'rgb(89, 165, 87)';
     let risk = this.riskText(TOTALFLOAT);
     let defalutContract = this.props.contractCode;
     let fullName = contractMap2Config[defalutContract].fullName;
@@ -46,7 +48,7 @@ class TradeCenterHeader extends Component {
         <View style={{ height: 50, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: LIGHT_BGCOLOR }}>
           <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>总资产</Text><Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>{this.props.balance.toFixed(0)}</Text></View>
           <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>持仓盈亏</Text><Text style={{ color: totalColor }}>{TOTALFLOAT.toFixed(2)}</Text></View>
-          <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>平仓盈亏</Text><Text>无效</Text></View>
+          <View style={{ flex: 2, justifyContent: 'space-around', alignItems: 'center', borderRightColor: 'black', borderRightWidth: 1 }}><Text style={{ color: 'white' }}>平仓盈亏</Text><Text style={{ color: closeProfitColor }}>{closeProfit}</Text></View>
           <View style={{ flex: 3, justifyContent: 'space-around', alignItems: 'center' }}><Text style={{ color: 'white' }}>{`平仓线:${this.props.forceLine}`}</Text><Text style={{ color: 'white' }}>{`风险度:${risk}`}</Text></View>
         </View>
         <View style={{ height: 50, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
@@ -70,6 +72,7 @@ function mapState2Props(store) {
     forceLine: store.nowTradeAccount.forceLine,
     initBalance: store.nowTradeAccount.initBalance,
     balance: store.nowTradeAccount.balance,
+    closeProfit: store.nowTradeAccount.closeProfit,
     market: store.market
   }
 }
