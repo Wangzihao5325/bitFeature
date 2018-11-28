@@ -28,7 +28,6 @@ export default class InnerDeatil extends Component {
   componentDidMount() {
     const accountInfoJsonStr = this.props.navigation.getParam('tranAccount', 'undefine_tranAccount');
     let accountInfoObj = JSON.parse(accountInfoJsonStr);
-    console.log(accountInfoObj);
     this.setState({
       accountData: accountInfoObj
     })
