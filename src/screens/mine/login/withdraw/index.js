@@ -67,6 +67,9 @@ class WithdrawCashScreen extends Component {
     })
   }
   _onConfirm = () => {
+    this.setState({
+      isShow: false
+    })
     Api.getBindedBankCard(this._getBindCardSuccess, this._getBindCardFailed)
   }
   _getBindCardSuccess = (e, code, message) => {
