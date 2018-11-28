@@ -28,7 +28,7 @@ export default class ChangePasswordScreen extends Component {
     Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess)
   }
   _changePasswordSuccess = () => {
-    ToastRoot.show('更换密码成功,请重新登陆');
+    ToastRoot.show('更换密码成功,请重新登录');
     this.props.navigation.pop();
     store.dispatch({ type: types.LOG_OUT });
   }
