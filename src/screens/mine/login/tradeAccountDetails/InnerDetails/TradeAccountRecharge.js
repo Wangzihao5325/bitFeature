@@ -51,7 +51,11 @@ class TradeAccountRecharge extends Component {
     this.props.navigation.navigate('RechargeScreen');
   }
   _recharge = () => {
-    Api.tradeAccountRecharge(reg.id, reg.money, this._rechargeSuccess)
+    if (reg.money < 500) {
+      ToastRoot.show('追加金额最少为500元!');
+    } else {
+      Api.tradeAccountRecharge(reg.id, reg.money, this._rechargeSuccess);
+    }
   }
   _rechargeSuccess = (data, code, message) => {
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
@@ -95,6 +99,7 @@ class TradeAccountRecharge extends Component {
         </View>
         {/*立即充值按钮*/}
         <NormalBtn title={'立即追加'} style={{ backgroundColor: HIGHLIGHT_TEXTCOLOR, height: 45, width: DEVICE_WIDTH - 20, alignSelf: 'center', marginTop: 30 }} titleStyle={{ color: 'black' }} onPress={this._recharge} />
+        <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 20, alignSelf: 'center' }}>追加金额最少为500元</Text>
       </View>
     );
   }
