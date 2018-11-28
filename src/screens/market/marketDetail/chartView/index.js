@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { NavigationEvents } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import UsualTabBar from '../../../../components/NormalTabBar';
 import { connect } from 'react-redux';
 import store from './../../../../store/index';
@@ -25,9 +25,20 @@ class MarketChartView extends Component {
     // store.dispatch(action_startLightningStore(name));//开启闪电图
   }
   componentWillUnmount() {
-    store.dispatch({ type: types.LIGHTNING_STORE_RESET });
-    store.dispatch({ type: types.TIME_STORE_RESET });
-    store.dispatch({ type: types.K_STORE_RESET });
+    let parent = this.props.navigation.dangerouslyGetParent();
+    let routers = parent.state.routes;
+    if (this.props.navigation.state.routeName === 'TradeCenter' &&
+      routers[routers.length - 1].routeName === 'MarketDetailScreen') {
+      //do nothing 处理页面跳转时chart加载不出的问题
+      //在willmount调用的时候，该页面已经从routers中被删掉了
+    } else {
+      store.dispatch({ type: types.LIGHTNING_STORE_RESET });
+      store.dispatch({ type: types.TIME_STORE_RESET });
+      store.dispatch({ type: types.K_STORE_RESET });
+      store.dispatch({ type: types.TIME_STORE_CLEAR_DATA });
+      store.dispatch({ type: types.TIME_STORE_CLEAR_DATA });
+      store.dispatch(market_chart_view_screen_change('分时'));
+    }
   }
   chartChange = (keyValue, oldValue) => {
     if (oldValue === '闪电') {
@@ -69,9 +80,10 @@ class MarketChartView extends Component {
     }
   }
   render() {
+    let highlightIndex = TAB_ARR.indexOf(this.props.nowChart);
     return (
       <View>
-        <UsualTabBar tabNames={TAB_ARR} defalutHighlight={this.defalutHighlight} tabTap={this.chartChange} />
+        <UsualTabBar tabNames={TAB_ARR} defalutHighlight={this.defalutHighlight} highLight={highlightIndex} tabTap={this.chartChange} />
         {this.props.nowChart === '闪电' && <LightningView />}
         {this.props.nowChart === '分时' && <TimeView />}
         {this.props.nowChart === '日k' && <KView />}
@@ -96,4 +108,4 @@ function mapState2Props(store) {
   }
 }
 
-export default connect(mapState2Props)(MarketChartView);
+export default withNavigation(connect(mapState2Props)(MarketChartView));
