@@ -55,6 +55,10 @@ class OpenTradeAccountScreen extends Component {
     let chooseNum = parseInt(this.props.choose);
     Api.payApplyTrade(chooseNum, this._openSuccess);
   }
+  _seeProtocol = () => {
+    //查看操盘合作协议
+    this.props.navigation.navigate('TradeProtocol');
+  }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
@@ -87,7 +91,7 @@ class OpenTradeAccountScreen extends Component {
             style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
           />
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10 }}>提交申请表表示阅读并同意</Text>
-          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }}>《国际期货操盘合作协议》</Text>
+          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }} onPress={this._seeProtocol}>《国际期货操盘合作协议》</Text>
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 5 }}>客服热线：400-852-8008</Text>
         </View>
       </View>
