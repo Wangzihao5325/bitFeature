@@ -91,7 +91,7 @@ class OpenTradeAccountScreen extends Component {
             style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
           />
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10 }}>提交申请表表示阅读并同意</Text>
-          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }} onPress={this._seeProtocol}>《国际期货操盘合作协议》</Text>
+          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }} onPress={this._seeProtocol}>《期货操盘合作协议》</Text>
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 5 }}>客服热线：400-852-8008</Text>
         </View>
       </View>

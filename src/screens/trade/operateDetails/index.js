@@ -5,7 +5,7 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../global/conf
 export default class OperateDetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: '国际综合操盘细则',  //header标题
+      title: '综合操盘细则',  //header标题
       headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav     
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
@@ -23,7 +23,7 @@ export default class OperateDetailsScreen extends Component {
         </View>
         <View><Text>操盘合约</Text></View>
         <View>
-          <Text>克同时操盘17种国际期货的当前主力合约，分别为：富时A50、恒指期货、国际原油、迷你纳指、迷你道指、迷你标普、德国DAX、日经225、小恒指、美黄金、H股指数、小H股指数、美铜、美白银、小原油、迷你德国DAX指数、天然气。</Text>
+          <Text>克同时操盘17种期货的当前主力合约，分别为：富时A50、恒指期货、国际原油、迷你纳指、迷你道指、迷你标普、德国DAX、日经225、小恒指、美黄金、H股指数、小H股指数、美铜、美白银、小原油、迷你德国DAX指数、天然气。</Text>
         </View>
         <View><Text>交易时间</Text></View>
         <View>
