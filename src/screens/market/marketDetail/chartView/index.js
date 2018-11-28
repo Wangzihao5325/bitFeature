@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import UsualTabBar from '../../../../components/NormalTabBar';
 import { connect } from 'react-redux';
 import store from './../../../../store/index';
@@ -11,7 +12,13 @@ import TimeView from './TimeView';
 import marketSocket from './../../../../socket/marketSocket/index';
 import { action_startLightningStore } from '../../../../store/actions/chartActions/LightningAction';
 import { classifyContractMap } from '../../../../global/commodity_list';
+
+const TAB_ARR = ['闪电', '分时', '日k', '1分', '5分', '15分', '30分', '1小时', '2小时', '4小时', '12小时'];
 class MarketChartView extends Component {
+  constructor(props) {
+    super(props);
+    this.defalutHighlight = TAB_ARR.indexOf(props.nowChart);
+  }
   componentDidMount() {
     this.name = this.props.nowContract ? this.props.nowContract : classifyContractMap[(this.props.classifyPage === '自选' ? '商品' : this.props.classifyPage)][0];
     marketSocket.getHistoryData(this.name, 0);//1查询k线数据 0时序图
@@ -64,7 +71,7 @@ class MarketChartView extends Component {
   render() {
     return (
       <View>
-        <UsualTabBar tabNames={['闪电', '分时', '日k', '1分', '5分', '15分', '30分', '1小时', '2小时', '4小时', '12小时']} tabTap={this.chartChange} />
+        <UsualTabBar tabNames={TAB_ARR} defalutHighlight={this.defalutHighlight} tabTap={this.chartChange} />
         {this.props.nowChart === '闪电' && <LightningView />}
         {this.props.nowChart === '分时' && <TimeView />}
         {this.props.nowChart === '日k' && <KView />}

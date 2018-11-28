@@ -81,9 +81,15 @@ export default class UsualTabBar extends Component {
     this.props = props;
     // this.tabNames = props.tabNames;
     // this.tabCount = this.tabNames.length;
-    this.state = {
-      HighlightIndex: 1
-    };
+    if (props.defalutHighlight) {
+      this.state = {
+        HighlightIndex: props.defalutHighlight
+      };
+    } else {
+      this.state = {
+        HighlightIndex: 1
+      };
+    }
   }
   static defaultProps = {
     isDefault: true
