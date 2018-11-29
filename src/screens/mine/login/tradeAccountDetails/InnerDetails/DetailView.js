@@ -78,13 +78,11 @@ export default class DetailView extends Component {
       <View style={{ flex: 1, backgroundColor: DARK_BGCOLOR }}>
         <Item style={{ marginTop: 0 }} headerText='投资标的' contentText='所有可交易合约' />
         <Item headerText='交易时间' contentText='9:05-23:55 不同期货不同交易时间段' />
-        {/* <Item style={{ marginTop: 10 }} headerText='操盘账户' contentText={tradeAccount} /> */}
         <BtnItem style={{ marginTop: 10 }} headerText='操盘账户' contentText={tradeAccount} btnText='立即操盘' btnPress={this._goTrade} />
         <Item style={{ marginBottom: 10 }} headerText='操盘密码' contentText={password} />
         <Item headerText='方案申请时间' contentText={appTime} />
         <Item headerText='最大持仓手数' contentText='参考初级可持仓手数' />
         <Item headerText='交易保证金' contentText={traderBond} />
-        {/* <Item headerText='追加保证金' contentText={appendTraderBond} /> */}
         <BtnItem headerText='追加保证金' contentText={appendTraderBond} btnText='追加资金' btnPress={this._tradeAccountRecharge} />
         <Item headerText='总操盘资金' contentText={traderTotal} />
         <Item headerText='亏损平仓线' contentText={lineLoss} />

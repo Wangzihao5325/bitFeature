@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import TradeSocket from '../../../socket/tradeSocket/index';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
+import ToastRoot from '../../../components/ToastRoot';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, TRADE_DOMAIN } from '../../../global/config';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -23,7 +24,7 @@ export default class TradeAccountLogScreen extends Component {
     this.props.navigation.pop();
   }
   _login_failed = () => {
-    console.log('failed!!');
+    ToastRoot.show('交易账号登录失败');
   }
   _login = () => {
     TradeSocket.connectSocket(TRADE_DOMAIN.url, reg.accountInput, reg.passwordInput, this._login_success, this._login_failed);
