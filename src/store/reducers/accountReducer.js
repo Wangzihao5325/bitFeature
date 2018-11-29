@@ -1,4 +1,5 @@
 import * as types from '../actionType';
+import { AsyncStorage } from 'react-native';
 
 const initialState = {
   isLogin: false,
@@ -21,6 +22,8 @@ const reducer = (state = initialState, action) => {
         isLogin: true,
       };
     case types.LOG_OUT:
+      AsyncStorage.removeItem('PlatformAccount');
+      AsyncStorage.removeItem('PlatformPassword');
       return {
         ...state,
         ...initialState
