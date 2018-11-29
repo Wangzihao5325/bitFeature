@@ -17,7 +17,7 @@ const initialState = {
   designates: [],             //挂单
   deals: [],                  //成交
   holdPositions: {},   //持仓
-  nowList: '挂单',
+  nowList: '持仓',
 }
 
 const reducer = (state = initialState, action) => {
