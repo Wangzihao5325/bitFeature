@@ -25,12 +25,15 @@ export default class ChangePasswordScreen extends Component {
     headerTintColor: HEADER_TINT_COLOR
   };
   _changePassword = () => {
-    Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess)
+    Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess, this._changePasswordFailed)
   }
   _changePasswordSuccess = () => {
     ToastRoot.show('更换密码成功,请重新登录');
     this.props.navigation.pop();
     store.dispatch({ type: types.LOG_OUT });
+  }
+  _changePasswordFailed = (data, code, message) => {
+    ToastRoot.show(message);
   }
   _getMessageCode = () => {
     Api.sendMessageWithToken(Variables.account.mobileAccount, 1, this._getMessageSuccess);
