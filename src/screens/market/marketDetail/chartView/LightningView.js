@@ -192,14 +192,14 @@ class LightningView extends Component {
 
           animation={{ durationX: 0 }}
 
-          touchEnabled={true}
-          dragEnabled={true}
+          touchEnabled={false}
+          dragEnabled={false}
           scaleEnabled={false}
           scaleXEnabled={false}
           scaleYEnabled={false}
           pinchZoom={false}
           doubleTapToZoomEnabled={false}
-          dragDecelerationEnabled={true}
+          dragDecelerationEnabled={false}
           dragDecelerationFrictionCoef={0.99}
           keepPositionOnRotation={false}
         />
