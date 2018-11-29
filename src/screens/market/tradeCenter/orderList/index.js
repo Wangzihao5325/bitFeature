@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../../global/config';
 import { contractMap2Config } from '../../../../global/commodity_list';
@@ -20,15 +20,31 @@ class Item extends Component {
     let cdNum = this.props.item.cdNum;
     let insertDateTime = this.props.item.insertDateTime;
     return (
-      <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderStatus}</Text></View>
+      <View style={{ height: 30, width: 700, display: 'flex', flexDirection: 'row' }}>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderStatus}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderPrice}</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderPrice}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{orderNum}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{tradeNum}</Text></View>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{cdNum}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{insertDateTime}</Text></View>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{insertDateTime}</Text></View>
+      </View>
+    );
+  }
+}
+class Header extends Component {
+  render() {
+    return (
+      <View style={{ height: 30, width: 700, display: 'flex', flexDirection: 'row' }}>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>合约</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>状态</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>多空</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>委托价</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>委托量</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>已成交</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>已撤单</Text></View>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>下单时间</Text></View>
       </View>
     );
   }
@@ -37,20 +53,20 @@ class OrderList extends Component {
   render() {
     return (
       <View style={{ width: DEVICE_WIDTH, height: 150, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
-        <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>合约</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>状态</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>多空</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>委托价</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>委托量</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>已成交</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>已撤单</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>下单时间</Text></View>
-        </View>
-        {this.props.orders.length > 0 && <FlatList
-          data={this.props.orders}
-          renderItem={({ item }) => <Item item={item} />}
-        />}
+        <ScrollView
+          contentContainerStyle={{ width: 700 }}
+          horizontal={true}
+          directionalLockEnabled={false}
+          nestedScrollEnabled={true}
+        >
+          <View>
+            <Header />
+            {this.props.orders.length > 0 && <FlatList
+              data={this.props.orders}
+              renderItem={({ item }) => <Item item={item} />}
+            />}
+          </View>
+        </ScrollView>
       </View>
     );
   }
