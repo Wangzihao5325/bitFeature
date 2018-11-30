@@ -48,26 +48,36 @@ export default class News extends Component {
     Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getNewsSuccess);
   }
   _getNewsSuccess = (rtnData) => {
-    let dataArr = rtnData.data;
-    this.setState({
-      dataArr: dataArr
-    })
+    if (rtnData.data) {
+      let dataArr = rtnData.data;
+      this.setState({
+        dataArr: dataArr
+      })
+    } else {
+      this.setState({
+        dataArr: []
+      })
+    }
   }
   _getOlderNewsSuccess = (rtnData) => {
-    let olderDataArr = rtnData.data;
-    this.setState(function (preState, props) {
-      let dataArr = preState.dataArr;
-      let newDataArr = dataArr.concat(olderDataArr);
-      return {
-        dataArr: newDataArr
-      }
-    })
+    if (rtnData.data) {
+      let olderDataArr = rtnData.data;
+      this.setState(function (preState, props) {
+        let dataArr = preState.dataArr;
+        let newDataArr = dataArr.concat(olderDataArr);
+        return {
+          dataArr: newDataArr
+        }
+      });
+    }
   }
   _flatListRefresh = () => {
+    console.log('1111111111');
     pageIndex = 0;
     Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getNewsSuccess);
   }
   _getOlderNews = () => {
+    console.log('2222222222');
     pageIndex = pageIndex + 1;
     Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getOlderNewsSuccess);
   }
