@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text, TouchableHighlight } from 'react-native';
+import { View, FlatList, ScrollView, Text, TouchableHighlight } from 'react-native';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../../../global/config';
@@ -64,21 +64,34 @@ class Item extends Component {
     return (
       <View>
         <TouchableHighlight onPress={this._btnClick}>
-          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
+          <View style={{ height: 30, width: 400, display: 'flex', flexDirection: 'row' }}>
+            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{directionText}</Text></View>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdNum}</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdAvgPrice}</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: floatColor }}>{floatShow.toFixed(dotSize)}</Text></View>
+            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{this.props.holdAvgPrice}</Text></View>
+            <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: floatColor }}>{floatShow.toFixed(dotSize)}</Text></View>
           </View>
         </TouchableHighlight>
         {this.state.isBtnShow &&
-          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: DARK_BGCOLOR }}>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._sellout}>平仓</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._changeDir}>反手</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._stopLoss}>止盈止损</Text></View>
+          <View style={{ height: 30, width: 400, display: 'flex', flexDirection: 'row', backgroundColor: DARK_BGCOLOR }}>
+            <View style={{ height: 30, width: DEVICE_WIDTH / 3, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._sellout}>平仓</Text></View>
+            <View style={{ height: 30, width: DEVICE_WIDTH / 3, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._changeDir}>反手</Text></View>
+            <View style={{ height: 30, width: DEVICE_WIDTH / 3, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._stopLoss}>止盈止损</Text></View>
           </View>
         }
+      </View>
+    );
+  }
+}
+class Header extends Component {
+  render() {
+    return (
+      <View style={{ height: 30, width: 400, display: 'flex', flexDirection: 'row' }}>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>合约名称</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>多空</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>手数</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>持仓均价</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>浮动盈亏</Text></View>
       </View>
     );
   }
@@ -95,17 +108,20 @@ class HoldPositionList extends Component {
     // });
     return (
       <View style={{ width: DEVICE_WIDTH, height: 150, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
-        <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>合约名称</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>多空</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>手数</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>持仓均价</Text></View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>浮动盈亏</Text></View>
-        </View>
-        {dataArr.length > 0 && <FlatList
-          data={dataArr}
-          renderItem={({ item }) => <Item value={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
-        />}
+        <ScrollView
+          contentContainerStyle={{ width: 400 }}
+          horizontal={true}
+          directionalLockEnabled={false}
+          nestedScrollEnabled={true}
+        >
+          <View>
+            <Header />
+            {dataArr.length > 0 && <FlatList
+              data={dataArr}
+              renderItem={({ item }) => <Item value={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
+            />}
+          </View>
+        </ScrollView>
       </View>
     );
   }
