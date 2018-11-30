@@ -16,12 +16,25 @@ class Item extends Component {
     let num = this.props.item.tradeNum;
     let time = this.props.item.tradeTime;
     return (
-      <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-        <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
-        <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{direction}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{price}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{num}</Text></View>
-        <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{time}</Text></View>
+      <View style={{ height: 30, width: 550, display: 'flex', flexDirection: 'row' }}>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{contractName}</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: directionColor }}>{direction}</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{price}</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{num}</Text></View>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{time}</Text></View>
+      </View>
+    );
+  }
+}
+class Header extends Component {
+  render() {
+    return (
+      <View style={{ height: 30, width: 550, display: 'flex', flexDirection: 'row' }}>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>合约</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>多空</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交价</Text></View>
+        <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交量</Text></View>
+        <View style={{ flex: 4, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交时间</Text></View>
       </View>
     );
   }
@@ -30,19 +43,20 @@ class DealList extends Component {
   render() {
     return (
       <View style={{ width: DEVICE_WIDTH, height: 150, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
-        <View style={{ height: 150, width: DEVICE_WIDTH }}>
-          <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row' }}>
-            <View style={{ flex: 1.5, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>合约</Text></View>
-            <View style={{ flex: 0.5, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>多空</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交价</Text></View>
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交量</Text></View>
-            <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>成交时间</Text></View>
+        <ScrollView
+          contentContainerStyle={{ width: 550 }}
+          horizontal={true}
+          directionalLockEnabled={false}
+          nestedScrollEnabled={true}
+        >
+          <View>
+            <Header />
+            {this.props.deals.length > 0 && <FlatList
+              data={this.props.deals}
+              renderItem={({ item }) => <Item item={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
+            />}
           </View>
-          {this.props.deals.length > 0 && <FlatList
-            data={this.props.deals}
-            renderItem={({ item }) => <Item item={item} contractCode={item.contractCode} direction={item.direction} holdNum={item.holdNum} holdAvgPrice={item.holdAvgPrice} market={this.props.market} />}
-          />}
-        </View>
+        </ScrollView>
       </View>
     );
   }
