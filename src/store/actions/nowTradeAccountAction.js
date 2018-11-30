@@ -21,13 +21,14 @@ export function trade_socket_login(rtnData) {
   }
 }
 
-export function trade_socket_queryAccount(balanceReg, canUseReg, depositReg) {
+export function trade_socket_queryAccount(balanceReg, canUseReg, depositReg, closeProfitReg) {
   return (dispatch) => {
     dispatch({
       type: types.TRADE_QUERY_ACCOUNT,
       balance: balanceReg,
       canUse: canUseReg,
-      deposit: depositReg
+      deposit: depositReg,
+      closeProfit: closeProfitReg
     });
   }
 }

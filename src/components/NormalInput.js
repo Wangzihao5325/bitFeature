@@ -11,10 +11,12 @@ export default class NormalInput extends Component {
     super(props);
     this._onChangeText = this._onChangeText.bind(this);
     this._clear = this._clear.bind(this);
+    this.lock = false;
   }
   state = {
     security: true,
-    iconName: 'eye'
+    iconName: 'eye',
+    inputValue: '',
   }
   _clear() {
     this.textInputRef.clear();
@@ -29,19 +31,26 @@ export default class NormalInput extends Component {
     })
   }
   _onChangeText(text) {
+    this.setState({
+      inputValue: text
+    });
     if (this.props.onChangeText) {
       this.props.onChangeText(text);
     }
   }
   render() {
-
+    let value = this.state.inputValue
+    if (!this.lock && this.props.defaultValue && this.props.defaultValue !== '') {
+      value = this.props.defaultValue;
+      this.lock = true;
+    }
     return (
       <View style={[styles.container, { ...this.props.style }]}>
         <View style={[CommonStyles.innerLineCenterStyle, styles.inputContainer, { backgroundColor: NORMAL_BACKGROUNDCOLOR, borderRadius: 5 }, this.props.bgColorStyle]}>
           <View style={[CommonStyles.innerAbsCenterStyle, styles.headerTitleContainer]}>
             <Text style={{ fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.headerTitle}</Text>
           </View>
-          <RNTextInput secureTextEntry={this.props.secureTextEntry && this.state.security} hasRef={ref => (this.textInputRef = ref)} onChangeText={this._onChangeText} maxLength={11} style={{ height: 36, width: 200, color: 'white' }} />
+          <RNTextInput secureTextEntry={this.props.secureTextEntry && this.state.security} hasRef={ref => (this.textInputRef = ref)} value={value} onChangeText={this._onChangeText} maxLength={11} style={{ height: 36, width: 200, color: 'white' }} />
           {!this.props.secureTextEntry && <VectorIconBtn name='close' onPress={this._clear} />}
           {this.props.secureTextEntry && <VectorIconBtn name={this.state.iconName} onPress={this._changeSecurity} />}
         </View>

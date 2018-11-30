@@ -19,15 +19,15 @@ export default class HoldPosition {
   }
 
   floatProfit(lastPrice) {
-    let contractSize = contractMap2Config[this.contractCode].contractSize;
-    let miniTikeSize = contractMap2Config[this.contractCode].miniTickerSize;
-    let currencyNo = contractMap2Config[this.contractCode].currencyNo;
+    let contractSize = contractMap2Config[this.contractCode].contractSize;//合约大小
+    let miniTikeSize = contractMap2Config[this.contractCode].miniTickerSize;//最小跳动价
+    let currencyNo = contractMap2Config[this.contractCode].currencyNo;//当前币种
     return this.getFloatProfit(lastPrice, this.holdAvgPrice, contractSize, miniTikeSize, this.holdNum, this.direction, currencyNo);
   }
 
   getFloatProfit(lastPrice, holdAvgPrice, contractSize, miniTikeSize, holdNum, direction, currencyNo) {
     let price = 0;
-    if (direction.value === 0) {
+    if (direction === 0) {
       price = lastPrice - holdAvgPrice;
     } else {
       price = holdAvgPrice - lastPrice;

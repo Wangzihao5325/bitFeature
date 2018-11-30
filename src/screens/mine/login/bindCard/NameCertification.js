@@ -34,7 +34,7 @@ export default class NameCertification extends Component {
   }
   _certificationSuccess = () => {
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
-    ToastRoot.show('实名认真成功');
+    ToastRoot.show('实名认证成功');
     this.props.navigation.pop();
   }
   _certificationFailed = (e, code, message) => {

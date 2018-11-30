@@ -4,7 +4,7 @@ import store from '../../../store/index';
 import { connect } from 'react-redux';
 import TradeSocket from '../../../socket/tradeSocket/index';
 import { DEVICE_WIDTH } from '../../../global/config'
-import { classifyContractMap } from '../../../global/commodity_list';
+import { classifyContractMap, contractMap2Config } from '../../../global/commodity_list';
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberInput from '../../../components/NumberInput/index';
 import NormalBtn from '../../../components/NormalBtn';
@@ -55,6 +55,13 @@ class TradeContent extends Component {
   }
   render() {
     let defalutContract = this.props.contractCode;
+    let type = contractMap2Config[defalutContract].structure.security_type;
+    let openCloseSelectArr = ['开仓'];
+    let downLoadHeight = 30;
+    if (type === 'FI') {
+      openCloseSelectArr = ['开仓', '平仓'];
+      downLoadHeight = 60;
+    }
     let arrList = classifyContractMap[this.props.classifyPage];
     return (
       <View style={{ height: 170, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
@@ -93,7 +100,7 @@ class TradeContent extends Component {
           <View style={{ height: 40, width: 70, justifyContent: 'center' }}>
             <ModalDropdown
               onSelect={this._openCloseTypeSelect}
-              options={['开仓', '平仓']}
+              options={openCloseSelectArr}
               defaultValue='开仓'
               style={{
                 alignSelf: 'center',
@@ -114,7 +121,7 @@ class TradeContent extends Component {
               }}
               dropdownStyle={{
                 width: 60,
-                height: 60,
+                height: downLoadHeight,
                 borderRadius: 3,
               }}
             />

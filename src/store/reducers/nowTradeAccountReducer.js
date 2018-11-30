@@ -7,6 +7,7 @@ import { contractMap2Config } from '../../global/commodity_list'
 const initialState = {
   isTradeAccountLogin: false,
   loginAccountNum: '',
+  closeProfit: 0,              //平仓盈亏
   forceLine: 0,
   initBalance: 0,             //初始资产
   balance: 0,                  //总资产
@@ -16,7 +17,7 @@ const initialState = {
   designates: [],             //挂单
   deals: [],                  //成交
   holdPositions: {},   //持仓
-  nowList: '挂单',
+  nowList: '持仓',
 }
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +36,7 @@ const reducer = (state = initialState, action) => {
         balance: action.balance,
         canUse: action.canUse,
         deposit: action.deposit,
+        closeProfit: action.closeProfit
       };
     case types.TRADE_ADD_ORDER_INSERT:
       {

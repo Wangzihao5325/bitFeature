@@ -4,11 +4,13 @@ export default class Cache {
   balance = 0;
   canUse = 0;
   deposit = 0;
+  closeProfit = 0;
 
-  constructor(currencyRate, balance, canUse, deposit) {
+  constructor(currencyRate, balance, canUse, deposit, closeProfit) {
     this.currencyRate = currencyRate;
     this.balance = balance;
     this.canUse = canUse;
     this.deposit = deposit;
+    this.closeProfit = closeProfit;
   }
 }

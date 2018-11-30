@@ -12,7 +12,7 @@ class Header extends Component {
     console.log('go to collection list');
   }
   render() {
-    const headerTitle = this.props.isTradeAccountLogin ? '交易账号: ' + this.props.loginAccountNum : '没有登陆交易账号';
+    const headerTitle = this.props.isTradeAccountLogin ? '交易账号: ' + this.props.loginAccountNum : '没有登录交易账号';
     return (
       <View style={{ height: 170, width: WIDTH, backgroundColor: TAB_NAVI_HEADER_BGCOLOR }}>
         <View style={{ height: 90, width: WIDTH, display: 'flex', justifyContent: 'center', alignItems: 'center', borderBottomColor: 'black', borderBottomWidth: 1 }}>

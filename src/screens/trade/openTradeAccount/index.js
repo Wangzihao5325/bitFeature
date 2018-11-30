@@ -13,6 +13,7 @@ const LIGHT_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const HIGHLIGHT_TEXTCOLOR = '#FED330';
+const RED = '#FC3759';
 class Items extends Component {
   render() {
     let choose = this.props.choose;
@@ -45,17 +46,32 @@ class OpenTradeAccountScreen extends Component {
     let tranAccount = e.tranAccount;
     let tranPassword = e.tranPassword;
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
-    ToastRoot.show(`开户成功,账号:${tranAccount},密码:${tranPassword}`);
-    this.props.navigation.pop();
+    ToastRoot.show(`开户成功`);
+    this.props.navigation.replace('ApplyTradeAccountSuccessScreen', { tranAccount: tranAccount, tranPassword: tranPassword });
   }
   _getbalancerateSuccess = (result) => {
     store.dispatch(action_getbalancerate(result));
   }
   _openTradeAccount = () => {
     let chooseNum = parseInt(this.props.choose);
-    Api.payApplyTrade(chooseNum, this._openSuccess);
+    if (chooseNum <= this.props.accountMoney) {
+      Api.payApplyTrade(chooseNum, this._openSuccess);
+    } else {
+      this.props.navigation.popToTop();
+      this.props.navigation.navigate('RechargeScreen');
+    }
+  }
+  _seeProtocol = () => {
+    //查看操盘合作协议
+    this.props.navigation.navigate('TradeProtocol');
   }
   render() {
+    let btnText = '确认支付';
+    let btnColor = HIGHLIGHT_TEXTCOLOR;
+    if (parseInt(this.props.choose) > this.props.accountMoney) {
+      btnText = '余额不足,立即充值';
+      btnColor = RED;
+    }
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: LIGHT_BGCOLOR }}>
@@ -81,13 +97,13 @@ class OpenTradeAccountScreen extends Component {
         <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR, borderBottomColor: LIGHT_BGCOLOR, borderBottomWidth: 1 }}><View style={{ height: 30, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>支付金额:</Text></View><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}><Text style={{ color: HIGHLIGHT_TEXTCOLOR }}>{this.props.choose + ' 元'}</Text></View ><View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end', paddingRight: 5 }}><Text style={{ color: NORMAL_TEXTCOLOR }}>交易保证金</Text></View></View>
         <View style={{ flex: 1, backgroundColor: LIGHT_BGCOLOR, justifyContent: 'center', alignItems: 'center' }}>
           <NormalBtn
-            title={'确认支付'}
+            title={btnText}
             onPress={this._openTradeAccount}
             titleStyle={{ color: 'black' }}
-            style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: HIGHLIGHT_TEXTCOLOR }}
+            style={{ height: COM_BTN_HEIGHT, width: COM_BTN_WIDTH, backgroundColor: btnColor }}
           />
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10 }}>提交申请表表示阅读并同意</Text>
-          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }}>《国际期货操盘合作协议》</Text>
+          <Text style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 5 }} onPress={this._seeProtocol}>《期货操盘合作协议》</Text>
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 5 }}>客服热线：400-852-8008</Text>
         </View>
       </View>

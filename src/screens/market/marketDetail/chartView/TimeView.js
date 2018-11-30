@@ -27,7 +27,7 @@ class TimeView extends Component {
   }
   _renderLoading() {
     return (
-      <View style={[styles.container, {display:'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
+      <View style={[styles.container, { display: 'flex', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(14, 12, 12)' }]}>
         <Loading />
       </View>
     );
@@ -210,14 +210,14 @@ class TimeView extends Component {
             borderWidth={1}
 
             animation={{ durationX: 0 }}
-            touchEnabled={true}
-            dragEnabled={true}
+            touchEnabled={false}
+            dragEnabled={false}
             scaleEnabled={false}
             scaleXEnabled={false}
             scaleYEnabled={false}
             pinchZoom={false}
             doubleTapToZoomEnabled={false}
-            dragDecelerationEnabled={true}
+            dragDecelerationEnabled={false}
             dragDecelerationFrictionCoef={0.99}
             keepPositionOnRotation={false}
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../../../store/index';
@@ -8,6 +9,10 @@ import Api from '../../../../socket/platform/api';
 import UsualTabBar from '../../../../components/NormalTabBar';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR } from '../../../../global/config';
 import TradingAccountList from './TradingAccountList';
+
+const NORMAL_BACKGROUNDCOLOR = '#20212A';
+const NORMAL_TEXTCOLOR = '#7E829B';
+const TAB_ARR = ['已结算', '交易中'];
 class TradeAccountDetailScreen extends Component {
   static navigationOptions = {
     title: "开户记录",  //header标题
@@ -27,7 +32,7 @@ class TradeAccountDetailScreen extends Component {
     }
   }
 
-  componentDidMount() {
+  _onDidFocus = () => {
     Api.getTradeAccount(this._getTradeAccountSuccess);
   }
   componentWillUnmount() {
@@ -46,9 +51,12 @@ class TradeAccountDetailScreen extends Component {
       data = this.props.endedAccountList;
     }
     return (
-      <View style={{ flex: 1 }}>
-        <UsualTabBar tabNames={['交易中', '已结算']} isDefault={false} tabTap={this._pageChange} />
-        {!this.props.isHaveAccount && <View><Text>请先开户</Text></View>}
+      <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
+        <NavigationEvents
+          onDidFocus={this._onDidFocus}
+        />
+        <UsualTabBar tabNames={TAB_ARR} isDefault={false} tabTap={this._pageChange} />
+        {!this.props.isHaveAccount && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }}>请先开户</Text></View>}
         {this.props.isHaveAccount && <TradingAccountList data={data} />}
       </View>
     );

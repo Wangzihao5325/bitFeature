@@ -176,11 +176,14 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
-  getBusinessNews(pageIndex, size, onSuccess, onError) {
+  getBusinessNews(pageIndex, size, keyword, onSuccess, onError) {
     const url = '/crawler/getCrawler';
     let formData = new FormData();
     formData.append('pageIndex', pageIndex);
     formData.append('size', size);
+    if (keyword) {
+      formData.append('keyword', keyword);
+    }
     this.requset(url, formData, onSuccess, onError);
   }
 

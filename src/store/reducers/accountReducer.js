@@ -1,8 +1,9 @@
 import * as types from '../actionType';
+import { AsyncStorage } from 'react-native';
 
 const initialState = {
   isLogin: false,
-  user: '您尚未登陆,无法使用更多功能',
+  user: '您尚未登录,无法使用更多功能',
   balance: 0,
   userVerified: true,
   isCertification: false,
@@ -21,9 +22,11 @@ const reducer = (state = initialState, action) => {
         isLogin: true,
       };
     case types.LOG_OUT:
+      AsyncStorage.removeItem('PlatformAccount');
+      AsyncStorage.removeItem('PlatformPassword');
       return {
         ...state,
-        isLogin: false,
+        ...initialState
       };
     case types.GET_ACCOUNT_INFO:
       return {

@@ -1,7 +1,7 @@
 import * as types from '../actionType';
 
 const initialState = {
-  page: '已结算',
+  page: '交易中',
   isHaveAccount: false,
   onTradingAccountList: [],
   endedAccountList: [],

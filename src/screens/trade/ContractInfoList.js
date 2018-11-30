@@ -50,7 +50,7 @@ class ContractInfoList extends Component {
     if (this.props.login) {
       tradeNavigation.navigate('TradeAccountDetailScreen');
     } else {
-      ToastRoot.show('请首先登陆平台账户');
+      ToastRoot.show('请首先登录平台账户');
     }
   }
   render() {

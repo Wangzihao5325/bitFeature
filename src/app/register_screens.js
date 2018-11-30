@@ -11,7 +11,9 @@ import TradeCenter from '../screens/market/tradeCenter/index';
 import TradeScreen from '../screens/trade/index';
 import TradeAccountLogScreen from '../screens/trade/tradeLogin/index';
 import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
+import ApplyTradeAccountSuccessScreen from '../screens/trade/openTradeAccount/OpenSuccessScreen';
 import OperateDetailsScreen from '../screens/trade/operateDetails';
+import TradeProtocol from '../screens/trade/openTradeAccount/TradeProtocol';
 
 import NewsScreen from '../screens/news/index';
 
@@ -64,9 +66,11 @@ let TradeStack = createStackNavigator(
   {
     TradeScreen,
     OpenTradeAccountScreen,
+    ApplyTradeAccountSuccessScreen,
     OperateDetailsScreen,
     'TradeAccountLogScreenInTrade': TradeAccountLogScreen,
     CustomerServiceScreen,
+    TradeProtocol,
   },
   {    //模拟交易
     navigationOptions: {

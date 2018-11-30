@@ -7,6 +7,8 @@ import VerificationCode from '../../../../components/VerificationCode';
 import SecurityInput from '../../../../components/SecurityInput';
 import Api from '../../../../socket/platform/api';
 import ToastRoot from '../../../../components/ToastRoot';
+import store from '../../../../store/index';
+import * as types from '../../../../store/actionType';
 
 const NORMAL_COMPONENT_BACKGROUNDCOLOR = '#323442';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
@@ -23,11 +25,15 @@ export default class ChangePasswordScreen extends Component {
     headerTintColor: HEADER_TINT_COLOR
   };
   _changePassword = () => {
-    Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess)
+    Api.updateLoginPwd(reg.pwd, reg.code, this._changePasswordSuccess, this._changePasswordFailed)
   }
   _changePasswordSuccess = () => {
-    ToastRoot.show('更换密码成功');
+    ToastRoot.show('更换密码成功,请重新登录');
     this.props.navigation.pop();
+    store.dispatch({ type: types.LOG_OUT });
+  }
+  _changePasswordFailed = (data, code, message) => {
+    ToastRoot.show(message);
   }
   _getMessageCode = () => {
     Api.sendMessageWithToken(Variables.account.mobileAccount, 1, this._getMessageSuccess);

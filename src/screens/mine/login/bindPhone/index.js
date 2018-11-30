@@ -27,11 +27,12 @@ export default class BindPhoneScreen extends Component {
       ToastRoot.show('请输入正确的信息');
       return;
     }
-    Api.updatePhone(reg.newPhone, reg.oldCode, reg.newCode, this._changeMobileRtn);
+    Api.updatePhone(reg.newPhone, reg.oldCode, reg.newCode, this._changeMobileSuccess, this._changeMobileFailed);
   }
   _changeMobileSuccess = (e, code, message) => {
-    Variables.account.mobileAccount = reg.newPhone.concat();
-    ToastRoot.show('更换手机号码成功');
+    ToastRoot.show('更换手机号码成功,请重新登录');
+    this.props.navigation.pop();
+    store.dispatch({ type: types.LOG_OUT });
   }
   _changeMobileFailed = (e, code, message) => {
     ToastRoot.show(message);

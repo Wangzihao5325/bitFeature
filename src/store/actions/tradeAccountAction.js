@@ -46,7 +46,7 @@ export function page_reset() {
   return (dispatch) => {
     dispatch({
       type: types.ACCOUNT_LIST_PAGE_RESET,
-      page: '已结算'
+      page: '交易中'
     });
   }
 }

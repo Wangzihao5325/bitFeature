@@ -238,8 +238,8 @@ class KView extends Component {
             // borderWidth={1}
             animation={{ durationX: 0 }}
 
-            touchEnabled={true}
-            dragEnabled={true}
+            touchEnabled={false}
+            dragEnabled={false}
             scaleEnabled={false}
             scaleXEnabled={false}
             scaleYEnabled={false}
@@ -271,8 +271,8 @@ class KView extends Component {
             borderWidth={1}
 
             animation={{ durationX: 0 }}
-            touchEnabled={true}
-            dragEnabled={true}
+            touchEnabled={false}
+            dragEnabled={false}
             scaleEnabled={false}
             scaleXEnabled={false}
             scaleYEnabled={false}
