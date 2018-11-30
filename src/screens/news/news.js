@@ -72,12 +72,10 @@ export default class News extends Component {
     }
   }
   _flatListRefresh = () => {
-    console.log('1111111111');
     pageIndex = 0;
     Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getNewsSuccess);
   }
   _getOlderNews = () => {
-    console.log('2222222222');
     pageIndex = pageIndex + 1;
     Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getOlderNewsSuccess);
   }
