@@ -43,7 +43,7 @@ export default class DetailView extends Component {
   _goTrade = () => {
     const { mineNavigation } = this.context;
     mineNavigation.popToTop();
-    mineNavigation.navigate('TradeAccountLogScreenInMarket');
+    mineNavigation.navigate('TradeAccountLogScreenInMarket', { tradeAccount: `${this.props.data.tranAccount}`, password: `${this.props.data.tranPassword}` });
   }
   _tradeAccountRecharge = () => {
     const { mineNavigation } = this.context;

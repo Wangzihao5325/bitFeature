@@ -20,6 +20,22 @@ export default class TradeAccountLogScreen extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
+  state = {
+    accountDefault: '',
+    passwordDefault: '',
+  }
+  componentDidMount() {
+    const account = this.props.navigation.getParam('tradeAccount', '_ws_undefined');
+    const password = this.props.navigation.getParam('password', '_ws_undefined');
+    if (account !== '_ws_undefined' && password !== '_ws_undefined') {
+      reg.accountInput = account;
+      reg.passwordInput = password;
+      this.setState({
+        accountDefault: account,
+        passwordDefault: password,
+      })
+    }
+  }
   _login_success = (e) => {
     this.props.navigation.pop();
   }
@@ -41,8 +57,8 @@ export default class TradeAccountLogScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-        <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='交易账号' tips='请输入正确交易账号' />
-        <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='交易密码' tips='请输入正确交易密码' />
+        <NormalInput secureTextEntry={false} onChangeText={this._accountChange} defaultValue={this.state.accountDefault} style={{ marginTop: 20 }} headerTitle='交易账号' tips='请输入正确交易账号' />
+        <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} defaultValue={this.state.passwordDefault} style={{ marginTop: 20 }} headerTitle='交易密码' tips='请输入正确交易密码' />
         <NormalBtn
           disabled={false}
           title='交易登录'

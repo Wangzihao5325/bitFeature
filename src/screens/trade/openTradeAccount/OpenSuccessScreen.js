@@ -27,12 +27,16 @@ export default class ApplyTradeAccountSuccessScreen extends Component {
     password: ''
   }
   componentDidMount() {
-    const account = this.props.navigation.getParam('tranAccount', '');
-    const password = this.props.navigation.getParam('tranPassword', '');
-    this.setState({
-      account: account,
-      password: password
-    });
+    const account = this.props.navigation.getParam('tranAccount', '_ws_undefined');
+    const password = this.props.navigation.getParam('tranPassword', '_ws_undefined');
+    if (account !== '_ws_undefined' && password !== '_ws_undefined') {
+      reg.accountInput = account;
+      reg.passwordInput = password;
+      this.setState({
+        account: account,
+        password: password
+      });
+    }
   }
   _login_success = (e) => {
     this.props.navigation.pop();
@@ -60,8 +64,8 @@ export default class ApplyTradeAccountSuccessScreen extends Component {
           <Text style={{ color: NORMAL_TEXTCOLOR }}>{`密码:${this.state.password}`}</Text>
         </View>
         <View style={{ flex: 3 }}>
-          <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='交易账号' tips='请输入正确交易账号' />
-          <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='交易密码' tips='请输入正确交易密码' />
+          <NormalInput secureTextEntry={false} onChangeText={this._accountChange} defaultValue={this.state.account} style={{ marginTop: 20 }} headerTitle='交易账号' tips='请输入正确交易账号' />
+          <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} defaultValue={this.state.password} style={{ marginTop: 20 }} headerTitle='交易密码' tips='请输入正确交易密码' />
           <NormalBtn
             disabled={false}
             title='交易登录'
