@@ -24,7 +24,8 @@ class NewsScreen extends Component {
   };
 
   state = {
-    isShowSearch: false
+    isShowSearch: false,
+    searchKeyWords: ''
   }
 
   componentDidMount() {
@@ -48,15 +49,16 @@ class NewsScreen extends Component {
     }
   }
   _searchNews = (text) => {
-    console.log('11335577');
-    console.log(text);
+    if (this.refNews) {
+      this.refNews.refSearch(text);
+    }
   }
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: 'black' }}>
         <UsualTabBar tabNames={['财经日历', '7×24']} isDefault={false} tabTap={this._pageChange} />
         {this.props.page === '7×24' && this.state.isShowSearch && <SearchBar onPress={this._searchNews} />}
-        {this.props.page === '7×24' && <News />}
+        {this.props.page === '7×24' && <News ref={(news) => this.refNews = news} />}
         {this.props.page === '财经日历' && <BusinessCalender />}
       </View>
     );

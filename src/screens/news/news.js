@@ -28,11 +28,24 @@ class Item extends Component {
 }
 let pageIndex = 0;
 export default class News extends Component {
+  constructor(props) {
+    super(props);
+    this.keyWords = null;
+  }
   state = {
     dataArr: [],
   }
   componentDidMount() {
-    Api.getBusinessNews(pageIndex, 10, this._getNewsSuccess);
+    Api.getBusinessNews(pageIndex, 10, null, this._getNewsSuccess);
+  }
+  refSearch = (text) => {
+    if (text === '') {
+      this.keyWords = null;
+    } else {
+      this.keyWords = text
+    }
+    pageIndex = 0;
+    Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getNewsSuccess);
   }
   _getNewsSuccess = (rtnData) => {
     let dataArr = rtnData.data;
@@ -52,11 +65,11 @@ export default class News extends Component {
   }
   _flatListRefresh = () => {
     pageIndex = 0;
-    Api.getBusinessNews(pageIndex, 10, this._getNewsSuccess);
+    Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getNewsSuccess);
   }
   _getOlderNews = () => {
     pageIndex = pageIndex + 1;
-    Api.getBusinessNews(pageIndex, 10, this._getOlderNewsSuccess);
+    Api.getBusinessNews(pageIndex, 10, this.keyWords, this._getOlderNewsSuccess);
   }
   render() {
     return (

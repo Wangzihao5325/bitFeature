@@ -22,7 +22,7 @@ export default class SearchBar extends Component {
   render() {
     return (
       <View style={{ height: 40, width: DEVICE_WIDTH, backgroundColor: DARK_BGCOLOR, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-        <TextInput onChangeText={this._textChange} style={{ flex: 1, color: 'white' }} />
+        <TextInput onChangeText={this._textChange} style={{ flex: 1, color: 'white',marginLeft:10 }} />
         <VectorIconBtn color={NORMAL_TEXTCOLOR} name='search' onPress={this._onPress} />
       </View>
     );
