@@ -60,7 +60,8 @@ class TradeAccountRecharge extends Component {
   _rechargeSuccess = (data, code, message) => {
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
     ToastRoot.show('追加保证金成功');
-    this.props.navigation.popToTop();
+    //this.props.navigation.popToTop();//navigate
+    this.props.navigation.navigate('InnerDetail', { addMoney: reg.money });
   }
   _getbalancerateSuccess = (result) => {
     store.dispatch(action_getbalancerate(result));

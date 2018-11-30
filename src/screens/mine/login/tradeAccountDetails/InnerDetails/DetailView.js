@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import PropTypes from 'prop-types';
 import { DEVICE_WIDTH } from '../../../../../global/config';
 import Api from '../../../../../socket/platform/api';
@@ -40,6 +41,9 @@ export default class DetailView extends Component {
   static contextTypes = {
     mineNavigation: PropTypes.object
   }
+  state = {
+    addMoney: 0
+  }
   _goTrade = () => {
     const { mineNavigation } = this.context;
     mineNavigation.popToTop();
@@ -66,16 +70,32 @@ export default class DetailView extends Component {
   _endFailed = (data, code, messgae) => {
     ToastRoot.show(messgae);
   }
+  _onDidFocus = (payload) => {
+    const { mineNavigation } = this.context;
+    let addMoney = mineNavigation.getParam('addMoney', 0);
+    if (addMoney === 0) {
+      return;
+    } else {
+      this.setState(function (preState) {
+        return {
+          addMoney: preState.addMoney + addMoney
+        }
+      });
+    }
+  }
   render() {
     let tradeAccount = this.props.data.tranAccount;
     let password = this.props.data.tranPassword;
     let appTime = this.props.data.appTimeStr;
     let traderBond = this.props.data.traderBond;
     let traderTotal = this.props.data.traderTotal;
-    let appendTraderBond = this.props.data.appendTraderBond;
+    let appendTraderBond = this.props.data.appendTraderBond + this.state.addMoney;
     let lineLoss = this.props.data.lineLoss;
     return (
       <View style={{ flex: 1, backgroundColor: DARK_BGCOLOR }}>
+        <NavigationEvents
+          onDidFocus={this._onDidFocus}
+        />
         <Item style={{ marginTop: 0 }} headerText='投资标的' contentText='所有可交易合约' />
         <Item headerText='交易时间' contentText='9:05-23:55 不同期货不同交易时间段' />
         <BtnItem style={{ marginTop: 10 }} headerText='操盘账户' contentText={tradeAccount} btnText='立即操盘' btnPress={this._goTrade} />
