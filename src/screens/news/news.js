@@ -4,6 +4,7 @@ import moment from 'moment';
 import Api from '../../socket/platform/api';
 import { DEVICE_WIDTH, DEVICE_HEIGHT } from '../../global/config';
 import Dialog from '../../components/ImageVerification/Dialog';
+import ToastRoot from '../../components/ToastRoot';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -69,6 +70,7 @@ export default class News extends Component {
         dataArr: dataArr
       })
     } else {
+      ToastRoot.show('没有找到相关内容');
       this.setState({
         dataArr: []
       })
