@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList, Text, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { DEVICE_WIDTH } from '../../global/config';
 import PropTypes from 'prop-types';
@@ -36,7 +36,13 @@ class Items extends Component {
         <View style={{ height: 60, width: 90, display: 'flex', justifyContent: 'center', paddingLeft: 5 }}><Text style={{ color: 'white' }}>{fullName}</Text><Text style={{ color: NORMAL_TEXTCOLOR }}>{fullNum}</Text></View>
         <View style={{ height: 60, width: 70, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{price + ' 元／手'}</Text></View>
         <View style={{ height: 60, width: 50, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{showInit + '手'}</Text></View>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: 'white' }}>{tradTime}</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <ScrollView horizontal={true} nestedScrollEnabled={true}>
+            <View style={{ height: 60, width: DEVICE_WIDTH, justifyContent: 'center', alignItems: 'flex-start' }}>
+              <Text style={{ color: 'white' }}>{tradTime}</Text>
+            </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }
