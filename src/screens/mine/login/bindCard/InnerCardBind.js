@@ -8,6 +8,8 @@ import api from '../../../../socket/platform/api';
 import ToastRoot from '../../../../components/ToastRoot';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { City, Province } from '../../../../global/city_list';
+import CommonStyles from '../../../../global/common_styles';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
@@ -89,6 +91,14 @@ export default class InnerCardBind extends Component {
             <Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10, fontSize: 20 }}>开户银行</Text>
           </View>
           <View style={{ flex: 1, height: 40, marginLeft: 10, marginRight: 15, backgroundColor: DARK_BGCOLOR, flexDirection: 'row', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={CommonStyles.innerLineCenterStyle}>
+              <Icon
+                name="caret-down"
+                size={16}
+                color={NORMAL_TEXTCOLOR}
+                style={{ position: 'absolute', bottom: -20, left: -25, transform: [{ rotate: '45deg' }] }}
+              />
+            </View>
             {this.state.bankName &&
               <ModalDropdown
                 onSelect={this._bankSelect}
@@ -127,6 +137,14 @@ export default class InnerCardBind extends Component {
             <Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10, fontSize: 20 }}>开户省份</Text>
           </View>
           <View style={{ flex: 1, height: 40, marginLeft: 10, marginRight: 15, backgroundColor: DARK_BGCOLOR, flexDirection: 'row', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={CommonStyles.innerLineCenterStyle}>
+              <Icon
+                name="caret-down"
+                size={16}
+                color={NORMAL_TEXTCOLOR}
+                style={{ position: 'absolute', bottom: -20, left: -25, transform: [{ rotate: '45deg' }] }}
+              />
+            </View>
             {this.state.bankName &&
               <ModalDropdown
                 onSelect={this._provinceChanged}
@@ -166,6 +184,14 @@ export default class InnerCardBind extends Component {
             <Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10, fontSize: 20 }}>开户城市</Text>
           </View>
           <View style={{ flex: 1, height: 40, marginLeft: 10, marginRight: 15, backgroundColor: DARK_BGCOLOR, flexDirection: 'row', borderRadius: 5, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={CommonStyles.innerLineCenterStyle}>
+              <Icon
+                name="caret-down"
+                size={16}
+                color={NORMAL_TEXTCOLOR}
+                style={{ position: 'absolute', bottom: -20, left: -25, transform: [{ rotate: '45deg' }] }}
+              />
+            </View>
             {this.state.bankName &&
               <ModalDropdown
                 onSelect={this._cityChanged}
