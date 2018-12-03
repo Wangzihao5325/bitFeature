@@ -14,6 +14,7 @@
     "react-native": "0.56.0",
     "react-native-charts-wrapper": "^0.4.2",
     "react-native-drawer": "^2.5.0",
+    "react-native-keyboard-aware-scroll-view": "^0.7.4",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-root-toast": "^3.0.1",
     "react-native-text-input-enhance": "^1.0.11",
