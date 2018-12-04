@@ -16,7 +16,7 @@ class ItemHeader extends Component {
   }
   render() {
     const { item } = this.context;
-    let time = item.updateTime;
+    let time = item.timestamp;
     let flagUrl = item.flagUrl;
     let country = item.country;
     let importance = item.importance;
@@ -100,6 +100,8 @@ export default class BusinessCalender extends Component {
     Api.getCrawlerCalendar(0, 10, formDate, tomorrowFormDate, this._getCalenderSuccess);
   }
   _getCalenderSuccess = (e) => {
+    console.log('111111_____')
+    console.log(e);
     let data = e.data;
     this.setState({
       data: data
