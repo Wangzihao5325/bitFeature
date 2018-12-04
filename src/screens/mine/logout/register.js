@@ -85,7 +85,7 @@ export default class RegisterScreen extends Component {
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='手机' tips='请输入正确手机号码' />
         <NormalVerificationCode style={{ marginTop: 20 }} headerTitle='验证码' onChangeText={this._codeTextChange} getMessageCode={this._getMessageCode} />
-        <NormalInput placeholder={'密码为 6-16 位字母数字组合'} secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='密码' tips='密码由6-16位数字和字母组成' />
+        <NormalInput placeholder={'请输入6-16 位字母数字'} secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='密码' tips='密码由6-16位数字和字母组成' />
         <NormalBtn
           disabled={false}
           title='注册'

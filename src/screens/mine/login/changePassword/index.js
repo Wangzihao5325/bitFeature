@@ -66,7 +66,7 @@ export default class ChangePasswordScreen extends Component {
           {/*验证码*/}
           <VerificationCode onChangeText={this._codeTextChange} getMessageCode={this._getMessageCode} />
           {/*新密码*/}
-          <SecurityInput title={'新密码'} onChangeText={this._newPasswordTextChange} />
+          <SecurityInput placeholder={'请输入6-16 位字母数字'} title={'新密码'} onChangeText={this._newPasswordTextChange} />
           {/*确认密码*/}
           <SecurityInput title={'确认密码'} onChangeText={this._newPasswordConfirmTextChange} />
           {/*确认按钮*/}
