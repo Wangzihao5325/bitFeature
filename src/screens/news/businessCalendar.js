@@ -23,27 +23,25 @@ class ItemHeader extends Component {
   _subscibeCalendar = () => {
     const { item } = this.context;
     let id = item.calendarId;
-    if (this.state.isSub) {
-      Api.cancelSubscibe(id, this._unsubSuccess, this._unsubFailed);
-    } else {
-      Api.subscibeCalendar(id, this._subSuccess, this._subFailed);
+    let subKey = 'true';
+    if (this.state.isSub === 'true') {
+      subKey = 'false';
     }
+    Api.subscibeCalendar(id, subKey, this._subSuccess, this._subFailed);
+  }
+  _subSuccess = (data) => {
+    let text = '退订成功'
+    if (data.currStatus === 'true') {
+      text = '订阅成功'
+    }
+    ToastRoot.show(text);
     this.setState(function (preState, props) {
       return {
-        isSub: !preState.isSub
+        isSub: data.currStatus
       }
     });
   }
-  _subSuccess = () => {
-    ToastRoot.show('订阅成功!');
-  }
   _subFailed = (e, code, message) => {
-    ToastRoot.show(message);
-  }
-  _unsubSuccess = () => {
-    ToastRoot.show('订阅已取消!');
-  }
-  _unsubFailed = (e, code, message) => {
     ToastRoot.show(message);
   }
   render() {
@@ -54,7 +52,7 @@ class ItemHeader extends Component {
     let importance = item.importance;
     const dateTimeStringArr = moment(time * 1000).format('YYYY-MM-DD HH:mm').split(' ');
     const timeString = dateTimeStringArr[1];
-    let BtnColor = this.state.isSub ? HIGHLIGHT_TEXTCOLOR : '#909090';
+    let BtnColor = this.state.isSub === 'true' ? HIGHLIGHT_TEXTCOLOR : '#909090';
     return (
       <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
@@ -134,6 +132,8 @@ export default class BusinessCalender extends Component {
     Api.getCrawlerCalendar(0, 10, formDate, tomorrowFormDate, this._getCalenderSuccess);
   }
   _getCalenderSuccess = (e) => {
+    console.log('111');
+    console.log(e);
     let data = e.data;
     this.setState({
       data: data

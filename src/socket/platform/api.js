@@ -302,17 +302,11 @@ class api {
     this.requset(url, formData, onSuccess, onError);
   }
 
-  subscibeCalendar(id, onSuccess, onError) {
+  subscibeCalendar(id, isSub, onSuccess, onError) {
     const url = '/crawler/subscibeCalendar';
     let formData = new FormData();
     formData.append('calendarId', id);
-    this.requset(url, formData, onSuccess, onError);
-  }
-
-  cancelSubscibe(id, onSuccess, onError) {
-    const url = '/crawler/cancelSubscibe';
-    let formData = new FormData();
-    formData.append('calendarId', id);
+    formData.append('isSubscibe', isSub);
     this.requset(url, formData, onSuccess, onError);
   }
 }

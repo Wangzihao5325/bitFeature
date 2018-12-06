@@ -16,10 +16,12 @@ export default class NormalInput extends Component {
   state = {
     security: true,
     iconName: 'eye',
-    inputValue: '',
+    inputValue: this.props.defaultValue ? this.props.defaultValue :  '',
   }
   _clear() {
-    this.textInputRef.clear();
+    this.setState({
+      inputValue: ''
+    }, () => this.textInputRef.clear());
   }
   _changeSecurity = () => {
     this.setState((preState, props) => {
@@ -39,7 +41,7 @@ export default class NormalInput extends Component {
     }
   }
   render() {
-    let value = this.state.inputValue
+    let value = this.state.inputValue;
     if (!this.lock && this.props.defaultValue && this.props.defaultValue !== '') {
       value = this.props.defaultValue;
       this.lock = true;
