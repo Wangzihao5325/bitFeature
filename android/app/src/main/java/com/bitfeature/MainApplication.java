@@ -3,6 +3,7 @@ package com.bitfeature;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import cn.jpush.reactnativejpush.JPushPackage;
 import com.github.wuxudong.rncharts.MPAndroidChartPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
@@ -25,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new JPushPackage(!BuildConfig.DEBUG, !BuildConfig.DEBUG),
             new MPAndroidChartPackage(),
             new VectorIconsPackage()
       );
