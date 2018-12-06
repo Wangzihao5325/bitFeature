@@ -6,6 +6,9 @@ import moment from 'moment';
 import { DEVICE_WIDTH } from '../../global/config';
 import Calender from '../../components/Calender';
 import ImportantLabel from '../../components/ImportantLabel';
+import VectorIconBtn from '../../components/IconBtn';
+import ToastRoot from '../../components/ToastRoot';
+
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
@@ -13,6 +16,35 @@ const HIGHLIGHT_TEXTCOLOR = '#FED330';
 class ItemHeader extends Component {
   static contextTypes = {
     item: PropTypes.object
+  }
+  state = {
+    isSub: false
+  }
+  _subscibeCalendar = () => {
+    const { item } = this.context;
+    let id = item.calendarId;
+    if (this.state.isSub) {
+      Api.cancelSubscibe(id, this._unsubSuccess, this._unsubFailed);
+    } else {
+      Api.subscibeCalendar(id, this._subSuccess, this._subFailed);
+    }
+    this.setState(function (preState, props) {
+      return {
+        isSub: !preState.isSub
+      }
+    });
+  }
+  _subSuccess = () => {
+    ToastRoot.show('订阅成功!');
+  }
+  _subFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
+  _unsubSuccess = () => {
+    ToastRoot.show('订阅已取消!');
+  }
+  _unsubFailed = (e, code, message) => {
+    ToastRoot.show(message);
   }
   render() {
     const { item } = this.context;
@@ -22,9 +54,11 @@ class ItemHeader extends Component {
     let importance = item.importance;
     const dateTimeStringArr = moment(time * 1000).format('YYYY-MM-DD HH:mm').split(' ');
     const timeString = dateTimeStringArr[1];
+    let BtnColor = this.state.isSub ? HIGHLIGHT_TEXTCOLOR : '#909090';
     return (
       <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+          <VectorIconBtn name='bell' color={BtnColor} onPress={this._subscibeCalendar} size={18} />
           <Text style={{ color: NORMAL_TEXTCOLOR }}>{timeString}</Text>
           <Image style={{ height: 26, width: 30, marginHorizontal: 20 }} source={{ uri: flagUrl }} />
           <Text style={{ color: NORMAL_TEXTCOLOR }}>{country}</Text>

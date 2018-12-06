@@ -301,6 +301,20 @@ class api {
     formData.append('withdrawPwd', withdrawPwd);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  subscibeCalendar(id, onSuccess, onError) {
+    const url = '/crawler/subscibeCalendar';
+    let formData = new FormData();
+    formData.append('calendarId', id);
+    this.requset(url, formData, onSuccess, onError);
+  }
+
+  cancelSubscibe(id, onSuccess, onError) {
+    const url = '/crawler/cancelSubscibe';
+    let formData = new FormData();
+    formData.append('calendarId', id);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
