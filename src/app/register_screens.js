@@ -48,6 +48,7 @@ let MarketStack = createStackNavigator(                      //行情
     'TradeAccountLogScreenInMarket': TradeAccountLogScreen,
     TradeCenter,
     CustomerServiceScreen,
+    WSProtocol,
   },
   {
     navigationOptions: { gesturesEnabled: false }
@@ -72,7 +73,6 @@ let TradeStack = createStackNavigator(
     'TradeAccountLogScreenInTrade': TradeAccountLogScreen,
     CustomerServiceScreen,
     TradeProtocol,
-    WSProtocol,
   },
   {    //模拟交易
     navigationOptions: {
