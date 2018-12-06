@@ -18,7 +18,7 @@ class ItemHeader extends Component {
     item: PropTypes.object
   }
   state = {
-    isSub: false
+    isSub: this.context.item.remark
   }
   _subscibeCalendar = () => {
     const { item } = this.context;
