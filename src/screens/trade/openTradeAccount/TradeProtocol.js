@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
+import VectorIconBtn from '../../../components/IconBtn';
+import store from '../../../store/index';
+import { action_custom_service_model_show } from '../../../store/actions/customServiceAction';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../global/config';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -7,6 +10,7 @@ export default class TradeProtocol extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
       title: '操盘合作协议',  //header标题
+      headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav 
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
         borderBottomColor: 'black',
@@ -14,6 +18,14 @@ export default class TradeProtocol extends Component {
       headerTintColor: HEADER_TINT_COLOR
     }
   };
+
+  componentDidMount() {
+    this.props.navigation.setParams({ customService: this._customService });
+  }
+
+  _customService = () => {
+    store.dispatch(action_custom_service_model_show(this.props.navigation));
+  }
 
   render() {
     return (
