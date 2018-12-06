@@ -11,12 +11,22 @@ export default class NormalInput extends Component {
     super(props);
     this._onChangeText = this._onChangeText.bind(this);
     this._clear = this._clear.bind(this);
-    this.lock = false;
   }
   state = {
+    lock: false,
     security: true,
     iconName: 'eye',
-    inputValue: this.props.defaultValue ? this.props.defaultValue :  '',
+    inputValue: this.props.defaultValue ? this.props.defaultValue : '',
+  }
+  static getDerivedStateFromProps(props, state) {
+    if (!state.lock && props.defaultValue && props.defaultValue !== '') {
+      this.lock = true;
+      return {
+        inputValue: props.defaultValue,
+        lock: true
+      }
+    }
+    return null;
   }
   _clear() {
     this.setState({
@@ -42,10 +52,10 @@ export default class NormalInput extends Component {
   }
   render() {
     let value = this.state.inputValue;
-    if (!this.lock && this.props.defaultValue && this.props.defaultValue !== '') {
-      value = this.props.defaultValue;
-      this.lock = true;
-    }
+    // if (!this.lock && this.props.defaultValue && this.props.defaultValue !== '') {
+    //   value = this.props.defaultValue;
+    //   this.lock = true;
+    // }
     let holder = '';
     if (this.props.placeholder) {
       holder = this.props.placeholder;
