@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableHighlight, StyleSheet } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import { connect } from 'react-redux';
 import NormalInput from '../../../../components/NormalInput';
 import NormalBtn from '../../../../components/NormalBtn';
@@ -20,12 +21,15 @@ class DialogContent extends Component {
     Api.getWithdrawFee(reg.money, this._getFeeSuccess, this._getFeeFailed);
   }
   state = {
-    text: ''
+    text: '',
+    receiveMoney: ''
   }
   _getFeeSuccess = (data, code, message) => {
     let contentText = `提现手续费:${data.fee}元`;
+    let receiveMoney = `实际到账金额:${reg.money - data.fee}元`
     this.setState({
-      text: contentText
+      text: contentText,
+      receiveMoney: receiveMoney
     });
   }
   _getFeeFailed = (data, code, message) => {
@@ -35,7 +39,10 @@ class DialogContent extends Component {
   }
   render() {
     return (
-      <View><Text>{this.state.text}</Text></View>
+      <View>
+        <Text>{this.state.text}</Text>
+        <Text>{this.state.receiveMoney}</Text>
+      </View>
     );
   }
 }
@@ -49,7 +56,26 @@ class WithdrawCashScreen extends Component {
     headerTintColor: HEADER_TINT_COLOR
   };
   state = {
-    isShow: false
+    isShow: false,
+    bankText: '',
+  }
+  _onDidFocus = () => {
+    Api.getBindedBankCard(this.getDefalutBankSuccess, this.getDefalutBankFailed);
+  }
+  getDefalutBankSuccess = (e) => {
+    if (e.length && e.length > 0) {
+      let bankText = `${e[0].bankName}:   **** **** **** ${e[0].card.slice(12)}`
+      this.setState({
+        bankText: bankText
+      });
+    } else {
+      this.setState({
+        bankText: '未绑定提现银行卡'
+      });
+    }
+  }
+  getDefalutBankFailed = () => {
+
   }
   _goToBindCard = () => {
     this.props.navigation.popToTop();
@@ -101,9 +127,12 @@ class WithdrawCashScreen extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: DARK_BGCOLOR }}>
+        <NavigationEvents
+          onDidFocus={this._onDidFocus}
+        />
         <TouchableHighlight onPress={this._goToBindCard} style={{ height: 40, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10 }}>我的银行卡</Text>
+            <Text style={{ color: NORMAL_TEXTCOLOR, marginLeft: 10 }}>{this.state.bankText}</Text>
             <Text style={{ color: 'white', marginRight: 10 }}>绑定银行卡></Text>
           </View>
         </TouchableHighlight>
