@@ -7,12 +7,19 @@ import { contractMap2Config } from '../../../../global/commodity_list';
 import { cache } from '../../../../global/trade_list';
 import TradeSocket from '../../../../socket/tradeSocket/index';
 import ToastRoot from '../../../../components/ToastRoot';
+import Dialog from '../../../../components/ImageVerification/Dialog';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
 const DARK_BGCOLOR = '#17191E';
 class Item extends Component {
   state = {
-    isBtnShow: false
+    isBtnShow: false,
+    isDialogShow: false,
+  }
+  _onCancel = () => {
+    this.setState({
+      isDialogShow: false
+    });
   }
   _btnClick = () => {
     this.setState(function (preSate, props) {
@@ -22,6 +29,14 @@ class Item extends Component {
     });
   }
   _sellout = () => {
+    this.setState({
+      isDialogShow: true
+    });
+  }
+  _onConfirm = () => {
+    this.setState({
+      isDialogShow: false
+    });
     let contractCode = this.props.contractCode;
     let type = contractMap2Config[contractCode].structure.security_type;
     let direction = this.props.direction === 0 ? 1 : 0;
@@ -79,6 +94,13 @@ class Item extends Component {
             <View style={{ height: 30, width: DEVICE_WIDTH / 3, display: 'flex', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR }} onPress={this._stopLoss}>止盈止损</Text></View>
           </View>
         }
+        <Dialog
+          visible={this.state.isDialogShow}
+          header={'警告'}
+          renderContent={() => <Text>是否确认进行平仓操作</Text>}
+          onConfirm={this._onConfirm}
+          onCancel={this._onCancel}
+        />
       </View>
     );
   }
