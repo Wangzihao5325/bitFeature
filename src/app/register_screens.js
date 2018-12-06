@@ -35,7 +35,7 @@ import RegisterScreen from '../screens/mine/logout/register';
 import WithdrawCashScreen from '../screens/mine/login/withdraw';
 import NameCertification from '../screens/mine/login/bindCard/NameCertification';
 import WithdrawPassword from '../screens/mine/login/withdraw/WithdrawPassword';
-
+import WSDoc from '../screens/mine/logout/WSDoc';
 
 
 /*
@@ -125,7 +125,8 @@ let MineStack = createStackNavigator(                       //我的
     InnerCardBind,
     WithdrawCashScreen,
     NameCertification,
-    WithdrawPassword
+    WithdrawPassword,
+    WSDoc
   },
   {
     navigationOptions: {
