@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage, Text } from 'react-native';
 import store from '../../../store/index';
 import { action_custom_service_model_show } from '../../../store/actions/customServiceAction';
 import { action_getbalancerate, action_login } from '../../../store/actions/accountAction';
@@ -15,6 +15,7 @@ import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, PLATFORM_DOMAIN, DEVICE_WID
 
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
+const NORMAL_TEXTCOLOR = '#7E829B';
 let reg = { passwordInput: '', codeInput: null };
 export default class AccountLogScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -88,12 +89,19 @@ export default class AccountLogScreen extends Component {
       isShow: false
     })
   }
+  _gotoRegister = () => {
+    this.props.navigation.replace('RegisterScreen');
+  }
+  _lostPassword = () => {
+    this.props.navigation.navigate('LostPassword');
+  }
   render() {
     const imgUri = `${PLATFORM_DOMAIN}/sendImageCode?1=${Math.random() * 1000}&mobile=${this.state.accountInput}`;
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <NormalInput secureTextEntry={false} onChangeText={this._accountChange} style={{ marginTop: 20 }} headerTitle='手机' tips='请输入正确手机号码' />
         <NormalInput secureTextEntry={true} onChangeText={this._passwordChange} style={{ marginTop: 20 }} headerTitle='密码' tips='密码由6-16位数字和字母组成' />
+        <View style={{ marginTop: 10, height: 20, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}><Text onPress={this._lostPassword} style={{ color: NORMAL_TEXTCOLOR, marginRight: 5 }}>忘记密码</Text></View>
         <NormalBtn
           disabled={false}
           title='登录'
@@ -102,6 +110,7 @@ export default class AccountLogScreen extends Component {
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}
           onPress={this._showDialog}
         />
+        <View style={{ marginTop: 10, height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}><Text onPress={this._gotoRegister} style={{ color: NORMAL_TEXTCOLOR, marginRight: 5 }}>用户注册>></Text></View>
         <Dialog
           visible={this.state.isShow}
           header={'请先输入图形验证码'}
