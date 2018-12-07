@@ -67,8 +67,8 @@ export default class NormalInput extends Component {
             <Text style={{ fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.headerTitle}</Text>
           </View>
           <RNTextInput placeholderTextColor='#909090' placeholder={holder} secureTextEntry={this.props.secureTextEntry && this.state.security} hasRef={ref => (this.textInputRef = ref)} value={value} onChangeText={this._onChangeText} maxLength={11} style={{ height: 36, width: 200, color: 'white' }} />
-          {!this.props.secureTextEntry && <VectorIconBtn name='close' onPress={this._clear} />}
-          {this.props.secureTextEntry && <VectorIconBtn name={this.state.iconName} onPress={this._changeSecurity} />}
+          {!this.props.defaultMode && !this.props.secureTextEntry && <VectorIconBtn name='close' onPress={this._clear} />}
+          {!this.props.defaultMode && this.props.secureTextEntry && <VectorIconBtn name={this.state.iconName} onPress={this._changeSecurity} />}
         </View>
       </View>
     );

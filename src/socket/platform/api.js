@@ -336,6 +336,13 @@ class api {
     formData.append('isSubscibe', isSub);
     this.requset(url, formData, onSuccess, onError);
   }
+
+  getFeeRate(onSuccess, onError) {
+    const url = '/user/withdraw/feeRate';
+    let formData = new FormData();
+    formData.append('appVersions', APP_VERSIONS);
+    this.requset(url, formData, onSuccess, onError);
+  }
 }
 
 export default new api();
