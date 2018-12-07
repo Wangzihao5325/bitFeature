@@ -6,7 +6,7 @@ import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
 class TradeSocket {
-  _login(account, password) {//登陆
+  _login(account, password) {//登录
     let json = { 'Method': 'Login', 'Parameters': { 'ClientNo': account, 'PassWord': base64.encode(password), 'IsMock': 1, 'Version': '2.0.0', 'Source': 'app' } };
     this.ws.send(JSON.stringify(json));
   }
@@ -91,7 +91,7 @@ class TradeSocket {
       let data = JSON.parse(evt.data);
       //console.log(data);  // ... debug log
       switch (data.Method) {
-        case 'OnRspLogin':                                      //登陆成功 
+        case 'OnRspLogin':                                      //登录成功 
           this.loginRtn(data, onSuccess, onFailed);
           break;
         case 'OnRspQryAccount':                                 //查询账户信息成功 

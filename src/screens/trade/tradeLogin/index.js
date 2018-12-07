@@ -87,9 +87,9 @@ export default class TradeAccountLogScreen extends Component {
         </View>
         <View style={{ backgroundColor: DARK_BGCOLOR, height: 10, width: DEVICE_WIDTH, marginTop: 10 }}></View>
         <View>
-          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>操盘交易账号 ≠ 注册登陆账号</Text>
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>操盘交易账号 ≠ 注册登录账号</Text>
           <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>交易账号:申请方案后系统自动发放，用于实盘交易的账号。可查询交易明细，结算后将会更换。</Text>
-          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>登陆账号:使用手机注册后的平台账号，用于登陆APP和网站，进行充值提现查看资金明细等。</Text>
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>登录账号:使用手机注册后的平台账号，用于登录APP和网站，进行充值提现查看资金明细等。</Text>
         </View>
       </View>
     );

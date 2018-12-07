@@ -218,7 +218,7 @@ class MarketSocket {
       let data = JSON.parse(evt.data);
       //console.log(data);  // ... debug log
       switch (data.method) {
-        case 'on_rsp_login':                                      //登陆成功 -> 查询合约品种
+        case 'on_rsp_login':                                      //登录成功 -> 查询合约品种
           this._queryComList();
           break;
         case 'on_rsp_commodity_list':                             //查询成功 -> 订阅合约
