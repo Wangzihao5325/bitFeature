@@ -79,7 +79,9 @@ class api {
     let formData = new FormData();
     formData.append('mobile', mobile);
     formData.append('type', type);
-    formData.append('yzm', yzm);
+    if (yzm) {
+      formData.append('yzm', yzm);
+    }
     let obj = { method: 'POST', headers: headers, body: formData };
     fetch(fullUrl, obj).then((response) => response.json())
       .then((responseJson) => {
@@ -99,6 +101,31 @@ class api {
 
   register(mobile, password, code, onSuccess, onError) {
     const url = '/regist';
+    let fullUrl = PLATFORM_DOMAIN + url;
+    let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
+    let formData = new FormData();
+    formData.append('mobile', mobile);
+    formData.append('password', password);
+    formData.append('code', code);
+    let obj = { method: 'POST', headers: headers, body: formData };
+    fetch(fullUrl, obj).then((response) => response.json())
+      .then((responseJson) => {
+        const result = responseJson.data ? responseJson.data : null;
+        const code = responseJson.code ? responseJson.code : null;
+        const message = responseJson.message ? responseJson.message : null;
+        if (responseJson.success) {
+          onSuccess(result, code, message);
+        } else {
+          onError(result, code, message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  resetPassword(mobile, password, code, onSuccess, onError) {
+    const url = '/reset_password';
     let fullUrl = PLATFORM_DOMAIN + url;
     let headers = { 'Content-Type': 'multipart/form-data', 'version': APP_VERSIONS };
     let formData = new FormData();
