@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import store from '../../store/index';
 import PropTypes from 'prop-types';
 import Api from '../../socket/platform/api';
 import moment from 'moment';
@@ -21,8 +23,12 @@ class ItemHeader extends Component {
     isSub: this.context.item.remark
   }
   _subscibeCalendar = () => {
+    if (!this.props.isLogin) {
+      ToastRoot.show('请先登录平台账户再进行订阅');
+      return;
+    }
     const { item } = this.context;
-    let time = item.timestamp;
+    let time = item.timestamp * 1000;
     let now = new Date();
     if (now.getTime() < time) {
       let id = item.calendarId;
@@ -74,6 +80,15 @@ class ItemHeader extends Component {
     );
   }
 }
+
+function mapState2Props(store) {
+  return {
+    isLogin: store.account.isLogin
+  }
+}
+
+const HeaderHOC = connect(mapState2Props)(ItemHeader);
+
 class ItemContent extends Component {
   static contextTypes = {
     item: PropTypes.object
@@ -119,7 +134,7 @@ class Item extends Component {
   render() {
     return (
       <View>
-        <ItemHeader />
+        <HeaderHOC />
         <ItemContent />
         <ItemBottom />
       </View>
