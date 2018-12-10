@@ -22,12 +22,18 @@ class ItemHeader extends Component {
   }
   _subscibeCalendar = () => {
     const { item } = this.context;
-    let id = item.calendarId;
-    let subKey = 'true';
-    if (this.state.isSub === 'true') {
-      subKey = 'false';
+    let time = item.timestamp;
+    let now = new Date();
+    if (now.getTime() < time) {
+      let id = item.calendarId;
+      let subKey = 'true';
+      if (this.state.isSub === 'true') {
+        subKey = 'false';
+      }
+      Api.subscibeCalendar(id, subKey, this._subSuccess, this._subFailed);
+    } else {
+      ToastRoot.show('该事件已过期，无法订阅!');
     }
-    Api.subscibeCalendar(id, subKey, this._subSuccess, this._subFailed);
   }
   _subSuccess = (data) => {
     let text = '退订成功'
@@ -132,8 +138,6 @@ export default class BusinessCalender extends Component {
     Api.getCrawlerCalendar(0, 10, formDate, tomorrowFormDate, this._getCalenderSuccess);
   }
   _getCalenderSuccess = (e) => {
-    console.log('111');
-    console.log(e);
     let data = e.data;
     this.setState({
       data: data
