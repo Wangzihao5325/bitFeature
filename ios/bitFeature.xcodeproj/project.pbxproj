@@ -652,6 +652,7 @@
 		FF7D2E90213CC348005B5072 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		FF7D2E91213CC348005B5072 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
 		FF7D2EC5213CC604005B5072 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		FF88C23F21BE464D0033EE76 /* bitFeature.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = bitFeature.entitlements; path = bitFeature/bitFeature.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -809,6 +810,7 @@
 		13B07FAE1A68108700A75B9A /* bitFeature */ = {
 			isa = PBXGroup;
 			children = (
+				FF88C23F21BE464D0033EE76 /* bitFeature.entitlements */,
 				FF0E3872218FD73200AC1265 /* index.jsbundle */,
 				FF0E3870218FD72100AC1265 /* assets */,
 				FF7D2E83213CC348005B5072 /* Fonts */,
@@ -1293,11 +1295,14 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = PCQ4ZSC8L3;
+						DevelopmentTeam = 2279YW8L58;
 						LastSwiftMigration = 920;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
 							};
 						};
 					};
@@ -2035,7 +2040,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = PCQ4ZSC8L3;
+				DEVELOPMENT_TEAM = 2279YW8L58;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
@@ -2064,7 +2069,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PCQ4ZSC8L3;
+				DEVELOPMENT_TEAM = 2279YW8L58;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/jcore-react-native/ios/RCTJCoreModule",
