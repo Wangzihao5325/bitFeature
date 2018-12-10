@@ -3,7 +3,10 @@ import { View, Modal, Text, TouchableHighlight, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import store from '../../store/index';
 import { action_trade_flash_login_unshow } from '../../store/actions/customServiceAction';
-import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../../global/config';
+import { DEVICE_HEIGHT, DEVICE_WIDTH, TRADE_DOMAIN } from '../../global/config';
+import TradeSocket from '../../socket/tradeSocket/index';
+import ToastRoot from '../../components/ToastRoot';
+
 const marginH = 50;
 const marginV = 150;
 const contentHeight = DEVICE_HEIGHT - 2 * marginV;
@@ -13,7 +16,18 @@ const NORMAL_TEXTCOLOR = '#7E829B';
 const HIGHLIGHT_TEXTCOLOR = '#FED330';
 class Item extends Component {
   _flashLogin = () => {
-    console.log('hahaha');
+    let account = this.props.data.tranAccount;
+    let password = this.props.data.tranPassword;
+    TradeSocket.connectSocket(TRADE_DOMAIN.url, account, password, this._login_success, this._login_failed);
+  }
+  _login_success = () => {
+    store.dispatch(action_trade_flash_login_unshow());
+    ToastRoot.show('交易账号登录成功');
+  }
+  _login_failed = () => {
+    store.dispatch(action_trade_flash_login_unshow());
+    ToastRoot.show('交易账号登录失败');
+
   }
   render() {
     return (
@@ -31,6 +45,7 @@ class TradeFlashLogin extends Component {
     store.dispatch(action_trade_flash_login_unshow());
   }
   render() {
+    //console.log(this.props.onTradingAccountList);
     return (
       <Modal
         animationType="fade"

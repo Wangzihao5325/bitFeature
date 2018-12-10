@@ -40,6 +40,7 @@ export default class TradeAccountLogScreen extends Component {
     }
   }
   _login_success = (e) => {
+    ToastRoot.show('交易账号登录成功');
     this.props.navigation.pop();
   }
   _login_failed = () => {
