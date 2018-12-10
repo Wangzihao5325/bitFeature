@@ -58,12 +58,25 @@ export default class RegisterScreen extends Component {
   _passwordChange = (text) => {
     reg.passwordInput = text;
   }
-  _getMessageCode = () => {
-    this.setState({
-      isShowDialog: true
-    })
+  _getMessageCode = async () => {
+    let times = await AsyncStorage.getItem('getMessageTimes');
+    if (times && parseInt(times) >= 3) {
+      this.setState({
+        isShowDialog: true
+      });
+    } else {
+      Api.sendMessageWithoutToken(this.state.accountInput, 1, null, this._getMessageSuccess, this._getMessageFailed);
+    }
   }
-  _getMessageSuccess = (e, code, message) => {
+  _getMessageSuccess = async (e, code, message) => {
+    let timesStr = await AsyncStorage.getItem('getMessageTimes');
+    if (timesStr) {
+      let times = parseInt(timesStr);
+      times = times + 1;
+      AsyncStorage.setItem('getMessageTimes', times.toString());
+    } else {
+      AsyncStorage.setItem('getMessageTimes', '1');
+    }
     ToastRoot.show(message);
   }
   _getMessageFailed = (e, code, message) => {
@@ -81,6 +94,7 @@ export default class RegisterScreen extends Component {
   }
   _registerSuccess = (data, code, message) => {
     ToastRoot.show('注册成功');
+    AsyncStorage.setItem('getMessageTimes', '0');
     this.props.navigation.pop();
   }
   _registerFailed = (data, code, message) => {
