@@ -96,8 +96,8 @@ class Item extends Component {
         }
         <Dialog
           visible={this.state.isDialogShow}
-          header={'警告'}
-          renderContent={() => <Text>是否确认进行平仓操作</Text>}
+          header={'确认平仓'}
+          renderContent={() => <Text>{`提交订单: ${contractName}, 价格:市价, 手数(${this.props.holdNum})`}</Text>}
           onConfirm={this._onConfirm}
           onCancel={this._onCancel}
         />
