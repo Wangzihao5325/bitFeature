@@ -2,7 +2,8 @@ import * as types from '../actionType';
 
 const initialState = {
   isShow: false,
-  navi: null
+  navi: null,
+  tradeFlashLoginIsshow: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +19,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         isShow: false,
         navi: null
+      };
+    case types.TRADE_FLASH_LOGIN_SHOW:
+      return {
+        ...state,
+        tradeFlashLoginIsshow: true
+      };
+    case types.TRADE_FLASH_LOGIN_UNSHOW:
+      return {
+        ...state,
+        tradeFlashLoginIsshow: false
       };
     default: return state;
   }

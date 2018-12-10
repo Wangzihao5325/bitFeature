@@ -6,3 +6,11 @@ export function action_custom_service_model_show(navi) {
 export function action_custom_service_model_unshow() {
   return { type: types.CUSTOM_CHOOSE_MODEL_UNSHOW };
 }
+
+export function action_trade_flash_login_unshow() {
+  return { type: types.TRADE_FLASH_LOGIN_UNSHOW };
+}
+
+export function action_trade_flash_login_show() {
+  return { type: types.TRADE_FLASH_LOGIN_SHOW };
+}

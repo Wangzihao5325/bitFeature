@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { View, ScrollView } from 'react-native';
 import Api from '../../socket/platform/api';
 import PropTypes from 'prop-types';
+import { NavigationEvents } from 'react-navigation';
+import { action_trade_flash_login_show } from '../../store/actions/customServiceAction';
+import { update_trade_account_list } from '../../store/actions/tradeAccountAction';
 import { contractMap2Config } from '../../global/commodity_list';
 import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../global/config';
 import VectorIconBtn from '../../components/IconBtn';
@@ -11,6 +14,7 @@ import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
 import MiddleContent from './MiddleContent';
 import ContractInfoList from './ContractInfoList';
+import TradeFlashLogin from './TradeFlashLogin';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -47,9 +51,29 @@ export default class TradeScreen extends Component {
   _questionAsk = () => {
     this.props.navigation.navigate('OperateDetailsScreen');
   }
+  _onDidFocus = () => {
+    let state = store.getState();
+    let isPlatformLog = state.account.isLogin;
+    let isTradeLog = state.nowTradeAccount.isTradeAccountLogin;
+    if (isPlatformLog && !isTradeLog) {
+      Api.getTradeAccount(this._getTradeAccountSuccess);
+    }
+  }
+  _getTradeAccountSuccess = (result) => {
+    let tradeList = result.tradeList ? result.tradeList : [];
+    store.dispatch(update_trade_account_list(tradeList));
+    let state = store.getState();
+    if (state.tradeAccount.onTradingAccountList.length > 0) {
+      store.dispatch(action_trade_flash_login_show());
+    }
+  }
   render() {
     return (
       <ScrollView style={{ height: 660, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }} nestedScrollEnabled={true}>
+        <NavigationEvents
+          onDidFocus={this._onDidFocus}
+        />
+        <TradeFlashLogin />
         <View style={{ flex: 1 }}>
           <DepositSelect />
           <MiddleContent />
