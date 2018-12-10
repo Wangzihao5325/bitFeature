@@ -60,13 +60,11 @@ export default class RegisterScreen extends Component {
   }
   _getMessageCode = async () => {
     let times = await AsyncStorage.getItem('getMessageTimes');
-    console.log(times);
     if (times && parseInt(times) >= 3) {
       this.setState({
         isShowDialog: true
       });
     } else {
-      console.log('gogogog');
       Api.sendMessageWithoutToken(this.state.accountInput, 1, null, this._getMessageSuccess, this._getMessageFailed);
     }
   }
