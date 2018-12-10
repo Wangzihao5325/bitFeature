@@ -50,6 +50,7 @@ export default class AccountLogScreen extends Component {
     this.props.navigation.pop();
   }
   _loginSuccess = (result, code, message) => {
+    AsyncStorage.setItem('LoginFailedTimes', '0');
     Variables.account.token = result.token;
     Variables.account.secret = result.secret;
     Variables.account.mobileAccount = this.state.accountInput.concat();
@@ -59,7 +60,15 @@ export default class AccountLogScreen extends Component {
     //init account data
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
   }
-  _loginFailed = (result, code, message) => {
+  _loginFailed = async (result, code, message) => {
+    let timesStr = await AsyncStorage.getItem('LoginFailedTimes');
+    if (timesStr) {
+      let times = parseInt(timesStr);
+      times = times + 1;
+      AsyncStorage.setItem('LoginFailedTimes', times.toString());
+    } else {
+      AsyncStorage.setItem('LoginFailedTimes', '1');
+    }
     ToastRoot.show(message);
   }
   _login = () => {
@@ -79,10 +88,15 @@ export default class AccountLogScreen extends Component {
   _imageCodeChange = (text) => {
     reg.codeInput = text;
   }
-  _showDialog = () => {
-    this.setState({
-      isShow: true
-    })
+  _showDialog = async () => {
+    let times = await AsyncStorage.getItem('LoginFailedTimes');
+    if (times && parseInt(times) >= 2) {
+      this.setState({
+        isShow: true
+      });
+    } else {
+      Api.login(this.state.accountInput, reg.passwordInput, null, this._loginSuccess, this._loginFailed);
+    }
   }
   _unshowDialog = () => {
     this.setState({
