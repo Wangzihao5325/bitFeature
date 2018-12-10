@@ -51,7 +51,7 @@ class ShowLine extends Component {
   render() {
     return (
       <View style={{ alignSelf: 'center', marginTop: 20, height: 50, width: DEVICE_WIDTH - 20, display: 'flex', flexDirection: 'row', backgroundColor: '#323442', borderRadius: 5 }}>
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><Text style={{ fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.title}</Text></View>
+        <View style={{ flex: 1, justifyContent: 'center' }}><Text style={{ marginLeft: 5, fontSize: 20, color: '#909090', fontWeight: 'bold' }}>{this.props.title}</Text></View>
         <View style={{ width: 200, height: 50, justifyContent: 'center' }}><Text style={{ color: 'white' }}>{this.props.content}</Text></View>
       </View>
     );
