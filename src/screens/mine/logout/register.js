@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, AsyncStorage } from 'react-native';
 import Api from '../../../socket/platform/api';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
@@ -60,11 +60,13 @@ export default class RegisterScreen extends Component {
   }
   _getMessageCode = async () => {
     let times = await AsyncStorage.getItem('getMessageTimes');
+    console.log(times);
     if (times && parseInt(times) >= 3) {
       this.setState({
         isShowDialog: true
       });
     } else {
+      console.log('gogogog');
       Api.sendMessageWithoutToken(this.state.accountInput, 1, null, this._getMessageSuccess, this._getMessageFailed);
     }
   }
