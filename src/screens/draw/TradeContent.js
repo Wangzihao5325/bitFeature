@@ -203,6 +203,27 @@ class Login extends Component {
       isShow: false
     });
   }
+  _addMoney = () => {
+    Api.getTradeAccount(this._gotoAddMoney);
+  }
+  _gotoAddMoney = (result) => {
+    let tradeList = result.tradeList ? result.tradeList : [];
+    store.dispatch(update_trade_account_list(tradeList));
+    let state = store.getState();
+    if (state.tradeAccount.onTradingAccountList.length > 0) {
+      let arr = state.tradeAccount.onTradingAccountList;
+      let accountId = state.nowTradeAccount.loginAccountNum;
+      let reg = arr.filter(function (item) {
+        return item.tranAccount = accountId;
+      });
+      if (reg.length > 0) {
+        let data = reg[0];
+        let id = data.id;
+        const { marketNavigation } = this.context;
+        marketNavigation.navigate('TradeAccountRecharge', { id: `${id}`, isPop: 'true' });
+      }
+    }
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -211,7 +232,7 @@ class Login extends Component {
           <ItemBtn icon='yen' title='资金明细' onPress={this._gotoCapitalDetailsScreen} />
           {/* <ItemBtn icon='pie-chart' title='历史成交' onPress={this._gotoCapitalDetailsScreen} /> */}
           <ItemBtn icon='user' title='开户详情' onPress={this._gotoAccountInnerDetail} />
-          <ItemBtn icon='yen' title='追加保证金' onPress={this._tradeCenter} />
+          <ItemBtn icon='yen' title='追加保证金' onPress={this._addMoney} />
           <ItemBtn icon='list' title='全部开户详情' onPress={this._gotoTradeAccountList} />
           <ItemBtn icon='flash' title='快速结算' onPress={this._tradeAccountOver} />
           <ItemBtn icon='plus-square' title='新开户申请' onPress={this._gotoOpenNewTradeAccount} />
