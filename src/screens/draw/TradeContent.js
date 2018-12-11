@@ -152,17 +152,13 @@ class Login extends Component {
       ToastRoot.show('请先登录平台账户');
       return;
     }
-    let holdPositionsArr = state.nowTradeAccount.holdPositions;
-    if (holdPositionsArr.length <= 0) {
-      ToastRoot.show('当前有持仓,无法终结方案!');
-    } else {
-      this.setState({
-        isShow: true
-      });
-      if (this.props.drawer._open) {
-        this.props.drawer.close();
-      }
+    this.setState({
+      isShow: true
+    });
+    if (this.props.drawer._open) {
+      this.props.drawer.close();
     }
+
   }
   _onConfirm = () => {
     this.setState({
