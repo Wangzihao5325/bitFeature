@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import store from '../../store/index';
 import ItemBtn from './component/ItemBtn';
 import NormalBtn from '../../components/NormalBtn';
+import ToastRoot from '../../components/ToastRoot';
 import { TAB_NAVI_HEADER_BGCOLOR, DEVICE_WIDTH } from '../../global/config';
 const WIDTH = DEVICE_WIDTH * 0.6;
 const COM_BTN_HEIGHT = 35;
@@ -42,10 +44,26 @@ class Login extends Component {
     const { marketNavigation } = this.context;
     marketNavigation.navigate('TradeCenter');
   }
+  _gotoCapitalDetailsScreen = () => {
+    let state = store.getState();
+    if (!state.account.isLogin) {
+      ToastRoot.show('请先登录平台账户');
+      return;
+    }
+    if (this.props.drawer._open) {
+      this.props.drawer.close();
+    }
+    const { marketNavigation } = this.context;
+    marketNavigation.navigate('CapitalDetailsScreen');
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>
         <ItemBtn icon='user' title='交易中心' onPress={this._tradeCenter} />
+        <ItemBtn icon='user' title='资金明细' onPress={this._gotoCapitalDetailsScreen} />
+        <ItemBtn icon='user' title='历史成交' onPress={this._gotoCapitalDetailsScreen} />
+        <ItemBtn icon='user' title='开户详情' onPress={this._tradeCenter} />
+        <ItemBtn icon='user' title='追加保证金' onPress={this._tradeCenter} />
       </View>
     );
   }
@@ -61,7 +79,7 @@ class TradeContent extends Component {
 function mapState2Props(store) {
   return {
     isTradeAccountLogin: store.nowTradeAccount.isTradeAccountLogin,
-    loginAccountNum: store.nowTradeAccount.loginAccountNum
+    loginAccountNum: store.nowTradeAccount.loginAccountNum,
   }
 }
 
