@@ -92,6 +92,11 @@ class Login extends Component {
     ToastRoot.show(message);
   }
   _gotoTradeAccountList = () => {
+    let state = store.getState();
+    if (!state.account.isLogin) {
+      ToastRoot.show('请先登录平台账户');
+      return;
+    }
     if (this.props.drawer._open) {
       this.props.drawer.close();
     }
@@ -139,7 +144,7 @@ class Login extends Component {
         <ScrollView>
           <ItemBtn icon='dollar' title='交易中心' onPress={this._tradeCenter} />
           <ItemBtn icon='yen' title='资金明细' onPress={this._gotoCapitalDetailsScreen} />
-          <ItemBtn icon='pie-chart' title='历史成交' onPress={this._gotoCapitalDetailsScreen} />
+          {/* <ItemBtn icon='pie-chart' title='历史成交' onPress={this._gotoCapitalDetailsScreen} /> */}
           <ItemBtn icon='user' title='开户详情' onPress={this._gotoAccountInnerDetail} />
           <ItemBtn icon='yen' title='追加保证金' onPress={this._tradeCenter} />
           <ItemBtn icon='list' title='全部开户详情' onPress={this._gotoTradeAccountList} />
