@@ -70,7 +70,6 @@ class TradeAccountRecharge extends Component {
     }
   }
   _getbalancerateSuccess = (result) => {
-    console.log('2222222222222');
     store.dispatch(action_getbalancerate(result));
   }
   _rechargeFailed = (data, code, message) => {
