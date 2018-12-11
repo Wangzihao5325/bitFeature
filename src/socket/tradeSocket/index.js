@@ -1,7 +1,7 @@
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
-import { trade_socket_login, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold, update_order, delete_designate, update_designate } from '../../store/actions/nowTradeAccountAction';
+import { trade_socket_login, trade_socket_logout, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold, update_order, delete_designate, update_designate } from '../../store/actions/nowTradeAccountAction';
 import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
@@ -254,6 +254,14 @@ class TradeSocket {
       onSuccess(rtnData);
     } else {
       onFailed();
+    }
+  }
+  logout(account, onSuccess) {
+    let json = { 'Method': 'Logout', 'Parameters': { 'ClientNo': account } };
+    this.ws.send(JSON.stringify(json));
+    store.dispatch(trade_socket_logout());
+    if (typeof onSuccess === 'function') {
+      onSuccess();
     }
   }
 }

@@ -3,6 +3,7 @@ import { View, ScrollView, Text, TouchableHighlight } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import store from '../../store/index';
+import TradeSocket from '../../socket/tradeSocket/index';
 import ItemBtn from './component/ItemBtn';
 import NormalBtn from '../../components/NormalBtn';
 import ToastRoot from '../../components/ToastRoot';
@@ -124,6 +125,14 @@ class Login extends Component {
       ToastRoot.show('暂无其他可交易账户');
     }
   }
+  _tradeLogout = () => {
+    let state = store.getState();
+    let nowTradeAccount = state.nowTradeAccount.loginAccountNum
+    TradeSocket.logout(nowTradeAccount, this._logoutSuccess);
+  }
+  _logoutSuccess = () => {
+    ToastRoot.show('交易账号登出成功');
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -137,7 +146,7 @@ class Login extends Component {
           <ItemBtn icon='flash' title='快速结算' onPress={this._tradeCenter} />
           <ItemBtn icon='plus-square' title='新开户申请' onPress={this._gotoOpenNewTradeAccount} />
           <ItemBtn icon='exchange' title='切换账号' onPress={this._changeTradeAccount} />
-          <ItemBtn icon='power-off' title='退出登录' onPress={this._tradeCenter} />
+          <ItemBtn icon='power-off' title='退出登录' onPress={this._tradeLogout} />
         </ScrollView>
       </View>
     );
