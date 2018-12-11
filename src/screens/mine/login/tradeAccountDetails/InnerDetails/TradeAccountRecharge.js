@@ -13,7 +13,7 @@ const NORMAL_TEXTCOLOR = '#7E829B';
 const HIGHLIGHT_TEXTCOLOR = '#FED330';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const DARK_BGCOLOR = '#17191E';
-let reg = { money: 0, id: '' };
+let reg = { money: 0, id: '', isPop: '' };
 class TradeAccountRecharge extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -35,6 +35,7 @@ class TradeAccountRecharge extends Component {
   }
   componentDidMount() {
     reg.id = this.props.navigation.getParam('id', '');
+    reg.isPop = this.props.navigation.getParam('isPop', '');
   }
 
   _onChangeText = (text) => {
@@ -54,6 +55,7 @@ class TradeAccountRecharge extends Component {
     if (reg.money < 500) {
       ToastRoot.show('追加金额最少为500元!');
     } else {
+      // console.log(`regId:${reg.id},regMoney:${reg.money}`);
       Api.tradeAccountRecharge(reg.id, reg.money, this._rechargeSuccess);
     }
   }
@@ -61,7 +63,11 @@ class TradeAccountRecharge extends Component {
     Api.getbalancerate(4, null, this._getbalancerateSuccess);
     ToastRoot.show('追加保证金成功');
     //this.props.navigation.popToTop();//navigate
-    this.props.navigation.navigate('InnerDetail', { addMoney: reg.money });
+    if (reg.isPop === 'true') {
+      this.props.navigation.pop();
+    } else {
+      this.props.navigation.navigate('InnerDetail', { addMoney: reg.money });
+    }
   }
   _getbalancerateSuccess = (result) => {
     store.dispatch(action_getbalancerate(result));

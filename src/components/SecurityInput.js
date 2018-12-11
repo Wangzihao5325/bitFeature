@@ -24,13 +24,17 @@ export default class SecurityInput extends Component {
     })
   }
   render() {
+    let holder = '';
+    if (this.props.placeholder) {
+      holder = this.props.placeholder;
+    }
     return (
       <View style={{ height: 60, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
         <View style={{ height: 40, width: 0.25 * DEVICE_WIDTH, alignItems: 'center', flexDirection: 'row-reverse' }}>
           <Text style={{ fontSize: 18, marginRight: 10, color: NORMAL_TEXTCOLOR }}>{this.props.title}</Text>
         </View>
         <View style={{ height: 40, width: 0.75 * DEVICE_WIDTH - 10, alignItems: 'center', flexDirection: 'row', backgroundColor: DARKER_BGCOLOR, borderRadius: 5 }}>
-          <TextInput onChangeText={this.props.onChangeText} secureTextEntry={this.state.security} style={{ flex: 1, color: 'white', fontSize: 18, marginLeft: 10 }} />
+          <TextInput placeholderTextColor='#909090' placeholder={holder} onChangeText={this.props.onChangeText} secureTextEntry={this.state.security} style={{ flex: 1, color: 'white', fontSize: 18, marginLeft: 10 }} />
           <VectorIconBtn color={NORMAL_TEXTCOLOR} name={this.state.iconName} onPress={this._changeSecurity} />
         </View>
       </View>

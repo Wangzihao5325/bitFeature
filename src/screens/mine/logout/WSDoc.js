@@ -6,10 +6,10 @@ import { action_custom_service_model_show } from '../../../store/actions/customS
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../../global/config';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const NORMAL_TEXTCOLOR = '#7E829B';
-export default class TradeProtocol extends Component {
+export default class WSProtocol extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-      title: '操盘合作协议',  //header标题
+      title: '期货大赛注册协议',  //header标题
       headerRight: (<VectorIconBtn name='headphones' onPress={navigation.getParam('customService')} />), //Header interaction with its screen component - https://reactnavigation.org/docs/en/header-buttons.html#docsNav 
       headerStyle: {
         backgroundColor: TAB_NAVI_HEADER_BGCOLOR,
@@ -31,7 +31,7 @@ export default class TradeProtocol extends Component {
     return (
       <ScrollView style={{ height: 2000, width: DEVICE_WIDTH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
         <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-          <Text style={[styles.textStyle, { alignSelf: 'center' }]}>全球期货操盘委托协议</Text>
+          <Text style={[styles.textStyle, { alignSelf: 'center' }]}>期货大赛注册协议</Text>
           <Text style={styles.textStyle}>本合作操盘协议（下称“本协议”）由以下甲乙丙三方于 ____年__月__日签署：</Text>
           <Text style={styles.textStyle}>甲方：（以下或称“受托人”）</Text>
           <Text style={styles.textStyle}>乙方：</Text>

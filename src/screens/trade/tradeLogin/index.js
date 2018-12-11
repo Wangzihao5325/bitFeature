@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import TradeSocket from '../../../socket/tradeSocket/index';
 import NormalInput from '../../../components/NormalInput';
 import NormalBtn from '../../../components/NormalBtn';
 import ToastRoot from '../../../components/ToastRoot';
 import { TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH, TRADE_DOMAIN } from '../../../global/config';
 
+const DARK_BGCOLOR = '#17191E';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const HIGHLIGHT_BGCOLOR = '#FED330';
+const HIGHLIGHT_TEXTCOLOR = '#FED330';
+const NORMAL_TEXTCOLOR = '#7E829B';
 let reg = { accountInput: '', passwordInput: '' };
 export default class TradeAccountLogScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -37,6 +40,7 @@ export default class TradeAccountLogScreen extends Component {
     }
   }
   _login_success = (e) => {
+    ToastRoot.show('交易账号登录成功');
     this.props.navigation.pop();
   }
   _login_failed = () => {
@@ -53,6 +57,9 @@ export default class TradeAccountLogScreen extends Component {
   }
   _passwordChange = (text) => {
     reg.passwordInput = text;
+  }
+  _gotoProtal = () => {
+    this.props.navigation.navigate('WSProtocol');
   }
   render() {
     return (
@@ -75,6 +82,16 @@ export default class TradeAccountLogScreen extends Component {
           unableStyle={{ backgroundColor: '#909090', height: 45, width: DEVICE_WIDTH - 10 }}
           onPress={this._naviPop}
         />
+        <View style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: 10 }}>
+          <Text style={{ color: NORMAL_TEXTCOLOR }}>点击登录表示同意</Text>
+          <Text onPress={this._gotoProtal} style={{ color: HIGHLIGHT_TEXTCOLOR, marginTop: 4 }}>《期货大赛用户协议》</Text>
+        </View>
+        <View style={{ backgroundColor: DARK_BGCOLOR, height: 10, width: DEVICE_WIDTH, marginTop: 10 }}></View>
+        <View>
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>操盘交易账号 ≠ 注册登录账号</Text>
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>交易账号:申请方案后系统自动发放，用于实盘交易的账号。可查询交易明细，结算后将会更换。</Text>
+          <Text style={{ color: NORMAL_TEXTCOLOR, marginTop: 10, marginLeft: 15, marginRight: 15 }}>登录账号:使用手机注册后的平台账号，用于登录APP和网站，进行充值提现查看资金明细等。</Text>
+        </View>
       </View>
     );
   }

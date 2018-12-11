@@ -5,9 +5,10 @@ import { TAB_NAVI_DEFAULT_TINT_COLOR, ICON_SIZE } from '../global/config';
 
 export default class VectorIconBtn extends Component {
   render() {
+    let size = this.props.size ? this.props.size : ICON_SIZE
     return (
       <TouchableHighlight onPress={this.props.onPress} style={[styles.container, { ...this.props.style }]} underlayColor={null}>
-        <Icon name={this.props.name} size={ICON_SIZE} color={this.props.color ? this.props.color : TAB_NAVI_DEFAULT_TINT_COLOR} />
+        <Icon name={this.props.name} size={size} color={this.props.color ? this.props.color : TAB_NAVI_DEFAULT_TINT_COLOR} />
       </TouchableHighlight>
     );
   }

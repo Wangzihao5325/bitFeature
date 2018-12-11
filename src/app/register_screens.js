@@ -14,6 +14,7 @@ import OpenTradeAccountScreen from '../screens/trade/openTradeAccount/index';
 import ApplyTradeAccountSuccessScreen from '../screens/trade/openTradeAccount/OpenSuccessScreen';
 import OperateDetailsScreen from '../screens/trade/operateDetails';
 import TradeProtocol from '../screens/trade/openTradeAccount/TradeProtocol';
+import WSProtocol from '../screens/trade/tradeLogin/WSProtocol';
 
 import NewsScreen from '../screens/news/index';
 
@@ -34,7 +35,8 @@ import RegisterScreen from '../screens/mine/logout/register';
 import WithdrawCashScreen from '../screens/mine/login/withdraw';
 import NameCertification from '../screens/mine/login/bindCard/NameCertification';
 import WithdrawPassword from '../screens/mine/login/withdraw/WithdrawPassword';
-
+import WSDoc from '../screens/mine/logout/WSDoc';
+import LostPassword from '../screens/mine/logout/LostPassword';
 
 
 /*
@@ -47,6 +49,7 @@ let MarketStack = createStackNavigator(                      //行情
     'TradeAccountLogScreenInMarket': TradeAccountLogScreen,
     TradeCenter,
     CustomerServiceScreen,
+    WSProtocol,
   },
   {
     navigationOptions: { gesturesEnabled: false }
@@ -123,7 +126,9 @@ let MineStack = createStackNavigator(                       //我的
     InnerCardBind,
     WithdrawCashScreen,
     NameCertification,
-    WithdrawPassword
+    WithdrawPassword,
+    WSDoc,
+    LostPassword
   },
   {
     navigationOptions: {

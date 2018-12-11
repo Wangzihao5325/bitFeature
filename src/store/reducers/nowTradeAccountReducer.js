@@ -22,6 +22,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.TRADE_ACCOUNT_LOGOUT:
+      return {
+        ...initialState
+      };
     case types.TRADE_ACCOUNT_LOGIN:
       return {
         ...state,

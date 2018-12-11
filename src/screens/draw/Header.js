@@ -18,8 +18,8 @@ class Header extends Component {
         <View style={{ height: 90, width: WIDTH, display: 'flex', justifyContent: 'center', alignItems: 'center', borderBottomColor: 'black', borderBottomWidth: 1 }}>
           <Text style={{ color: 'white', fontSize: 20 }}>{headerTitle}</Text>
         </View>
-        <ItemBtn icon='user' title='搜索' onPress={this._search} />
-        <ItemBtn icon='user' title='自选列表' onPress={this._condition_order} />
+        <ItemBtn icon='search' title='搜索' onPress={this._search} />
+        <ItemBtn icon='star' title='自选列表' onPress={this._condition_order} />
       </View>
     );
   }

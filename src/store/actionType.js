@@ -10,7 +10,7 @@ export const DECREMENT = 'DECREMENT';
 
 // account store types
 
-//这个LOG_IN不代表api接口的login success，代表着程序逻辑中的登陆成功（1.接口登陆2.获取数据3.登陆成功）
+//这个LOG_IN不代表api接口的login success，代表着程序逻辑中的登录成功（1.接口登录2.获取数据3.登录成功）
 export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const GET_ACCOUNT_INFO = 'GET_ACCOUNT_INFO';
@@ -23,6 +23,8 @@ export const UPDATE_MARKET_STORE_ASKANDBID = 'UPDATE_MARKET_STORE_ASKANDBID';
 // custom service store types
 export const CUSTOM_CHOOSE_MODEL_SHOW = 'CUSTOM_CHOOSE_MODEL_SHOW';
 export const CUSTOM_CHOOSE_MODEL_UNSHOW = 'CUSTOM_CHOOSE_MODEL_UNSHOW';
+export const TRADE_FLASH_LOGIN_SHOW = 'TRADE_FLASH_LOGIN_SHOW';
+export const TRADE_FLASH_LOGIN_UNSHOW = 'TRADE_FLASH_LOGIN_UNSHOW';
 
 // capital detail store types
 export const INIT_CAPITAL_DETAILS_STORE = 'INIT_CAPITAL_DETAILS_STORE';
@@ -30,6 +32,7 @@ export const UPDATE_CAPITAL_DETAILS_STORE = 'UPDATE_CAPITAL_DETAILS_STORE';
 
 // now trade account types
 export const TRADE_ACCOUNT_LOGIN = 'TRADE_ACCOUNT_LOGIN';
+export const TRADE_ACCOUNT_LOGOUT = 'TRADE_ACCOUNT_LOGOUT';
 export const TRADE_QUERY_ACCOUNT = 'TRADE_QUERY_ACCOUNT';
 export const TRADE_ADD_ORDER_DEFALUT = 'TRADE_ADD_ORDER_DEFALUT';
 export const TRADE_ADD_ORDER_INSERT = 'TRADE_ADD_ORDER_INSERT';

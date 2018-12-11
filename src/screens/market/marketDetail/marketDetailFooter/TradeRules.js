@@ -16,6 +16,22 @@ class Item extends Component {
     );
   }
 }
+class ScrollItem extends Component {
+  render() {
+    return (
+      <View style={{ height: 30, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', backgroundColor: this.props.bgColor ? this.props.bgColor : NORMAL_BACKGROUNDCOLOR }}>
+        <View style={{ height: 30, width: 100, borderRightColor: 'black', borderRightWidth: 1, display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}><Text style={{ color: 'white' }}>{this.props.title}</Text></View>
+        <View style={{ height: 30, width: DEVICE_WIDTH - 100, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <ScrollView horizontal={true} nestedScrollEnabled={true}>
+            <View style={{ height: 30, width: DEVICE_WIDTH + 200, display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+              <Text numberOfLines={1} ellipsizeMode='tail' style={{ color: 'white', marginLeft: 5 }}>{this.props.contant}</Text>
+            </View>
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
+}
 class TradeRules extends Component {
   state = {
     commodityName: '',
@@ -31,7 +47,6 @@ class TradeRules extends Component {
     let closeTime = '';
     let timeStr = '';
     if (e.tradingTimeSeg) {
-      console.log(e.tradingTimeSeg);
       let timeStrArr = e.tradingTimeSeg;
       timeStrArr.forEach(element => {
         let timeObj = JSON.parse(element);
@@ -88,14 +103,14 @@ class TradeRules extends Component {
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: NORMAL_BACKGROUNDCOLOR }} >
-        <ScrollView>
+        <ScrollView nestedScrollEnabled={true}>
           <Item title='交易品种' contant={this.state.commodityName} bgColor={LIGHT_BGCOLOR} />
           <Item title='币种单位' contant={this.state.currencyNo} />
           <Item title='交易单位' contant={this.state.contractSize} bgColor={LIGHT_BGCOLOR} />
           <Item title='波动盈亏' contant={this.state.miniTikeSize} />
           <Item title='交易综合费用' contant={this.state.fee} bgColor={LIGHT_BGCOLOR} />
-          <Item title='买入交易时间' contant={this.state.startTime} />
-          <Item title='卖出交易时间' contant={this.state.endTime} bgColor={LIGHT_BGCOLOR} />
+          <ScrollItem title='买入交易时间' contant={this.state.startTime} />
+          <ScrollItem title='卖出交易时间' contant={this.state.endTime} bgColor={LIGHT_BGCOLOR} />
           <Item title='清仓时间' contant={this.state.time} />
         </ScrollView>
       </View>
