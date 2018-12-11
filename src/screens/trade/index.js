@@ -14,7 +14,6 @@ import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
 import MiddleContent from './MiddleContent';
 import ContractInfoList from './ContractInfoList';
-import TradeFlashLogin from './TradeFlashLogin';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -73,7 +72,6 @@ export default class TradeScreen extends Component {
         <NavigationEvents
           onDidFocus={this._onDidFocus}
         />
-        <TradeFlashLogin />
         <View style={{ flex: 1 }}>
           <DepositSelect />
           <MiddleContent />

@@ -7,6 +7,7 @@ import ItemBtn from './component/ItemBtn';
 import NormalBtn from '../../components/NormalBtn';
 import ToastRoot from '../../components/ToastRoot';
 import Api from '../../socket/platform/api';
+import { action_trade_flash_login_show } from '../../store/actions/customServiceAction';
 import { update_trade_account_list } from '../../store/actions/tradeAccountAction';
 import { TAB_NAVI_HEADER_BGCOLOR, DEVICE_WIDTH } from '../../global/config';
 const WIDTH = DEVICE_WIDTH * 0.6;
@@ -64,7 +65,7 @@ class Login extends Component {
       ToastRoot.show('请先登录平台账户');
       return;
     }
-    Api.getTradeAccount(this._getTradeAccountSuccess);
+    Api.getTradeAccount(this._getTradeAccountSuccess, this._getTradeAccountFailed);
   }
   _getTradeAccountSuccess = (result) => {
     let tradeList = result.tradeList ? result.tradeList : [];
@@ -86,6 +87,9 @@ class Login extends Component {
       }
     }
   }
+  _getTradeAccountFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
   _gotoTradeAccountList = () => {
     if (this.props.drawer._open) {
       this.props.drawer.close();
@@ -101,6 +105,25 @@ class Login extends Component {
     const { marketNavigation } = this.context;
     marketNavigation.navigate('TradeScreen');
   }
+
+  _changeTradeAccount = () => {
+    let state = store.getState();
+    if (!state.account.isLogin) {
+      ToastRoot.show('请先登录平台账户');
+      return;
+    }
+    Api.getTradeAccount(this._changeRightNow, this._getTradeAccountFailed);
+  }
+  _changeRightNow = (result) => {
+    let tradeList = result.tradeList ? result.tradeList : [];
+    store.dispatch(update_trade_account_list(tradeList));
+    let state = store.getState();
+    if (state.tradeAccount.onTradingAccountList.length > 1) {
+      store.dispatch(action_trade_flash_login_show());
+    } else {
+      ToastRoot.show('暂无其他可交易账户');
+    }
+  }
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -113,7 +136,7 @@ class Login extends Component {
           <ItemBtn icon='user' title='全部开户详情' onPress={this._gotoTradeAccountList} />
           <ItemBtn icon='user' title='快速结算' onPress={this._tradeCenter} />
           <ItemBtn icon='user' title='新开户申请' onPress={this._gotoOpenNewTradeAccount} />
-          <ItemBtn icon='user' title='切换账号' onPress={this._tradeCenter} />
+          <ItemBtn icon='user' title='切换账号' onPress={this._changeTradeAccount} />
           <ItemBtn icon='user' title='退出登录' onPress={this._tradeCenter} />
         </ScrollView>
       </View>
