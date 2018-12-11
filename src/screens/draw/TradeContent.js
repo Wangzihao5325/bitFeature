@@ -8,6 +8,7 @@ import ItemBtn from './component/ItemBtn';
 import NormalBtn from '../../components/NormalBtn';
 import ToastRoot from '../../components/ToastRoot';
 import Api from '../../socket/platform/api';
+import Dialog from '../../components/ImageVerification/Dialog';
 import { action_trade_flash_login_show } from '../../store/actions/customServiceAction';
 import { update_trade_account_list } from '../../store/actions/tradeAccountAction';
 import { TAB_NAVI_HEADER_BGCOLOR, DEVICE_WIDTH } from '../../global/config';
@@ -39,6 +40,10 @@ class Unlogin extends Component {
 class Login extends Component {
   static contextTypes = {
     marketNavigation: PropTypes.object
+  }
+
+  state = {
+    isShow: false
   }
 
   _tradeCenter = () => {
@@ -126,17 +131,77 @@ class Login extends Component {
     let state = store.getState();
     if (state.tradeAccount.onTradingAccountList.length > 1) {
       store.dispatch(action_trade_flash_login_show());
+      if (this.props.drawer._open) {
+        this.props.drawer.close();
+      }
     } else {
       ToastRoot.show('暂无其他可交易账户');
     }
   }
   _tradeLogout = () => {
     let state = store.getState();
-    let nowTradeAccount = state.nowTradeAccount.loginAccountNum
+    let nowTradeAccount = state.nowTradeAccount.loginAccountNum;
     TradeSocket.logout(nowTradeAccount, this._logoutSuccess);
   }
   _logoutSuccess = () => {
     ToastRoot.show('交易账号登出成功');
+  }
+  _tradeAccountOver = () => {
+    let state = store.getState();
+    if (!state.account.isLogin) {
+      ToastRoot.show('请先登录平台账户');
+      return;
+    }
+    let holdPositionsArr = state.nowTradeAccount.holdPositions;
+    if (holdPositionsArr.length <= 0) {
+      ToastRoot.show('当前有持仓,无法终结方案!');
+    } else {
+      this.setState({
+        isShow: true
+      });
+      if (this.props.drawer._open) {
+        this.props.drawer.close();
+      }
+    }
+  }
+  _onConfirm = () => {
+    this.setState({
+      isShow: false
+    });
+    Api.getTradeAccount(this._overTradeAccountRightNow);
+  }
+  _overTradeAccountRightNow = (result) => {
+    let tradeList = result.tradeList ? result.tradeList : [];
+    store.dispatch(update_trade_account_list(tradeList));
+    let state = store.getState();
+    if (state.tradeAccount.onTradingAccountList.length > 0) {
+      let arr = state.tradeAccount.onTradingAccountList;
+      let accountId = state.nowTradeAccount.loginAccountNum;
+      let reg = arr.filter(function (item) {
+        return item.tranAccount = accountId;
+      });
+      if (reg.length > 0) {
+        let data = reg[0];
+        let id = data.id;
+        Api.endTradeAccount(id, this._endSuccess, this._endFailed);
+      }
+    }
+  }
+  _endSuccess = () => {
+    let state = store.getState();
+    let nowTradeAccount = state.nowTradeAccount.loginAccountNum;
+    TradeSocket.logout(nowTradeAccount, this._overSuccess);
+  }
+  _overSuccess = () => {
+    ToastRoot.show('结算成功');
+  }
+  _endFailed = (e, code, message) => {
+    ToastRoot.show(message);
+  }
+  _onCancel = () => {
+    this.setState({
+      isShow: false
+    });
   }
   render() {
     return (
@@ -148,11 +213,18 @@ class Login extends Component {
           <ItemBtn icon='user' title='开户详情' onPress={this._gotoAccountInnerDetail} />
           <ItemBtn icon='yen' title='追加保证金' onPress={this._tradeCenter} />
           <ItemBtn icon='list' title='全部开户详情' onPress={this._gotoTradeAccountList} />
-          <ItemBtn icon='flash' title='快速结算' onPress={this._tradeCenter} />
+          <ItemBtn icon='flash' title='快速结算' onPress={this._tradeAccountOver} />
           <ItemBtn icon='plus-square' title='新开户申请' onPress={this._gotoOpenNewTradeAccount} />
           <ItemBtn icon='exchange' title='切换账号' onPress={this._changeTradeAccount} />
           <ItemBtn icon='power-off' title='退出登录' onPress={this._tradeLogout} />
         </ScrollView>
+        <Dialog
+          visible={this.state.isShow}
+          header={'结算确认'}
+          renderContent={() => <Text>是否确认对当前交易账户进行结算？</Text>}
+          onConfirm={this._onConfirm}
+          onCancel={this._onCancel}
+        />
       </View>
     );
   }
