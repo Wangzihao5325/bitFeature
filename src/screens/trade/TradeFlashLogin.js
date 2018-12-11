@@ -23,11 +23,16 @@ class Item extends Component {
   _login_success = () => {
     store.dispatch(action_trade_flash_login_unshow());
     ToastRoot.show('交易账号登录成功');
+    if (this.props.logSuccess) {
+      this.props.logSuccess();
+    }
   }
   _login_failed = () => {
     store.dispatch(action_trade_flash_login_unshow());
     ToastRoot.show('交易账号登录失败');
-
+    if (this.props.logFailed) {
+      this.props.logFailed();
+    }
   }
   render() {
     return (
@@ -46,6 +51,8 @@ class TradeFlashLogin extends Component {
   }
   render() {
     //console.log(this.props.onTradingAccountList);
+    let logSuccess = this.props.logSuccess ? this.props.logSuccess : null;
+    let logFailed = this.props.logFailed ? this.props.logFailed : null;
     return (
       <Modal
         animationType="fade"
@@ -59,7 +66,7 @@ class TradeFlashLogin extends Component {
               {this.props.onTradingAccountList.length > 0 &&
                 <FlatList
                   data={this.props.onTradingAccountList}
-                  renderItem={({ item }) => <Item data={item} />}
+                  renderItem={({ item }) => <Item data={item} logSuccess={logSuccess} logFailed={logFailed} />}
                 />}
             </View>
             <TouchableHighlight onPress={this._unshow} style={{ height: contentHeight / 8, width: contentWidth, display: 'flex', justifyContent: 'center', borderBottomColor: 'black', borderBottomWidth: 2 }}><Text style={{ color: NORMAL_TEXTCOLOR, alignSelf: 'center' }}>取消</Text></TouchableHighlight>
