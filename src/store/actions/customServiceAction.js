@@ -14,3 +14,11 @@ export function action_trade_flash_login_unshow() {
 export function action_trade_flash_login_show() {
   return { type: types.TRADE_FLASH_LOGIN_SHOW };
 }
+
+export function action_trade_flash_login_with_navi_unshow() {
+  return { type: types.TRADE_FLASH_LOGIN_WITH_NAVI_UNSHOW };
+}
+
+export function action_trade_flash_login_with_navi_show() {
+  return { type: types.TRADE_FLASH_LOGIN_WITH_NAVI_SHOW };
+}

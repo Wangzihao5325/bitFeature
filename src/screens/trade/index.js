@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import Api from '../../socket/platform/api';
 import PropTypes from 'prop-types';
 import { NavigationEvents } from 'react-navigation';
-import { action_trade_flash_login_show } from '../../store/actions/customServiceAction';
+import { action_trade_flash_login_with_navi_show } from '../../store/actions/customServiceAction';
 import { update_trade_account_list } from '../../store/actions/tradeAccountAction';
 import { contractMap2Config } from '../../global/commodity_list';
 import { TAB_NAVI_NAME, TAB_NAVI_HEADER_BGCOLOR, HEADER_TINT_COLOR, DEVICE_WIDTH } from '../../global/config';
@@ -14,6 +14,7 @@ import { action_depositStoreInit } from '../../store/actions/depositAction';
 import DepositSelect from './ DepositSelect';
 import MiddleContent from './MiddleContent';
 import ContractInfoList from './ContractInfoList';
+import TradeFlashLoginWithNavi from './TradeFlashLoginWithNavi';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 export default class TradeScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -63,8 +64,11 @@ export default class TradeScreen extends Component {
     store.dispatch(update_trade_account_list(tradeList));
     let state = store.getState();
     if (state.tradeAccount.onTradingAccountList.length > 0) {
-      store.dispatch(action_trade_flash_login_show());
+      store.dispatch(action_trade_flash_login_with_navi_show());
     }
+  }
+  _gotoTradeCenter = () => {
+    this.props.navigation.navigate('TradeCenter');
   }
   render() {
     return (
@@ -72,6 +76,7 @@ export default class TradeScreen extends Component {
         <NavigationEvents
           onDidFocus={this._onDidFocus}
         />
+        <TradeFlashLoginWithNavi logSuccess={this._gotoTradeCenter} />
         <View style={{ flex: 1 }}>
           <DepositSelect />
           <MiddleContent />

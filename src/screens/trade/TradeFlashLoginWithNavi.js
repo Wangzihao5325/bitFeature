@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Modal, Text, TouchableHighlight, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import store from '../../store/index';
-import { action_trade_flash_login_unshow } from '../../store/actions/customServiceAction';
+import { action_trade_flash_login_with_navi_unshow } from '../../store/actions/customServiceAction';
 import { DEVICE_HEIGHT, DEVICE_WIDTH, TRADE_DOMAIN } from '../../global/config';
 import TradeSocket from '../../socket/tradeSocket/index';
 import ToastRoot from '../../components/ToastRoot';
@@ -21,14 +21,14 @@ class Item extends Component {
     TradeSocket.connectSocket(TRADE_DOMAIN.url, account, password, this._login_success, this._login_failed);
   }
   _login_success = () => {
-    store.dispatch(action_trade_flash_login_unshow());
+    store.dispatch(action_trade_flash_login_with_navi_unshow());
     ToastRoot.show('交易账号登录成功');
     if (this.props.logSuccess) {
       this.props.logSuccess();
     }
   }
   _login_failed = () => {
-    store.dispatch(action_trade_flash_login_unshow());
+    store.dispatch(action_trade_flash_login_with_navi_unshow());
     ToastRoot.show('交易账号登录失败');
     if (this.props.logFailed) {
       this.props.logFailed();
@@ -47,7 +47,7 @@ class Item extends Component {
 }
 class TradeFlashLogin extends Component {
   _unshow = () => {
-    store.dispatch(action_trade_flash_login_unshow());
+    store.dispatch(action_trade_flash_login_with_navi_unshow());
   }
   render() {
     //console.log(this.props.onTradingAccountList);
@@ -78,7 +78,7 @@ class TradeFlashLogin extends Component {
 }
 function mapState2Props(store) {
   return {
-    isShow: store.customService.tradeFlashLoginIsshow,
+    isShow: store.customService.tradeFlashLoginWithNaviIsshow,
     onTradingAccountList: store.tradeAccount.onTradingAccountList
   }
 }
