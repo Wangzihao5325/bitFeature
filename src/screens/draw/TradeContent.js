@@ -22,7 +22,7 @@ class Unlogin extends Component {
   }
   _login_trade = () => {
     const { marketNavigation } = this.context;
-    marketNavigation.navigate('TradeAccountLogScreenInMarket');
+    marketNavigation.navigate('TradeScreen');
   }
   render() {
     return (

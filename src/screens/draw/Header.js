@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import ItemBtn from './component/ItemBtn';
+import ToastRoot from '../../components/ToastRoot';
 import { TAB_NAVI_HEADER_BGCOLOR, DEVICE_WIDTH } from '../../global/config';
 const WIDTH = DEVICE_WIDTH * 0.6;
 class Header extends Component {
   _search = () => {
-    console.log('go to search');
+    ToastRoot.show('本功能暂未开放，敬请期待');
   }
   _collection_list = () => {//前往自选
-    console.log('go to collection list');
+    ToastRoot.show('本功能暂未开放，敬请期待');
   }
   render() {
     const headerTitle = this.props.isTradeAccountLogin ? '交易账号: ' + this.props.loginAccountNum : '没有登录交易账号';

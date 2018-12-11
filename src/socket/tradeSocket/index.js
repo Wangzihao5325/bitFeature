@@ -1,3 +1,4 @@
+import { AppState } from 'react-native';
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
@@ -6,6 +7,18 @@ import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
 class TradeSocket {
+  constructor() {
+    //重连
+    // AppState.addEventListener('change', (appState) => {
+    //   if (appState === 'active') {
+    //     let state = store.getState();
+    //     let isTradeLogin = state.nowTradeAccount.isTradeAccountLogin;
+    //     if (isTradeLogin) {
+    //       this.connectSocket(this._url, this._account, this._password);
+    //     }
+    //   }
+    // });
+  }
   _login(account, password) {//登录
     let json = { 'Method': 'Login', 'Parameters': { 'ClientNo': account, 'PassWord': base64.encode(password), 'IsMock': 1, 'Version': '2.0.0', 'Source': 'app' } };
     this.ws.send(JSON.stringify(json));
