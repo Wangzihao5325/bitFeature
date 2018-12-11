@@ -128,16 +128,16 @@ class Login extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <ItemBtn icon='user' title='交易中心' onPress={this._tradeCenter} />
-          <ItemBtn icon='user' title='资金明细' onPress={this._gotoCapitalDetailsScreen} />
-          <ItemBtn icon='user' title='历史成交' onPress={this._gotoCapitalDetailsScreen} />
+          <ItemBtn icon='dollar' title='交易中心' onPress={this._tradeCenter} />
+          <ItemBtn icon='yen' title='资金明细' onPress={this._gotoCapitalDetailsScreen} />
+          <ItemBtn icon='pie-chart' title='历史成交' onPress={this._gotoCapitalDetailsScreen} />
           <ItemBtn icon='user' title='开户详情' onPress={this._gotoAccountInnerDetail} />
-          <ItemBtn icon='user' title='追加保证金' onPress={this._tradeCenter} />
-          <ItemBtn icon='user' title='全部开户详情' onPress={this._gotoTradeAccountList} />
-          <ItemBtn icon='user' title='快速结算' onPress={this._tradeCenter} />
-          <ItemBtn icon='user' title='新开户申请' onPress={this._gotoOpenNewTradeAccount} />
-          <ItemBtn icon='user' title='切换账号' onPress={this._changeTradeAccount} />
-          <ItemBtn icon='user' title='退出登录' onPress={this._tradeCenter} />
+          <ItemBtn icon='yen' title='追加保证金' onPress={this._tradeCenter} />
+          <ItemBtn icon='list' title='全部开户详情' onPress={this._gotoTradeAccountList} />
+          <ItemBtn icon='flash' title='快速结算' onPress={this._tradeCenter} />
+          <ItemBtn icon='plus-square' title='新开户申请' onPress={this._gotoOpenNewTradeAccount} />
+          <ItemBtn icon='exchange' title='切换账号' onPress={this._changeTradeAccount} />
+          <ItemBtn icon='power-off' title='退出登录' onPress={this._tradeCenter} />
         </ScrollView>
       </View>
     );
