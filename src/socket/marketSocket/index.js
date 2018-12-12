@@ -185,7 +185,7 @@ class MarketSocket {
     store.dispatch(action_updateAskAndBid(rtnObj));
   }
   managerAliveContractList(rtnObj) {
-    if (rtnObj.data.succ_list) {
+    if (rtnObj && rtnObj.data && rtnObj.data.succ_list) {
       let successArr = rtnObj.data.succ_list;
       successArr.map(function (item) {
         let regArr = item.split('_');
