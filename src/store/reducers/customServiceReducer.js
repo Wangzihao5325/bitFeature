@@ -3,7 +3,10 @@ import * as types from '../actionType';
 const initialState = {
   isShow: false,
   navi: null,
-  tradeFlashLoginIsshow: false
+  tradeFlashLoginIsshow: false,
+  tradeFlashLoginWithNaviIsshow: false,
+  isMarketRestart: false,
+  isTradeRestart: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +32,36 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         tradeFlashLoginIsshow: false
+      };
+    case types.TRADE_FLASH_LOGIN_WITH_NAVI_UNSHOW:
+      return {
+        ...state,
+        tradeFlashLoginWithNaviIsshow: false
+      };
+    case types.TRADE_FLASH_LOGIN_WITH_NAVI_SHOW:
+      return {
+        ...state,
+        tradeFlashLoginWithNaviIsshow: true
+      };
+    case types.WAITING_MARKET_SOCKET_RESTART:
+      return {
+        ...state,
+        isMarketRestart: true
+      };
+    case types.MARKET_SOCKET_RESTART_DONE:
+      return {
+        ...state,
+        isMarketRestart: false
+      };
+    case types.WAITING_TRADE_SOCKET_RESTART:
+      return {
+        ...state,
+        isTradeRestart: true
+      };
+    case types.TRADE_SOCKET_RESTART_DONE:
+      return {
+        ...state,
+        isTradeRestart: false
       };
     default: return state;
   }

@@ -1,3 +1,4 @@
+import { AppState } from 'react-native';
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
@@ -5,7 +6,59 @@ import { trade_socket_login, trade_socket_logout, trade_socket_queryAccount, add
 import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
+import { action_waiting_trade_socket_restart, action_trade_socket_restart_done } from '../../store/actions/customServiceAction';
 class TradeSocket {
+  constructor() {
+    //重连
+    AppState.addEventListener('change', (appState) => {
+      if (appState === 'active') {
+        let state = store.getState();
+        let isTradeLogin = state.nowTradeAccount.isTradeAccountLogin;
+        if (isTradeLogin) {
+          store.dispatch(action_waiting_trade_socket_restart());
+          this._backForHeartBeat(true);
+        }
+      }
+    });
+  }
+
+  _backForHeartBeat(isBack) {
+    const time = isBack ? 5000 : 10000;
+    if (!this.ws) {
+      return;
+    }
+    this.isHeartBeating = false;
+    this.tradeHeartBeatTimeoutId && clearTimeout(this.tradeHeartBeatTimeoutId);
+
+    this.tradeHeartBeatTimeoutId = setTimeout(() => {
+      clearTimeout(this.tradeHeartBeatTimeoutId);
+      let state = store.getState();
+      let isTradeLogin = state.nowTradeAccount.isTradeAccountLogin;
+      if (isTradeLogin && this.isHeartBeating && (this.ws.readyState === 0 || this.ws.readyState === 1)) {
+        this._backForHeartBeat();
+        store.dispatch(action_trade_socket_restart_done());
+      } else if (isTradeLogin) {
+        this.restartTradeSocket();
+      }
+    }, time);
+  }
+
+  restartTradeSocket() {
+    let json = { 'Method': 'Logout', 'Parameters': { 'ClientNo': this._account } };
+    this.ws.send(JSON.stringify(json));
+    this.ws.close();
+    if (!this._account) {
+      store.dispatch(action_trade_socket_restart_done());
+      return;
+    }
+    setTimeout(() => {
+      //success时插入model show
+      this.connectSocket(this._url, this._account, this._password, () => { store.dispatch(action_trade_socket_restart_done()); });
+    }, 1500);
+  }
+
+
+
   _login(account, password) {//登录
     let json = { 'Method': 'Login', 'Parameters': { 'ClientNo': account, 'PassWord': base64.encode(password), 'IsMock': 1, 'Version': '2.0.0', 'Source': 'app' } };
     this.ws.send(JSON.stringify(json));
@@ -122,6 +175,9 @@ class TradeSocket {
           break;
         case 'OnRtnMoney':                                 //更新持仓
           this.updateAccountInfo(data);
+          break;
+        case 'OnRspHeartBeat':                                 //心跳
+          this.isHeartBeating = true;
           break;
       }
     }

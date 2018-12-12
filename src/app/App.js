@@ -11,7 +11,8 @@ import { TAB_NAVI_BOTTOM_BGCOLOR, TAB_NAVI_ACTIVE_TINT_COLOR, TRADE_DOMAIN } fro
 import { recommendContractMap, classifyContractMap, initContractList } from '../global/commodity_list';
 import CustomChooseModel from '../screens/mine/customerService/CustomChooseModel';
 import Variables from '../global/Variables';
-import TradeFlashLogin from '../screens/trade/TradeFlashLogin';
+import TradeFlashLogin from '../screens/market/TradeFlashLogin';
+import WaitingModel from '../components/WaitingModel';
 const Router = createBottomTabNavigator(
   {
     MarketStack,
@@ -79,6 +80,7 @@ export default class App extends Component {
         <View style={{ flex: 1 }}>
           <CustomChooseModel />
           <TradeFlashLogin />
+          <WaitingModel />
           <Router />
         </View>
       </Provider>
