@@ -4,7 +4,8 @@ const initialState = {
   isShow: false,
   navi: null,
   tradeFlashLoginIsshow: false,
-  tradeFlashLoginWithNaviIsshow: false
+  tradeFlashLoginWithNaviIsshow: false,
+  waitModelIsshow: false
 }
 
 const reducer = (state = initialState, action) => {

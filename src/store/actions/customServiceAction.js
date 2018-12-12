@@ -22,3 +22,11 @@ export function action_trade_flash_login_with_navi_unshow() {
 export function action_trade_flash_login_with_navi_show() {
   return { type: types.TRADE_FLASH_LOGIN_WITH_NAVI_SHOW };
 }
+
+export function action_waiting_model_unshow() {
+  return { type: types.WAITING_MODEL_UNSHOW };
+}
+
+export function action_waiting_model_show() {
+  return { type: types.WAITING_MODEL_SHOW };
+}
