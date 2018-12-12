@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Model } from 'react-native';
+import { View, Modal, Text } from 'react-native';
 import { connect } from 'react-redux';
 import store from '../store/index';
 import { DEVICE_HEIGHT, DEVICE_WIDTH } from '../global/config';
@@ -17,11 +17,11 @@ class WaitingModel extends Component {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={this.props.isShow}
+        visible={this.props.isMarketRestart || this.props.isTradeRestart}
       >
         <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.6)' }}>
-          <View style={{ display: 'flex', width: contentWidth, marginTop: marginV, marginLeft: marginH, backgroundColor: NORMAL_BACKGROUNDCOLOR }}>
-            <Text style={{ color: 'NORMAL_TEXTCOLOR' }}>正在重连，请稍候...</Text>
+          <View style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', width: contentWidth, height: 50, marginTop: DEVICE_HEIGHT / 2, marginLeft: marginH, backgroundColor: 'white' }}>
+            <Text style={{ color: NORMAL_TEXTCOLOR }}>正在重连，请稍候...</Text>
           </View>
         </View>
       </Modal>
@@ -30,8 +30,9 @@ class WaitingModel extends Component {
 }
 function mapState2Props(store) {
   return {
-    isShow: store.customService.tradeFlashLoginWithNaviIsshow,
+    isMarketRestart: store.customService.isMarketRestart,
+    isTradeRestart: store.customService.isTradeRestart,
   }
 }
 
-export default connect(mapState2Props)(TradeFlashLogin);
+export default connect(mapState2Props)(WaitingModel);

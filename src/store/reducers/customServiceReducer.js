@@ -5,7 +5,8 @@ const initialState = {
   navi: null,
   tradeFlashLoginIsshow: false,
   tradeFlashLoginWithNaviIsshow: false,
-  waitModelIsshow: false
+  isMarketRestart: false,
+  isTradeRestart: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -41,6 +42,26 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         tradeFlashLoginWithNaviIsshow: true
+      };
+    case types.WAITING_MARKET_SOCKET_RESTART:
+      return {
+        ...state,
+        isMarketRestart: true
+      };
+    case types.MARKET_SOCKET_RESTART_DONE:
+      return {
+        ...state,
+        isMarketRestart: false
+      };
+    case types.WAITING_TRADE_SOCKET_RESTART:
+      return {
+        ...state,
+        isTradeRestart: true
+      };
+    case types.TRADE_SOCKET_RESTART_DONE:
+      return {
+        ...state,
+        isTradeRestart: false
       };
     default: return state;
   }

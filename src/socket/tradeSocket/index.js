@@ -6,6 +6,7 @@ import { trade_socket_login, trade_socket_logout, trade_socket_queryAccount, add
 import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
+import { action_waiting_trade_socket_restart, action_trade_socket_restart_done } from '../../store/actions/customServiceAction';
 class TradeSocket {
   constructor() {
     //重连
@@ -14,6 +15,7 @@ class TradeSocket {
         let state = store.getState();
         let isTradeLogin = state.nowTradeAccount.isTradeAccountLogin;
         if (isTradeLogin) {
+          store.dispatch(action_waiting_trade_socket_restart());
           this._backForHeartBeat(true);
         }
       }
@@ -34,8 +36,8 @@ class TradeSocket {
       let isTradeLogin = state.nowTradeAccount.isTradeAccountLogin;
       if (isTradeLogin && this.isHeartBeating && (this.ws.readyState === 0 || this.ws.readyState === 1)) {
         this._backForHeartBeat();
+        store.dispatch(action_trade_socket_restart_done());
       } else if (isTradeLogin) {
-        //此时插入model show
         this.restartTradeSocket();
       }
     }, time);
@@ -46,13 +48,16 @@ class TradeSocket {
     this.ws.send(JSON.stringify(json));
     this.ws.close();
     if (!this._account) {
+      store.dispatch(action_trade_socket_restart_done());
       return;
     }
     setTimeout(() => {
-       //success时插入model show
-      this.connectSocket(this._url, this._account, this._password);
+      //success时插入model show
+      this.connectSocket(this._url, this._account, this._password, () => { store.dispatch(action_trade_socket_restart_done()); });
     }, 1500);
   }
+
+
 
   _login(account, password) {//登录
     let json = { 'Method': 'Login', 'Parameters': { 'ClientNo': account, 'PassWord': base64.encode(password), 'IsMock': 1, 'Version': '2.0.0', 'Source': 'app' } };

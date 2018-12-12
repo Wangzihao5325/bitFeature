@@ -13,12 +13,14 @@ import { action_startLightningStore, action_updateLightningStore } from '../../s
 import { action_startTimeStore, action_updateTimeStore } from '../../store/actions/chartActions/TimeAction';
 import { contractMap2Config, aliveContractList, aliveContractSnapShot, recommendContractMap, classifyContractMap, initContractList, subscribeObjList, tradeAliveContractSnapShot } from '../../global/commodity_list';
 import _ from 'lodash';
+import { action_waiting_market_socket_restart, action_market_socket_restart_done } from '../../store/actions/customServiceAction';
 class MarketSocket {
   constructor(url) {
     this.url = url;
     //重连
     AppState.addEventListener('change', (appState) => {
       if (appState === 'active') {
+        store.dispatch(action_waiting_market_socket_restart());
         this._backForHeartBeat(true);
       }
     });
@@ -30,6 +32,7 @@ class MarketSocket {
   _backForHeartBeat(isBack) {
     const time = isBack ? 5000 : 10000;
     if (!this.ws) {
+      store.dispatch(action_market_socket_restart_done());
       return;
     }
     this.isHeartBeating = false;
@@ -252,6 +255,7 @@ class MarketSocket {
     this.ws.onopen = () => {
       if (isRestart) {
         this.restartSubscribe();
+        store.dispatch(action_market_socket_restart_done());
         //直接订阅
       } else {
         this._login();
