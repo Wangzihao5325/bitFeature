@@ -3,6 +3,7 @@
  *  Author: Zihao Wong
  *  E-mail: zihao_coding@qq.com
  */
+import { AppState } from 'react-native';
 import { MARKET_DOMAIN, MARKET_USER_NAME, MARKET_PASSWORDS, MARKET_VERSION } from '../../global/config'
 import store from '../../store/index';
 import { action_storeinit, action_updateStore, action_updateAskAndBid } from '../../store/actions/marketAction';
@@ -15,10 +16,35 @@ import _ from 'lodash';
 class MarketSocket {
   constructor(url) {
     this.url = url;
+    //重连
+    AppState.addEventListener('change', (appState) => {
+      if (appState === 'active') {
+        this._backForHeartBeat(true);
+      }
+    });
   }
 
   ws = null;
   url = null;
+
+  _backForHeartBeat(isBack) {
+    const time = isBack ? 5000 : 10000;
+    if (!this.ws) {
+      return;
+    }
+    this.isHeartBeating = false;
+    this.marketHeartBeatTimeoutId && clearTimeout(this.marketHeartBeatTimeoutId);
+
+    this.marketHeartBeatTimeoutId = setTimeout(() => {
+      clearTimeout(this.marketHeartBeatTimeoutId);
+      if (this.isHeartBeating) {
+        this._backForHeartBeat();
+      } else {
+        //此时插入model show
+        this.connectSocket(true);
+      }
+    }, time);
+  }
 
   _login() {
     let json = { 'method': 'req_login', 'data': { 'user_name': MARKET_USER_NAME, 'password': MARKET_PASSWORDS, 'protoc_version': MARKET_VERSION } };
@@ -162,7 +188,12 @@ class MarketSocket {
         let regArr = item.split('_');
         regArr.shift();
         let name = _.join(regArr, '');
-        aliveContractList.push(name);
+        let isContain = aliveContractList.filter(function (item) {
+          return item === name;
+        });
+        if (isContain.length === 0) {
+          aliveContractList.push(name);
+        }
       });
     }
   }
@@ -199,12 +230,32 @@ class MarketSocket {
       store.dispatch(action_updateTimeStore(result));
     }
   }
+  restartSubscribe() {
+    let restartSubList = [];
+    aliveContractList.forEach((item) => {
+      let obj = contractMap2Config[item];
+      if (obj) {
+        let subStr = obj.structure.security_type + '_' + obj.structure.commodity_no + '_' + obj.structure.contract_no;
+        restartSubList.push(subStr);
+      }
+    });
+    let json = { 'method': 'req_subscribe', 'data': { 'mode': 'MODE_TRADE_TICK', 'contract_list': restartSubList } };
+    this.ws.send(JSON.stringify(json));
+  }
   /*初次链接socket*/
-  connectSocket() {
+  connectSocket(isRestart) {
+    if (isRestart) {
+      this.ws.close();
+    }
     this.ws = new WebSocket(this.url);
 
     this.ws.onopen = () => {
-      this._login();
+      if (isRestart) {
+        this.restartSubscribe();
+        //直接订阅
+      } else {
+        this._login();
+      }
     }
     /* to do ... learn
     this.ws.onopen = function (evt) {
@@ -223,6 +274,7 @@ class MarketSocket {
           break;
         case 'on_rsp_commodity_list':                             //查询成功 -> 订阅合约
           let subscribe_list = this.contractFilter(data, true);
+
           this.marketStoreInit(subscribe_list);
           this._subscribe(subscribe_list);
           break;
