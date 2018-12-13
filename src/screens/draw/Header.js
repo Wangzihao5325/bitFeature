@@ -20,7 +20,7 @@ class Header extends Component {
           <Text style={{ color: 'white', fontSize: 20 }}>{headerTitle}</Text>
         </View>
         <ItemBtn icon='search' title='搜索' onPress={this._search} />
-        <ItemBtn icon='star' title='自选列表' onPress={this._condition_order} />
+        <ItemBtn icon='star' title='自选列表' onPress={this._collection_list} />
       </View>
     );
   }
