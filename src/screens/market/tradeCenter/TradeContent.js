@@ -56,6 +56,8 @@ class TradeContent extends Component {
   render() {
     let defalutContract = this.props.contractCode;
     let type = contractMap2Config[defalutContract].structure.security_type;
+    let minTickerSize = contractMap2Config[defalutContract].miniTickerSize;
+    let dotSize = contractMap2Config[defalutContract].dotSize;
     let openCloseSelectArr = ['开仓'];
     let downLoadHeight = 30;
     if (type === 'FI') {
@@ -160,14 +162,14 @@ class TradeContent extends Component {
             />
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <NumberInput style={{ width: DEVICE_WIDTH - 170 - 30 }} defaultValue={this.tradeParams.limitPrice} textChange={this._priceChange} />
+            <NumberInput style={{ width: DEVICE_WIDTH - 170 - 30 }} defaultValue={this.tradeParams.limitPrice} textChange={this._priceChange} step={minTickerSize} dotSize={dotSize} />
           </View>
         </View>
         {/*委托数量 */}
         <View style={{ height: 40, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderTopColor: DARKER_BGCOLOR, borderTopWidth: 1 }}>
           <View style={{ height: 40, width: 100, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>委托数量</Text></View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <NumberInput style={{ width: DEVICE_WIDTH - 130 }} defaultValue={this.tradeParams.orderNum} textChange={this._orderNumChange} />
+            <NumberInput style={{ width: DEVICE_WIDTH - 130 }} defaultValue={this.tradeParams.orderNum} textChange={this._orderNumChange} step={1} />
           </View>
         </View>
         {/*买卖 */}
