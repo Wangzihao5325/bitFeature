@@ -2,7 +2,7 @@ import { AppState } from 'react-native';
 import base64 from 'base-64';
 import ToastRoot from '../../components/ToastRoot';
 import store from '../../store/index';
-import { trade_socket_login, trade_socket_logout, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold, update_order, delete_designate, update_designate } from '../../store/actions/nowTradeAccountAction';
+import { trade_socket_data_clear, trade_socket_login, trade_socket_logout, trade_socket_queryAccount, add_order, add_designate, add_deal, manage_hold, update_order, delete_designate, update_designate } from '../../store/actions/nowTradeAccountAction';
 import { contractMap2Config } from '../../global/commodity_list';
 import { cache } from '../../global/trade_list';
 import Cache from '../../model/Cache';
@@ -128,6 +128,7 @@ class TradeSocket {
     this.ws.send(JSON.stringify(json));
   }
   connectSocket(url, account, password, onSuccess, onFailed) {
+    store.dispatch(trade_socket_data_clear());
     this._url = url;
     this._account = account;
     this._password = password;
