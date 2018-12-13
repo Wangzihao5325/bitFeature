@@ -201,13 +201,15 @@ class MarketSocket {
     }
   }
   managerAliveContractList2(rtnObj) {
-    let successArr = rtnObj.data.contract_list;
-    successArr.map(function (item) {
-      let regArr = item.split('_');
-      regArr.shift();
-      let name = _.join(regArr, '');
-      _.pull(aliveContractList, name);
-    })
+    if (rtnObj && rtnObj.data && rtnObj.data.contract_list) {
+      let successArr = rtnObj.data.contract_list;
+      successArr.map(function (item) {
+        let regArr = item.split('_');
+        regArr.shift();
+        let name = _.join(regArr, '');
+        _.pull(aliveContractList, name);
+      });
+    }
   }
   updateHistoryData(result) {
     if (result.data.period === 'KLINE_UNKNOWN') {//TIME_SHARING
