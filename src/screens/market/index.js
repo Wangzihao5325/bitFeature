@@ -13,6 +13,7 @@ import store from '../../store/index';
 import { market_page_change } from '../../store/actions/classifyAction';
 import MarketSocket from '../../socket/marketSocket';
 import DrawScreen from '../draw/index';
+import ToastRoot from '../../components/ToastRoot';
 class MarketScreen extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -51,6 +52,7 @@ class MarketScreen extends Component {
   };
   _pageChange = (keyValue) => {
     if (keyValue === '自选') {
+      ToastRoot.show('研发中,敬请期待...');
       return;  //自选需要单独处理
     }
     let storeState = store.getState();
