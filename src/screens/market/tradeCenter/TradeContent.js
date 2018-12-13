@@ -8,6 +8,7 @@ import { classifyContractMap, contractMap2Config } from '../../../global/commodi
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberInput from '../../../components/NumberInput/index';
 import NormalBtn from '../../../components/NormalBtn';
+import ToastRoot from '../../../components/ToastRoot';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const DARKER_BGCOLOR = '#17191E';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -39,18 +40,34 @@ class TradeContent extends Component {
   }
   _bug = () => {
     let orderNum = this.tradeParams.orderNum;
+    if (orderNum <= 0) {
+      ToastRoot.show('请输入正确的委托数量');
+      return;
+    }
     let direction = 0;
     let priceType = this.tradeParams.priceType === '市价' ? 1 : 0;
     let openCloseType = this.tradeParams.openCloseType === '开仓' ? 1 : 2;
     let limitPrice = this.tradeParams.limitPrice;
+    if (priceType === 0 && limitPrice <= 0) {
+      ToastRoot.show('请输入正确的价格');
+      return;
+    }
     TradeSocket.insertOrder(this.props.contractCode, orderNum, direction, priceType, openCloseType, limitPrice);
   }
   _sell = () => {
     let orderNum = this.tradeParams.orderNum;
+    if (orderNum <= 0) {
+      ToastRoot.show('请输入正确的委托数量');
+      return;
+    }
     let direction = 1;
     let priceType = this.tradeParams.priceType === '市价' ? 1 : 0;
     let openCloseType = this.tradeParams.openCloseType === '开仓' ? 1 : 2;
     let limitPrice = this.tradeParams.limitPrice;
+    if (priceType === 0 && limitPrice <= 0) {
+      ToastRoot.show('请输入正确的价格');
+      return;
+    }
     TradeSocket.insertOrder(this.props.contractCode, orderNum, direction, priceType, openCloseType, limitPrice);
   }
   render() {

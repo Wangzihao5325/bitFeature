@@ -24,8 +24,14 @@ export default class NumberInput extends Component {
       if (typeof props.dotSize === 'number') {
         value = parseFloat(value.toFixed(props.dotSize));
       }
-      return {
-        inputValue: value
+      if (value <= 0) {
+        return {
+          inputValue: preState.inputValue
+        }
+      } else {
+        return {
+          inputValue: value
+        }
       }
     }, () => this.props.textChange(this.state.inputValue))
   }
