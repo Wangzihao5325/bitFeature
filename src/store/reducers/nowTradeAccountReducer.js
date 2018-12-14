@@ -22,6 +22,20 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case types.TRADE_DATA_CLEAR:
+      return {
+        ...state,
+        closeProfit: 0,
+        forceLine: 0,
+        initBalance: 0,
+        balance: 0,
+        canUse: 0,
+        deposit: 0,
+        orders: [],
+        designates: [],
+        deals: [],
+        holdPositions: {},
+      };
     case types.TRADE_ACCOUNT_LOGOUT:
       return {
         ...initialState

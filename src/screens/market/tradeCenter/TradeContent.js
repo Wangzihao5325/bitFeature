@@ -8,6 +8,7 @@ import { classifyContractMap, contractMap2Config } from '../../../global/commodi
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberInput from '../../../components/NumberInput/index';
 import NormalBtn from '../../../components/NormalBtn';
+import ToastRoot from '../../../components/ToastRoot';
 const NORMAL_BACKGROUNDCOLOR = '#20212A';
 const DARKER_BGCOLOR = '#17191E';
 const NORMAL_TEXTCOLOR = '#7E829B';
@@ -39,23 +40,41 @@ class TradeContent extends Component {
   }
   _bug = () => {
     let orderNum = this.tradeParams.orderNum;
+    if (orderNum <= 0) {
+      ToastRoot.show('请输入正确的委托数量');
+      return;
+    }
     let direction = 0;
     let priceType = this.tradeParams.priceType === '市价' ? 1 : 0;
     let openCloseType = this.tradeParams.openCloseType === '开仓' ? 1 : 2;
     let limitPrice = this.tradeParams.limitPrice;
+    if (priceType === 0 && limitPrice <= 0) {
+      ToastRoot.show('请输入正确的价格');
+      return;
+    }
     TradeSocket.insertOrder(this.props.contractCode, orderNum, direction, priceType, openCloseType, limitPrice);
   }
   _sell = () => {
     let orderNum = this.tradeParams.orderNum;
+    if (orderNum <= 0) {
+      ToastRoot.show('请输入正确的委托数量');
+      return;
+    }
     let direction = 1;
     let priceType = this.tradeParams.priceType === '市价' ? 1 : 0;
     let openCloseType = this.tradeParams.openCloseType === '开仓' ? 1 : 2;
     let limitPrice = this.tradeParams.limitPrice;
+    if (priceType === 0 && limitPrice <= 0) {
+      ToastRoot.show('请输入正确的价格');
+      return;
+    }
     TradeSocket.insertOrder(this.props.contractCode, orderNum, direction, priceType, openCloseType, limitPrice);
   }
   render() {
     let defalutContract = this.props.contractCode;
     let type = contractMap2Config[defalutContract].structure.security_type;
+    let minTickerSize = contractMap2Config[defalutContract].miniTickerSize;
+    let dotSize = contractMap2Config[defalutContract].dotSize;
     let openCloseSelectArr = ['开仓'];
     let downLoadHeight = 30;
     if (type === 'FI') {
@@ -160,14 +179,14 @@ class TradeContent extends Component {
             />
           </View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <NumberInput style={{ width: DEVICE_WIDTH - 170 - 30 }} defaultValue={this.tradeParams.limitPrice} textChange={this._priceChange} />
+            <NumberInput style={{ width: DEVICE_WIDTH - 170 - 30 }} defaultValue={this.tradeParams.limitPrice} textChange={this._priceChange} step={minTickerSize} dotSize={dotSize} />
           </View>
         </View>
         {/*委托数量 */}
         <View style={{ height: 40, width: DEVICE_WIDTH, display: 'flex', flexDirection: 'row', borderTopColor: DARKER_BGCOLOR, borderTopWidth: 1 }}>
           <View style={{ height: 40, width: 100, justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: NORMAL_TEXTCOLOR, fontSize: 18 }}>委托数量</Text></View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <NumberInput style={{ width: DEVICE_WIDTH - 130 }} defaultValue={this.tradeParams.orderNum} textChange={this._orderNumChange} />
+            <NumberInput style={{ width: DEVICE_WIDTH - 130 }} defaultValue={this.tradeParams.orderNum} textChange={this._orderNumChange} step={1} />
           </View>
         </View>
         {/*买卖 */}

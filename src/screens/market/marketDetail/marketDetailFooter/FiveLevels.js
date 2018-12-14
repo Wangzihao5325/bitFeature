@@ -66,7 +66,7 @@ class FiveLevels extends Component {
     return (
       <View style={{ backgroundColor: NORMAL_BACKGROUNDCOLOR, flex: 1 }}>
         <ScrollView>
-          <Header askSum={askSum} bidSum={bidSum} />
+          <Header askSum={bidSum} bidSum={askSum} />{/*算反了，先反着传 */}
           <Item index={1} askPrice={ask1[0]} askVol={ask1[1]} bidPrice={bid1[0]} bidVol={bid1[1]} />
           {this.state.type && <Item index={2} askPrice={ask2[0]} askVol={ask2[1]} bidPrice={bid2[0]} bidVol={bid2[1]} />}
           {this.state.type && <Item index={3} askPrice={ask3[0]} askVol={ask3[1]} bidPrice={bid3[0]} bidVol={bid3[1]} />}

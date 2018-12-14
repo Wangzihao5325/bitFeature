@@ -7,10 +7,10 @@ import { TAB_NAVI_HEADER_BGCOLOR, DEVICE_WIDTH } from '../../global/config';
 const WIDTH = DEVICE_WIDTH * 0.6;
 class Header extends Component {
   _search = () => {
-    ToastRoot.show('本功能暂未开放，敬请期待');
+    ToastRoot.show('研发中,敬请期待...');
   }
   _collection_list = () => {//前往自选
-    ToastRoot.show('本功能暂未开放，敬请期待');
+    ToastRoot.show('研发中,敬请期待...');
   }
   render() {
     const headerTitle = this.props.isTradeAccountLogin ? '交易账号: ' + this.props.loginAccountNum : '没有登录交易账号';
@@ -20,7 +20,7 @@ class Header extends Component {
           <Text style={{ color: 'white', fontSize: 20 }}>{headerTitle}</Text>
         </View>
         <ItemBtn icon='search' title='搜索' onPress={this._search} />
-        <ItemBtn icon='star' title='自选列表' onPress={this._condition_order} />
+        <ItemBtn icon='star' title='自选列表' onPress={this._collection_list} />
       </View>
     );
   }

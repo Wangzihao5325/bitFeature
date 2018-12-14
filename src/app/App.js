@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, AsyncStorage } from 'react-native';
+import { StyleSheet, View, AsyncStorage, StatusBar } from 'react-native';
 import { createBottomTabNavigator } from 'react-navigation';
 import { Provider } from 'react-redux';
 import store from '../store/index';
@@ -78,6 +78,9 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
+          <StatusBar
+            barStyle="light-content"
+          />
           <CustomChooseModel />
           <TradeFlashLogin />
           <WaitingModel />

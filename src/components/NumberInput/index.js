@@ -9,7 +9,10 @@ export default class NumberInput extends Component {
   }
   _plus = () => {
     this.setState((preState, props) => {
-      let value = preState.inputValue + 1;
+      let value = preState.inputValue + props.step;
+      if (typeof props.dotSize === 'number') {
+        value = parseFloat(value.toFixed(props.dotSize));
+      }
       return {
         inputValue: value
       }
@@ -17,9 +20,18 @@ export default class NumberInput extends Component {
   }
   _sub = () => {
     this.setState((preState, props) => {
-      let value = preState.inputValue - 1;
-      return {
-        inputValue: value
+      let value = preState.inputValue - props.step;
+      if (typeof props.dotSize === 'number') {
+        value = parseFloat(value.toFixed(props.dotSize));
+      }
+      if (value <= 0) {
+        return {
+          inputValue: preState.inputValue
+        }
+      } else {
+        return {
+          inputValue: value
+        }
       }
     }, () => this.props.textChange(this.state.inputValue))
   }

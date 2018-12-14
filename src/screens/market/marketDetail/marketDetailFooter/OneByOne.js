@@ -40,7 +40,7 @@ class OneByOne extends Component {
     if (dataList.length == 0) {
       dataList.unshift(dataItem);
       dataArr = dataList.concat();
-    } else if (dataList[dataList.length - 1] && dataList[dataList.length - 1].time !== time) {
+    } else if (dataList[dataList.length - 1] && dataList[0].time !== time) {
       if (dataList.length >= 20) {
         dataList.pop();
       }

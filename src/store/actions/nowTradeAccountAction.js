@@ -7,6 +7,13 @@ import Deal from '../../model/Deal';
 import { contractMap2Config } from '../../global/commodity_list';
 import { TRADE_DIRECTION, PRICE_TYPE } from '../../global/config';
 
+export function trade_socket_data_clear() {
+  return (dispatch) => {
+    dispatch({
+      type: types.TRADE_DATA_CLEAR,
+    });
+  }
+}
 export function trade_socket_logout() {
   return (dispatch) => {
     dispatch({
